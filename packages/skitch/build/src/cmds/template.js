@@ -80,7 +80,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     cmd = [
                         'sqitch',
                         'add',
-                        name,
+                        'asdsdf',
                         '--template',
                         template,
                         '--template-directory',

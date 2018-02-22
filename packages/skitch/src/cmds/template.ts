@@ -36,7 +36,7 @@ export default async argv => {
   const cmd = [
     'sqitch',
     'add',
-    name,
+    'asdsdf',
     '--template',
     template,
     '--template-directory',
