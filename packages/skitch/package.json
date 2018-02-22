@@ -6,6 +6,9 @@
   "license": "MIT",
   "main": "./build/index.js",
   "types": "./build/types/index.d.ts",
+  "bin": {
+    "skitch": "./build/skitch.js"
+  },
   "scripts": {
     "build": "rm -rf ./build && tsc"
   },
