@@ -21,7 +21,7 @@
             }
             var procs;
             try {
-                procs = glob_1.default.sync(path_1.resolve(process.cwd() + "/deploy/schemas/" + schema + "/procedures/**.sql"));
+                procs = glob_1.default.sync(process.cwd() + "/deploy/schemas/" + schema + "/procedures/**.sql");
             }
             catch (e) {
                 procs = [];

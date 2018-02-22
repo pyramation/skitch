@@ -22,9 +22,7 @@ export const searchTables = (answers: HashObject, input: string) => {
     var tables;
     try {
       tables = glob.sync(
-        resolvePath(
-          `${process.cwd()}/deploy/schemas/${schema}/tables/**/table.sql`
-        )
+        `${process.cwd()}/deploy/schemas/${schema}/tables/**/table.sql`
       );
     } catch (e) {
       tables = [];

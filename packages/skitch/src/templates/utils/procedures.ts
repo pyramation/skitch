@@ -24,9 +24,7 @@ export const searchProcedures = (answers: HashObject, input: string) => {
 
     try {
       procs = glob.sync(
-        resolvePath(
-          `${process.cwd()}/deploy/schemas/${schema}/procedures/**.sql`
-        )
+        `${process.cwd()}/deploy/schemas/${schema}/procedures/**.sql`
       );
     } catch (e) {
       procs = [];

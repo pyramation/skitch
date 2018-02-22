@@ -21,7 +21,7 @@
             }
             var tables;
             try {
-                tables = glob_1.default.sync(path_1.resolve(process.cwd() + "/deploy/schemas/" + schema + "/tables/**/table.sql"));
+                tables = glob_1.default.sync(process.cwd() + "/deploy/schemas/" + schema + "/tables/**/table.sql");
             }
             catch (e) {
                 tables = [];
