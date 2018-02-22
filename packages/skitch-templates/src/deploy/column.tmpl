@@ -1,0 +1,12 @@
+-- Deploy [% change %] to pg
+
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+ALTER TABLE [% schema %].[% table %]
+    ADD COLUMN [% column %] [% columntype %] [% columnnull %];
+
+COMMIT;

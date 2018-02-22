@@ -1,0 +1,8 @@
+-- Verify [% change %]  on pg
+
+BEGIN;
+
+SELECT
+    verify_trigger ('[% schema %].[% triggername %]');
+
+ROLLBACK;

@@ -1,0 +1,28 @@
+{
+  "name": "skitch-templates",
+  "version": "0.0.8",
+  "description": "",
+  "author": "pyramation@gmail.com",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "types": "./build/types/index.d.ts",
+  "bin": {
+    "skitch": "./build/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf ./build && tsc"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.0",
+    "@types/node": "^8.0.0",
+    "jest": "^22.4.0",
+    "ts-jest": "^21.0.0",
+    "ts-node": "^5.0.0",
+    "tslint": "^5.4.3",
+    "skitch-types": "^0.0.8",
+    "typescript": "^2.7.1"
+  },
+  "dependencies": {
+    "skitch-utils": "^0.0.8"
+  }
+}

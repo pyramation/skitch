@@ -1,0 +1,11 @@
+import { InquirerQuestion } from 'skitch-types';
+export interface GrantExecuteConfig {
+    schema: string;
+    table: string;
+    procedure: string;
+    role: string;
+}
+export declare const requires: (res: GrantExecuteConfig) => any[];
+export declare const change: ({ schema, table, procedure, role }: GrantExecuteConfig) => any;
+declare const questions: Array<InquirerQuestion>;
+export default questions;

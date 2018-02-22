@@ -1,0 +1,15 @@
+-- Deploy [% change %] to pg
+
+-- requires: procedures/verify_index
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+-- TODO look at why transactions don't work with indexes
+-- BEGIN;
+
+CREATE UNIQUE INDEX [% index %] ON [% schema %].[% table %] (
+-- TODO
+);
+
+-- COMMIT;

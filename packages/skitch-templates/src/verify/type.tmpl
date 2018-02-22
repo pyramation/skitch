@@ -1,0 +1,8 @@
+-- Verify [% change %] on pg
+
+BEGIN;
+
+SELECT
+    verify_type ('[% schema %].[% type %]');
+
+ROLLBACK;

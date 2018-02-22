@@ -1,0 +1,20 @@
+-- Deploy [% change %] to pg
+
+-- requires: procedures/verify_table
+-- requires: procedures/add_timestamps
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+CREATE TABLE [% schema %].[% table %] (
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4 ()
+  -- fields
+);
+
+COMMENT ON TABLE [% schema %].[% table %] IS 'A comment.';
+
+COMMENT ON COLUMN [% schema %].[% table %].id IS 'The primary unique identifier for the [% table %] table.';
+
+COMMIT;

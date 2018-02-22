@@ -1,0 +1,23 @@
+{
+  "name": "skitch-prompt",
+  "version": "0.0.8",
+  "description": "",
+  "author": "pyramation@gmail.com",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "types": "./build/types/index.d.ts",
+  "bin": {
+    "skitch": "./build/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf ./build && tsc"
+  },
+  "devDependencies": {
+    "ts-node": "^5.0.0",
+    "tslint": "^5.4.3",
+    "typescript": "^2.7.1"
+  },
+  "dependencies": {
+    "inquirer": "^3.3.0"
+  }
+}
