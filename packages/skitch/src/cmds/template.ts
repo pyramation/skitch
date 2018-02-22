@@ -35,89 +35,85 @@ const templateQuestion = [
 export default async argv => {
   const { template } = await prompt(templateQuestion, argv);
 
-  // const cmd = [
-  //   'sqitch',
-  //   'add',
-  //   'asdsdf',
-  //   '--template',
-  //   template,
-  //   '--template-directory',
-  //   templatePath,
-  //   '-n',
-  //   'hi',
-  // ].join(' ');
-  //
-  // console.log(cmd);
-  // const sqitch = exec(cmd.trim());
-  // sqitch.stdout.pipe(process.stdout);
-  // sqitch.stderr.pipe(process.stderr);
-
   const questions: Array<InquirerQuestion> = templates[template].default;
   const answers: object = await prompt(questions, argv);
 
-  // var result = Object.assign({}, answers, argv);
-  //
-  // var params: Array<{ key: string; value: any }> = Object.keys(result).reduce(
-  //   (m: Array<{ key: string; value: any }>, v: string) => {
-  //     if (result[v] instanceof Array) {
-  //       m.push({
-  //         key: `arr__${v}`,
-  //         value: result[v].join(','),
-  //       });
-  //       // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
-  //       if (result[v].length > 1) {
-  //         m.push({
-  //           key: `${v}__is_array`,
-  //           value: true,
-  //         });
-  //       }
-  //       result[v].forEach((value: string) => {
-  //         m.push({
-  //           key: v,
-  //           value: value,
-  //         });
-  //       });
-  //     } else {
-  //       if (typeof result[v] === 'boolean' && !result[v]) {
-  //         return m;
-  //       }
-  //       m.push({
-  //         key: v,
-  //         value: result[v],
-  //       });
-  //     }
-  //     return m;
-  //   },
-  //   []
-  // );
-  // var vars = params.map(obj => `--set ${obj.key}="${obj.value}"`).join(' ');
-  //
-  // let change = changes[template](result);
-  // var reqd: ChangePathArray = [];
-  // let reqs: Array<ChangePathArray> = requires[template](result)
-  //   .filter((req: ChangePathArray) => {
-  //     if (reqd.includes(req.join('/'))) {
-  //       return false;
-  //     }
-  //     reqd.push(req.join('/'));
-  //     return true;
-  //   })
-  //   .map((req: ChangePathArray) => {
-  //     return `-r ${req.join('/')}`;
-  //   })
-  //   .join(' ');
-  //
-  // change = change.join('/');
-  // if (!change || change === '' || change === '/') {
-  //   throw new Error('no change found!');
-  // }
-  //
+  var params: Array<{ key: string; value: any }> = Object.keys(answers).reduce(
+    (m: Array<{ key: string; value: any }>, v: string) => {
+      if (answers[v] instanceof Array) {
+        m.push({
+          key: `arr__${v}`,
+          value: answers[v].join(','),
+        });
+        // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
+        if (answers[v].length > 1) {
+          m.push({
+            key: `${v}__is_array`,
+            value: true,
+          });
+        }
+        answers[v].forEach((value: string) => {
+          m.push({
+            key: v,
+            value: value,
+          });
+        });
+      } else {
+        if (typeof answers[v] === 'boolean' && !answers[v]) {
+          return m;
+        }
+        m.push({
+          key: v,
+          value: answers[v],
+        });
+      }
+      return m;
+    },
+    []
+  );
+  var vars = params.map(obj => `--set ${obj.key}="${obj.value}"`).join(' ');
+
+  let change = templates[template].change(answers);
+  var reqd: ChangePathArray = [];
+  let reqs: Array<ChangePathArray> = templates[template]
+    .requires(answers)
+    .filter((req: ChangePathArray) => {
+      if (reqd.includes(req.join('/'))) {
+        return false;
+      }
+      reqd.push(req.join('/'));
+      return true;
+    })
+    .map((req: ChangePathArray) => {
+      return `-r ${req.join('/')}`;
+    })
+    .join(' ');
+
+  change = change.join('/');
+  if (!change || change === '' || change === '/') {
+    throw new Error('no change found!');
+  }
+
+  const cmd = [
+    'sqitch',
+    'add',
+    change,
+    '--template',
+    template,
+    '--template-directory',
+    templatePath,
+    '-n',
+    `add ${change}`,
+    vars,
+    reqs,
+  ].join(' ');
+
   // var cmd = `
   // sqitch add ${change} --template ${template} -n 'add ${change}' ${vars} ${reqs}
   // `;
-  //
-  // console.log(cmd);
-  //
+
+  console.log(cmd);
+
   // const sqitch = exec(cmd.trim());
   //
   // sqitch.stdout.pipe(process.stdout);

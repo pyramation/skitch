@@ -71,7 +71,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var template, questions, answers;
+        var template, questions, answers, params, vars, change, reqd, reqs, cmd;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
@@ -81,6 +81,74 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 2:
                     answers = _a.sent();
+                    params = Object.keys(answers).reduce(function (m, v) {
+                        if (answers[v] instanceof Array) {
+                            m.push({
+                                key: "arr__" + v,
+                                value: answers[v].join(','),
+                            });
+                            // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
+                            if (answers[v].length > 1) {
+                                m.push({
+                                    key: v + "__is_array",
+                                    value: true,
+                                });
+                            }
+                            answers[v].forEach(function (value) {
+                                m.push({
+                                    key: v,
+                                    value: value,
+                                });
+                            });
+                        }
+                        else {
+                            if (typeof answers[v] === 'boolean' && !answers[v]) {
+                                return m;
+                            }
+                            m.push({
+                                key: v,
+                                value: answers[v],
+                            });
+                        }
+                        return m;
+                    }, []);
+                    vars = params.map(function (obj) { return "--set " + obj.key + "=\"" + obj.value + "\""; }).join(' ');
+                    change = skitch_templates_1.default[template].change(answers);
+                    reqd = [];
+                    reqs = skitch_templates_1.default[template]
+                        .requires(answers)
+                        .filter(function (req) {
+                        if (reqd.includes(req.join('/'))) {
+                            return false;
+                        }
+                        reqd.push(req.join('/'));
+                        return true;
+                    })
+                        .map(function (req) {
+                        return "-r " + req.join('/');
+                    })
+                        .join(' ');
+                    change = change.join('/');
+                    if (!change || change === '' || change === '/') {
+                        throw new Error('no change found!');
+                    }
+                    cmd = [
+                        'sqitch',
+                        'add',
+                        change,
+                        '--template',
+                        template,
+                        '--template-directory',
+                        templatePath,
+                        '-n',
+                        "add " + change,
+                        vars,
+                        reqs,
+                    ].join(' ');
+                    // var cmd = `
+                    // sqitch add ${change} --template ${template} -n 'add ${change}' ${vars} ${reqs}
+                    // `;
+                    console.log(cmd);
                     return [2 /*return*/];
             }
         });
