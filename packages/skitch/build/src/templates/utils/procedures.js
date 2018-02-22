@@ -19,8 +19,13 @@
             if (!schema) {
                 schema = '**';
             }
-            // TODO take in __dirname as argument for CLI
-            var procs = glob_1.default.sync(path_1.resolve(__dirname + "/../../deploy/schemas/" + schema + "/procedures/**.sql"));
+            var procs;
+            try {
+                procs = glob_1.default.sync(path_1.resolve(process.cwd() + "/deploy/schemas/" + schema + "/procedures/**.sql"));
+            }
+            catch (e) {
+                procs = [];
+            }
             procs = procs.map(function (f) { return path_1.basename(f).replace('.sql', ''); });
             setTimeout(function () {
                 var fuzzyResult = fuzzy.filter(input, procs);

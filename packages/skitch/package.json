@@ -21,6 +21,7 @@
     "glob": "^7.1.2",
     "inquirer": "^3.3.0",
     "inquirer-autocomplete-prompt": "^0.11.1",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1"
   }
 }

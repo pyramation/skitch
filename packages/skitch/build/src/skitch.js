@@ -63,10 +63,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     var requires_1 = require("./requires");
     exports.searchTemplates = function (answers, input) {
         input = input || '';
-        console.log('searchTemplates', answers, input);
         return new Promise(function (resolve) {
             setTimeout(function () {
-                var fuzzyResult = fuzzy_1.default.filter(input, Object.keys(schemas_1.default));
+                var fuzzyResult = fuzzy_1.filter(input, Object.keys(schemas_1.default));
                 resolve(fuzzyResult.map(function (el) {
                     return el.original;
                 }));
@@ -79,9 +78,7 @@ var __rest = (this && this.__rest) || function (s, e) {
             switch (_a.label) {
                 case 0:
                     _ = argv._, body = __rest(argv, ["_"]);
-                    console.log('runing....');
                     if (!!argv._.length) return [3 /*break*/, 2];
-                    console.log('inside....');
                     return [4 /*yield*/, inquirer.prompt([
                             {
                                 type: 'autocomplete',

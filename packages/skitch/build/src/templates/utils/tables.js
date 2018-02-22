@@ -19,7 +19,13 @@
             if (!schema) {
                 schema = '**';
             }
-            var tables = glob_1.default.sync(path_1.resolve(__dirname + "/../../deploy/schemas/" + schema + "/tables/**/table.sql"));
+            var tables;
+            try {
+                tables = glob_1.default.sync(path_1.resolve(process.cwd() + "/deploy/schemas/" + schema + "/tables/**/table.sql"));
+            }
+            catch (e) {
+                tables = [];
+            }
             tables = tables.map(function (f) { return path_1.basename(path_1.dirname(f)); });
             setTimeout(function () {
                 var fuzzyResult = fuzzy.filter(input, tables);
