@@ -2,6 +2,8 @@ import { exec } from 'child_process';
 import { prompt } from 'skitch-prompt';
 // import { libs } from 'skitch-libs';
 
+// hack it special template dir and add
+
 const questions = [
   {
     name: 'name',

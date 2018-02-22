@@ -22,6 +22,8 @@ export const searchTables = (answers: HashObject, input: string) => {
       schema = '**';
     }
 
+    console.log(`${path}/deploy/schemas/${schema}/tables/**/table.sql`);
+
     var tables;
     try {
       tables = glob.sync(
