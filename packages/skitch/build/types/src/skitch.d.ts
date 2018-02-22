@@ -1,2 +1,11 @@
-export declare const searchTemplates: (answers: object, input: string) => Promise<{}>;
-export declare const skitch: (argv: any) => Promise<void>;
+export interface SkitchOptions {
+    baseDir: string;
+}
+export declare class Skitch {
+    baseDir: string;
+    projectDir: string;
+    constructor(baseDir?: string);
+    getconf(): void;
+    init(): void;
+    registerTemplate(template: any): void;
+}

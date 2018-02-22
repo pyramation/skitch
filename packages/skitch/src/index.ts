@@ -1,6 +1,6 @@
-import * as add from './cmds/add';
-import * as init from './cmds/init';
-import * as template from './cmds/template';
+import add from './cmds/add';
+import init from './cmds/init';
+import template from './cmds/template';
 export default {
   add,
   init,

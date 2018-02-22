@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -40,23 +39,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./src/cli"], factory);
+        define(["require", "exports", "skitch-prompt"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
-    var cli_1 = require("./src/cli");
+    var skitch_prompt_1 = require("skitch-prompt");
     var argv = require('minimist')(process.argv.slice(2));
+    var questions = [
+        {
+            name: 'name',
+            message: 'name',
+            required: true,
+        },
+        {
+            name: 'boom',
+            message: 'boom',
+            required: true,
+        },
+    ];
     (function () { return __awaiter(_this, void 0, void 0, function () {
+        var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    _a.sent();
+                    result = _a.sent();
+                    console.log(result);
                     return [2 /*return*/];
             }
         });
     }); })();
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=testit.js.map

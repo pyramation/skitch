@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -40,23 +39,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./src/cli"], factory);
+        define(["require", "exports", "child_process", "skitch-prompt"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
-    var cli_1 = require("./src/cli");
-    var argv = require('minimist')(process.argv.slice(2));
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+    var child_process_1 = require("child_process");
+    var skitch_prompt_1 = require("skitch-prompt");
+    // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
+    var questions = [
+        {
+            name: 'name',
+            message: 'project name (e.g., flipr)',
+            required: true,
+        },
+        {
+            name: 'uri',
+            message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
+            required: true,
+        },
+    ];
+    exports.init = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+        var _a, name, uri, cmd, sqitch;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    _a.sent();
+                    _a = _b.sent(), name = _a.name, uri = _a.uri;
+                    cmd = ['sqitch', 'init', name, '--uri', uri, '--engine', 'pg'].join(' ');
+                    sqitch = child_process_1.exec(cmd.trim());
+                    sqitch.stdout.pipe(process.stdout);
+                    sqitch.stderr.pipe(process.stderr);
                     return [2 /*return*/];
             }
         });
-    }); })();
+    }); };
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=init.js.map

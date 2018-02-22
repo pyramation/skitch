@@ -14,7 +14,7 @@ const paths = glob(`${srcDir}/**.ts`).map(file => {
 
 const imports = paths
   .map(f => {
-    return [`import * as ${f.name} from '${f.path}';`];
+    return [`import ${f.name} from '${f.path}';`];
   })
   .join('\n');
 

@@ -15,7 +15,7 @@ const questions = [
     required: true,
   },
 ];
-export const add = async argv => {
+export default async argv => {
   const { name, comment } = await prompt(questions, argv);
   const cmd = ['sqitch', 'add', name, '--n', comment].join(' ');
   const sqitch = exec(cmd.trim());

@@ -28,7 +28,7 @@ const questions = [
   },
 ];
 
-export const template = async argv => {
+export default async argv => {
   const result = await prompt(questions, argv);
   console.log(result);
 };
