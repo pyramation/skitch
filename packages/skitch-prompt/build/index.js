@@ -54,6 +54,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     var inquirer = require("inquirer");
+    inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
     exports.required = function (questions) {
         return questions.map(function (q) {
             if (q.required && !q.validate) {

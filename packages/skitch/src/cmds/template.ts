@@ -6,6 +6,7 @@ import templates from 'skitch-templates';
 // sqitch add appschema -n 'Add schema for all flipr objects.'
 
 const searchTemplates = (answers: object, input: string) => {
+  console.log(Object.keys(templates));
   input = input || '';
   return new Promise(function(resolve) {
     setTimeout(function() {
