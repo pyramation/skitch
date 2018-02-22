@@ -4,7 +4,7 @@ export interface ColumnConfig {
     table: string;
     column: string;
 }
-export declare const requires: (res: ColumnConfig) => any[];
-export declare const change: ({ schema, table, column, }: ColumnConfig) => any;
+export declare const requires: (res: ColumnConfig) => string[][];
+export declare const change: ({ schema, table, column, }: ColumnConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

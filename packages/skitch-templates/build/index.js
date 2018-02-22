@@ -26,7 +26,22 @@
     var uniqueIndex = require("./schemas/uniqueIndex");
     var utility = require("./schemas/utility");
     exports.default = {
-        column: column, foreignKey: foreignKey, grantExecute: grantExecute, grantSchema: grantSchema, grantTable: grantTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility
+        column: column,
+        foreignKey: foreignKey,
+        grantExecute: grantExecute,
+        grantSchema: grantSchema,
+        grantTable: grantTable,
+        index: index,
+        peoplestamps: peoplestamps,
+        policy: policy,
+        procedure: procedure,
+        schema: schema,
+        table: table,
+        timestamps: timestamps,
+        trigger: trigger,
+        type: type,
+        uniqueIndex: uniqueIndex,
+        utility: utility,
     };
 });
 //# sourceMappingURL=index.js.map

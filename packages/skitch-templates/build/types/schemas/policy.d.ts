@@ -4,7 +4,7 @@ export interface PolicyConfig {
     table: string;
     policy: string;
 }
-export declare const requires: (res: PolicyConfig) => any[];
-export declare const change: ({ schema, table, policy }: PolicyConfig) => any;
+export declare const requires: (res: PolicyConfig) => string[][];
+export declare const change: ({ schema, table, policy }: PolicyConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

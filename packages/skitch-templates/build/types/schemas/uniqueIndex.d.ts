@@ -4,7 +4,7 @@ export interface UniqueIndexConfig {
     table: string;
     index: string;
 }
-export declare const requires: (res: UniqueIndexConfig) => any[];
-export declare const change: ({ schema, table, index }: UniqueIndexConfig) => any;
+export declare const requires: (res: UniqueIndexConfig) => string[][];
+export declare const change: ({ schema, table, index }: UniqueIndexConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

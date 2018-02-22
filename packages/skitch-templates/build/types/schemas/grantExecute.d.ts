@@ -5,7 +5,7 @@ export interface GrantExecuteConfig {
     procedure: string;
     role: string;
 }
-export declare const requires: (res: GrantExecuteConfig) => any[];
-export declare const change: ({ schema, table, procedure, role }: GrantExecuteConfig) => any;
+export declare const requires: (res: GrantExecuteConfig) => string[][];
+export declare const change: ({ schema, table, procedure, role }: GrantExecuteConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

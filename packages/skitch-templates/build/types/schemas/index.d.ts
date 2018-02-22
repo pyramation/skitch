@@ -4,7 +4,7 @@ export interface IndexConfig {
     table: string;
     index: string;
 }
-export declare const requires: (res: IndexConfig) => any[];
-export declare const change: ({ schema, table, index }: IndexConfig) => any;
+export declare const requires: (res: IndexConfig) => string[][];
+export declare const change: ({ schema, table, index }: IndexConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

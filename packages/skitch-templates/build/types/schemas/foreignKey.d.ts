@@ -6,7 +6,7 @@ export interface ForeignKeyConfig {
     refschema: string;
     column: string;
 }
-export declare const requires: (res: ForeignKeyConfig) => any[];
-export declare const change: ({ schema, table, column }: ForeignKeyConfig) => any;
+export declare const requires: (res: ForeignKeyConfig) => string[][];
+export declare const change: ({ schema, table, column }: ForeignKeyConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;
