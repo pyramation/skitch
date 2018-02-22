@@ -15,7 +15,8 @@ export const path = (cwd: string = process.cwd()) => {
           return reject(err);
         }
         if (!matches || !matches.length) {
-          return reject('cannot find sqitch.conf');
+          console.error('Not inside of a Sqitch project');
+          process.exit(1);
         }
         obj = matches[0].dir;
         resolve(matches[0].dir);

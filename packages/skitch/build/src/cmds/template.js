@@ -62,7 +62,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             }, 25);
         });
     };
-    var questions = [
+    var templateQuestion = [
         {
             type: 'autocomplete',
             name: 'template',
@@ -71,24 +71,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var template, cmd;
+        var template, questions, answers;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
                 case 1:
                     template = (_a.sent()).template;
-                    cmd = [
-                        'sqitch',
-                        'add',
-                        'asdsdf',
-                        '--template',
-                        template,
-                        '--template-directory',
-                        templatePath,
-                        '-n',
-                        'hi',
-                    ].join(' ');
-                    console.log(cmd);
+                    questions = skitch_templates_1.default[template].default;
+                    return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                case 2:
+                    answers = _a.sent();
                     return [2 /*return*/];
             }
         });

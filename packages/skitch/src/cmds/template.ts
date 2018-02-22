@@ -2,6 +2,7 @@ import { exec } from 'child_process';
 import { filter } from 'fuzzy';
 import { prompt } from 'skitch-prompt';
 import templates from 'skitch-templates';
+import { InquirerQuestion, ChangePathArray } from 'skitch-types';
 const templatePath =
   require.resolve('skitch-templates').split('build/index')[0] + 'src';
 
@@ -9,6 +10,7 @@ const templatePath =
 
 const searchTemplates = (answers: object, input: string) => {
   console.log(Object.keys(templates));
+
   input = input || '';
   return new Promise(function(resolve) {
     setTimeout(function() {
@@ -21,7 +23,7 @@ const searchTemplates = (answers: object, input: string) => {
     }, 25);
   });
 };
-const questions = [
+const templateQuestion = [
   {
     type: 'autocomplete',
     name: 'template',
@@ -31,22 +33,93 @@ const questions = [
 ];
 
 export default async argv => {
-  const { template } = await prompt(questions, argv);
+  const { template } = await prompt(templateQuestion, argv);
 
-  const cmd = [
-    'sqitch',
-    'add',
-    'asdsdf',
-    '--template',
-    template,
-    '--template-directory',
-    templatePath,
-    '-n',
-    'hi',
-  ].join(' ');
-
-  console.log(cmd);
+  // const cmd = [
+  //   'sqitch',
+  //   'add',
+  //   'asdsdf',
+  //   '--template',
+  //   template,
+  //   '--template-directory',
+  //   templatePath,
+  //   '-n',
+  //   'hi',
+  // ].join(' ');
+  //
+  // console.log(cmd);
   // const sqitch = exec(cmd.trim());
+  // sqitch.stdout.pipe(process.stdout);
+  // sqitch.stderr.pipe(process.stderr);
+
+  const questions: Array<InquirerQuestion> = templates[template].default;
+  const answers: object = await prompt(questions, argv);
+
+  // var result = Object.assign({}, answers, argv);
+  //
+  // var params: Array<{ key: string; value: any }> = Object.keys(result).reduce(
+  //   (m: Array<{ key: string; value: any }>, v: string) => {
+  //     if (result[v] instanceof Array) {
+  //       m.push({
+  //         key: `arr__${v}`,
+  //         value: result[v].join(','),
+  //       });
+  //       // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
+  //       if (result[v].length > 1) {
+  //         m.push({
+  //           key: `${v}__is_array`,
+  //           value: true,
+  //         });
+  //       }
+  //       result[v].forEach((value: string) => {
+  //         m.push({
+  //           key: v,
+  //           value: value,
+  //         });
+  //       });
+  //     } else {
+  //       if (typeof result[v] === 'boolean' && !result[v]) {
+  //         return m;
+  //       }
+  //       m.push({
+  //         key: v,
+  //         value: result[v],
+  //       });
+  //     }
+  //     return m;
+  //   },
+  //   []
+  // );
+  // var vars = params.map(obj => `--set ${obj.key}="${obj.value}"`).join(' ');
+  //
+  // let change = changes[template](result);
+  // var reqd: ChangePathArray = [];
+  // let reqs: Array<ChangePathArray> = requires[template](result)
+  //   .filter((req: ChangePathArray) => {
+  //     if (reqd.includes(req.join('/'))) {
+  //       return false;
+  //     }
+  //     reqd.push(req.join('/'));
+  //     return true;
+  //   })
+  //   .map((req: ChangePathArray) => {
+  //     return `-r ${req.join('/')}`;
+  //   })
+  //   .join(' ');
+  //
+  // change = change.join('/');
+  // if (!change || change === '' || change === '/') {
+  //   throw new Error('no change found!');
+  // }
+  //
+  // var cmd = `
+  // sqitch add ${change} --template ${template} -n 'add ${change}' ${vars} ${reqs}
+  // `;
+  //
+  // console.log(cmd);
+  //
+  // const sqitch = exec(cmd.trim());
+  //
   // sqitch.stdout.pipe(process.stdout);
   // sqitch.stderr.pipe(process.stderr);
 };
