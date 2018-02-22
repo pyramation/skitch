@@ -2,6 +2,8 @@ import { exec } from 'child_process';
 import { filter } from 'fuzzy';
 import { prompt } from 'skitch-prompt';
 import templates from 'skitch-templates';
+const templatePath =
+  require.resolve('skitch-templates').split('build/index')[0] + 'src';
 
 // sqitch add appschema -n 'Add schema for all flipr objects.'
 
@@ -29,6 +31,22 @@ const questions = [
 ];
 
 export default async argv => {
-  const result = await prompt(questions, argv);
-  console.log(result);
+  const { template } = await prompt(questions, argv);
+
+  const cmd = [
+    'sqitch',
+    'add',
+    name,
+    '--template',
+    template,
+    '--template-directory',
+    templatePath,
+    '-n',
+    'hi',
+  ].join(' ');
+
+  console.log(cmd);
+  // const sqitch = exec(cmd.trim());
+  // sqitch.stdout.pipe(process.stdout);
+  // sqitch.stderr.pipe(process.stderr);
 };

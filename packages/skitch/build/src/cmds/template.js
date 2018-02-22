@@ -48,6 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var fuzzy_1 = require("fuzzy");
     var skitch_prompt_1 = require("skitch-prompt");
     var skitch_templates_1 = require("skitch-templates");
+    var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
     // sqitch add appschema -n 'Add schema for all flipr objects.'
     var searchTemplates = function (answers, input) {
         console.log(Object.keys(skitch_templates_1.default));
@@ -70,13 +71,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var result;
+        var template, cmd;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    result = _a.sent();
-                    console.log(result);
+                    template = (_a.sent()).template;
+                    cmd = [
+                        'sqitch',
+                        'add',
+                        name,
+                        '--template',
+                        template,
+                        '--template-directory',
+                        templatePath,
+                        '-n',
+                        'hi',
+                    ].join(' ');
+                    console.log(cmd);
                     return [2 /*return*/];
             }
         });
