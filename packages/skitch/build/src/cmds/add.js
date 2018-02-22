@@ -60,7 +60,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             required: true,
         },
     ];
-    exports.add = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
         var _a, name, comment, cmd, sqitch;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -74,6 +74,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     return [2 /*return*/];
             }
         });
-    }); };
+    }); });
 });
 //# sourceMappingURL=add.js.map

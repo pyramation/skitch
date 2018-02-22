@@ -69,7 +69,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             source: searchTemplates,
         },
     ];
-    exports.template = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -80,6 +80,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     return [2 /*return*/];
             }
         });
-    }); };
+    }); });
 });
 //# sourceMappingURL=template.js.map

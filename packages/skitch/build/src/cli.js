@@ -56,12 +56,12 @@ var __rest = (this && this.__rest) || function (s, e) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var fuzzy_1 = require("fuzzy");
     var skitch_prompt_1 = require("skitch-prompt");
-    var cmds = require("./index");
+    var index_1 = require("./index");
     exports.searchCmds = function (answers, input) {
         input = input || '';
         return new Promise(function (resolve) {
             setTimeout(function () {
-                var fuzzyResult = fuzzy_1.filter(input, Object.keys(cmds));
+                var fuzzyResult = fuzzy_1.filter(input, Object.keys(index_1.default));
                 resolve(fuzzyResult.map(function (el) {
                     return el.original;
                 }));
@@ -73,6 +73,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    console.log('here we go', argv);
                     _ = argv._, body = __rest(argv, ["_"]);
                     if (!!argv._.length) return [3 /*break*/, 2];
                     return [4 /*yield*/, skitch_prompt_1.prompt([
@@ -82,7 +83,7 @@ var __rest = (this && this.__rest) || function (s, e) {
                                 message: 'what do you want to create?',
                                 source: exports.searchCmds,
                             },
-                        ])];
+                        ], {})];
                 case 1:
                     answer = _a.sent();
                     cmd = answer.cmd;
@@ -91,12 +92,12 @@ var __rest = (this && this.__rest) || function (s, e) {
                     cmd = _[0];
                     _a.label = 3;
                 case 3:
-                    console.log(cmds);
-                    console.log(cmds[cmd]);
-                    if (!cmds.hasOwnProperty(cmd)) {
+                    console.log(index_1.default);
+                    console.log(index_1.default[cmd]);
+                    if (!index_1.default.hasOwnProperty(cmd)) {
                         throw new Error(cmd + " does not exist!");
                     }
-                    return [4 /*yield*/, cmds[cmd](argv)];
+                    return [4 /*yield*/, index_1.default[cmd](argv)];
                 case 4:
                     _a.sent();
                     return [2 /*return*/];

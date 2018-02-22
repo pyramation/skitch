@@ -12,7 +12,7 @@ var paths = glob(srcDir + "/**.ts").map(function (file) {
 });
 var imports = paths
     .map(function (f) {
-    return ["import * as " + f.name + " from '" + f.path + "';"];
+    return ["import " + f.name + " from '" + f.path + "';"];
 })
     .join('\n');
 var out = "\n    " + imports + "\n    export default {\n      " + paths.map(function (a) { return a.name; }).join(',') + "\n    }\n  ";

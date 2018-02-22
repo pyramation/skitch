@@ -9,13 +9,13 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var add = require("./cmds/add");
-    var init = require("./cmds/init");
-    var template = require("./cmds/template");
+    var add_1 = require("./cmds/add");
+    var init_1 = require("./cmds/init");
+    var template_1 = require("./cmds/template");
     exports.default = {
-        add: add,
-        init: init,
-        template: template,
+        add: add_1.default,
+        init: init_1.default,
+        template: template_1.default,
     };
 });
 //# sourceMappingURL=index.js.map
