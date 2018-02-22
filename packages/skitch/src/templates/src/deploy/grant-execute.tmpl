@@ -1,0 +1,12 @@
+-- Deploy [% change %] to pg
+
+-- requires: procedures/grant_execute_on_function
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+SELECT grant_execute_on_function('[% schema %].[% procedure %]', '[% role %]');
+
+COMMIT;

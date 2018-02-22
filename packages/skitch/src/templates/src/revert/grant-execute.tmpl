@@ -1,0 +1,7 @@
+-- Revert [% change %] from pg
+
+BEGIN;
+
+SELECT revoke_execute_on_function('[% schema %].[% procedure %]', '[% role %]');
+
+COMMIT;

@@ -1,0 +1,14 @@
+-- Deploy [% change %] to pg
+
+-- requires: procedures/verify_type
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+CREATE TYPE [% schema %].[% type %] AS (
+  -- fields
+);
+
+COMMIT;

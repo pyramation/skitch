@@ -1,0 +1,12 @@
+-- Deploy [% change %] to pg
+
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+GRANT USAGE ON SCHEMA [% schema %]
+TO [% role %];
+
+COMMIT;

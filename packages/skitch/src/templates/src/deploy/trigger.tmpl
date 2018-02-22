@@ -1,0 +1,18 @@
+-- Deploy [% change %] to pg
+
+-- requires: procedures/verify_trigger
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+CREATE TRIGGER [% triggername %] [% when %]
+[% op %]
+    ON [% schema %].[% table %] FOR EACH ROW
+    WHEN (
+        NEW.data
+IS DISTINCT FROM OLD.data)
+EXECUTE PROCEDURE some.method ();
+
+COMMIT;

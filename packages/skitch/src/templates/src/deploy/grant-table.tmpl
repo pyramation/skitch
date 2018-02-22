@@ -1,0 +1,11 @@
+-- Deploy [% change %] to pg
+
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+GRANT [% arr__actions %] ON TABLE [% schema %].[% table %] TO [% role %];
+
+COMMIT;
