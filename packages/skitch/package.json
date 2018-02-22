@@ -1,6 +1,6 @@
 {
   "name": "skitch",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -26,11 +26,11 @@
   "dependencies": {
     "glob": "^7.1.2",
     "minimist": "^1.2.0",
-    "skitch-path": "^0.0.23",
+    "skitch-path": "^0.0.24",
     "skitch-prompt": "^0.0.17",
-    "skitch-templates": "^0.0.23",
+    "skitch-templates": "^0.0.24",
     "skitch-types": "^0.0.14",
-    "skitch-utils": "^0.0.23"
+    "skitch-utils": "^0.0.24"
   },
   "jest": {
     "transform": {
