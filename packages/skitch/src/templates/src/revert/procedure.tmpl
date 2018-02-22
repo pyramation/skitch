@@ -1,7 +1,0 @@
--- Revert [% change %] from pg
-
-BEGIN;
-
-SELECT drop_function('[% schema %].[% procedure %]');
-
-COMMIT;

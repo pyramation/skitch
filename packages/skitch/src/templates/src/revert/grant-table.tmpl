@@ -1,7 +1,0 @@
--- Revert [% change %] from pg
-
-BEGIN;
-
-REVOKE [% arr__actions %] ON TABLE [% schema %].[% table %] FROM [% role %];
-
-COMMIT;
