@@ -1,4 +1,4 @@
-import fuzzy from 'fuzzy';
+import { filter } from 'fuzzy';
 import { exec } from 'child_process';
 import glob from 'glob';
 import { dirname, basename, extname } from 'path';
@@ -9,7 +9,7 @@ inquirer.registerPrompt(
   require('inquirer-autocomplete-prompt')
 );
 
-var argv = require('minimist')(process.argv.slice(2));
+// var argv = require('minimist')(process.argv.slice(2));
 // const SCHEMAS = glob.sync(__dirname + '/templates/schemas/**.ts*')
 
 import { ChangePathArray } from './types';
@@ -31,7 +31,7 @@ export const searchTemplates = (answers: object, input: string) => {
   input = input || '';
   return new Promise(function(resolve) {
     setTimeout(function() {
-      var fuzzyResult = fuzzy.filter(input, Object.keys(schemas));
+      var fuzzyResult = filter(input, Object.keys(schemas));
       resolve(
         fuzzyResult.map(function(el) {
           return el.original;
@@ -41,9 +41,8 @@ export const searchTemplates = (answers: object, input: string) => {
   });
 };
 
-export const skitch = async () => {
+export const skitch = async argv => {
   var { _, ...body } = argv;
-
   var template;
   if (!argv._.length) {
     var answer = await inquirer.prompt([

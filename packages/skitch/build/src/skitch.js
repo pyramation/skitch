@@ -58,12 +58,12 @@ var __rest = (this && this.__rest) || function (s, e) {
     var child_process_1 = require("child_process");
     var inquirer = require('inquirer');
     inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
-    var argv = require('minimist')(process.argv.slice(2));
     var schemas_1 = require("./schemas");
     var changes_1 = require("./changes");
     var requires_1 = require("./requires");
     exports.searchTemplates = function (answers, input) {
         input = input || '';
+        console.log('searchTemplates', answers, input);
         return new Promise(function (resolve) {
             setTimeout(function () {
                 var fuzzyResult = fuzzy_1.default.filter(input, Object.keys(schemas_1.default));
@@ -73,13 +73,15 @@ var __rest = (this && this.__rest) || function (s, e) {
             }, 25);
         });
     };
-    exports.skitch = function () { return __awaiter(_this, void 0, void 0, function () {
+    exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, function () {
         var _, body, template, answer, questions, override, answers, result, params, vars, change, reqd, reqs, cmd, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _ = argv._, body = __rest(argv, ["_"]);
+                    console.log('runing....');
                     if (!!argv._.length) return [3 /*break*/, 2];
+                    console.log('inside....');
                     return [4 /*yield*/, inquirer.prompt([
                             {
                                 type: 'autocomplete',
