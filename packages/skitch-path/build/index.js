@@ -9,7 +9,7 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var node_walkup_1 = require("node-walkup");
+    var walkup = require("node-walkup");
     exports.path = function (cwd) {
         if (cwd === void 0) { cwd = process.cwd(); }
         var obj;
@@ -17,7 +17,7 @@
             if (obj) {
                 return resolve(obj);
             }
-            node_walkup_1.default('sqitch.conf', {
+            walkup('sqitch.conf', {
                 cwd: process.cwd(),
             }, function (err, matches) {
                 if (err) {
