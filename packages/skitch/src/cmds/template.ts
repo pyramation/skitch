@@ -103,19 +103,14 @@ export default async argv => {
     '--template-directory',
     templatePath,
     '-n',
-    `add ${change}`,
+    `'add ${change}'`,
     vars,
     reqs,
   ].join(' ');
 
-  // var cmd = `
-  // sqitch add ${change} --template ${template} -n 'add ${change}' ${vars} ${reqs}
-  // `;
-
   console.log(cmd);
 
-  // const sqitch = exec(cmd.trim());
-  //
-  // sqitch.stdout.pipe(process.stdout);
-  // sqitch.stderr.pipe(process.stderr);
+  const sqitch = exec(cmd.trim());
+  sqitch.stdout.pipe(process.stdout);
+  sqitch.stderr.pipe(process.stderr);
 };

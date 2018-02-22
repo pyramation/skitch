@@ -39,12 +39,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "fuzzy", "skitch-prompt", "skitch-templates"], factory);
+        define(["require", "exports", "child_process", "fuzzy", "skitch-prompt", "skitch-templates"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
+    var child_process_1 = require("child_process");
     var fuzzy_1 = require("fuzzy");
     var skitch_prompt_1 = require("skitch-prompt");
     var skitch_templates_1 = require("skitch-templates");
@@ -71,7 +72,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var template, questions, answers, params, vars, change, reqd, reqs, cmd;
+        var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
@@ -141,14 +142,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         '--template-directory',
                         templatePath,
                         '-n',
-                        "add " + change,
+                        "'add " + change + "'",
                         vars,
                         reqs,
                     ].join(' ');
-                    // var cmd = `
-                    // sqitch add ${change} --template ${template} -n 'add ${change}' ${vars} ${reqs}
-                    // `;
                     console.log(cmd);
+                    sqitch = child_process_1.exec(cmd.trim());
+                    sqitch.stdout.pipe(process.stdout);
+                    sqitch.stderr.pipe(process.stderr);
                     return [2 /*return*/];
             }
         });
