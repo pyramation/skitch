@@ -1,12 +1,6 @@
 import { exec } from 'child_process';
 import { filter } from 'fuzzy';
-import * as inquirer from 'inquirer';
-inquirer.registerPrompt(
-  'autocomplete',
-  require('inquirer-autocomplete-prompt')
-);
-
-import { prompt } from '../utils/inquirer';
+import { prompt } from 'skitch-prompt';
 
 // sqitch add appschema -n 'Add schema for all flipr objects.'
 

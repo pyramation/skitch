@@ -1,5 +1,9 @@
 import { exec } from 'child_process';
 import * as inquirer from 'inquirer';
+inquirer.registerPrompt(
+  'autocomplete',
+  require('inquirer-autocomplete-prompt')
+);
 
 export interface InquirerQuestion {
   name: string;

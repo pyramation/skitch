@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { prompt } from '../utils/inquirer';
+import { prompt } from 'skitch-prompt';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
 

@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { prompt } from '../utils/inquirer';
+import { prompt } from 'skitch-prompt';
 
 // sqitch add appschema -n 'Add schema for all flipr objects.'
 
