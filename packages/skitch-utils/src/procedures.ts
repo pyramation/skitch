@@ -1,7 +1,6 @@
 var fuzzy = require('fuzzy');
 import { readdir } from 'fs';
 import { resolve as resolvePath, basename, dirname } from 'path';
-import { promisify } from 'util';
 import glob from 'glob';
 import skitchPath from 'skitch-path';
 

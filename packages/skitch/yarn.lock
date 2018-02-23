@@ -2806,19 +2806,19 @@ skitch-prompt@^0.0.31:
     inquirer "^3.3.0"
     inquirer-autocomplete-prompt "^0.11.1"
 
-skitch-templates@^0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.31.tgz#65cff0c009af15db40bd4e7f8a42170b871a1cc2"
+skitch-templates@^0.0.32:
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.32.tgz#83b5309f65f46a4d8969199df1d63d8dd5e7bc95"
   dependencies:
-    skitch-utils "^0.0.31"
+    skitch-utils "^0.0.32"
 
 skitch-types@^0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.0.31.tgz#159cbc59f71f66275fce3de82f7b08a6e44718ec"
 
-skitch-utils@^0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.0.31.tgz#7057091ed6e88322e43fa0dca1fe4dd0774f8b63"
+skitch-utils@^0.0.32:
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.0.32.tgz#284a67b86612517ad821938f82b33770b75ccd7a"
   dependencies:
     fuzzy "^0.1.3"
     glob "^7.1.2"

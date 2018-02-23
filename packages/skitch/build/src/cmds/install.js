@@ -47,16 +47,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var skitch_path_1 = require("skitch-path");
     var path_1 = require("path");
-    var srcPath = path_1.dirname(require.resolve('skitch-install')) + '/src';
-    console.log(srcPath);
     var shell = require("shelljs");
-    var questions = [
-        {
-            name: 'name',
-            message: 'module name (e.g. plv8)',
-            required: true,
-        },
-    ];
+    var srcPath = path_1.dirname(require.resolve('skitch-install')) + '/src';
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
         var skitchPath;
         return __generator(this, function (_a) {
@@ -64,10 +56,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 case 0: return [4 /*yield*/, skitch_path_1.default()];
                 case 1:
                     skitchPath = _a.sent();
-                    console.log('-r', srcPath + "/deploy/*", skitchPath + "/deploy");
-                    shell.cp('-r', srcPath + "/deploy/*", skitchPath + "/deploy");
-                    shell.cp('-r', srcPath + "/revert/*", skitchPath + "/revert");
-                    shell.cp('-r', srcPath + "/verify/*", skitchPath + "/verify");
+                    ['deploy', 'verify', 'revert'].forEach(function (p) {
+                        shell.cp('-r', srcPath + "/" + p + "/*", skitchPath + "/" + p);
+                    });
                     return [2 /*return*/];
             }
         });

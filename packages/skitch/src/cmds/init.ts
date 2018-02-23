@@ -1,5 +1,13 @@
+import { prompt } from 'skitch-prompt';
+import { promisify } from 'util';
 import { exec } from 'child_process';
 import { prompt } from 'skitch-prompt';
+import path from 'skitch-path';
+import { dirname } from 'path';
+import 'skitch-install';
+const srcPath = dirname(require.resolve('skitch-install')) + '/src';
+
+import * as shell from 'shelljs';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
 
@@ -20,7 +28,13 @@ export default async argv => {
   const cmd = ['sqitch', 'init', name, '--uri', uri, '--engine', 'pg'].join(
     ' '
   );
-  const sqitch = exec(cmd.trim());
-  sqitch.stdout.pipe(process.stdout);
-  sqitch.stderr.pipe(process.stderr);
+  const sqitch = await promisify(exec)(cmd.trim());
+
+  // sqitch.stdout.pipe(process.stdout);
+  // sqitch.stderr.pipe(process.stderr);
+
+  const skitchPath = await path();
+  ['deploy', 'verify', 'revert'].forEach(p => {
+    shell.cp('-r', `${srcPath}/${p}/*`, `${skitchPath}/${p}`);
+  });
 };
