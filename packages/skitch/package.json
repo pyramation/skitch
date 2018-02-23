@@ -30,6 +30,7 @@
     "skitch-prompt": "^0.0.17",
     "skitch-templates": "^0.0.29",
     "skitch-types": "^0.0.14",
+    "skitch-install": "^0.0.30",
     "skitch-utils": "^0.0.29"
   },
   "jest": {
@@ -37,15 +38,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,
