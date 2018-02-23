@@ -20,6 +20,8 @@ export default async argv => {
   const path = require('path');
 
   mkdirp(`${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures`);
+  mkdirp(`${PKGDIR}/verify/schemas/v8/tables/modules/fixtures`);
+  mkdirp(`${PKGDIR}/revert/schemas/v8/tables/modules/fixtures`);
 
   modules.forEach(module => {
     const basename = path.basename(module);

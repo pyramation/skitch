@@ -66,6 +66,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     modules = glob(PKGDIR + '/modules/*.js').filter(function (f) { return !f.match(/bundle\.js/) && !f.match(/.sql$/); });
                     path = require('path');
                     mkdirp(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures");
+                    mkdirp(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures");
+                    mkdirp(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures");
                     modules.forEach(function (module) {
                         var basename = path.basename(module);
                         var name = basename.replace(/\.[^/.]+$/, '');
