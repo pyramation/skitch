@@ -76,9 +76,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     return [4 /*yield*/, skitch_path_1.default()];
                 case 3:
                     skitchPath = _a.sent();
-                    ['deploy', 'verify', 'revert'].forEach(function (p) {
-                        shell.cp('-r', srcPath + "/src/" + p + "/*", skitchPath + "/src/" + p);
-                    });
+                    shell.cp('-r', srcPath + "/src/deploy/*", skitchPath + "/deploy/");
+                    shell.cp('-r', srcPath + "/src/verify/*", skitchPath + "/verify/");
+                    shell.cp('-r', srcPath + "/src/revert/*", skitchPath + "/revert/");
                     shell.cp(srcPath + "/docker-compose.yml", skitchPath + "/docker-compose.yml");
                     shell.cp(srcPath + "/sqitch.md", skitchPath + "/sqitch.md");
                     return [4 /*yield*/, plan_1.default({ name: name })];
