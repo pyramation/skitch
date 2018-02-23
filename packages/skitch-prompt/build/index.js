@@ -47,12 +47,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "inquirer"], factory);
+        define(["require", "exports", "colors", "inquirer"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
+    require("colors");
     var inquirer = require("inquirer");
     inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
     exports.required = function (questions) {
@@ -65,6 +66,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     return true;
                 };
             }
+            return q;
+        });
+    };
+    exports.names = function (questions) {
+        return questions.map(function (q) {
+            q.message = "" + '['.white + q.name.blue + ']'.white + " " + q.message;
             return q;
         });
     };

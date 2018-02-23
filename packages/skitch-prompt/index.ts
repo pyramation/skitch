@@ -1,4 +1,5 @@
 import { exec } from 'child_process';
+import 'colors';
 import * as inquirer from 'inquirer';
 inquirer.registerPrompt(
   'autocomplete',
@@ -22,6 +23,13 @@ export const required = (questions: Array<InquirerQuestion>) => {
         return true;
       };
     }
+    return q;
+  });
+};
+
+export const names = (questions: Array<InquirerQuestion>) => {
+  return questions.map(q => {
+    q.message = `${'['.white}${q.name.blue}${']'.white} ${q.message}`;
     return q;
   });
 };

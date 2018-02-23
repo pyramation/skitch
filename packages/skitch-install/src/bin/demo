@@ -1,0 +1,47 @@
+#!/bin/bash
+
+skitch generate --template schema --schema users
+skitch generate --template table --schema users --table user
+skitch generate --template column --schema users --table user --column email --columntype text --columnnull 'NOT NULL'
+skitch generate --template column --schema users --table user --column password --columntype text --columnnull 'NOT NULL'
+
+skitch generate --template schema --schema projects
+skitch generate --template table --schema projects --table project
+skitch generate --template column --schema projects --table project --column name --columntype text --columnnull 'NOT NULL'
+skitch generate --template column --schema projects --table project --column owner_id --columntype uuid --columnnull 'NOT NULL'
+
+skitch generate \
+  --template foreignKey \
+  --schema projects \
+  --table project \
+  --refschema users \
+  --reftable user \
+  --column owner_id \
+  --refcolumn id \
+  --cascade 'ON DELETE CASCADE'
+
+skitch generate --template procedure --schema projects --procedure search_user_projects
+
+cat <<EOF>./deploy/schemas/projects/procedures/search_user_projects.sql
+-- Deploy schemas/projects/procedures/search_user_projects to pg
+
+-- requires: procedures/verify_function
+-- requires: schemas/projects/schema
+
+BEGIN;
+
+CREATE FUNCTION projects.search_user_projects (search TEXT, user_id uuid)
+    RETURNS SETOF projects.project
+AS $$
+SELECT
+    project.*
+FROM
+    projects.project AS project
+WHERE
+    project.name ILIKE ('%' || search || '%')
+    AND project.owner_id = user_id;
+$$
+LANGUAGE 'sql' STABLE;
+
+COMMIT;
+EOF
