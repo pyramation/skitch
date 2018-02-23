@@ -50,13 +50,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var skitch_path_1 = require("skitch-path");
     var promisify = require('util').promisify;
     var fs = require('fs');
-    var glob = promisify(require('glob'));
+    var mkdirp = require('mkdirp').sync;
     var asyncExec = promisify(child_process_1.exec);
     var readFile = promisify(fs.readFile);
     var writeFile = promisify(fs.writeFile);
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
         var _this = this;
-        var PKGDIR, glob, modules, path, exec, fs;
+        var PKGDIR, glob, modules, path;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_path_1.default()];
@@ -65,8 +65,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     glob = require('glob').sync;
                     modules = glob(PKGDIR + '/modules/*.js').filter(function (f) { return !f.match(/bundle\.js/) && !f.match(/.sql$/); });
                     path = require('path');
-                    exec = require('child_process').exec;
-                    fs = require('fs');
+                    mkdirp(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures");
                     modules.forEach(function (module) {
                         var basename = path.basename(module);
                         var name = basename.replace(/\.[^/.]+$/, '');
@@ -78,7 +77,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                 revertFile = fs.createWriteStream(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures/" + name + ".sql");
                                 verifyFile = fs.createWriteStream(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures/" + name + ".sql");
                                 readStream = fs.createReadStream(PKGDIR + "/modules/" + name + ".bundle.js");
-                                proc = exec("browserify " + module + " --s " + name + " -o modules/" + name + ".bundle.js");
+                                proc = child_process_1.exec("browserify " + module + " --s " + name + " -o modules/" + name + ".bundle.js");
                                 // VERIFY
                                 verifyFile.write("-- Verify schemas/v8/tables/modules/fixtures/" + name + "  on pg\n\n  BEGIN;\n\n  SELECT 1/count(*) FROM v8.modules WHERE name='" + name + "';\n\n  ROLLBACK;");
                                 verifyFile.end();
