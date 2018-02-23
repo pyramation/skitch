@@ -8,7 +8,7 @@ declare const _default: {
     plan: (argv: any) => Promise<void>;
     rename: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
-    start: any;
+    start: (argv: any) => Promise<void>;
     test: (argv: any) => Promise<void>;
     verify: (argv: any) => Promise<void>;
 };

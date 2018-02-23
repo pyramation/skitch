@@ -1,113 +1,33 @@
-// postgraphile --connection postgres://postgres:@localhost/dandb --schema users,projects
+import { InquirerQuestion } from 'skitch-types';
+import { readdir } from 'fs';
+import { resolve as resolvePath } from 'path';
+import { promisify } from 'util';
+import skitchPath from 'skitch-path';
+import * as shell from 'shelljs';
 
-
-mutation addUser($input: CreateUserInput!) {
-  createUser(input: $input) {
- 		user {
- 		  id
-      email
-      password
- 		}
-  }
-}
-
-{
-	"input": {
-    "user": {
-      "id": "13331d10-7c0f-49d4-bcb7-bc43645299e1",
-      "email": "d@nlynch.com",
-      "password": "mypassword"
-    }
-  }
-}
-
-query getUsers {
-  allUsers {
-    nodes {
-      id,
-			email
-    }
-  }
-}
-
-mutation addProject ($input: CreateProjectInput!) {
-  createProject(input:$input) {
-    project {
-      id
-      name
-			ownerId
-    }
-  }
-}
-
-{
-	"input": {
-    "project": {
-      "name": "dansproject",
-      "ownerId": "13331d10-7c0f-49d4-bcb7-bc43645299e1"
-    }
-  }
-}
-
-query getUsersAndProjects {
-  allUsers {
-    nodes {
-      id,
-			email
-      projectsByOwnerId {
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-}
-
-
-query getUsersAndProjects {
-  allUsers(condition:{
-    email:"d@nlynch.com"
-  }) {
-    nodes {
-      id,
-			email
-      projectsByOwnerId {
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-}
-
-```sql
-CREATE FUNCTION projects.search_user_projects (search TEXT, user_id uuid)
-    RETURNS SETOF projects.project
-AS $$
-SELECT
-    project.*
-FROM
-    projects.project AS project
-WHERE
-    project.name ILIKE ('%' || search || '%')
-    AND project.owner_id = user_id;
-$$
-LANGUAGE 'sql' STABLE;
-```
-
-```gql
-query getUsersAndProjects {
-  searchUserProjects(search:"dans", userId:"13331d10-7c0f-49d4-bcb7-bc43645299e1") {
-    nodes {
-      id,
-			name
-    }
-  }
-}
-```
+export default async argv => {
+  const path = await skitchPath();
+  const questions: Array<InquirerQuestion> = [
+    {
+      name: 'database',
+      message: 'database',
+      required: true,
+    },
+    {
+      type: 'checkbox',
+      name: 'schemas',
+      message: 'choose schemas',
+      choices: await promisify(readdir)(resolvePath(path + '/deploy/schemas')),
+      required: true,
+    },
+  ];
+  const { schemas, database } = await prompt(questions, argv);
+  const cmd = [
+    'postgraphile',
+    '--connection',
+    `postgres://postgres:@localhost/${database}`,
+    '--schema',
+    schemas.join(','),
+  ].join(' ');
+  shell.exec(cmd);
+};

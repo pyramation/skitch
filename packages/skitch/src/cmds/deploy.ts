@@ -3,17 +3,17 @@ import { prompt } from 'skitch-prompt';
 
 const questions = [
   {
-    name: 'dbname',
+    name: 'database',
     message: 'database',
     required: true,
   },
 ];
 export default async argv => {
-  const { dbname } = await prompt(questions, argv);
-  shell.exec(`dropdb -U postgres -h localhost ${dbname}`);
-  shell.exec(`createdb -U postgres -h localhost ${dbname}`);
+  const { database } = await prompt(questions, argv);
+  shell.exec(`dropdb -U postgres -h localhost ${database}`);
+  shell.exec(`createdb -U postgres -h localhost ${database}`);
   var sqitch = shell.exec(
-    `PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${dbname}`,
+    `PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${database}`,
     { async: true }
   );
 

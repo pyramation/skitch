@@ -49,21 +49,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var skitch_prompt_1 = require("skitch-prompt");
     var questions = [
         {
-            name: 'dbname',
+            name: 'database',
             message: 'database',
             required: true,
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var dbname, sqitch;
+        var database, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    dbname = (_a.sent()).dbname;
-                    shell.exec("dropdb -U postgres -h localhost " + dbname);
-                    shell.exec("createdb -U postgres -h localhost " + dbname);
-                    sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:" + dbname, { async: true });
+                    database = (_a.sent()).database;
+                    shell.exec("dropdb -U postgres -h localhost " + database);
+                    shell.exec("createdb -U postgres -h localhost " + database);
+                    sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:" + database, { async: true });
                     sqitch.stdout.pipe(process.stdout);
                     sqitch.stderr.pipe(process.stderr);
                     return [2 /*return*/];
