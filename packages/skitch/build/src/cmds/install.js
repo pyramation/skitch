@@ -46,6 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     // import { libs } from 'skitch-libs';
+    // hack it special template dir and add
     var questions = [
         {
             name: 'name',

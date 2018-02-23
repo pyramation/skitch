@@ -52,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     exports.searchTables = function (answers, input) {
         input = input || '';
         return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-            var path, schema, tables;
+            var path, schema, tablesDir, tables;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, skitch_path_1.default()];
@@ -62,8 +62,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         if (!schema) {
                             schema = '**';
                         }
+                        tablesDir = path_1.resolve(path + "/deploy/schemas");
                         try {
-                            tables = glob_1.default.sync(path + "/deploy/schemas/" + schema + "/tables/**/table.sql");
+                            tables = glob_1.default.sync(tablesDir + "/" + schema + "/tables/**/table.sql");
                         }
                         catch (e) {
                             tables = [];
