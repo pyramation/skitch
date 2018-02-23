@@ -2806,9 +2806,9 @@ skitch-prompt@^0.0.31:
     inquirer "^3.3.0"
     inquirer-autocomplete-prompt "^0.11.1"
 
-skitch-templates@^0.0.35:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.35.tgz#c8c8f265c0f7b5e8091c0eaaca708cdd7267eda7"
+skitch-templates@^0.0.36:
+  version "0.0.36"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.36.tgz#334301fdf86b71cbb8ea5c115a480e635d863930"
   dependencies:
     skitch-utils "^0.0.35"
 
