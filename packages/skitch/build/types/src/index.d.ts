@@ -1,7 +1,6 @@
 declare const _default: {
     add: (argv: any) => Promise<void>;
     init: (argv: any) => Promise<void>;
-    install: any;
     plan: (argv: any) => Promise<void>;
     template: (argv: any) => Promise<void>;
 };
