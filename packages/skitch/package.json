@@ -26,6 +26,7 @@
   "dependencies": {
     "glob": "^7.1.2",
     "minimist": "^1.2.0",
+    "shelljs": "^0.8.1",
     "skitch-install": "^0.0.30",
     "skitch-path": "^0.0.31",
     "skitch-prompt": "^0.0.31",

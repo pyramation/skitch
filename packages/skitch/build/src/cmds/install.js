@@ -39,13 +39,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports"], factory);
+        define(["require", "exports", "skitch-path", "path", "shelljs"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
-    // hack it special template dir and add
+    var skitch_path_1 = require("skitch-path");
+    var path_1 = require("path");
+    var srcPath = path_1.dirname(require.resolve('skitch-install')) + '/src';
+    console.log(srcPath);
+    var shell = require("shelljs");
     var questions = [
         {
             name: 'name',
@@ -53,8 +57,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             required: true,
         },
     ];
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); }); });
+    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+        var skitchPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 1:
+                    skitchPath = _a.sent();
+                    console.log('-r', srcPath + "/deploy/*", skitchPath + "/deploy");
+                    shell.cp('-r', srcPath + "/deploy/*", skitchPath + "/deploy");
+                    shell.cp('-r', srcPath + "/revert/*", skitchPath + "/revert");
+                    shell.cp('-r', srcPath + "/verify/*", skitchPath + "/verify");
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });
 //# sourceMappingURL=install.js.map
