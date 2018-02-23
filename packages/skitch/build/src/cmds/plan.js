@@ -39,13 +39,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "skitch-path"], factory);
+        define(["require", "exports", "child_process", "skitch-prompt", "skitch-path"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     var child_process_1 = require("child_process");
+    var skitch_prompt_1 = require("skitch-prompt");
     var skitch_path_1 = require("skitch-path");
     var promisify = require('util').promisify;
     var fs = require('fs');
@@ -53,6 +54,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var asyncExec = promisify(child_process_1.exec);
     var readFile = promisify(fs.readFile);
     var writeFile = promisify(fs.writeFile);
+    var questions = [
+        {
+            name: 'name',
+            message: 'project name (e.g., flipr)',
+            required: true,
+        },
+        {
+            name: 'uri',
+            message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
+            required: true,
+        },
+    ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
         // TODO make a class that uses paths instead of some.sql
         // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
@@ -75,26 +88,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             var index = unresolved.indexOf(sqlmodule);
             unresolved.splice(index);
         }
-        var PKGDIR, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_path_1.default()];
+        var _a, name, uri, PKGDIR, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    PKGDIR = _a.sent();
+                    _a = _b.sent(), name = _a.name, uri = _a.uri;
+                    return [4 /*yield*/, skitch_path_1.default()];
+                case 2:
+                    PKGDIR = _b.sent();
                     now = '2017-08-11T08:11:51Z';
                     planfile = [];
                     deps = {};
                     reg = {};
-                    return [4 /*yield*/, glob("/" + skitch_path_1.default + "/deploy/**/**.sql")];
-                case 2:
-                    files = _a.sent();
-                    i = 0;
-                    _a.label = 3;
+                    return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
                 case 3:
-                    if (!(i < files.length)) return [3 /*break*/, 6];
-                    return [4 /*yield*/, readFile(files[i])];
+                    files = _b.sent();
+                    i = 0;
+                    _b.label = 4;
                 case 4:
-                    data = _a.sent();
+                    if (!(i < files.length)) return [3 /*break*/, 7];
+                    return [4 /*yield*/, readFile(files[i])];
+                case 5:
+                    data = _b.sent();
                     lines = data.toString().split('\n');
                     key = files[i].split(PKGDIR)[1];
                     deps[key] = [];
@@ -112,12 +128,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             reg[key].push(m2[1]);
                         }
                     }
-                    _a.label = 5;
-                case 5:
-                    i++;
-                    return [3 /*break*/, 3];
+                    _b.label = 6;
                 case 6:
-                    planfile.push("%syntax-version=1.0.0\n  %project=proj\n  %uri=https://github.com/projinc/proj-sql\n  ");
+                    i++;
+                    return [3 /*break*/, 4];
+                case 7:
+                    planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + uri + "\n  ");
                     resolved = [];
                     unresolved = [];
                     deps = Object.assign({
@@ -128,17 +144,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     dep_resolve('apps/index', resolved, unresolved);
                     index = resolved.indexOf('apps/index');
                     resolved.splice(index);
-                    // procedures/verify_function 2017-08-08T22:22:30Z root <root@5b0c196eeb62> # verify_function
                     resolved.forEach(function (res) {
                         if (deps['/deploy/' + res + '.sql'].length) {
-                            planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " root <root@5b0c196eeb62> # add " + res);
+                            planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
                         }
                         else {
-                            planfile.push(res + " " + now + " root <root@5b0c196eeb62> # add " + res);
+                            planfile.push(res + " " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
                         }
                     });
-                    console.log("\n  --\n  --      |||\n  --     (o o)\n  -- ooO--(_)--Ooo-\n  --\n  --\n      ");
-                    fs.writeFileSync('plans/index.plan', planfile.join('\n'));
+                    fs.writeFileSync(PKGDIR + "/sqitch.plan", planfile.join('\n'));
+                    console.log("\n    --\n    --      |||\n    --     (o o)\n    -- ooO--(_)--Ooo-\n    --\n    --\n    \u2728  Done\n    ");
                     return [2 /*return*/];
             }
         });

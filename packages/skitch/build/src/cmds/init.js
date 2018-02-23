@@ -39,20 +39,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "skitch-prompt", "util", "child_process", "skitch-path", "path", "skitch-install", "shelljs"], factory);
+        define(["require", "exports", "skitch-install", "skitch-prompt", "util", "child_process", "skitch-path", "path", "shelljs", "./plan"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
+    require("skitch-install");
     var skitch_prompt_1 = require("skitch-prompt");
     var util_1 = require("util");
     var child_process_1 = require("child_process");
     var skitch_path_1 = require("skitch-path");
     var path_1 = require("path");
-    require("skitch-install");
-    var srcPath = path_1.dirname(require.resolve('skitch-install')) + '/src';
     var shell = require("shelljs");
+    var srcPath = path_1.dirname(require.resolve('skitch-install')) + '/src';
+    var plan_1 = require("./plan");
     // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
     var questions = [
         {
@@ -67,7 +68,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var _a, name, uri, cmd, sqitch, skitchPath;
+        var _a, name, uri, cmd, skitchPath;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
@@ -76,13 +77,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     cmd = ['sqitch', 'init', name, '--uri', uri, '--engine', 'pg'].join(' ');
                     return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
                 case 2:
-                    sqitch = _b.sent();
+                    _b.sent();
                     return [4 /*yield*/, skitch_path_1.default()];
                 case 3:
                     skitchPath = _b.sent();
                     ['deploy', 'verify', 'revert'].forEach(function (p) {
                         shell.cp('-r', srcPath + "/" + p + "/*", skitchPath + "/" + p);
                     });
+                    return [4 /*yield*/, plan_1.default({ name: name, uri: uri })];
+                case 4:
+                    _b.sent();
                     return [2 /*return*/];
             }
         });
