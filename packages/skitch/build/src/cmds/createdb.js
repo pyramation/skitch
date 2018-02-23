@@ -39,60 +39,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "skitch-install", "skitch-prompt", "util", "child_process", "skitch-path", "path", "shelljs", "./plan"], factory);
+        define(["require", "exports", "shelljs", "skitch-prompt"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
-    require("skitch-install");
-    var skitch_prompt_1 = require("skitch-prompt");
-    var util_1 = require("util");
-    var child_process_1 = require("child_process");
-    var skitch_path_1 = require("skitch-path");
-    var path_1 = require("path");
     var shell = require("shelljs");
-    var srcPath = path_1.dirname(require.resolve('skitch-install'));
-    var plan_1 = require("./plan");
-    // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
+    var skitch_prompt_1 = require("skitch-prompt");
     var questions = [
         {
-            name: 'name',
-            message: 'project name (e.g., flipr)',
+            name: 'dbname',
+            message: 'database',
             required: true,
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var name, cmd, skitchPath;
+        var dbname, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    name = (_a.sent()).name;
-                    cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
-                    return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, skitch_path_1.default()];
-                case 3:
-                    skitchPath = _a.sent();
-                    shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
-                    // shell.cp('-r', `${srcPath}/src/deploy/*`, `${skitchPath}/deploy/`);
-                    // shell.cp('-r', `${srcPath}/src/verify/*`, `${skitchPath}/verify/`);
-                    // shell.cp('-r', `${srcPath}/src/revert/*`, `${skitchPath}/revert/`);
-                    // shell.cp(`${srcPath}/docker-compose.yml`, `${skitchPath}/docker-compose.yml`);
-                    // shell.cp(`${srcPath}/sqitch.md`, `${skitchPath}/sqitch.md`);
-                    return [4 /*yield*/, plan_1.default({ name: name })];
-                case 4:
-                    // shell.cp('-r', `${srcPath}/src/deploy/*`, `${skitchPath}/deploy/`);
-                    // shell.cp('-r', `${srcPath}/src/verify/*`, `${skitchPath}/verify/`);
-                    // shell.cp('-r', `${srcPath}/src/revert/*`, `${skitchPath}/revert/`);
-                    // shell.cp(`${srcPath}/docker-compose.yml`, `${skitchPath}/docker-compose.yml`);
-                    // shell.cp(`${srcPath}/sqitch.md`, `${skitchPath}/sqitch.md`);
-                    _a.sent();
+                    dbname = (_a.sent()).dbname;
+                    sqitch = shell.exec("createdb -U postgres -h localhost " + dbname, {
+                        async: true,
+                    });
+                    sqitch.stdout.pipe(process.stdout);
+                    sqitch.stderr.pipe(process.stderr);
                     return [2 /*return*/];
             }
         });
     }); });
 });
-//# sourceMappingURL=init.js.map
+//# sourceMappingURL=createdb.js.map
