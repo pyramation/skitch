@@ -52,7 +52,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
     // sqitch add appschema -n 'Add schema for all flipr objects.'
     var searchTemplates = function (answers, input) {
-        console.log(Object.keys(skitch_templates_1.default));
         input = input || '';
         return new Promise(function (resolve) {
             setTimeout(function () {
@@ -146,7 +145,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         vars,
                         reqs,
                     ].join(' ');
-                    console.log(cmd);
                     sqitch = child_process_1.exec(cmd.trim());
                     sqitch.stdout.pipe(process.stdout);
                     sqitch.stderr.pipe(process.stderr);

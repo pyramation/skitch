@@ -9,8 +9,6 @@ const templatePath =
 // sqitch add appschema -n 'Add schema for all flipr objects.'
 
 const searchTemplates = (answers: object, input: string) => {
-  console.log(Object.keys(templates));
-
   input = input || '';
   return new Promise(function(resolve) {
     setTimeout(function() {
@@ -107,8 +105,6 @@ export default async argv => {
     vars,
     reqs,
   ].join(' ');
-
-  console.log(cmd);
 
   const sqitch = exec(cmd.trim());
   sqitch.stdout.pipe(process.stdout);
