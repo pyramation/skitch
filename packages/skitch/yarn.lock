@@ -2793,9 +2793,9 @@ skitch-install@^0.0.30:
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.0.30.tgz#3f9f1c4ed3102443c22bc94d28bdab26bf25a620"
 
-skitch-path@^0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.0.31.tgz#a93203ed98ad18ab9858782bd13ef31f2414b6ae"
+skitch-path@^0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.0.34.tgz#a7668e7d3ed6ae990cf913612366a8de4bbf588a"
   dependencies:
     node-walkup "^1.1.1"
 
@@ -2806,23 +2806,23 @@ skitch-prompt@^0.0.31:
     inquirer "^3.3.0"
     inquirer-autocomplete-prompt "^0.11.1"
 
-skitch-templates@^0.0.32:
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.32.tgz#83b5309f65f46a4d8969199df1d63d8dd5e7bc95"
+skitch-templates@^0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.34.tgz#e3d6de589d54e10ae8b17fd7d7d8494f473675c5"
   dependencies:
-    skitch-utils "^0.0.32"
+    skitch-utils "^0.0.34"
 
 skitch-types@^0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.0.31.tgz#159cbc59f71f66275fce3de82f7b08a6e44718ec"
 
-skitch-utils@^0.0.32:
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.0.32.tgz#284a67b86612517ad821938f82b33770b75ccd7a"
+skitch-utils@^0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.0.34.tgz#ee7534dd70c0b8cf9a38a756e681fa27ec61d88d"
   dependencies:
     fuzzy "^0.1.3"
     glob "^7.1.2"
-    skitch-path "^0.0.31"
+    skitch-path "^0.0.34"
 
 slash@^1.0.0:
   version "1.0.0"
