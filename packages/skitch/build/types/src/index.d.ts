@@ -5,7 +5,7 @@ declare const _default: {
     generate: (argv: any) => Promise<void>;
     init: (argv: any) => Promise<void>;
     plan: (argv: any) => Promise<void>;
-    rename: any;
+    rename: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
     start: any;
     test: (argv: any) => Promise<void>;
