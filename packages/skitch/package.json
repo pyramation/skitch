@@ -1,6 +1,6 @@
 {
   "name": "skitch",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "shelljs": "^0.8.1",
-    "skitch-install": "^0.1.10",
+    "skitch-install": "^0.1.11",
     "skitch-path": "^0.0.34",
     "skitch-prompt": "^0.1.10",
     "skitch-templates": "^0.0.36",
