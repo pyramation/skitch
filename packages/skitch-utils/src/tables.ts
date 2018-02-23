@@ -1,7 +1,7 @@
 var fuzzy = require('fuzzy');
 import { readdir } from 'fs';
 import { resolve as resolvePath, basename, dirname } from 'path';
-import glob from 'glob';
+import * as glob from 'glob';
 import skitchPath from 'skitch-path';
 
 export interface HashObject {

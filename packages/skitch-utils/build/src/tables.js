@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var fuzzy = require('fuzzy');
     var path_1 = require("path");
-    var glob_1 = require("glob");
+    var glob = require("glob");
     var skitch_path_1 = require("skitch-path");
     exports.searchTables = function (answers, input) {
         input = input || '';
@@ -64,7 +64,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         }
                         tablesDir = path_1.resolve(path + "/deploy/schemas");
                         try {
-                            tables = glob_1.default.sync(tablesDir + "/" + schema + "/tables/**/table.sql");
+                            tables = glob.sync(tablesDir + "/" + schema + "/tables/**/table.sql");
                         }
                         catch (e) {
                             tables = [];
