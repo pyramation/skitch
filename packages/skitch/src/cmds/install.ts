@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { prompt } from 'skitch-prompt';
-// import { libs } from 'skitch-libs';
+
+import libs from 'skitch-install';
 
 // hack it special template dir and add
 

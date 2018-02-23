@@ -1,0 +1,8 @@
+{
+  "name": "skitch-install",
+  "version": "0.0.29",
+  "description": "",
+  "author": "pyramation@gmail.com",
+  "license": "MIT",
+  "main": "index.js"
+}
