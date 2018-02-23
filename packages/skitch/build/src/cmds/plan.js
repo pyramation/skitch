@@ -60,11 +60,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             message: 'project name (e.g., flipr)',
             required: true,
         },
-        {
-            name: 'uri',
-            message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
-            required: true,
-        },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
         // TODO make a class that uses paths instead of some.sql
@@ -88,29 +83,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             var index = unresolved.indexOf(sqlmodule);
             unresolved.splice(index);
         }
-        var _a, name, uri, PKGDIR, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var name, PKGDIR, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    _a = _b.sent(), name = _a.name, uri = _a.uri;
+                    name = (_a.sent()).name;
                     return [4 /*yield*/, skitch_path_1.default()];
                 case 2:
-                    PKGDIR = _b.sent();
+                    PKGDIR = _a.sent();
                     now = '2017-08-11T08:11:51Z';
                     planfile = [];
                     deps = {};
                     reg = {};
                     return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
                 case 3:
-                    files = _b.sent();
+                    files = _a.sent();
                     i = 0;
-                    _b.label = 4;
+                    _a.label = 4;
                 case 4:
                     if (!(i < files.length)) return [3 /*break*/, 7];
                     return [4 /*yield*/, readFile(files[i])];
                 case 5:
-                    data = _b.sent();
+                    data = _a.sent();
                     lines = data.toString().split('\n');
                     key = files[i].split(PKGDIR)[1];
                     deps[key] = [];
@@ -128,12 +123,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             reg[key].push(m2[1]);
                         }
                     }
-                    _b.label = 6;
+                    _a.label = 6;
                 case 6:
                     i++;
                     return [3 /*break*/, 4];
                 case 7:
-                    planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + uri + "\n  ");
+                    planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  ");
                     resolved = [];
                     unresolved = [];
                     deps = Object.assign({

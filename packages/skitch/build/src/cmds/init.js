@@ -52,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var skitch_path_1 = require("skitch-path");
     var path_1 = require("path");
     var shell = require("shelljs");
-    var srcPath = path_1.dirname(require.resolve('skitch-install')) + '/src';
+    var srcPath = path_1.dirname(require.resolve('skitch-install'));
     var plan_1 = require("./plan");
     // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
     var questions = [
@@ -61,32 +61,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             message: 'project name (e.g., flipr)',
             required: true,
         },
-        {
-            name: 'uri',
-            message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
-            required: true,
-        },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var _a, name, uri, cmd, skitchPath;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var name, cmd, skitchPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
-                    _a = _b.sent(), name = _a.name, uri = _a.uri;
-                    cmd = ['sqitch', 'init', name, '--uri', uri, '--engine', 'pg'].join(' ');
+                    name = (_a.sent()).name;
+                    cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
                     return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
                 case 2:
-                    _b.sent();
+                    _a.sent();
                     return [4 /*yield*/, skitch_path_1.default()];
                 case 3:
-                    skitchPath = _b.sent();
+                    skitchPath = _a.sent();
                     ['deploy', 'verify', 'revert'].forEach(function (p) {
-                        shell.cp('-r', srcPath + "/" + p + "/*", skitchPath + "/" + p);
+                        shell.cp('-r', srcPath + "/src/" + p + "/*", skitchPath + "/src/" + p);
                     });
-                    return [4 /*yield*/, plan_1.default({ name: name, uri: uri })];
+                    shell.cp(srcPath + "/docker-compose.yml", skitchPath + "/docker-compose.yml");
+                    shell.cp(srcPath + "/sqitch.md", skitchPath + "/sqitch.md");
+                    return [4 /*yield*/, plan_1.default({ name: name })];
                 case 4:
-                    _b.sent();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
