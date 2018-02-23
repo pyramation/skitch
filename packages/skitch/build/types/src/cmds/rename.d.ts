@@ -1,0 +1,11 @@
+declare var argv: any;
+declare const glob: any;
+declare const path: any;
+declare const fs: any;
+declare const mkdirp: any;
+declare var src: any;
+declare var dst: any;
+declare function sanitize_path(fullpath: any): any;
+declare var files: any;
+declare var dirs: {};
+declare var ops: any[];

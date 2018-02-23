@@ -153,4 +153,4 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         });
     }); });
 });
-//# sourceMappingURL=template.js.map
+//# sourceMappingURL=generate.js.map
