@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 import skitchPath from 'skitch-path';
 const promisify = require('util').promisify;
 const fs = require('fs');
-const glob = promisify(require('glob'));
+const mkdirp = require('mkdirp').sync;
 const asyncExec = promisify(exec);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -18,8 +18,8 @@ export default async argv => {
     f => !f.match(/bundle\.js/) && !f.match(/.sql$/)
   );
   const path = require('path');
-  const exec = require('child_process').exec;
-  const fs = require('fs');
+
+  mkdirp(`${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures`);
 
   modules.forEach(module => {
     const basename = path.basename(module);

@@ -31,3 +31,13 @@ skitch template \
   --refcolumn id \
   --cascade 'ON DELETE CASCADE'
 ```
+
+install v8 modules
+
+```
+skitch template --template schema --schema v8
+skitch template --template table --schema v8 --table modules
+skitch template --template column --schema v8 --table modules --column name --columntype text --columnnull 'NOT NULL'
+skitch template --template column --schema v8 --table modules --column code --columntype text --columnnull 'NOT NULL'
+// todo unique!
+```
