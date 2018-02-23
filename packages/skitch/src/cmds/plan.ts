@@ -14,15 +14,15 @@ const questions = [
     message: 'project name (e.g., flipr)',
     required: true,
   },
-  {
-    name: 'uri',
-    message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
-    required: true,
-  },
+  // {
+  //   name: 'uri',
+  //   message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
+  //   required: true,
+  // },
 ];
 
 export default async argv => {
-  const { name, uri } = await prompt(questions, argv);
+  const { name } = await prompt(questions, argv);
   const PKGDIR = await skitchPath();
 
   // var moment = require('moment-timezone');
@@ -98,7 +98,6 @@ export default async argv => {
 
   planfile.push(`%syntax-version=1.0.0
   %project=${name}
-  %uri=${uri}
   `);
 
   var resolved: string[] = [];
