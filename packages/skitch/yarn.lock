@@ -572,6 +572,10 @@ color-name@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
+colors@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
+
 combined-stream@1.0.6, combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
@@ -2789,9 +2793,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-install@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.1.tgz#78f4e305c723efcb80c5f42494d04756821413d4"
+skitch-install@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.10.tgz#e7b5ad2939aed1263affbd08d8bff2467d2f1fa9"
 
 skitch-path@^0.0.34:
   version "0.0.34"
@@ -2799,10 +2803,11 @@ skitch-path@^0.0.34:
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-prompt@^0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.0.31.tgz#4d8e24289cc62d563d4b27285f11a2ed09fd14d0"
+skitch-prompt@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.10.tgz#da3c66d91c3ea059b62af03734fa13c098245709"
   dependencies:
+    colors "^1.1.2"
     inquirer "^3.3.0"
     inquirer-autocomplete-prompt "^0.11.1"
 

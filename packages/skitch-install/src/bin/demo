@@ -32,7 +32,7 @@ BEGIN;
 
 CREATE FUNCTION projects.search_user_projects (search TEXT, user_id uuid)
     RETURNS SETOF projects.project
-AS $$
+AS \$\$
 SELECT
     project.*
 FROM
@@ -40,7 +40,7 @@ FROM
 WHERE
     project.name ILIKE ('%' || search || '%')
     AND project.owner_id = user_id;
-$$
+\$\$
 LANGUAGE 'sql' STABLE;
 
 COMMIT;
