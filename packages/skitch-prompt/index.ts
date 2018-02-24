@@ -51,11 +51,12 @@ export const _filter = (
   questions: Array<InquirerQuestion>,
   answers: { [type: string]: any }
 ) => {
-  const A = questions.filter(q => q.hasOwnProperty('_')).map((v, i) => i + '');
+  const _Qs = questions.filter(q => q.hasOwnProperty('_'));
+  const A = _Qs.map((v, i) => i + '');
   const B = Object.keys(answers._ || []);
   var includes = A.filter(x => B.includes(x));
   for (var i = 0; i < includes.length; i++) {
-    answers[questions.find(q => q._ + '' === i + '').name] = answers._.shift();
+    answers[_Qs[i].name] = answers._.shift();
   }
   const diff = A.filter(x => !B.includes(x));
   return A.filter(n => diff.includes(n)).map(name =>

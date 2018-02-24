@@ -16,29 +16,20 @@ export const searchCmds = (answers: object, input: string) => {
   });
 };
 
-export const skitch = async argv => {
-  var { _, ...body } = argv;
-  var cmd;
-  if (!argv._.length) {
-    var answer = await prompt(
-      [
-        {
-          type: 'autocomplete',
-          name: 'cmd',
-          message: 'what do you want to do?',
-          source: searchCmds,
-        },
-      ],
-      {}
-    );
-    cmd = answer.cmd;
-  } else {
-    cmd = _.shift();
-  }
+const cmdQuestion = [
+  {
+    _: true,
+    type: 'autocomplete',
+    name: 'cmd',
+    message: 'what do you want to do?',
+    source: searchCmds,
+  },
+];
 
+export const skitch = async argv => {
+  var { cmd } = await prompt(cmdQuestion, argv);
   if (!cmds.hasOwnProperty(cmd)) {
     throw new Error(`${cmd} does not exist!`);
   }
-
   await cmds[cmd](argv);
 };

@@ -83,12 +83,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             return questions.find(function (o) { return o.name === name; });
         });
     };
+    // converts argv._ into the answers when question specifies it
     exports._filter = function (questions, answers) {
-        var A = questions.filter(function (q) { return q.hasOwnProperty('_'); }).map(function (v, i) { return i + ''; });
+        var _Qs = questions.filter(function (q) { return q.hasOwnProperty('_'); });
+        var A = _Qs.map(function (v, i) { return i + ''; });
         var B = Object.keys(answers._ || []);
         var includes = A.filter(function (x) { return B.includes(x); });
         for (var i = 0; i < includes.length; i++) {
-            answers[questions.find(function (q) { return q._ + '' === i + ''; }).name] = answers._.shift();
+            answers[_Qs[i].name] = answers._.shift();
         }
         var diff = A.filter(function (x) { return !B.includes(x); });
         return A.filter(function (n) { return diff.includes(n); }).map(function (name) {

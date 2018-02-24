@@ -23,7 +23,7 @@ const searchTemplates = (answers: object, input: string) => {
 };
 const templateQuestion = [
   {
-    _: 0,
+    _: true,
     type: 'autocomplete',
     name: 'template',
     message: 'what do you want to create?',
@@ -34,15 +34,7 @@ const templateQuestion = [
 export const aliases = ['g'];
 
 export default async argv => {
-  var template;
-  if (argv.hasOwnProperty('template')) {
-    template = argv.template;
-  if (!argv._.length) {
-    var answer = await prompt(templateQuestion, argv);
-    template = answer.template;
-  } else {
-    template = _.shift();
-  }
+  var { template } = await prompt(templateQuestion, argv);
 
   const questions: Array<InquirerQuestion> = templates[template].default;
   const answers: object = await prompt(questions, argv);
