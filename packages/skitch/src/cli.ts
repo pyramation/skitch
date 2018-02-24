@@ -25,7 +25,7 @@ export const skitch = async argv => {
         {
           type: 'autocomplete',
           name: 'cmd',
-          message: 'what do you want to create?',
+          message: 'what do you want to do?',
           source: searchCmds,
         },
       ],
@@ -33,7 +33,7 @@ export const skitch = async argv => {
     );
     cmd = answer.cmd;
   } else {
-    cmd = _[0];
+    cmd = _.shift();
   }
 
   if (!cmds.hasOwnProperty(cmd)) {

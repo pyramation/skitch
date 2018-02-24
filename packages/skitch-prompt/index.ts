@@ -46,12 +46,29 @@ export const filter = (
   );
 };
 
+// converts argv._ into the answers when question specifies it
+export const _filter = (
+  questions: Array<InquirerQuestion>,
+  answers: { [type: string]: any }
+) => {
+  const A = questions.filter(q => q.hasOwnProperty('_')).map((v, i) => i + '');
+  const B = Object.keys(answers._ || []);
+  var includes = A.filter(x => B.includes(x));
+  for (var i = 0; i < includes.length; i++) {
+    answers[questions.find(q => q._ + '' === i + '').name] = answers._.shift();
+  }
+  const diff = A.filter(x => !B.includes(x));
+  return A.filter(n => diff.includes(n)).map(name =>
+    questions.find(o => o.name === name)
+  );
+};
+
 export const prompt = async (
   questions: Array<InquirerQuestion>,
   answers: { [type: string]: any }
 ) => {
   const result = await inquirer.prompt(
-    filter(names(required(questions)), answers)
+    _filter(filter(names(required(questions)), answers), answers)
   );
 
   return {

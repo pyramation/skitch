@@ -83,11 +83,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             return questions.find(function (o) { return o.name === name; });
         });
     };
+    exports._filter = function (questions, answers) {
+        var A = questions.filter(function (q) { return q.hasOwnProperty('_'); }).map(function (v, i) { return i + ''; });
+        var B = Object.keys(answers._ || []);
+        var includes = A.filter(function (x) { return B.includes(x); });
+        for (var i = 0; i < includes.length; i++) {
+            answers[questions.find(function (q) { return q._ + '' === i + ''; }).name] = answers._.shift();
+        }
+        var diff = A.filter(function (x) { return !B.includes(x); });
+        return A.filter(function (n) { return diff.includes(n); }).map(function (name) {
+            return questions.find(function (o) { return o.name === name; });
+        });
+    };
     exports.prompt = function (questions, answers) { return __awaiter(_this, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirer.prompt(exports.filter(exports.names(exports.required(questions)), answers))];
+                case 0: return [4 /*yield*/, inquirer.prompt(exports._filter(exports.filter(exports.names(exports.required(questions)), answers), answers))];
                 case 1:
                     result = _a.sent();
                     return [2 /*return*/, __assign({}, result, answers)];

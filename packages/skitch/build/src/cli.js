@@ -79,7 +79,7 @@ var __rest = (this && this.__rest) || function (s, e) {
                             {
                                 type: 'autocomplete',
                                 name: 'cmd',
-                                message: 'what do you want to create?',
+                                message: 'what do you want to do?',
                                 source: exports.searchCmds,
                             },
                         ], {})];
@@ -88,7 +88,7 @@ var __rest = (this && this.__rest) || function (s, e) {
                     cmd = answer.cmd;
                     return [3 /*break*/, 3];
                 case 2:
-                    cmd = _[0];
+                    cmd = _.shift();
                     _a.label = 3;
                 case 3:
                     if (!index_1.default.hasOwnProperty(cmd)) {
