@@ -1,57 +1,48 @@
 #!/bin/bash
 
-skitch generate \
-  --template schema \
+skitch generate schema \
   --schema users
 
-skitch generate \
-  --template table \
+skitch generate table \
   --schema users \
   --table user
 
-skitch generate \
-  --template column \
+skitch generate column \
   --schema users \
   --table user \
   --column email \
   --columntype text \
   --columnnull 'NOT NULL'
 
-skitch generate \
-  --template column \
+skitch generate column \
   --schema users \
   --table user \
   --column password \
   --columntype text \
   --columnnull 'NOT NULL'
 
-skitch generate \
-  --template schema \
+skitch generate schema \
   --schema projects
 
-skitch generate \
-  --template table \
+skitch generate table \
   --schema projects \
   --table project
 
-skitch generate \
-  --template column \
+skitch generate column \
   --schema projects \
   --table project \
   --column name \
   --columntype text \
   --columnnull 'NOT NULL'
 
-skitch generate \
-  --template column \
+skitch generate column \
   --schema projects \
   --table project \
   --column owner_id \
   --columntype uuid \
   --columnnull 'NOT NULL'
 
-skitch generate \
-  --template foreignKey \
+skitch generate foreignKey \
   --schema projects \
   --table project \
   --refschema users \
@@ -60,8 +51,7 @@ skitch generate \
   --refcolumn id \
   --cascade 'ON DELETE CASCADE'
 
-skitch generate \
-  --template procedure \
+skitch generate procedure \
   --schema projects \
   --procedure search_user_projects \
   --stability STABLE \
