@@ -10,7 +10,5 @@ const questions = [
 ];
 export default async argv => {
   const { dbname } = await prompt(questions, argv);
-  var sqitch = shell.exec(
-    `PGUSER=postgres PGHOST=localhost sqitch verify db:pg:${dbname}`
-  );
+  shell.exec(`PGUSER=postgres PGHOST=localhost sqitch verify db:pg:${dbname}`);
 };

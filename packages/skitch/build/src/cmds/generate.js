@@ -71,12 +71,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
+        var res, template, _, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
+                case 0:
+                    console.log(argv);
+                    return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
                 case 1:
-                    template = (_a.sent()).template;
+                    res = _a.sent();
+                    template = res.template;
+                    _ = res._;
+                    console.log(_, res);
                     questions = skitch_templates_1.default[template].default;
                     return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 2:

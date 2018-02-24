@@ -55,17 +55,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         },
     ];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var dbname, sqitch;
+        var dbname;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
                     dbname = (_a.sent()).dbname;
-                    sqitch = shell.exec("createdb -U postgres -h localhost " + dbname, {
-                        async: true,
-                    });
-                    sqitch.stdout.pipe(process.stdout);
-                    sqitch.stderr.pipe(process.stderr);
+                    shell.exec("createdb -U postgres -h localhost " + dbname);
                     return [2 /*return*/];
             }
         });

@@ -31,7 +31,12 @@ const templateQuestion = [
 ];
 
 export default async argv => {
-  const { template } = await prompt(templateQuestion, argv);
+  console.log(argv);
+  const res = await prompt(templateQuestion, argv);
+  const template = res.template;
+  const _ = res._;
+  console.log(_, res);
+  // const { template } = await prompt(templateQuestion, argv);
 
   const questions: Array<InquirerQuestion> = templates[template].default;
   const answers: object = await prompt(questions, argv);
