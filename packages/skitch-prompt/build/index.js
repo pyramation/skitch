@@ -87,7 +87,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirer.prompt(exports.filter(exports.required(questions), answers))];
+                case 0: return [4 /*yield*/, inquirer.prompt(exports.filter(exports.names(exports.required(questions)), answers))];
                 case 1:
                     result = _a.sent();
                     return [2 /*return*/, __assign({}, result, answers)];

@@ -50,7 +50,9 @@ export const prompt = async (
   questions: Array<InquirerQuestion>,
   answers: { [type: string]: any }
 ) => {
-  const result = await inquirer.prompt(filter(required(questions), answers));
+  const result = await inquirer.prompt(
+    filter(names(required(questions)), answers)
+  );
 
   return {
     ...result,
