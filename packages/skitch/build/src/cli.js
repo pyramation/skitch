@@ -33,15 +33,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -68,34 +59,27 @@ var __rest = (this && this.__rest) || function (s, e) {
             }, 25);
         });
     };
+    var cmdQuestion = [
+        {
+            _: true,
+            type: 'autocomplete',
+            name: 'cmd',
+            message: 'what do you want to do?',
+            source: exports.searchCmds,
+        },
+    ];
     exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var _, body, cmd, answer;
+        var cmd;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _ = argv._, body = __rest(argv, ["_"]);
-                    if (!!argv._.length) return [3 /*break*/, 2];
-                    return [4 /*yield*/, skitch_prompt_1.prompt([
-                            {
-                                type: 'autocomplete',
-                                name: 'cmd',
-                                message: 'what do you want to do?',
-                                source: exports.searchCmds,
-                            },
-                        ], {})];
+                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(cmdQuestion, argv)];
                 case 1:
-                    answer = _a.sent();
-                    cmd = answer.cmd;
-                    return [3 /*break*/, 3];
-                case 2:
-                    cmd = _.shift();
-                    _a.label = 3;
-                case 3:
+                    cmd = (_a.sent()).cmd;
                     if (!index_1.default.hasOwnProperty(cmd)) {
                         throw new Error(cmd + " does not exist!");
                     }
                     return [4 /*yield*/, index_1.default[cmd](argv)];
-                case 4:
+                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }

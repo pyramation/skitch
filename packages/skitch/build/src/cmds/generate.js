@@ -64,7 +64,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     };
     var templateQuestion = [
         {
-            _: 0,
+            _: true,
             type: 'autocomplete',
             name: 'template',
             message: 'what do you want to create?',
@@ -73,40 +73,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     ];
     exports.aliases = ['g'];
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var template, answer, questions, answers_1, params, vars, change, reqd, reqs, cmd, sqitch;
+        var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    if (!argv.hasOwnProperty('template')) return [3 /*break*/, 5];
-                    template = argv.template;
-                    if (!!argv._.length) return [3 /*break*/, 2];
-                    return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
+                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
                 case 1:
-                    answer = _a.sent();
-                    template = answer.template;
-                    return [3 /*break*/, 3];
-                case 2:
-                    template = _.shift();
-                    _a.label = 3;
-                case 3:
+                    template = (_a.sent()).template;
                     questions = skitch_templates_1.default[template].default;
                     return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
-                case 4:
-                    answers_1 = _a.sent();
-                    params = Object.keys(answers_1).reduce(function (m, v) {
-                        if (answers_1[v] instanceof Array) {
+                case 2:
+                    answers = _a.sent();
+                    params = Object.keys(answers).reduce(function (m, v) {
+                        if (answers[v] instanceof Array) {
                             m.push({
                                 key: "arr__" + v,
-                                value: answers_1[v].join(','),
+                                value: answers[v].join(','),
                             });
                             // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
-                            if (answers_1[v].length > 1) {
+                            if (answers[v].length > 1) {
                                 m.push({
                                     key: v + "__is_array",
                                     value: true,
                                 });
                             }
-                            answers_1[v].forEach(function (value) {
+                            answers[v].forEach(function (value) {
                                 m.push({
                                     key: v,
                                     value: value,
@@ -114,21 +104,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             });
                         }
                         else {
-                            if (typeof answers_1[v] === 'boolean' && !answers_1[v]) {
+                            if (typeof answers[v] === 'boolean' && !answers[v]) {
                                 return m;
                             }
                             m.push({
                                 key: v,
-                                value: answers_1[v],
+                                value: answers[v],
                             });
                         }
                         return m;
                     }, []);
                     vars = params.map(function (obj) { return "--set " + obj.key + "=\"" + obj.value + "\""; }).join(' ');
-                    change = skitch_templates_1.default[template].change(answers_1);
+                    change = skitch_templates_1.default[template].change(answers);
                     reqd = [];
                     reqs = skitch_templates_1.default[template]
-                        .requires(answers_1)
+                        .requires(answers)
                         .filter(function (req) {
                         if (reqd.includes(req.join('/'))) {
                             return false;
@@ -160,9 +150,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     sqitch = child_process_1.exec(cmd.trim());
                     sqitch.stdout.pipe(process.stdout);
                     sqitch.stderr.pipe(process.stderr);
-                    _a.label = 5;
-                case 5:
-                    ;
                     return [2 /*return*/];
             }
         });
