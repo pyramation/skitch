@@ -61,9 +61,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
                 case 1:
                     dbname = (_a.sent()).dbname;
-                    sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch revert db:pg:" + dbname, { async: true });
-                    sqitch.stdout.pipe(process.stdout);
-                    sqitch.stderr.pipe(process.stderr);
+                    sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch revert db:pg:" + dbname);
                     return [2 /*return*/];
             }
         });

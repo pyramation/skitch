@@ -16,13 +16,40 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@types/events@*":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/events/-/events-1.1.0.tgz#93b1be91f63c184450385272c47b6496fd028e02"
+
+"@types/glob@*":
+  version "5.0.35"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.35.tgz#1ae151c802cece940443b5ac246925c85189f32a"
+  dependencies:
+    "@types/events" "*"
+    "@types/minimatch" "*"
+    "@types/node" "*"
+
 "@types/jest@^21.1.0":
   version "21.1.10"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.10.tgz#dcacb5217ddf997a090cc822bba219b4b2fd7984"
 
+"@types/minimatch@*":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
+
+"@types/node@*":
+  version "9.4.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.6.tgz#d8176d864ee48753d053783e4e463aec86b8d82e"
+
 "@types/node@^8.0.0":
   version "8.9.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.9.4.tgz#dfd327582a06c114eb6e0441fa3d6fab35edad48"
+
+"@types/shelljs@^0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.7.8.tgz#4b4d6ee7926e58d7bca448a50ba442fd9f6715bd"
+  dependencies:
+    "@types/glob" "*"
+    "@types/node" "*"
 
 abab@^1.0.3, abab@^1.0.4:
   version "1.0.4"
@@ -2803,9 +2830,9 @@ skitch-path@^0.0.34:
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-prompt@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.10.tgz#da3c66d91c3ea059b62af03734fa13c098245709"
+skitch-prompt@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.13.tgz#b224886ac04053be02e6e403054eff34d3292cbc"
   dependencies:
     colors "^1.1.2"
     inquirer "^3.3.0"
