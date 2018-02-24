@@ -92,19 +92,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         for (var i = 0; i < includes.length; i++) {
             answers[_Qs[i].name] = answers._.shift();
         }
-        var diff = A.filter(function (x) { return !B.includes(x); });
-        return A.filter(function (n) { return diff.includes(n); }).map(function (name) {
-            return questions.find(function (o) { return o.name === name; });
-        });
+        return answers;
     };
     exports.prompt = function (questions, answers) { return __awaiter(_this, void 0, void 0, function () {
-        var _1, _2, result;
+        var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _1 = exports._filter(questions, answers);
-                    _2 = exports.filter(_1, answers);
-                    return [4 /*yield*/, inquirer.prompt(exports.names(exports.required(_2)))];
+                    exports._filter(questions, answers);
+                    return [4 /*yield*/, inquirer.prompt(exports.names(exports.required(exports.filter(questions, answers))))];
                 case 1:
                     result = _a.sent();
                     return [2 /*return*/, __assign({}, result, answers)];

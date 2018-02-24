@@ -12,7 +12,9 @@ export declare const filter: (questions: InquirerQuestion[], answers: {
 }) => (InquirerQuestion | undefined)[];
 export declare const _filter: (questions: InquirerQuestion[], answers: {
     [type: string]: any;
-}) => (InquirerQuestion | undefined)[];
+}) => {
+    [type: string]: any;
+};
 export declare const prompt: (questions: InquirerQuestion[], answers: {
     [type: string]: any;
 }) => Promise<any>;

@@ -58,19 +58,17 @@ export const _filter = (
   for (var i = 0; i < includes.length; i++) {
     answers[_Qs[i].name] = answers._.shift();
   }
-  const diff = A.filter(x => !B.includes(x));
-  return A.filter(n => diff.includes(n)).map(name =>
-    questions.find(o => o.name === name)
-  );
+  return answers;
 };
 
 export const prompt = async (
   questions: Array<InquirerQuestion>,
   answers: { [type: string]: any }
 ) => {
-  const _1 = _filter(questions, answers);
-  const _2 = filter(_1, answers);
-  const result = await inquirer.prompt(names(required(_2)));
+  _filter(questions, answers);
+  const result = await inquirer.prompt(
+    names(required(filter(questions, answers)))
+  );
 
   return {
     ...result,

@@ -94,7 +94,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 baz: 3,
             });
         });
+        it('init example', function () { return __awaiter(_this, void 0, void 0, function () {
+            var questions, argv, _1, _2;
+            return __generator(this, function (_a) {
+                questions = [
+                    {
+                        _: true,
+                        name: 'foo',
+                        message: '',
+                    },
+                ];
+                argv = {
+                    _: [],
+                    bar: 2,
+                };
+                _1 = index_1._filter(questions, argv);
+                _2 = index_1.filter(questions, argv);
+                expect(_2).toEqual([
+                    {
+                        _: true,
+                        name: 'foo',
+                        message: '',
+                    },
+                ]);
+                expect(argv).toEqual({
+                    _: [],
+                    bar: 2,
+                });
+                return [2 /*return*/];
+            });
+        }); });
+        it('basic example', function () { return __awaiter(_this, void 0, void 0, function () {
+            var questions, argv, _2;
+            return __generator(this, function (_a) {
+                questions = [
+                    {
+                        name: 'name',
+                        message: 'project name (e.g., flipr)',
+                        required: true,
+                    },
+                ];
+                argv = { _: [], cmd: 'init' };
+                index_1._filter(questions, argv);
+                _2 = index_1.filter(questions, argv);
+                expect(_2).toEqual([
+                    {
+                        name: 'name',
+                        message: 'project name (e.g., flipr)',
+                        required: true,
+                    },
+                ]);
+                expect(argv).toEqual({ _: [], cmd: 'init' });
+                return [2 /*return*/];
+            });
+        }); });
     });
+    ;
     describe('prompt', function () {
         it('empty when all args supplied', function () { return __awaiter(_this, void 0, void 0, function () {
             var questions, argv, value;
@@ -166,6 +221,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             bar: 2,
                             baz: 3,
                         });
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('basic example', function () { return __awaiter(_this, void 0, void 0, function () {
+            var questions, argv, value;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        questions = [
+                            {
+                                name: 'name',
+                                message: 'project name (e.g., flipr)',
+                                required: true,
+                            },
+                        ];
+                        argv = { _: [], cmd: 'init' };
+                        return [4 /*yield*/, index_1.prompt(questions, argv)];
+                    case 1:
+                        value = _a.sent();
+                        console.log(value);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        xit('init example', function () { return __awaiter(_this, void 0, void 0, function () {
+            var questions, argv, value;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        questions = [
+                            {
+                                _: true,
+                                name: 'foo',
+                                message: '',
+                            },
+                        ];
+                        argv = {
+                            _: [],
+                            bar: 2,
+                        };
+                        return [4 /*yield*/, index_1.prompt(questions, argv)];
+                    case 1:
+                        value = _a.sent();
+                        console.log(value);
                         return [2 /*return*/];
                 }
             });

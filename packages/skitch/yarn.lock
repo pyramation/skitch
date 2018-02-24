@@ -2830,9 +2830,9 @@ skitch-path@^0.0.34:
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-prompt@^0.1.19:
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.19.tgz#17806032469d1355b17efac4beab6248808a7181"
+skitch-prompt@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.21.tgz#4e406ff20b7e024be6bf0af0529f67f964586306"
   dependencies:
     colors "^1.1.2"
     inquirer "^3.3.0"
