@@ -68,9 +68,9 @@ export const prompt = async (
   questions: Array<InquirerQuestion>,
   answers: { [type: string]: any }
 ) => {
-  const result = await inquirer.prompt(
-    _filter(filter(names(required(questions)), answers), answers)
-  );
+  const _1 = _filter(questions, answers);
+  const _2 = filter(_1, answers);
+  const result = await inquirer.prompt(names(required(_2)));
 
   return {
     ...result,

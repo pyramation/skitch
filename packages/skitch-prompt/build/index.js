@@ -98,10 +98,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         });
     };
     exports.prompt = function (questions, answers) { return __awaiter(_this, void 0, void 0, function () {
-        var result;
+        var _1, _2, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirer.prompt(exports._filter(exports.filter(exports.names(exports.required(questions)), answers), answers))];
+                case 0:
+                    _1 = exports._filter(questions, answers);
+                    _2 = exports.filter(_1, answers);
+                    return [4 /*yield*/, inquirer.prompt(exports.names(exports.required(_2)))];
                 case 1:
                     result = _a.sent();
                     return [2 /*return*/, __assign({}, result, answers)];

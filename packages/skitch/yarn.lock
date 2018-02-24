@@ -2820,9 +2820,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-install@^0.1.11:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.11.tgz#7b36765d376c557931ae5017ff7123c26a02d852"
+skitch-install@^0.1.17:
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.17.tgz#ec865fdba1fcf7d192a7c919b9a343bee08ca88c"
 
 skitch-path@^0.0.34:
   version "0.0.34"
@@ -2830,9 +2830,9 @@ skitch-path@^0.0.34:
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-prompt@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.13.tgz#b224886ac04053be02e6e403054eff34d3292cbc"
+skitch-prompt@^0.1.19:
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.19.tgz#17806032469d1355b17efac4beab6248808a7181"
   dependencies:
     colors "^1.1.2"
     inquirer "^3.3.0"

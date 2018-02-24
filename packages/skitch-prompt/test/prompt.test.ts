@@ -1,4 +1,4 @@
-import { filter, _filter } from '../index';
+import { prompt, filter, _filter } from '../index';
 describe('arguments', () => {
   it('empty when all args supplied', () => {
     const questions = [
@@ -43,6 +43,66 @@ describe('arguments', () => {
 
     expect(_2).toEqual([]);
     expect(argv).toEqual({
+      _: [],
+      foo: 1,
+      bar: 2,
+      baz: 3,
+    });
+  });
+});
+
+describe('prompt', () => {
+  it('empty when all args supplied', async () => {
+    const questions = [
+      {
+        name: 'hello',
+        message: '',
+      },
+      {
+        name: 'world',
+        message: '',
+      },
+    ];
+    const argv = {
+      hello: 1,
+      world: 2,
+    };
+
+    const value = await prompt(questions, argv);
+    expect(value).toEqual({
+      hello: 1,
+      world: 2,
+    });
+  });
+  it('empty when all args supplied', async () => {
+    const questions = [
+      {
+        _: true,
+        name: 'foo',
+        message: '',
+      },
+      {
+        name: 'bar',
+        message: '',
+      },
+      {
+        _: true,
+        name: 'baz',
+        message: '',
+      },
+    ];
+    const argv = {
+      _: [1, 3],
+      bar: 2,
+    };
+    const value = await prompt(questions, argv);
+    expect(argv).toEqual({
+      _: [],
+      foo: 1,
+      bar: 2,
+      baz: 3,
+    });
+    expect(value).toEqual({
       _: [],
       foo: 1,
       bar: 2,
