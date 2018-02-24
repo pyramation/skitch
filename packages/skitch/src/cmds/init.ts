@@ -24,12 +24,6 @@ export default async argv => {
   const cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
   await promisify(exec)(cmd.trim());
   const skitchPath = await path();
-
   shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
-  // shell.cp('-r', `${srcPath}/src/deploy/*`, `${skitchPath}/deploy/`);
-  // shell.cp('-r', `${srcPath}/src/verify/*`, `${skitchPath}/verify/`);
-  // shell.cp('-r', `${srcPath}/src/revert/*`, `${skitchPath}/revert/`);
-  // shell.cp(`${srcPath}/docker-compose.yml`, `${skitchPath}/docker-compose.yml`);
-  // shell.cp(`${srcPath}/sqitch.md`, `${skitchPath}/sqitch.md`);
   await plan({ name });
 };

@@ -71,7 +71,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     };
     exports.names = function (questions) {
         return questions.map(function (q) {
-            q.message = "" + '['.white + q.name.blue + ']'.white + " " + q.message;
+            q.message = "" + '['.white + q.name.blue + ']'.white + " " + q.message.green;
             return q;
         });
     };

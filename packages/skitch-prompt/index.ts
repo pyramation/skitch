@@ -29,7 +29,7 @@ export const required = (questions: Array<InquirerQuestion>) => {
 
 export const names = (questions: Array<InquirerQuestion>) => {
   return questions.map(q => {
-    q.message = `${'['.white}${q.name.blue}${']'.white} ${q.message}`;
+    q.message = `${'['.white}${q.name.blue}${']'.white} ${q.message.green}`;
     return q;
   });
 };

@@ -77,18 +77,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 case 3:
                     skitchPath = _a.sent();
                     shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
-                    // shell.cp('-r', `${srcPath}/src/deploy/*`, `${skitchPath}/deploy/`);
-                    // shell.cp('-r', `${srcPath}/src/verify/*`, `${skitchPath}/verify/`);
-                    // shell.cp('-r', `${srcPath}/src/revert/*`, `${skitchPath}/revert/`);
-                    // shell.cp(`${srcPath}/docker-compose.yml`, `${skitchPath}/docker-compose.yml`);
-                    // shell.cp(`${srcPath}/sqitch.md`, `${skitchPath}/sqitch.md`);
                     return [4 /*yield*/, plan_1.default({ name: name })];
                 case 4:
-                    // shell.cp('-r', `${srcPath}/src/deploy/*`, `${skitchPath}/deploy/`);
-                    // shell.cp('-r', `${srcPath}/src/verify/*`, `${skitchPath}/verify/`);
-                    // shell.cp('-r', `${srcPath}/src/revert/*`, `${skitchPath}/revert/`);
-                    // shell.cp(`${srcPath}/docker-compose.yml`, `${skitchPath}/docker-compose.yml`);
-                    // shell.cp(`${srcPath}/sqitch.md`, `${skitchPath}/sqitch.md`);
                     _a.sent();
                     return [2 /*return*/];
             }
