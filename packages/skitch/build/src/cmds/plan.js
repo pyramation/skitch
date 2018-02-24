@@ -148,7 +148,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         }
                     });
                     fs.writeFileSync(PKGDIR + "/sqitch.plan", planfile.join('\n'));
-                    console.log("\n    --\n    --      |||\n    --     (o o)\n    -- ooO--(_)--Ooo-\n    --\n    --\n    \u2728  Done\n    ");
+                    console.log("\n--\n--      |||\n--     (o o)\n-- ooO--(_)--Ooo-\n--\n--\n\u2728  All Done!");
                     return [2 /*return*/];
             }
         });
