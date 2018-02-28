@@ -2828,9 +2828,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-install@^0.1.17:
-  version "0.1.17"
-  resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.17.tgz#ec865fdba1fcf7d192a7c919b9a343bee08ca88c"
+skitch-install@^0.1.23:
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.23.tgz#6a2dfc27d19a8742c16a04b9246cd925d65d6c0a"
 
 skitch-path@^0.0.34:
   version "0.0.34"
