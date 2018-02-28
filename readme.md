@@ -1,5 +1,9 @@
 # skitch
 
+```sh
+npm install -g skitch
+```
+
 Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
 
 `skitch` is a wrapper around `sqitch` to enable a sane workflow for sane database management.
