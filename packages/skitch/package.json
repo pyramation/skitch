@@ -1,6 +1,6 @@
 {
   "name": "skitch",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -31,10 +31,10 @@
     "mkdirp": "^0.5.1",
     "shelljs": "^0.8.1",
     "skitch-install": "^0.1.23",
-    "skitch-path": "^0.0.34",
-    "skitch-templates": "^0.0.36",
-    "skitch-types": "^0.0.31",
-    "skitch-utils": "^0.0.35"
+    "skitch-path": "^0.1.24",
+    "skitch-templates": "^0.1.24",
+    "skitch-types": "^0.1.24",
+    "skitch-utils": "^0.1.24"
   },
   "jest": {
     "transform": {
