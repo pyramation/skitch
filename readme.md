@@ -1,6 +1,8 @@
 # skitch
 
-wrapper around `sqitch` to help a sane workflow for sane database management.
+Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
+
+`skitch` is a wrapper around `sqitch` to enable a sane workflow for sane database management.
 
 ## what's different
 
