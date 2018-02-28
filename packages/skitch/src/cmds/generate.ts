@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { filter } from 'fuzzy';
-import { prompt } from 'skitch-prompt';
+import { prompt } from 'inquirerer';
 import templates from 'skitch-templates';
 import { InquirerQuestion, ChangePathArray } from 'skitch-types';
 const templatePath =

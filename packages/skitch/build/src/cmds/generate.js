@@ -39,7 +39,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "fuzzy", "skitch-prompt", "skitch-templates"], factory);
+        define(["require", "exports", "child_process", "fuzzy", "inquirerer", "skitch-templates"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var child_process_1 = require("child_process");
     var fuzzy_1 = require("fuzzy");
-    var skitch_prompt_1 = require("skitch-prompt");
+    var inquirerer_1 = require("inquirerer");
     var skitch_templates_1 = require("skitch-templates");
     var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
     // sqitch add appschema -n 'Add schema for all flipr objects.'
@@ -76,11 +76,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(templateQuestion, argv)];
+                case 0: return [4 /*yield*/, inquirerer_1.prompt(templateQuestion, argv)];
                 case 1:
                     template = (_a.sent()).template;
                     questions = skitch_templates_1.default[template].default;
-                    return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                    return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 2:
                     answers = _a.sent();
                     params = Object.keys(answers).reduce(function (m, v) {

@@ -1,5 +1,5 @@
 import { filter } from 'fuzzy';
-import { prompt } from 'skitch-prompt';
+import { prompt } from 'inquirerer';
 import cmds from './index';
 
 export const searchCmds = (answers: object, input: string) => {

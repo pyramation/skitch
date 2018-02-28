@@ -39,14 +39,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "shelljs", "skitch-prompt"], factory);
+        define(["require", "exports", "shelljs", "inquirerer"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     var shell = require("shelljs");
-    var skitch_prompt_1 = require("skitch-prompt");
+    var inquirerer_1 = require("inquirerer");
     var questions = [
         {
             name: 'dbname',
@@ -58,7 +58,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var dbname;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 1:
                     dbname = (_a.sent()).dbname;
                     shell.exec("PGUSER=postgres PGHOST=localhost sqitch verify db:pg:" + dbname);

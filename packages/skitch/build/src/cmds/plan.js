@@ -39,14 +39,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "skitch-prompt", "skitch-path"], factory);
+        define(["require", "exports", "child_process", "inquirerer", "skitch-path"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     var child_process_1 = require("child_process");
-    var skitch_prompt_1 = require("skitch-prompt");
+    var inquirerer_1 = require("inquirerer");
     var skitch_path_1 = require("skitch-path");
     var promisify = require('util').promisify;
     var fs = require('fs');
@@ -86,7 +86,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var name, PKGDIR, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 1:
                     name = (_a.sent()).name;
                     return [4 /*yield*/, skitch_path_1.default()];

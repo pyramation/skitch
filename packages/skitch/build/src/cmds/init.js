@@ -39,16 +39,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "skitch-install", "skitch-prompt", "util", "child_process", "skitch-path", "path", "shelljs", "./plan"], factory);
+        define(["require", "exports", "skitch-install", "util", "child_process", "inquirerer", "skitch-path", "path", "shelljs", "./plan"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     require("skitch-install");
-    var skitch_prompt_1 = require("skitch-prompt");
     var util_1 = require("util");
     var child_process_1 = require("child_process");
+    var inquirerer_1 = require("inquirerer");
     var skitch_path_1 = require("skitch-path");
     var path_1 = require("path");
     var shell = require("shelljs");
@@ -66,7 +66,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var name, cmd, skitchPath;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 1:
                     name = (_a.sent()).name;
                     cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');

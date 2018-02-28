@@ -1,8 +1,7 @@
 import 'skitch-install';
-import { prompt } from 'skitch-prompt';
 import { promisify } from 'util';
 import { exec } from 'child_process';
-import { prompt } from 'skitch-prompt';
+import { prompt } from 'inquirerer';
 import path from 'skitch-path';
 import { dirname } from 'path';
 import * as shell from 'shelljs';

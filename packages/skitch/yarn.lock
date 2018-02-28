@@ -1313,6 +1313,14 @@ inquirer@^3.3.0:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
+inquirerer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/inquirerer/-/inquirerer-0.1.1.tgz#a09587900ca6d4e9964bfdbf31639f88c2e8168c"
+  dependencies:
+    colors "^1.1.2"
+    inquirer "^3.3.0"
+    inquirer-autocomplete-prompt "^0.11.1"
+
 interpret@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
@@ -2829,14 +2837,6 @@ skitch-path@^0.0.34:
   resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.0.34.tgz#a7668e7d3ed6ae990cf913612366a8de4bbf588a"
   dependencies:
     node-walkup "^1.1.1"
-
-skitch-prompt@^0.1.21:
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/skitch-prompt/-/skitch-prompt-0.1.21.tgz#4e406ff20b7e024be6bf0af0529f67f964586306"
-  dependencies:
-    colors "^1.1.2"
-    inquirer "^3.3.0"
-    inquirer-autocomplete-prompt "^0.11.1"
 
 skitch-templates@^0.0.36:
   version "0.0.36"

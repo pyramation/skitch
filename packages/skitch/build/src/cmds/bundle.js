@@ -46,7 +46,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     var child_process_1 = require("child_process");
-    // import { prompt } from 'skitch-prompt';
     var skitch_path_1 = require("skitch-path");
     var promisify = require('util').promisify;
     var fs = require('fs');

@@ -26,12 +26,12 @@
   },
   "dependencies": {
     "glob": "^7.1.2",
+    "inquirerer": "^0.1.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "shelljs": "^0.8.1",
     "skitch-install": "^0.1.17",
     "skitch-path": "^0.0.34",
-    "skitch-prompt": "^0.1.22",
     "skitch-templates": "^0.0.36",
     "skitch-types": "^0.0.31",
     "skitch-utils": "^0.0.35"
@@ -41,15 +41,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,

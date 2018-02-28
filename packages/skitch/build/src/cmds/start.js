@@ -39,7 +39,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "fs", "path", "util", "skitch-prompt", "skitch-path", "shelljs"], factory);
+        define(["require", "exports", "fs", "path", "util", "inquirerer", "skitch-path", "shelljs"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -48,7 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     var fs_1 = require("fs");
     var path_1 = require("path");
     var util_1 = require("util");
-    var skitch_prompt_1 = require("skitch-prompt");
+    var inquirerer_1 = require("inquirerer");
     var skitch_path_1 = require("skitch-path");
     var shell = require("shelljs");
     exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
@@ -75,7 +75,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             _b.required = true,
                             _b)
                     ]);
-                    return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                    return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 3:
                     _c = _d.sent(), schemas = _c.schemas, database = _c.database;
                     cmd = [

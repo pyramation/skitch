@@ -1,5 +1,5 @@
 import * as shell from 'shelljs';
-import { prompt } from 'skitch-prompt';
+import { prompt } from 'inquirerer';
 
 const questions = [
   {

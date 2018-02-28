@@ -39,14 +39,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "skitch-prompt"], factory);
+        define(["require", "exports", "child_process", "inquirerer"], factory);
     }
 })(function (require, exports) {
     "use strict";
     var _this = this;
     Object.defineProperty(exports, "__esModule", { value: true });
     var child_process_1 = require("child_process");
-    var skitch_prompt_1 = require("skitch-prompt");
+    var inquirerer_1 = require("inquirerer");
     // sqitch add appschema -n 'Add schema for all flipr objects.'
     var questions = [
         {
@@ -64,7 +64,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         var _a, name, comment, cmd, sqitch;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, skitch_prompt_1.prompt(questions, argv)];
+                case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 1:
                     _a = _b.sent(), name = _a.name, comment = _a.comment;
                     cmd = ['sqitch', 'add', name, '--n', comment].join(' ');

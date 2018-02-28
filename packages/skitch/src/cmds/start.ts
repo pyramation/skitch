@@ -2,7 +2,7 @@ import { InquirerQuestion } from 'skitch-types';
 import { readdir } from 'fs';
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
-import { prompt } from 'skitch-prompt';
+import { prompt } from 'inquirerer';
 import skitchPath from 'skitch-path';
 import * as shell from 'shelljs';
 
