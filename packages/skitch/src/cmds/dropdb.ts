@@ -10,5 +10,5 @@ const questions = [
 ];
 export default async argv => {
   const { database } = await prompt(questions, argv);
-  shell.exec(`createdb -U postgres -h localhost ${database}`);
+  shell.exec(`dropdb -U postgres -h localhost ${database}`);
 };

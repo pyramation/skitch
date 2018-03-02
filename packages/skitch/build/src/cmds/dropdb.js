@@ -61,10 +61,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
                 case 1:
                     database = (_a.sent()).database;
-                    shell.exec("createdb -U postgres -h localhost " + database);
+                    shell.exec("dropdb -U postgres -h localhost " + database);
                     return [2 /*return*/];
             }
         });
     }); });
 });
-//# sourceMappingURL=createdb.js.map
+//# sourceMappingURL=dropdb.js.map
