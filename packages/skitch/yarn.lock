@@ -2838,9 +2838,9 @@ skitch-path@^0.1.24:
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-templates@^0.1.29:
-  version "0.1.29"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.29.tgz#180b054017189dfa95baf39501701c3bb4e0e512"
+skitch-templates@^0.1.30:
+  version "0.1.30"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.30.tgz#39779548fc2389bdf82a2d3fd4bb3bf0e21ccd7c"
   dependencies:
     skitch-utils "^0.1.28"
 
