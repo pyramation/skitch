@@ -15,6 +15,7 @@ import * as trigger from './schemas/trigger';
 import * as type from './schemas/type';
 import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
+
 export default {
   column,
   fixture,

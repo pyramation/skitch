@@ -2832,29 +2832,29 @@ skitch-install@^0.1.23:
   version "0.1.23"
   resolved "https://registry.yarnpkg.com/skitch-install/-/skitch-install-0.1.23.tgz#6a2dfc27d19a8742c16a04b9246cd925d65d6c0a"
 
-skitch-path@^0.0.34:
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.0.34.tgz#a7668e7d3ed6ae990cf913612366a8de4bbf588a"
+skitch-path@^0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.1.24.tgz#802aa520b0e10bc5d6c19a940545b7777ede5e48"
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-templates@^0.0.36:
-  version "0.0.36"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.0.36.tgz#334301fdf86b71cbb8ea5c115a480e635d863930"
+skitch-templates@^0.1.25:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.24.tgz#50dd2401af4c309698f00ac6982c65f01bef856b"
   dependencies:
-    skitch-utils "^0.0.35"
+    skitch-utils "^0.1.24"
 
-skitch-types@^0.0.31:
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.0.31.tgz#159cbc59f71f66275fce3de82f7b08a6e44718ec"
+skitch-types@^0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.1.24.tgz#622bed8bbf2d1f87743d6b6adb67dccb978c764f"
 
-skitch-utils@^0.0.35:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.0.35.tgz#7f4b1fe31db80d39390dbcd5a1a9a1cf6e81b444"
+skitch-utils@^0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.1.24.tgz#5a05af34fd3204514229323e26418fb07c23dbb2"
   dependencies:
     fuzzy "^0.1.3"
     glob "^7.1.2"
-    skitch-path "^0.0.34"
+    skitch-path "^0.1.24"
 
 slash@^1.0.0:
   version "1.0.0"

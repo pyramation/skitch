@@ -216,9 +216,9 @@ semver@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
-skitch-path@^0.0.34:
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.0.34.tgz#a7668e7d3ed6ae990cf913612366a8de4bbf588a"
+skitch-path@^0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.1.24.tgz#802aa520b0e10bc5d6c19a940545b7777ede5e48"
   dependencies:
     node-walkup "^1.1.1"
 
