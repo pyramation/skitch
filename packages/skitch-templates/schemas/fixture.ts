@@ -26,7 +26,7 @@ export const change = ({
   'tables',
   table,
   'fixtures',
-  `${Date.now()}_{fixture}`,
+  `${Date.now()}_fixture`,
 ];
 
 const questions: Array<InquirerQuestion> = [

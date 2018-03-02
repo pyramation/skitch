@@ -25,7 +25,7 @@
             'tables',
             table,
             'fixtures',
-            Date.now() + "_{fixture}",
+            Date.now() + "_fixture",
         ];
     };
     var questions = [
