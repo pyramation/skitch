@@ -2838,19 +2838,19 @@ skitch-path@^0.1.24:
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-templates@^0.1.25:
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.24.tgz#50dd2401af4c309698f00ac6982c65f01bef856b"
+skitch-templates@^0.1.28:
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.28.tgz#c748a6414c8b90182bf64618e94aafd53c239ae8"
   dependencies:
-    skitch-utils "^0.1.24"
+    skitch-utils "^0.1.28"
 
 skitch-types@^0.1.24:
   version "0.1.24"
   resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.1.24.tgz#622bed8bbf2d1f87743d6b6adb67dccb978c764f"
 
-skitch-utils@^0.1.24:
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.1.24.tgz#5a05af34fd3204514229323e26418fb07c23dbb2"
+skitch-utils@^0.1.28:
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.1.28.tgz#e7afce0fe1f204f741c9e1b42b8a899a76a13d96"
   dependencies:
     fuzzy "^0.1.3"
     glob "^7.1.2"

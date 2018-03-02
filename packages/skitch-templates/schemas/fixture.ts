@@ -26,7 +26,7 @@ export const change = ({
   'tables',
   table,
   'fixtures',
-  `${name}`,
+  `${Date.now()}_{fixture}`,
 ];
 
 const questions: Array<InquirerQuestion> = [
@@ -42,12 +42,6 @@ const questions: Array<InquirerQuestion> = [
     name: 'table',
     message: 'enter a table name',
     source: searchTables,
-    required: true,
-  },
-  {
-    type: 'string',
-    name: 'name',
-    message: 'enter a name',
     required: true,
   },
 ];

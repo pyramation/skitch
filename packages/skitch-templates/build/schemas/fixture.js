@@ -25,7 +25,7 @@
             'tables',
             table,
             'fixtures',
-            "" + name,
+            Date.now() + "_{fixture}",
         ];
     };
     var questions = [
@@ -41,12 +41,6 @@
             name: 'table',
             message: 'enter a table name',
             source: skitch_utils_2.searchTables,
-            required: true,
-        },
-        {
-            type: 'string',
-            name: 'name',
-            message: 'enter a name',
             required: true,
         },
     ];
