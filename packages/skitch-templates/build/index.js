@@ -4,12 +4,13 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./schemas/column", "./schemas/foreignKey", "./schemas/grantExecute", "./schemas/grantSchema", "./schemas/grantTable", "./schemas/index", "./schemas/peoplestamps", "./schemas/policy", "./schemas/procedure", "./schemas/schema", "./schemas/table", "./schemas/timestamps", "./schemas/trigger", "./schemas/type", "./schemas/uniqueIndex", "./schemas/utility"], factory);
+        define(["require", "exports", "./schemas/column", "./schemas/fixture", "./schemas/foreignKey", "./schemas/grantExecute", "./schemas/grantSchema", "./schemas/grantTable", "./schemas/index", "./schemas/peoplestamps", "./schemas/policy", "./schemas/procedure", "./schemas/schema", "./schemas/table", "./schemas/timestamps", "./schemas/trigger", "./schemas/type", "./schemas/uniqueIndex", "./schemas/utility"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var column = require("./schemas/column");
+    var fixture = require("./schemas/fixture");
     var foreignKey = require("./schemas/foreignKey");
     var grantExecute = require("./schemas/grantExecute");
     var grantSchema = require("./schemas/grantSchema");
@@ -27,6 +28,7 @@
     var utility = require("./schemas/utility");
     exports.default = {
         column: column,
+        fixture: fixture,
         foreignKey: foreignKey,
         grantExecute: grantExecute,
         grantSchema: grantSchema,
