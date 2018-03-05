@@ -18,13 +18,13 @@
         return [
             schema_1.change(res),
             schema_1.change({
-                schema: refschema
+                schema: refschema,
             }),
             table_1.change(res),
             table_1.change({
                 schema: refschema,
-                table: reftable
-            })
+                table: reftable,
+            }),
         ];
     };
     exports.change = function (_a) {
@@ -35,7 +35,7 @@
             'tables',
             table,
             'alterations',
-            "add_foreign_key_" + column
+            "add_foreign_key_" + column,
         ];
     };
     var questions = [
@@ -44,21 +44,27 @@
             name: 'schema',
             message: 'enter a schema name',
             source: skitch_utils_1.searchSchemas,
-            required: true
+            required: true,
         },
         {
             type: 'autocomplete',
             name: 'table',
             message: 'enter a table name',
             source: skitch_utils_2.searchTables,
-            required: true
+            required: true,
+        },
+        {
+            type: 'string',
+            name: 'column',
+            message: 'enter a column name',
+            required: true,
         },
         {
             type: 'autocomplete',
             name: 'refschema',
             message: 'enter a refschema name',
             source: skitch_utils_1.searchSchemas,
-            required: true
+            required: true,
         },
         {
             type: 'autocomplete',
@@ -68,25 +74,19 @@
                 var refschema = answers.refschema;
                 return skitch_utils_2.searchTables({ schema: refschema }, input);
             },
-            required: true
-        },
-        {
-            type: 'string',
-            name: 'column',
-            message: 'enter a column name',
-            required: true
+            required: true,
         },
         {
             type: 'string',
             name: 'refcolumn',
             message: 'enter a refcolumn name',
-            required: true
+            required: true,
         },
         {
             type: 'string',
             name: 'shardcolumn',
             message: 'enter a shard column (if exists)',
-            required: false
+            required: false,
         },
         {
             type: 'list',
@@ -95,10 +95,10 @@
             choices: [
                 'ON DELETE CASCADE',
                 'ON DELETE RESTRICT',
-                { name: '(none)', value: '' }
+                { name: '(none)', value: '' },
             ],
-            required: true
-        }
+            required: true,
+        },
     ];
     exports.default = questions;
 });

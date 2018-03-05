@@ -1,44 +1,44 @@
-import { change as schema } from './schema'
-import { change as table } from './table'
-import { searchSchemas } from 'skitch-utils'
-import { searchTables } from 'skitch-utils'
-import { ChangePathArray, InquirerQuestion } from 'skitch-types'
+import { change as schema } from './schema';
+import { change as table } from './table';
+import { searchSchemas } from 'skitch-utils';
+import { searchTables } from 'skitch-utils';
+import { ChangePathArray, InquirerQuestion } from 'skitch-types';
 
 export interface ForeignKeyConfig {
-  schema: string
-  table: string
-  reftable: string
-  refschema: string
-  column: string
+  schema: string;
+  table: string;
+  reftable: string;
+  refschema: string;
+  column: string;
 }
 
 export const requires = (res: ForeignKeyConfig): Array<ChangePathArray> => {
-  let { refschema, reftable } = res
+  let { refschema, reftable } = res;
   return [
     schema(res),
     schema({
-      schema: refschema
+      schema: refschema,
     }),
     table(res),
     table({
       schema: refschema,
-      table: reftable
-    })
-  ]
-}
+      table: reftable,
+    }),
+  ];
+};
 
 export const change = ({
   schema,
   table,
-  column
+  column,
 }: ForeignKeyConfig): ChangePathArray => [
   'schemas',
   schema,
   'tables',
   table,
   'alterations',
-  `add_foreign_key_${column}`
-]
+  `add_foreign_key_${column}`,
+];
 
 const questions: Array<InquirerQuestion> = [
   {
@@ -46,49 +46,49 @@ const questions: Array<InquirerQuestion> = [
     name: 'schema',
     message: 'enter a schema name',
     source: searchSchemas,
-    required: true
+    required: true,
   },
   {
     type: 'autocomplete',
     name: 'table',
     message: 'enter a table name',
     source: searchTables,
-    required: true
+    required: true,
+  },
+  {
+    type: 'string',
+    name: 'column',
+    message: 'enter a column name',
+    required: true,
   },
   {
     type: 'autocomplete',
     name: 'refschema',
     message: 'enter a refschema name',
     source: searchSchemas,
-    required: true
+    required: true,
   },
   {
     type: 'autocomplete',
     name: 'reftable',
     message: 'enter a reftable name',
     source: (answers: ForeignKeyConfig, input: string) => {
-      let { refschema } = answers
-      return searchTables({ schema: refschema }, input)
+      let { refschema } = answers;
+      return searchTables({ schema: refschema }, input);
     },
-    required: true
-  },
-  {
-    type: 'string',
-    name: 'column',
-    message: 'enter a column name',
-    required: true
+    required: true,
   },
   {
     type: 'string',
     name: 'refcolumn',
     message: 'enter a refcolumn name',
-    required: true
+    required: true,
   },
   {
     type: 'string',
     name: 'shardcolumn',
     message: 'enter a shard column (if exists)',
-    required: false
+    required: false,
   },
   {
     type: 'list',
@@ -97,10 +97,10 @@ const questions: Array<InquirerQuestion> = [
     choices: [
       'ON DELETE CASCADE',
       'ON DELETE RESTRICT',
-      { name: '(none)', value: '' }
+      { name: '(none)', value: '' },
     ],
-    required: true
-  }
-]
+    required: true,
+  },
+];
 
-export default questions
+export default questions;
