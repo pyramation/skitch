@@ -1,11 +1,11 @@
-import 'skitch-install';
+import 'skitch-template';
 import { promisify } from 'util';
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
 import path from 'skitch-path';
 import { dirname } from 'path';
 import * as shell from 'shelljs';
-const srcPath = dirname(require.resolve('skitch-install'));
+const srcPath = dirname(require.resolve('skitch-template'));
 
 import plan from './plan';
 

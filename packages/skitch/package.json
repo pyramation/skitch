@@ -1,7 +1,7 @@
 {
   "name": "skitch",
   "version": "0.1.32",
-  "description": "",
+  "description": "PostgreSQL change management",
   "author": "pyramation@gmail.com",
   "license": "MIT",
   "main": "./build/index.js",
@@ -32,6 +32,7 @@
     "shelljs": "^0.8.1",
     "skitch-install": "^0.1.23",
     "skitch-path": "^0.1.24",
+    "skitch-template": "^0.1.23",
     "skitch-templates": "^0.1.32",
     "skitch-types": "^0.1.24",
     "skitch-utils": "^0.1.28"
@@ -41,15 +42,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,
