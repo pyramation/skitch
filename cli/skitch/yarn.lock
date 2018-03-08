@@ -2828,33 +2828,33 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-path@^0.1.34:
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.1.34.tgz#d9c3be940104a43512914a0c5d1fc09bdc1e494d"
+skitch-path@^0.1.37:
+  version "0.1.37"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.1.37.tgz#c1a5a59da66c4e1c93569d46b68006646695d3f1"
   dependencies:
     node-walkup "^1.1.1"
 
-skitch-template@^0.1.33:
-  version "0.1.33"
-  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.1.33.tgz#15fb3e738fb777d00956bf9249da3417ed876c4d"
+skitch-template@^0.1.37:
+  version "0.1.37"
+  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.1.37.tgz#2713b0f7169fd59c7bea5f7525b9a5665cfc7aa0"
 
-skitch-templates@^0.1.34:
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.34.tgz#80e01eb571816c4c6a23a63958a47de7cbd3100c"
+skitch-templates@^0.1.37:
+  version "0.1.37"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.1.37.tgz#dc76f14dec8a01d0c1dc61b8bdb559541ffd2bc9"
   dependencies:
-    skitch-utils "^0.1.34"
+    skitch-utils "^0.1.37"
 
-skitch-types@^0.1.24:
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.1.24.tgz#622bed8bbf2d1f87743d6b6adb67dccb978c764f"
+skitch-types@^0.1.37:
+  version "0.1.37"
+  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.1.37.tgz#ffe023c9cc8a774050ea3b59b4fdde9a29221d1b"
 
-skitch-utils@^0.1.34:
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.1.34.tgz#577794c44ef4b5f35368fc957e1e6e1c8e786e8b"
+skitch-utils@^0.1.37:
+  version "0.1.37"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.1.37.tgz#6d93d4af7289ef80c5d3cb6b8e7abb02ad6d33bf"
   dependencies:
     fuzzy "^0.1.3"
     glob "^7.1.2"
-    skitch-path "^0.1.34"
+    skitch-path "^0.1.37"
 
 slash@^1.0.0:
   version "1.0.0"

@@ -11,14 +11,18 @@ const srcPath = dirname(require.resolve('skitch-template'));
 import plan from './plan';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
-const username = shell.exec('git config --global user.name');
-const email = shell.exec('git config --global user.email');
+const username = shell
+  .exec('git config --global user.name', { silent: true })
+  .trim();
+const email = shell
+  .exec('git config --global user.email', { silent: true })
+  .trim();
 
 const questions = [
   {
     name: 'name',
     message: 'project name (e.g., flipr)',
-    default: basename(__dirname),
+    default: basename(process.cwd()),
     required: true,
   },
   {

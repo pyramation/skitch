@@ -47,13 +47,17 @@ var fs_1 = require("fs");
 var srcPath = path_1.dirname(require.resolve('skitch-template'));
 var plan_1 = require("./plan");
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
-var username = shell.exec('git config --global user.name');
-var email = shell.exec('git config --global user.email');
+var username = shell
+    .exec('git config --global user.name', { silent: true })
+    .trim();
+var email = shell
+    .exec('git config --global user.email', { silent: true })
+    .trim();
 var questions = [
     {
         name: 'name',
         message: 'project name (e.g., flipr)',
-        default: path_1.basename(__dirname),
+        default: path_1.basename(process.cwd()),
         required: true,
     },
     {
