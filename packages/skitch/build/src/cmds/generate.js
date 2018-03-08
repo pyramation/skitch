@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,126 +34,115 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "fuzzy", "inquirerer", "skitch-templates"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var child_process_1 = require("child_process");
-    var fuzzy_1 = require("fuzzy");
-    var inquirerer_1 = require("inquirerer");
-    var skitch_templates_1 = require("skitch-templates");
-    var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
-    // sqitch add appschema -n 'Add schema for all flipr objects.'
-    var searchTemplates = function (answers, input) {
-        input = input || '';
-        return new Promise(function (resolve) {
-            setTimeout(function () {
-                var fuzzyResult = fuzzy_1.filter(input, Object.keys(skitch_templates_1.default));
-                resolve(fuzzyResult.map(function (el) {
-                    return el.original;
-                }));
-            }, 25);
-        });
-    };
-    var templateQuestion = [
-        {
-            _: true,
-            type: 'autocomplete',
-            name: 'template',
-            message: 'what do you want to create?',
-            source: searchTemplates,
-        },
-    ];
-    exports.aliases = ['g'];
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirerer_1.prompt(templateQuestion, argv)];
-                case 1:
-                    template = (_a.sent()).template;
-                    questions = skitch_templates_1.default[template].default;
-                    return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-                case 2:
-                    answers = _a.sent();
-                    params = Object.keys(answers).reduce(function (m, v) {
-                        if (answers[v] instanceof Array) {
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var child_process_1 = require("child_process");
+var fuzzy_1 = require("fuzzy");
+var inquirerer_1 = require("inquirerer");
+var skitch_templates_1 = require("skitch-templates");
+var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
+// sqitch add appschema -n 'Add schema for all flipr objects.'
+var searchTemplates = function (answers, input) {
+    input = input || '';
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            var fuzzyResult = fuzzy_1.filter(input, Object.keys(skitch_templates_1.default));
+            resolve(fuzzyResult.map(function (el) {
+                return el.original;
+            }));
+        }, 25);
+    });
+};
+var templateQuestion = [
+    {
+        _: true,
+        type: 'autocomplete',
+        name: 'template',
+        message: 'what do you want to create?',
+        source: searchTemplates,
+    },
+];
+exports.aliases = ['g'];
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, inquirerer_1.prompt(templateQuestion, argv)];
+            case 1:
+                template = (_a.sent()).template;
+                questions = skitch_templates_1.default[template].default;
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
+                answers = _a.sent();
+                params = Object.keys(answers).reduce(function (m, v) {
+                    if (answers[v] instanceof Array) {
+                        m.push({
+                            key: "arr__" + v,
+                            value: answers[v].join(','),
+                        });
+                        // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
+                        if (answers[v].length > 1) {
                             m.push({
-                                key: "arr__" + v,
-                                value: answers[v].join(','),
-                            });
-                            // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
-                            if (answers[v].length > 1) {
-                                m.push({
-                                    key: v + "__is_array",
-                                    value: true,
-                                });
-                            }
-                            answers[v].forEach(function (value) {
-                                m.push({
-                                    key: v,
-                                    value: value,
-                                });
+                                key: v + "__is_array",
+                                value: true,
                             });
                         }
-                        else {
-                            if (typeof answers[v] === 'boolean' && !answers[v]) {
-                                return m;
-                            }
+                        answers[v].forEach(function (value) {
                             m.push({
                                 key: v,
-                                value: answers[v],
+                                value: value,
                             });
-                        }
-                        return m;
-                    }, []);
-                    vars = params.map(function (obj) { return "--set " + obj.key + "=\"" + obj.value + "\""; }).join(' ');
-                    change = skitch_templates_1.default[template].change(answers);
-                    reqd = [];
-                    reqs = skitch_templates_1.default[template]
-                        .requires(answers)
-                        .filter(function (req) {
-                        if (reqd.includes(req.join('/'))) {
-                            return false;
-                        }
-                        reqd.push(req.join('/'));
-                        return true;
-                    })
-                        .map(function (req) {
-                        return "-r " + req.join('/');
-                    })
-                        .join(' ');
-                    change = change.join('/');
-                    if (!change || change === '' || change === '/') {
-                        throw new Error('no change found!');
+                        });
                     }
-                    cmd = [
-                        'sqitch',
-                        'add',
-                        change,
-                        '--template',
-                        template,
-                        '--template-directory',
-                        templatePath,
-                        '-n',
-                        "'add " + change + "'",
-                        vars,
-                        reqs,
-                    ].join(' ');
-                    sqitch = child_process_1.exec(cmd.trim());
-                    sqitch.stdout.pipe(process.stdout);
-                    sqitch.stderr.pipe(process.stderr);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-});
+                    else {
+                        if (typeof answers[v] === 'boolean' && !answers[v]) {
+                            return m;
+                        }
+                        m.push({
+                            key: v,
+                            value: answers[v],
+                        });
+                    }
+                    return m;
+                }, []);
+                vars = params.map(function (obj) { return "--set " + obj.key + "=\"" + obj.value + "\""; }).join(' ');
+                change = skitch_templates_1.default[template].change(answers);
+                reqd = [];
+                reqs = skitch_templates_1.default[template]
+                    .requires(answers)
+                    .filter(function (req) {
+                    if (reqd.includes(req.join('/'))) {
+                        return false;
+                    }
+                    reqd.push(req.join('/'));
+                    return true;
+                })
+                    .map(function (req) {
+                    return "-r " + req.join('/');
+                })
+                    .join(' ');
+                change = change.join('/');
+                if (!change || change === '' || change === '/') {
+                    throw new Error('no change found!');
+                }
+                cmd = [
+                    'sqitch',
+                    'add',
+                    change,
+                    '--template',
+                    template,
+                    '--template-directory',
+                    templatePath,
+                    '-n',
+                    "'add " + change + "'",
+                    vars,
+                    reqs,
+                ].join(' ');
+                sqitch = child_process_1.exec(cmd.trim());
+                sqitch.stdout.pipe(process.stdout);
+                sqitch.stderr.pipe(process.stderr);
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=generate.js.map

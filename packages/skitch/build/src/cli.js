@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,57 +34,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "fuzzy", "inquirerer", "./index"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var fuzzy_1 = require("fuzzy");
-    var inquirerer_1 = require("inquirerer");
-    var index_1 = require("./index");
-    exports.searchCmds = function (answers, input) {
-        input = input || '';
-        return new Promise(function (resolve) {
-            setTimeout(function () {
-                var fuzzyResult = fuzzy_1.filter(input, Object.keys(index_1.default));
-                resolve(fuzzyResult.map(function (el) {
-                    return el.original;
-                }));
-            }, 25);
-        });
-    };
-    var cmdQuestion = [
-        {
-            _: true,
-            type: 'autocomplete',
-            name: 'cmd',
-            message: 'what do you want to do?',
-            source: exports.searchCmds,
-        },
-    ];
-    exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var cmd;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
-                case 1:
-                    cmd = (_a.sent()).cmd;
-                    if (!index_1.default.hasOwnProperty(cmd)) {
-                        throw new Error(cmd + " does not exist!");
-                    }
-                    return [4 /*yield*/, index_1.default[cmd](argv)];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); };
-});
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var fuzzy_1 = require("fuzzy");
+var inquirerer_1 = require("inquirerer");
+var index_1 = require("./index");
+exports.searchCmds = function (answers, input) {
+    input = input || '';
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            var fuzzyResult = fuzzy_1.filter(input, Object.keys(index_1.default));
+            resolve(fuzzyResult.map(function (el) {
+                return el.original;
+            }));
+        }, 25);
+    });
+};
+var cmdQuestion = [
+    {
+        _: true,
+        type: 'autocomplete',
+        name: 'cmd',
+        message: 'what do you want to do?',
+        source: exports.searchCmds,
+    },
+];
+exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var cmd;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
+            case 1:
+                cmd = (_a.sent()).cmd;
+                if (!index_1.default.hasOwnProperty(cmd)) {
+                    throw new Error(cmd + " does not exist!");
+                }
+                return [4 /*yield*/, index_1.default[cmd](argv)];
+            case 2:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
 //# sourceMappingURL=cli.js.map

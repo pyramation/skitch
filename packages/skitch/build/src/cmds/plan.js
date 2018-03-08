@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,125 +34,122 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "inquirerer", "skitch-path"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var child_process_1 = require("child_process");
-    var inquirerer_1 = require("inquirerer");
-    var skitch_path_1 = require("skitch-path");
-    var promisify = require('util').promisify;
-    var fs = require('fs');
-    var glob = promisify(require('glob'));
-    var asyncExec = promisify(child_process_1.exec);
-    var readFile = promisify(fs.readFile);
-    var writeFile = promisify(fs.writeFile);
-    var questions = [
-        {
-            name: 'name',
-            message: 'project name (e.g., flipr)',
-            required: true,
-        },
-    ];
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        // TODO make a class that uses paths instead of some.sql
-        // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
-        function dep_resolve(sqlmodule, resolved, unresolved) {
-            unresolved.push(sqlmodule);
-            var edges = deps['/deploy/' + sqlmodule + '.sql'];
-            if (!edges) {
-                throw new Error("no module " + sqlmodule);
-            }
-            for (var i = 0; i < edges.length; i++) {
-                var dep = edges[i];
-                if (!resolved.includes(dep)) {
-                    if (unresolved.includes(dep)) {
-                        throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
-                    }
-                    dep_resolve(dep, resolved, unresolved);
-                }
-            }
-            resolved.push(sqlmodule);
-            var index = unresolved.indexOf(sqlmodule);
-            unresolved.splice(index);
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var child_process_1 = require("child_process");
+var inquirerer_1 = require("inquirerer");
+var skitch_path_1 = require("skitch-path");
+var promisify = require('util').promisify;
+var fs = require('fs');
+var glob = promisify(require('glob'));
+var asyncExec = promisify(child_process_1.exec);
+var readFile = promisify(fs.readFile);
+var writeFile = promisify(fs.writeFile);
+var questions = [
+    {
+        name: 'name',
+        message: 'project name (e.g., flipr)',
+        required: true,
+    },
+];
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    // TODO make a class that uses paths instead of some.sql
+    // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
+    function dep_resolve(sqlmodule, resolved, unresolved) {
+        unresolved.push(sqlmodule);
+        var edges = deps['/deploy/' + sqlmodule + '.sql'];
+        if (!edges) {
+            throw new Error("no module " + sqlmodule);
         }
-        var name, PKGDIR, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-                case 1:
-                    name = (_a.sent()).name;
-                    return [4 /*yield*/, skitch_path_1.default()];
-                case 2:
-                    PKGDIR = _a.sent();
-                    now = '2017-08-11T08:11:51Z';
-                    planfile = [];
-                    deps = {};
-                    reg = {};
-                    return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
-                case 3:
-                    files = _a.sent();
-                    i = 0;
-                    _a.label = 4;
-                case 4:
-                    if (!(i < files.length)) return [3 /*break*/, 7];
-                    return [4 /*yield*/, readFile(files[i])];
-                case 5:
-                    data = _a.sent();
-                    lines = data.toString().split('\n');
-                    key = files[i].split(PKGDIR)[1];
-                    deps[key] = [];
-                    reg[key] = [];
-                    for (j = 0; j < lines.length; j++) {
-                        m = lines[j].match(/-- requires: (.*)/);
-                        if (m) {
-                            deps[key].push(m[1].trim());
-                        }
-                        m2 = lines[j].match(/-- Deploy (.*) to pg/);
-                        if (m2) {
-                            if (key != "/deploy/" + m2[1] + ".sql") {
-                                throw new Error('deployment script in wrong place or is named wrong internally' + m2);
-                            }
-                            reg[key].push(m2[1]);
-                        }
-                    }
-                    _a.label = 6;
-                case 6:
-                    i++;
-                    return [3 /*break*/, 4];
-                case 7:
-                    planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  ");
-                    resolved = [];
-                    unresolved = [];
-                    deps = Object.assign({
-                        '/deploy/apps/index.sql': Object.keys(deps)
-                            .filter(function (dep) { return dep.match(/^\/deploy\//); })
-                            .map(function (dep) { return dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''); }),
-                    }, deps);
-                    dep_resolve('apps/index', resolved, unresolved);
-                    index = resolved.indexOf('apps/index');
-                    resolved.splice(index);
-                    resolved.forEach(function (res) {
-                        if (deps['/deploy/' + res + '.sql'].length) {
-                            planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                        }
-                        else {
-                            planfile.push(res + " " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                        }
-                    });
-                    fs.writeFileSync(PKGDIR + "/sqitch.plan", planfile.join('\n'));
-                    console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!");
-                    return [2 /*return*/];
+        for (var i = 0; i < edges.length; i++) {
+            var dep = edges[i];
+            if (!resolved.includes(dep)) {
+                if (unresolved.includes(dep)) {
+                    throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
+                }
+                dep_resolve(dep, resolved, unresolved);
             }
-        });
-    }); });
-});
+        }
+        resolved.push(sqlmodule);
+        var index = unresolved.indexOf(sqlmodule);
+        unresolved.splice(index);
+    }
+    var PKGDIR, name, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 1:
+                PKGDIR = _a.sent();
+                try {
+                    name = JSON.parse(fs.readFileSync(PKGDIR + "/package.json").toString())
+                        .name;
+                }
+                catch (e) { }
+                if (!!name) return [3 /*break*/, 3];
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
+                (name = (_a.sent()).name);
+                _a.label = 3;
+            case 3:
+                now = '2017-08-11T08:11:51Z';
+                planfile = [];
+                deps = {};
+                reg = {};
+                return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
+            case 4:
+                files = _a.sent();
+                i = 0;
+                _a.label = 5;
+            case 5:
+                if (!(i < files.length)) return [3 /*break*/, 8];
+                return [4 /*yield*/, readFile(files[i])];
+            case 6:
+                data = _a.sent();
+                lines = data.toString().split('\n');
+                key = files[i].split(PKGDIR)[1];
+                deps[key] = [];
+                reg[key] = [];
+                for (j = 0; j < lines.length; j++) {
+                    m = lines[j].match(/-- requires: (.*)/);
+                    if (m) {
+                        deps[key].push(m[1].trim());
+                    }
+                    m2 = lines[j].match(/-- Deploy (.*) to pg/);
+                    if (m2) {
+                        if (key != "/deploy/" + m2[1] + ".sql") {
+                            throw new Error('deployment script in wrong place or is named wrong internally' + m2);
+                        }
+                        reg[key].push(m2[1]);
+                    }
+                }
+                _a.label = 7;
+            case 7:
+                i++;
+                return [3 /*break*/, 5];
+            case 8:
+                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  ");
+                resolved = [];
+                unresolved = [];
+                deps = Object.assign({
+                    '/deploy/apps/index.sql': Object.keys(deps)
+                        .filter(function (dep) { return dep.match(/^\/deploy\//); })
+                        .map(function (dep) { return dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''); }),
+                }, deps);
+                dep_resolve('apps/index', resolved, unresolved);
+                index = resolved.indexOf('apps/index');
+                resolved.splice(index);
+                resolved.forEach(function (res) {
+                    if (deps['/deploy/' + res + '.sql'].length) {
+                        planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
+                    }
+                    else {
+                        planfile.push(res + " " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
+                    }
+                });
+                fs.writeFileSync(PKGDIR + "/sqitch.plan", planfile.join('\n'));
+                console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!");
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=plan.js.map

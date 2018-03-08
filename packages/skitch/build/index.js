@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -34,29 +35,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./src/cli"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var cli_1 = require("./src/cli");
-    var argv = require('minimist')(process.argv.slice(2));
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, cli_1.skitch(argv)];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); })();
-});
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var cli_1 = require("./src/cli");
+var argv = require('minimist')(process.argv.slice(2));
+(function () { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); })();
 //# sourceMappingURL=index.js.map

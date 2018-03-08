@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,53 +34,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "path", "glob", "skitch-path"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var fuzzy = require('fuzzy');
-    var path_1 = require("path");
-    var glob = require("glob");
-    var skitch_path_1 = require("skitch-path");
-    exports.searchTables = function (answers, input) {
-        input = input || '';
-        return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-            var path, schema, tablesDir, tables;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, skitch_path_1.default()];
-                    case 1:
-                        path = _a.sent();
-                        schema = answers.schema;
-                        if (!schema) {
-                            schema = '**';
-                        }
-                        tablesDir = path_1.resolve(path + "/deploy/schemas");
-                        try {
-                            tables = glob.sync(tablesDir + "/" + schema + "/tables/**/table.sql");
-                        }
-                        catch (e) {
-                            tables = [];
-                        }
-                        tables = tables.map(function (f) { return path_1.basename(path_1.dirname(f)); });
-                        setTimeout(function () {
-                            var fuzzyResult = fuzzy.filter(input, tables);
-                            resolve(fuzzyResult.map(function (el) {
-                                return el.original;
-                            }));
-                        }, 25);
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-    };
-});
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var fuzzy = require('fuzzy');
+var path_1 = require("path");
+var glob = require("glob");
+var skitch_path_1 = require("skitch-path");
+exports.searchTables = function (answers, input) {
+    input = input || '';
+    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+        var path, schema, tablesDir, tables;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 1:
+                    path = _a.sent();
+                    schema = answers.schema;
+                    if (!schema) {
+                        schema = '**';
+                    }
+                    tablesDir = path_1.resolve(path + "/deploy/schemas");
+                    try {
+                        tables = glob.sync(tablesDir + "/" + schema + "/tables/**/table.sql");
+                    }
+                    catch (e) {
+                        tables = [];
+                    }
+                    tables = tables.map(function (f) { return path_1.basename(path_1.dirname(f)); });
+                    setTimeout(function () {
+                        var fuzzyResult = fuzzy.filter(input, tables);
+                        resolve(fuzzyResult.map(function (el) {
+                            return el.original;
+                        }));
+                    }, 25);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+};
 //# sourceMappingURL=tables.js.map

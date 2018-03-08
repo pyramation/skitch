@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,55 +34,44 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "fs", "path", "util", "skitch-path"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var fuzzy = require('fuzzy');
-    var fs_1 = require("fs");
-    var path_1 = require("path");
-    var util_1 = require("util");
-    var skitch_path_1 = require("skitch-path");
-    exports.searchSchemas = function (answers, input) {
-        input = input || '';
-        return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-            var path, dirs, e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, skitch_path_1.default()];
-                    case 1:
-                        path = _a.sent();
-                        _a.label = 2;
-                    case 2:
-                        _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, util_1.promisify(fs_1.readdir)(path_1.resolve(path + '/deploy/schemas'))];
-                    case 3:
-                        dirs = _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
-                        e_1 = _a.sent();
-                        dirs = [];
-                        return [3 /*break*/, 5];
-                    case 5:
-                        dirs = dirs.filter(function (f) { return f !== '.DS_Store'; });
-                        setTimeout(function () {
-                            var fuzzyResult = fuzzy.filter(input, dirs);
-                            resolve(fuzzyResult.map(function (el) {
-                                return el.original;
-                            }));
-                        }, 25);
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-    };
-});
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var fuzzy = require('fuzzy');
+var fs_1 = require("fs");
+var path_1 = require("path");
+var util_1 = require("util");
+var skitch_path_1 = require("skitch-path");
+exports.searchSchemas = function (answers, input) {
+    input = input || '';
+    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+        var path, dirs, e_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 1:
+                    path = _a.sent();
+                    _a.label = 2;
+                case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, util_1.promisify(fs_1.readdir)(path_1.resolve(path + '/deploy/schemas'))];
+                case 3:
+                    dirs = _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_1 = _a.sent();
+                    dirs = [];
+                    return [3 /*break*/, 5];
+                case 5:
+                    dirs = dirs.filter(function (f) { return f !== '.DS_Store'; });
+                    setTimeout(function () {
+                        var fuzzyResult = fuzzy.filter(input, dirs);
+                        resolve(fuzzyResult.map(function (el) {
+                            return el.original;
+                        }));
+                    }, 25);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+};
 //# sourceMappingURL=schemas.js.map

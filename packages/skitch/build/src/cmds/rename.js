@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -34,67 +35,56 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var glob = require('glob').sync;
-    var path = require('path');
-    var fs = require('fs');
-    var mkdirp = require('mkdirp').sync;
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        function sanitize_path(fullpath) {
-            function constructPath(pathArray) {
-                return pathArray.length ? pathArray.join('/') : '';
-            }
-            // TODO: NOT DRY
-            function createPathArray(str) {
-                return str.split('/').filter(function (f) { return f; });
-            }
-            return constructPath(createPathArray(fullpath));
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var glob = require('glob').sync;
+var path = require('path');
+var fs = require('fs');
+var mkdirp = require('mkdirp').sync;
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    function sanitize_path(fullpath) {
+        function constructPath(pathArray) {
+            return pathArray.length ? pathArray.join('/') : '';
         }
-        var src, dst, files, dirs, ops;
-        return __generator(this, function (_a) {
-            // e.g., node ./bin/rename procedures/verify_role procedures/verify/role
-            if (!argv._.length == 2) {
-                throw new Error('rename <src> <dst>');
+        // TODO: NOT DRY
+        function createPathArray(str) {
+            return str.split('/').filter(function (f) { return f; });
+        }
+        return constructPath(createPathArray(fullpath));
+    }
+    var src, dst, files, dirs, ops;
+    return __generator(this, function (_a) {
+        // e.g., node ./bin/rename procedures/verify_role procedures/verify/role
+        if (!argv._.length == 2) {
+            throw new Error('rename <src> <dst>');
+        }
+        src = sanitize_path(argv._[0]);
+        dst = sanitize_path(argv._[1]);
+        files = glob(__dirname + "/../**/**.sql");
+        files.forEach(function (file) {
+            var contents = fs.readFileSync(file).toString();
+            if (contents.match(src)) {
+                var regexp = new RegExp(src.replace(/\//g, '/'), 'g');
+                fs.writeFileSync(file, contents.replace(regexp, dst));
             }
-            src = sanitize_path(argv._[0]);
-            dst = sanitize_path(argv._[1]);
-            files = glob(__dirname + "/../**/**.sql");
-            files.forEach(function (file) {
-                var contents = fs.readFileSync(file).toString();
-                if (contents.match(src)) {
-                    var regexp = new RegExp(src.replace(/\//g, '/'), 'g');
-                    fs.writeFileSync(file, contents.replace(regexp, dst));
-                }
-            });
-            dirs = {};
-            ops = [];
-            files.filter(function (f) { return f.match(src); }).forEach(function (file) {
-                var parts = file.split(src);
-                var newpath = path.resolve(parts[0] + "/" + dst + "/" + parts[1]);
-                var dirname = newpath.replace(/\/[^\/]*$/, '');
-                dirs[dirname] = dirname;
-                ops.push([file, file.replace(src, dst)]);
-            });
-            Object.keys(dirs).forEach(function (dirkey) {
-                mkdirp(dirs[dirkey]);
-            });
-            ops.forEach(function (_a) {
-                var src = _a[0], dst = _a[1];
-                fs.renameSync(src, dst);
-            });
-            return [2 /*return*/];
         });
-    }); });
-});
+        dirs = {};
+        ops = [];
+        files.filter(function (f) { return f.match(src); }).forEach(function (file) {
+            var parts = file.split(src);
+            var newpath = path.resolve(parts[0] + "/" + dst + "/" + parts[1]);
+            var dirname = newpath.replace(/\/[^\/]*$/, '');
+            dirs[dirname] = dirname;
+            ops.push([file, file.replace(src, dst)]);
+        });
+        Object.keys(dirs).forEach(function (dirkey) {
+            mkdirp(dirs[dirkey]);
+        });
+        ops.forEach(function (_a) {
+            var src = _a[0], dst = _a[1];
+            fs.renameSync(src, dst);
+        });
+        return [2 /*return*/];
+    });
+}); });
 //# sourceMappingURL=rename.js.map

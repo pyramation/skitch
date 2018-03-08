@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,62 +34,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "fs", "path", "util", "inquirerer", "skitch-path", "shelljs"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var fs_1 = require("fs");
-    var path_1 = require("path");
-    var util_1 = require("util");
-    var inquirerer_1 = require("inquirerer");
-    var skitch_path_1 = require("skitch-path");
-    var shell = require("shelljs");
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var path, questions, _a, _b, _c, schemas, database, cmd;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0: return [4 /*yield*/, skitch_path_1.default()];
-                case 1:
-                    path = _d.sent();
-                    _a = [{
-                            name: 'database',
-                            message: 'database',
-                            required: true,
-                        }];
-                    _b = {
-                        type: 'checkbox',
-                        name: 'schemas',
-                        message: 'choose schemas'
-                    };
-                    return [4 /*yield*/, util_1.promisify(fs_1.readdir)(path_1.resolve(path + '/deploy/schemas'))];
-                case 2:
-                    questions = _a.concat([
-                        (_b.choices = _d.sent(),
-                            _b.required = true,
-                            _b)
-                    ]);
-                    return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-                case 3:
-                    _c = _d.sent(), schemas = _c.schemas, database = _c.database;
-                    cmd = [
-                        'postgraphile',
-                        '--connection',
-                        "postgres://postgres:@localhost/" + database,
-                        '--schema',
-                        schemas.join(','),
-                    ].join(' ');
-                    shell.exec(cmd);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-});
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs_1 = require("fs");
+var path_1 = require("path");
+var util_1 = require("util");
+var inquirerer_1 = require("inquirerer");
+var skitch_path_1 = require("skitch-path");
+var shell = require("shelljs");
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var path, questions, _a, _b, _c, schemas, database, cmd;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 1:
+                path = _d.sent();
+                _a = [{
+                        name: 'database',
+                        message: 'database',
+                        required: true,
+                    }];
+                _b = {
+                    type: 'checkbox',
+                    name: 'schemas',
+                    message: 'choose schemas'
+                };
+                return [4 /*yield*/, util_1.promisify(fs_1.readdir)(path_1.resolve(path + '/deploy/schemas'))];
+            case 2:
+                questions = _a.concat([
+                    (_b.choices = _d.sent(),
+                        _b.required = true,
+                        _b)
+                ]);
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 3:
+                _c = _d.sent(), schemas = _c.schemas, database = _c.database;
+                cmd = [
+                    'postgraphile',
+                    '--connection',
+                    "postgres://postgres:@localhost/" + database,
+                    '--schema',
+                    schemas.join(','),
+                ].join(' ');
+                shell.exec(cmd);
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=start.js.map

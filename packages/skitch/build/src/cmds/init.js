@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,56 +34,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "skitch-install", "util", "child_process", "inquirerer", "skitch-path", "path", "shelljs", "./plan"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    require("skitch-install");
-    var util_1 = require("util");
-    var child_process_1 = require("child_process");
-    var inquirerer_1 = require("inquirerer");
-    var skitch_path_1 = require("skitch-path");
-    var path_1 = require("path");
-    var shell = require("shelljs");
-    var srcPath = path_1.dirname(require.resolve('skitch-install'));
-    var plan_1 = require("./plan");
-    // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
-    var questions = [
-        {
-            name: 'name',
-            message: 'project name (e.g., flipr)',
-            required: true,
-        },
-    ];
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var name, cmd, skitchPath;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-                case 1:
-                    name = (_a.sent()).name;
-                    cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
-                    return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, skitch_path_1.default()];
-                case 3:
-                    skitchPath = _a.sent();
-                    shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
-                    return [4 /*yield*/, plan_1.default({ name: name })];
-                case 4:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-});
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+require("skitch-template");
+var util_1 = require("util");
+var child_process_1 = require("child_process");
+var inquirerer_1 = require("inquirerer");
+var skitch_path_1 = require("skitch-path");
+var path_1 = require("path");
+var shell = require("shelljs");
+var fs_1 = require("fs");
+var srcPath = path_1.dirname(require.resolve('skitch-template'));
+var plan_1 = require("./plan");
+// sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
+var username = shell.exec('git config --global user.name');
+var email = shell.exec('git config --global user.email');
+var questions = [
+    {
+        name: 'name',
+        message: 'project name (e.g., flipr)',
+        default: path_1.basename(__dirname),
+        required: true,
+    },
+    {
+        name: 'author',
+        message: 'project author',
+        default: username + " <" + email + ">",
+        required: true,
+    },
+    {
+        name: 'description',
+        message: 'project description',
+        default: 'skitch project',
+        required: true,
+    },
+];
+var makePackage = function (_a) {
+    var name = _a.name, description = _a.description, author = _a.author;
+    return {
+        name: name,
+        version: '1.0.0',
+        description: description,
+        author: author,
+        private: true,
+    };
+};
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, name, description, author, cmd, skitchPath, pkg;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 1:
+                _a = _b.sent(), name = _a.name, description = _a.description, author = _a.author;
+                cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
+                return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
+            case 2:
+                _b.sent();
+                return [4 /*yield*/, skitch_path_1.default()];
+            case 3:
+                skitchPath = _b.sent();
+                pkg = makePackage({ name: name, description: description, author: author });
+                shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
+                fs_1.writeFileSync(__dirname + "/package.json", JSON.stringify(pkg, null, 2));
+                return [4 /*yield*/, plan_1.default({ name: name })];
+            case 4:
+                _b.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=init.js.map

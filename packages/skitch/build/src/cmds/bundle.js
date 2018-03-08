@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -33,73 +34,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "child_process", "skitch-path"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var child_process_1 = require("child_process");
+var skitch_path_1 = require("skitch-path");
+var promisify = require('util').promisify;
+var fs = require('fs');
+var mkdirp = require('mkdirp').sync;
+var asyncExec = promisify(child_process_1.exec);
+var readFile = promisify(fs.readFile);
+var writeFile = promisify(fs.writeFile);
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var _this = this;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var child_process_1 = require("child_process");
-    var skitch_path_1 = require("skitch-path");
-    var promisify = require('util').promisify;
-    var fs = require('fs');
-    var mkdirp = require('mkdirp').sync;
-    var asyncExec = promisify(child_process_1.exec);
-    var readFile = promisify(fs.readFile);
-    var writeFile = promisify(fs.writeFile);
-    exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-        var _this = this;
-        var PKGDIR, glob, modules, path;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_path_1.default()];
-                case 1:
-                    PKGDIR = _a.sent();
-                    glob = require('glob').sync;
-                    modules = glob(PKGDIR + '/modules/*.js').filter(function (f) { return !f.match(/bundle\.js/) && !f.match(/.sql$/); });
-                    path = require('path');
-                    mkdirp(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures");
-                    mkdirp(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures");
-                    mkdirp(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures");
-                    modules.forEach(function (module) {
-                        var basename = path.basename(module);
-                        var name = basename.replace(/\.[^/.]+$/, '');
-                        console.log("browserify " + module + " --s " + name + " -o modules/" + name + ".bundle.js");
-                        (function () { return __awaiter(_this, void 0, void 0, function () {
-                            var deployFile, revertFile, verifyFile, readStream, proc;
-                            return __generator(this, function (_a) {
-                                deployFile = fs.createWriteStream(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures/" + name + ".sql");
-                                revertFile = fs.createWriteStream(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures/" + name + ".sql");
-                                verifyFile = fs.createWriteStream(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures/" + name + ".sql");
-                                readStream = fs.createReadStream(PKGDIR + "/modules/" + name + ".bundle.js");
-                                proc = child_process_1.exec("browserify " + module + " --s " + name + " -o modules/" + name + ".bundle.js");
-                                // VERIFY
-                                verifyFile.write("-- Verify schemas/v8/tables/modules/fixtures/" + name + "  on pg\n\n  BEGIN;\n\n  SELECT 1/count(*) FROM v8.modules WHERE name='" + name + "';\n\n  ROLLBACK;");
-                                verifyFile.end();
-                                // REVERT
-                                revertFile.write("-- Revert schemas/v8/tables/modules/fixtures/" + name + " from pg\n\n  BEGIN;\n\n  DELETE FROM v8.modules WHERE name='" + name + "';\n\n  COMMIT;");
-                                revertFile.end();
-                                // DEPLOYMENT
-                                deployFile.write("-- Deploy schemas/v8/tables/modules/fixtures/" + name + " to pg\n\n  -- requires: schemas/v8/schema\n  -- requires: schemas/v8/tables/modules/table\n\n  BEGIN;\n\n  INSERT INTO v8.modules (name, code) VALUES ('" + name + "', $code$\n\n    (function () {\n      var module = {\n        exports: { }\n      };\n      var exports = module.exports;\n\n      /* plv8 bundle begins */\n  ");
-                                readStream.on('data', function (chunk) { });
-                                readStream.on('end', function () {
-                                    deployFile.write("\n\n      /* plv8 bundle ends */\n\n      return module;\n    })();\n\n  $code$);\n\n  COMMIT;");
-                                    deployFile.end();
-                                });
-                                readStream.pipe(deployFile);
-                                return [2 /*return*/];
+    var PKGDIR, glob, modules, path;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 1:
+                PKGDIR = _a.sent();
+                glob = require('glob').sync;
+                modules = glob(PKGDIR + '/modules/*.js').filter(function (f) { return !f.match(/bundle\.js/) && !f.match(/.sql$/); });
+                path = require('path');
+                mkdirp(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures");
+                mkdirp(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures");
+                mkdirp(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures");
+                modules.forEach(function (module) {
+                    var basename = path.basename(module);
+                    var name = basename.replace(/\.[^/.]+$/, '');
+                    console.log("browserify " + module + " --s " + name + " -o modules/" + name + ".bundle.js");
+                    (function () { return __awaiter(_this, void 0, void 0, function () {
+                        var deployFile, revertFile, verifyFile, readStream, proc;
+                        return __generator(this, function (_a) {
+                            deployFile = fs.createWriteStream(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures/" + name + ".sql");
+                            revertFile = fs.createWriteStream(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures/" + name + ".sql");
+                            verifyFile = fs.createWriteStream(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures/" + name + ".sql");
+                            readStream = fs.createReadStream(PKGDIR + "/modules/" + name + ".bundle.js");
+                            proc = child_process_1.exec("browserify " + module + " --s " + name + " -o modules/" + name + ".bundle.js");
+                            // VERIFY
+                            verifyFile.write("-- Verify schemas/v8/tables/modules/fixtures/" + name + "  on pg\n\n  BEGIN;\n\n  SELECT 1/count(*) FROM v8.modules WHERE name='" + name + "';\n\n  ROLLBACK;");
+                            verifyFile.end();
+                            // REVERT
+                            revertFile.write("-- Revert schemas/v8/tables/modules/fixtures/" + name + " from pg\n\n  BEGIN;\n\n  DELETE FROM v8.modules WHERE name='" + name + "';\n\n  COMMIT;");
+                            revertFile.end();
+                            // DEPLOYMENT
+                            deployFile.write("-- Deploy schemas/v8/tables/modules/fixtures/" + name + " to pg\n\n  -- requires: schemas/v8/schema\n  -- requires: schemas/v8/tables/modules/table\n\n  BEGIN;\n\n  INSERT INTO v8.modules (name, code) VALUES ('" + name + "', $code$\n\n    (function () {\n      var module = {\n        exports: { }\n      };\n      var exports = module.exports;\n\n      /* plv8 bundle begins */\n  ");
+                            readStream.on('data', function (chunk) { });
+                            readStream.on('end', function () {
+                                deployFile.write("\n\n      /* plv8 bundle ends */\n\n      return module;\n    })();\n\n  $code$);\n\n  COMMIT;");
+                                deployFile.end();
                             });
-                        }); })();
-                    });
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-});
+                            readStream.pipe(deployFile);
+                            return [2 /*return*/];
+                        });
+                    }); })();
+                });
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=bundle.js.map

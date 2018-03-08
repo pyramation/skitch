@@ -22,8 +22,16 @@ const questions = [
 ];
 
 export default async argv => {
-  const { name } = await prompt(questions, argv);
   const PKGDIR = await skitchPath();
+
+  let name;
+  try {
+    name = JSON.parse(fs.readFileSync(`${PKGDIR}/package.json`).toString())
+      .name;
+  } catch (e) {}
+  if (!name) {
+    ({ name } = await prompt(questions, argv));
+  }
 
   // var moment = require('moment-timezone');
   // var now = moment()
