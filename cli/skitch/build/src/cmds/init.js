@@ -99,7 +99,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 skitchPath = _b.sent();
                 pkg = makePackage({ name: name, description: description, author: author });
                 shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
-                fs_1.writeFileSync(__dirname + "/package.json", JSON.stringify(pkg, null, 2));
+                fs_1.writeFileSync(skitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                 return [4 /*yield*/, plan_1.default({ name: name })];
             case 4:
                 _b.sent();

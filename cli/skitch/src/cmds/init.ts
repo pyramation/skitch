@@ -56,6 +56,6 @@ export default async argv => {
   const skitchPath = await path();
   const pkg = makePackage({ name, description, author });
   shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
-  writeFileSync(`${__dirname}/package.json`, JSON.stringify(pkg, null, 2));
+  writeFileSync(`${skitchPath}/package.json`, JSON.stringify(pkg, null, 2));
   await plan({ name });
 };
