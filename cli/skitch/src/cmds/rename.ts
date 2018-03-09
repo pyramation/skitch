@@ -5,15 +5,28 @@ const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp').sync;
 
+const questions = [
+  {
+    _: true,
+    name: 'src',
+    message: 'src',
+    required: true,
+  },
+  {
+    _: true,
+    name: 'dst',
+    message: 'dst',
+    required: true,
+  },
+];
+
 export default async argv => {
   // e.g., node ./bin/rename procedures/verify_role procedures/verify/role
 
-  if (!argv._.length == 2) {
-    throw new Error('rename <src> <dst>');
-  }
+  let { src, dst } = await prompt(questions, argv);
 
-  var src = sanitize_path(argv._[0]);
-  var dst = sanitize_path(argv._[1]);
+  src = sanitize_path(src);
+  dst = sanitize_path(dst);
 
   function sanitize_path(fullpath) {
     function constructPath(pathArray) {

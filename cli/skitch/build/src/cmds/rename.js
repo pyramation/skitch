@@ -41,6 +41,20 @@ var glob = require('glob').sync;
 var path = require('path');
 var fs = require('fs');
 var mkdirp = require('mkdirp').sync;
+var questions = [
+    {
+        _: true,
+        name: 'src',
+        message: 'src',
+        required: true,
+    },
+    {
+        _: true,
+        name: 'dst',
+        message: 'dst',
+        required: true,
+    },
+];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     function sanitize_path(fullpath) {
         function constructPath(pathArray) {
@@ -52,39 +66,40 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         }
         return constructPath(createPathArray(fullpath));
     }
-    var src, dst, files, dirs, ops;
-    return __generator(this, function (_a) {
-        // e.g., node ./bin/rename procedures/verify_role procedures/verify/role
-        if (!argv._.length == 2) {
-            throw new Error('rename <src> <dst>');
+    var _a, src, dst, files, dirs, ops;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, prompt(questions, argv)];
+            case 1:
+                _a = _b.sent(), src = _a.src, dst = _a.dst;
+                src = sanitize_path(src);
+                dst = sanitize_path(dst);
+                files = glob(__dirname + "/../**/**.sql");
+                files.forEach(function (file) {
+                    var contents = fs.readFileSync(file).toString();
+                    if (contents.match(src)) {
+                        var regexp = new RegExp(src.replace(/\//g, '/'), 'g');
+                        fs.writeFileSync(file, contents.replace(regexp, dst));
+                    }
+                });
+                dirs = {};
+                ops = [];
+                files.filter(function (f) { return f.match(src); }).forEach(function (file) {
+                    var parts = file.split(src);
+                    var newpath = path.resolve(parts[0] + "/" + dst + "/" + parts[1]);
+                    var dirname = newpath.replace(/\/[^\/]*$/, '');
+                    dirs[dirname] = dirname;
+                    ops.push([file, file.replace(src, dst)]);
+                });
+                Object.keys(dirs).forEach(function (dirkey) {
+                    mkdirp(dirs[dirkey]);
+                });
+                ops.forEach(function (_a) {
+                    var src = _a[0], dst = _a[1];
+                    fs.renameSync(src, dst);
+                });
+                return [2 /*return*/];
         }
-        src = sanitize_path(argv._[0]);
-        dst = sanitize_path(argv._[1]);
-        files = glob(__dirname + "/../**/**.sql");
-        files.forEach(function (file) {
-            var contents = fs.readFileSync(file).toString();
-            if (contents.match(src)) {
-                var regexp = new RegExp(src.replace(/\//g, '/'), 'g');
-                fs.writeFileSync(file, contents.replace(regexp, dst));
-            }
-        });
-        dirs = {};
-        ops = [];
-        files.filter(function (f) { return f.match(src); }).forEach(function (file) {
-            var parts = file.split(src);
-            var newpath = path.resolve(parts[0] + "/" + dst + "/" + parts[1]);
-            var dirname = newpath.replace(/\/[^\/]*$/, '');
-            dirs[dirname] = dirname;
-            ops.push([file, file.replace(src, dst)]);
-        });
-        Object.keys(dirs).forEach(function (dirkey) {
-            mkdirp(dirs[dirkey]);
-        });
-        ops.forEach(function (_a) {
-            var src = _a[0], dst = _a[1];
-            fs.renameSync(src, dst);
-        });
-        return [2 /*return*/];
     });
 }); });
 //# sourceMappingURL=rename.js.map
