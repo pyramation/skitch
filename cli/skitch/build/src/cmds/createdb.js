@@ -40,19 +40,19 @@ var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
 var questions = [
     {
-        name: 'database',
+        name: 'db',
         message: 'database',
         required: true,
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var database;
+    var db;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                database = (_a.sent()).database;
-                shell.exec("createdb -U postgres -h localhost " + database);
+                db = (_a.sent()).db;
+                shell.exec("createdb -U postgres -h localhost " + db);
                 return [2 /*return*/];
         }
     });

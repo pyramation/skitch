@@ -40,19 +40,26 @@ var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
 var questions = [
     {
-        name: 'dbname',
+        name: 'db',
         message: 'database',
+        required: true,
+    },
+    {
+        name: 'confirm',
+        message: 'are you sure?',
         required: true,
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var dbname, sqitch;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, db, confirm, sqitch;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                dbname = (_a.sent()).dbname;
-                sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch revert db:pg:" + dbname);
+                _a = _b.sent(), db = _a.db, confirm = _a.confirm;
+                if (!confirm)
+                    return [2 /*return*/];
+                sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch revert db:pg:" + db + " -y");
                 return [2 /*return*/];
         }
     });

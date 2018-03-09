@@ -42,6 +42,7 @@ var shell = require("shelljs");
 var plan_1 = require("./plan");
 var questions = [
     {
+        _: true,
         name: 'modulename',
         message: 'module name',
         required: true,

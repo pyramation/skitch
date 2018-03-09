@@ -3,14 +3,20 @@ import { prompt } from 'inquirerer';
 
 const questions = [
   {
-    name: 'dbname',
+    name: 'db',
     message: 'database',
+    required: true,
+  },
+  {
+    name: 'confirm',
+    message: 'are you sure?',
     required: true,
   },
 ];
 export default async argv => {
-  const { dbname } = await prompt(questions, argv);
+  const { db, confirm } = await prompt(questions, argv);
+  if (!confirm) return;
   var sqitch = shell.exec(
-    `PGUSER=postgres PGHOST=localhost sqitch revert db:pg:${dbname}`
+    `PGUSER=postgres PGHOST=localhost sqitch revert db:pg:${db} -y`
   );
 };

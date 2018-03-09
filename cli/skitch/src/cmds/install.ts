@@ -5,6 +5,7 @@ import plan from './plan';
 
 const questions = [
   {
+    _: true,
     name: 'modulename',
     message: 'module name',
     required: true,

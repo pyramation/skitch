@@ -3,12 +3,12 @@ import { prompt } from 'inquirerer';
 
 const questions = [
   {
-    name: 'dbname',
+    name: 'db',
     message: 'database',
     required: true,
   },
 ];
 export default async argv => {
-  const { dbname } = await prompt(questions, argv);
-  shell.exec(`PGUSER=postgres PGHOST=localhost sqitch verify db:pg:${dbname}`);
+  const { db } = await prompt(questions, argv);
+  shell.exec(`PGUSER=postgres PGHOST=localhost sqitch verify db:pg:${db}`);
 };

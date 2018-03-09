@@ -43,14 +43,14 @@ var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
 var shell = require("shelljs");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var path, questions, _a, _b, _c, schemas, database, cmd;
+    var path, questions, _a, _b, _c, schemas, db, cmd;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
                 path = _d.sent();
                 _a = [{
-                        name: 'database',
+                        name: 'db',
                         message: 'database',
                         required: true,
                     }];
@@ -68,11 +68,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 ]);
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 3:
-                _c = _d.sent(), schemas = _c.schemas, database = _c.database;
+                _c = _d.sent(), schemas = _c.schemas, db = _c.db;
                 cmd = [
                     'postgraphile',
                     '--connection',
-                    "postgres://postgres:@localhost/" + database,
+                    "postgres://postgres:@localhost/" + db,
                     '--schema',
                     schemas.join(','),
                 ].join(' ');

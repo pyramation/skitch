@@ -3,14 +3,12 @@ import { prompt } from 'inquirerer';
 
 const questions = [
   {
-    name: 'database',
+    name: 'db',
     message: 'database',
     required: true,
   },
 ];
 export default async argv => {
-  const { database } = await prompt(questions, argv);
-  shell.exec(
-    `PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${database}`
-  );
+  const { db } = await prompt(questions, argv);
+  shell.exec(`PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${db}`);
 };

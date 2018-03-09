@@ -3,12 +3,12 @@ import { prompt } from 'inquirerer';
 
 const questions = [
   {
-    name: 'database',
+    name: 'db',
     message: 'database',
     required: true,
   },
 ];
 export default async argv => {
-  const { database } = await prompt(questions, argv);
-  shell.exec(`dropdb -U postgres -h localhost ${database}`);
+  const { db } = await prompt(questions, argv);
+  shell.exec(`dropdb -U postgres -h localhost ${db}`);
 };

@@ -10,7 +10,7 @@ export default async argv => {
   const path = await skitchPath();
   const questions: Array<InquirerQuestion> = [
     {
-      name: 'database',
+      name: 'db',
       message: 'database',
       required: true,
     },
@@ -22,11 +22,11 @@ export default async argv => {
       required: true,
     },
   ];
-  const { schemas, database } = await prompt(questions, argv);
+  const { schemas, db } = await prompt(questions, argv);
   const cmd = [
     'postgraphile',
     '--connection',
-    `postgres://postgres:@localhost/${database}`,
+    `postgres://postgres:@localhost/${db}`,
     '--schema',
     schemas.join(','),
   ].join(' ');
