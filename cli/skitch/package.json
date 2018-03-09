@@ -25,6 +25,7 @@
     "typescript": "^2.7.1"
   },
   "dependencies": {
+    "case": "^1.5.4",
     "glob": "^7.1.2",
     "inquirerer": "^0.1.1",
     "minimist": "^1.2.0",

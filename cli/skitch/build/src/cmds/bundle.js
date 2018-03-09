@@ -46,6 +46,7 @@ var asyncExec = promisify(child_process_1.exec);
 var readFile = promisify(fs.readFile);
 var writeFile = promisify(fs.writeFile);
 var path = require('path');
+var caseLib = require('case');
 var questions = [
     {
         _: true,
@@ -71,6 +72,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
                 _a = _b.sent(), modulename = _a.modulename, exportedname = _a.exportedname;
+                exportedname = caseLib.camel(exportedname);
+                mkdirp(PKGDIR + "/modules");
                 mkdirp(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures");
                 mkdirp(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures");
                 mkdirp(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures");
@@ -78,9 +81,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 (function () { return __awaiter(_this, void 0, void 0, function () {
                     var deployFile, revertFile, verifyFile, readStream, proc;
                     return __generator(this, function (_a) {
-                        deployFile = fs.createWriteStream(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures/" + name + ".sql");
-                        revertFile = fs.createWriteStream(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures/" + name + ".sql");
-                        verifyFile = fs.createWriteStream(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures/" + name + ".sql");
+                        deployFile = fs.createWriteStream(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures/" + exportedname + ".sql");
+                        revertFile = fs.createWriteStream(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures/" + exportedname + ".sql");
+                        verifyFile = fs.createWriteStream(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures/" + exportedname + ".sql");
                         readStream = fs.createReadStream(PKGDIR + "/modules/" + name + ".bundle.js");
                         proc = child_process_1.exec("browserify " + PKGDIR + "/node_modules/" + modulename + " --s " + exportedname + " -o modules/" + exportedname + ".bundle.js");
                         // VERIFY

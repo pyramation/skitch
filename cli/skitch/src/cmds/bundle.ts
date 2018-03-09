@@ -8,6 +8,7 @@ const asyncExec = promisify(exec);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const path = require('path');
+const caseLib = require('case');
 
 const questions = [
   {
@@ -27,8 +28,10 @@ const questions = [
 export default async argv => {
   const PKGDIR = await skitchPath();
 
-  const { modulename, exportedname } = await prompt(questions, argv);
+  let { modulename, exportedname } = await prompt(questions, argv);
+  exportedname = caseLib.camel(exportedname);
 
+  mkdirp(`${PKGDIR}/modules`);
   mkdirp(`${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures`);
   mkdirp(`${PKGDIR}/verify/schemas/v8/tables/modules/fixtures`);
   mkdirp(`${PKGDIR}/revert/schemas/v8/tables/modules/fixtures`);
@@ -39,13 +42,13 @@ export default async argv => {
 
   (async () => {
     const deployFile = fs.createWriteStream(
-      `${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures/${name}.sql`
+      `${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures/${exportedname}.sql`
     );
     const revertFile = fs.createWriteStream(
-      `${PKGDIR}/revert/schemas/v8/tables/modules/fixtures/${name}.sql`
+      `${PKGDIR}/revert/schemas/v8/tables/modules/fixtures/${exportedname}.sql`
     );
     const verifyFile = fs.createWriteStream(
-      `${PKGDIR}/verify/schemas/v8/tables/modules/fixtures/${name}.sql`
+      `${PKGDIR}/verify/schemas/v8/tables/modules/fixtures/${exportedname}.sql`
     );
     const readStream = fs.createReadStream(
       `${PKGDIR}/modules/${name}.bundle.js`
