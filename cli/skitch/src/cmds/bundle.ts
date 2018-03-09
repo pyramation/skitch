@@ -36,10 +36,6 @@ export default async argv => {
   mkdirp(`${PKGDIR}/verify/schemas/v8/tables/modules/fixtures`);
   mkdirp(`${PKGDIR}/revert/schemas/v8/tables/modules/fixtures`);
 
-  console.log(
-    `browserify ${PKGDIR}/node_modules/${modulename} --s ${exportedname} -o modules/${exportedname}.bundle.js`
-  );
-
   (async () => {
     const deployFile = fs.createWriteStream(
       `${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures/${exportedname}.sql`
@@ -51,7 +47,7 @@ export default async argv => {
       `${PKGDIR}/verify/schemas/v8/tables/modules/fixtures/${exportedname}.sql`
     );
     const readStream = fs.createReadStream(
-      `${PKGDIR}/modules/${name}.bundle.js`
+      `${PKGDIR}/modules/${exportedname}.bundle.js`
     );
     const proc = exec(
       `browserify ${PKGDIR}/node_modules/${modulename} --s ${exportedname} -o modules/${exportedname}.bundle.js`

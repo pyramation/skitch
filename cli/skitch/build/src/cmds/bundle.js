@@ -77,14 +77,13 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 mkdirp(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures");
                 mkdirp(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures");
                 mkdirp(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures");
-                console.log("browserify " + PKGDIR + "/node_modules/" + modulename + " --s " + exportedname + " -o modules/" + exportedname + ".bundle.js");
                 (function () { return __awaiter(_this, void 0, void 0, function () {
                     var deployFile, revertFile, verifyFile, readStream, proc;
                     return __generator(this, function (_a) {
                         deployFile = fs.createWriteStream(PKGDIR + "/deploy/schemas/v8/tables/modules/fixtures/" + exportedname + ".sql");
                         revertFile = fs.createWriteStream(PKGDIR + "/revert/schemas/v8/tables/modules/fixtures/" + exportedname + ".sql");
                         verifyFile = fs.createWriteStream(PKGDIR + "/verify/schemas/v8/tables/modules/fixtures/" + exportedname + ".sql");
-                        readStream = fs.createReadStream(PKGDIR + "/modules/" + name + ".bundle.js");
+                        readStream = fs.createReadStream(PKGDIR + "/modules/" + exportedname + ".bundle.js");
                         proc = child_process_1.exec("browserify " + PKGDIR + "/node_modules/" + modulename + " --s " + exportedname + " -o modules/" + exportedname + ".bundle.js");
                         // VERIFY
                         verifyFile.write("-- Verify schemas/v8/tables/modules/fixtures/" + exportedname + "  on pg\n\n  BEGIN;\n\n  SELECT 1/count(*) FROM v8.modules WHERE name='" + exportedname + "';\n\n  ROLLBACK;");
