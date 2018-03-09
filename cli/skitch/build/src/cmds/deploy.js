@@ -45,14 +45,22 @@ var questions = [
         message: 'database',
         required: true,
     },
+    {
+        name: 'confirm',
+        type: 'confirm',
+        message: 'are you sure?',
+        required: true,
+    },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var db;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, db, confirm;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                db = (_a.sent()).db;
+                _a = _b.sent(), db = _a.db, confirm = _a.confirm;
+                if (!confirm)
+                    return [2 /*return*/];
                 shell.exec("PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:" + db);
                 return [2 /*return*/];
         }

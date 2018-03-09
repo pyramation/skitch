@@ -8,8 +8,15 @@ const questions = [
     message: 'database',
     required: true,
   },
+  {
+    name: 'confirm',
+    type: 'confirm',
+    message: 'are you sure?',
+    required: true,
+  },
 ];
 export default async argv => {
-  const { db } = await prompt(questions, argv);
+  const { db, confirm } = await prompt(questions, argv);
+  if (!confirm) return;
   shell.exec(`PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${db}`);
 };
