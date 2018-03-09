@@ -40,6 +40,13 @@ var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
 var shell = require("shelljs");
 var plan_1 = require("./plan");
+var questions = [
+    {
+        name: 'modulename',
+        message: 'module name',
+        required: true,
+    },
+];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var modulename, skitchPath, files;
     return __generator(this, function (_a) {
