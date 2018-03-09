@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var inquirerer_1 = require("inquirerer");
 var glob = require('glob').sync;
 var path = require('path');
 var fs = require('fs');
@@ -69,7 +70,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
     var _a, src, dst, files, dirs, ops;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, prompt(questions, argv)];
+            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
                 _a = _b.sent(), src = _a.src, dst = _a.dst;
                 src = sanitize_path(src);

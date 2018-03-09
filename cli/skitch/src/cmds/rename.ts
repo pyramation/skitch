@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { prompt } from 'inquirerer';
 
 const glob = require('glob').sync;
 const path = require('path');
