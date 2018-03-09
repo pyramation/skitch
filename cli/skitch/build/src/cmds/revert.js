@@ -47,6 +47,7 @@ var questions = [
     },
     {
         name: 'confirm',
+        type: 'confirm',
         message: 'are you sure?',
         required: true,
     },
