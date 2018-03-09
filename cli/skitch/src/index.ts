@@ -1,3 +1,4 @@
+
 import add from './cmds/add';
 import bundle from './cmds/bundle';
 import createdb from './cmds/createdb';
@@ -13,18 +14,6 @@ import start from './cmds/start';
 import test from './cmds/test';
 import verify from './cmds/verify';
 export default {
-  add,
-  bundle,
-  createdb,
-  deploy,
-  dropdb,
-  generate,
-  init,
-  install,
-  plan,
-  rename,
-  revert,
-  start,
-  test,
-  verify,
-};
+  add,bundle,createdb,deploy,dropdb,generate,init,install,plan,rename,revert,start,test,verify
+}
+  

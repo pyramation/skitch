@@ -39,27 +39,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
 var shell = require("shelljs");
-var questions = [
-    {
-        name: 'modulename',
-        message: 'module name',
-        required: true,
-    },
-];
+var plan_1 = require("./plan");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var modulename, cmd, skitchPath, result;
+    var modulename, skitchPath, files;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
                 modulename = (_a.sent()).modulename;
-                cmd = ['npm', 'install'].join(' ');
-                shell.exec("npm install " + modulename);
+                shell.exec("yarn add " + modulename);
                 return [4 /*yield*/, skitch_path_1.default()];
             case 2:
                 skitchPath = _a.sent();
-                result = require.resolve(modulename);
-                console.log(result);
+                files = skitchPath + "/node_modules/" + modulename + "/src/*";
+                shell.cp('-r', files, skitchPath + "/");
+                return [4 /*yield*/, plan_1.default({})];
+            case 3:
+                _a.sent();
                 return [2 /*return*/];
         }
     });

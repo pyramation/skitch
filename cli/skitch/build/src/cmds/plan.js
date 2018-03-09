@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
+var path_1 = require("path");
 var promisify = require('util').promisify;
 var fs = require('fs');
 var glob = promisify(require('glob'));
@@ -49,6 +50,7 @@ var questions = [
     {
         name: 'name',
         message: 'project name (e.g., flipr)',
+        default: path_1.basename(process.cwd()),
         required: true,
     },
 ];
@@ -80,6 +82,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
                 PKGDIR = _a.sent();
+                name = argv.name;
+                if (!!name) return [3 /*break*/, 3];
                 try {
                     name = JSON.parse(fs.readFileSync(PKGDIR + "/package.json").toString())
                         .name;

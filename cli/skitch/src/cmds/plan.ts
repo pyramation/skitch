@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
 import skitchPath from 'skitch-path';
+import { basename } from 'path';
 const promisify = require('util').promisify;
 const fs = require('fs');
 const glob = promisify(require('glob'));
@@ -12,25 +13,23 @@ const questions = [
   {
     name: 'name',
     message: 'project name (e.g., flipr)',
+    default: basename(process.cwd()),
     required: true,
   },
-  // {
-  //   name: 'uri',
-  //   message: 'project url (e.g., https://github.com/theory/sqitch-intro)',
-  //   required: true,
-  // },
 ];
 
 export default async argv => {
   const PKGDIR = await skitchPath();
 
-  let name;
-  try {
-    name = JSON.parse(fs.readFileSync(`${PKGDIR}/package.json`).toString())
-      .name;
-  } catch (e) {}
+  let name = argv.name;
   if (!name) {
-    ({ name } = await prompt(questions, argv));
+    try {
+      name = JSON.parse(fs.readFileSync(`${PKGDIR}/package.json`).toString())
+        .name;
+    } catch (e) {}
+    if (!name) {
+      ({ name } = await prompt(questions, argv));
+    }
   }
 
   // var moment = require('moment-timezone');
