@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
 var child_process_1 = require("child_process");
 var skitch_path_1 = require("skitch-path");
+var plan_1 = require("./plan");
 var promisify = require('util').promisify;
 var fs = require('fs');
 var mkdirp = require('mkdirp').sync;
@@ -103,6 +104,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                                     deployFile.end();
                                 });
                                 readStream.pipe(deployFile);
+                                return [4 /*yield*/, plan_1.default({})];
+                            case 2:
+                                _a.sent();
                                 return [2 /*return*/];
                         }
                     });

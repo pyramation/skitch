@@ -1,6 +1,8 @@
 import { prompt } from 'inquirerer';
 import { exec } from 'child_process';
 import skitchPath from 'skitch-path';
+import plan from './plan';
+
 const promisify = require('util').promisify;
 const fs = require('fs');
 const mkdirp = require('mkdirp').sync;
@@ -111,5 +113,7 @@ export default async argv => {
       deployFile.end();
     });
     readStream.pipe(deployFile);
+
+    await plan({});
   })();
 };
