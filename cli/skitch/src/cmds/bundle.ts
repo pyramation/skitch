@@ -46,11 +46,11 @@ export default async argv => {
     const verifyFile = fs.createWriteStream(
       `${PKGDIR}/verify/schemas/v8/tables/modules/fixtures/${exportedname}.sql`
     );
-    const readStream = fs.createReadStream(
-      `${PKGDIR}/modules/${exportedname}.bundle.js`
-    );
     const proc = exec(
       `browserify ${PKGDIR}/node_modules/${modulename} --s ${exportedname} -o modules/${exportedname}.bundle.js`
+    );
+    const readStream = fs.createReadStream(
+      `${PKGDIR}/modules/${exportedname}.bundle.js`
     );
 
     // VERIFY
