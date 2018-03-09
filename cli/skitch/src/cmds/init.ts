@@ -42,7 +42,7 @@ const questions = [
 const makePackage = ({ name, description, author }) => {
   return {
     name,
-    version: '1.0.0',
+    version: '0.0.1',
     description,
     author,
     private: true,

@@ -1,10 +1,11 @@
 import add from './cmds/add';
 import bundle from './cmds/bundle';
 import createdb from './cmds/createdb';
-import dropdb from './cmds/dropdb';
 import deploy from './cmds/deploy';
+import dropdb from './cmds/dropdb';
 import generate from './cmds/generate';
 import init from './cmds/init';
+import install from './cmds/install';
 import plan from './cmds/plan';
 import rename from './cmds/rename';
 import revert from './cmds/revert';
@@ -15,10 +16,11 @@ export default {
   add,
   bundle,
   createdb,
-  dropdb,
   deploy,
+  dropdb,
   generate,
   init,
+  install,
   plan,
   rename,
   revert,

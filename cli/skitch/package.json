@@ -10,7 +10,7 @@
     "skitch": "./build/index.js"
   },
   "scripts": {
-    "build": "rm -rf ./build && tsc",
+    "build": "rm -rf ./build && ts-node bin/build && tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -41,15 +41,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,

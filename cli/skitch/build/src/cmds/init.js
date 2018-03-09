@@ -77,7 +77,7 @@ var makePackage = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author;
     return {
         name: name,
-        version: '1.0.0',
+        version: '0.0.1',
         description: description,
         author: author,
         private: true,
