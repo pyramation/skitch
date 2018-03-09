@@ -1,3 +1,4 @@
+import { prompt } from 'inquirerer';
 import { exec } from 'child_process';
 import skitchPath from 'skitch-path';
 const promisify = require('util').promisify;
@@ -6,77 +7,83 @@ const mkdirp = require('mkdirp').sync;
 const asyncExec = promisify(exec);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
+const path = require('path');
+
+const questions = [
+  {
+    _: true,
+    name: 'modulename',
+    message: 'module',
+    required: true,
+  },
+  {
+    _: true,
+    name: 'exportedname',
+    message: 'exported name (usually same as modulename)',
+    required: true,
+  },
+];
 
 export default async argv => {
   const PKGDIR = await skitchPath();
 
-  // TODO intregrate with "skitch"
-
-  const glob = require('glob').sync;
-  const modules = glob(PKGDIR + '/modules/*.js').filter(
-    f => !f.match(/bundle\.js/) && !f.match(/.sql$/)
-  );
-  const path = require('path');
+  const { modulename, exportedname } = await prompt(questions, argv);
 
   mkdirp(`${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures`);
   mkdirp(`${PKGDIR}/verify/schemas/v8/tables/modules/fixtures`);
   mkdirp(`${PKGDIR}/revert/schemas/v8/tables/modules/fixtures`);
 
-  modules.forEach(module => {
-    const basename = path.basename(module);
-    const name = basename.replace(/\.[^/.]+$/, '');
+  console.log(
+    `browserify ${PKGDIR}/node_modules/${modulename} --s ${exportedname} -o modules/${exportedname}.bundle.js`
+  );
 
-    console.log(
-      `browserify ${module} --s ${name} -o modules/${name}.bundle.js`
+  (async () => {
+    const deployFile = fs.createWriteStream(
+      `${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures/${name}.sql`
+    );
+    const revertFile = fs.createWriteStream(
+      `${PKGDIR}/revert/schemas/v8/tables/modules/fixtures/${name}.sql`
+    );
+    const verifyFile = fs.createWriteStream(
+      `${PKGDIR}/verify/schemas/v8/tables/modules/fixtures/${name}.sql`
+    );
+    const readStream = fs.createReadStream(
+      `${PKGDIR}/modules/${name}.bundle.js`
+    );
+    const proc = exec(
+      `browserify ${PKGDIR}/node_modules/${modulename} --s ${exportedname} -o modules/${exportedname}.bundle.js`
     );
 
-    (async () => {
-      const deployFile = fs.createWriteStream(
-        `${PKGDIR}/deploy/schemas/v8/tables/modules/fixtures/${name}.sql`
-      );
-      const revertFile = fs.createWriteStream(
-        `${PKGDIR}/revert/schemas/v8/tables/modules/fixtures/${name}.sql`
-      );
-      const verifyFile = fs.createWriteStream(
-        `${PKGDIR}/verify/schemas/v8/tables/modules/fixtures/${name}.sql`
-      );
-      const readStream = fs.createReadStream(
-        `${PKGDIR}/modules/${name}.bundle.js`
-      );
-      const proc = exec(
-        `browserify ${module} --s ${name} -o modules/${name}.bundle.js`
-      );
-
-      // VERIFY
-      verifyFile.write(`-- Verify schemas/v8/tables/modules/fixtures/${name}  on pg
+    // VERIFY
+    verifyFile.write(`-- Verify schemas/v8/tables/modules/fixtures/${exportedname}  on pg
 
   BEGIN;
 
-  SELECT 1/count(*) FROM v8.modules WHERE name='${name}';
+  SELECT 1/count(*) FROM v8.modules WHERE name='${exportedname}';
 
   ROLLBACK;`);
-      verifyFile.end();
+    verifyFile.end();
 
-      // REVERT
-      revertFile.write(`-- Revert schemas/v8/tables/modules/fixtures/${name} from pg
+    // REVERT
+    revertFile.write(`-- Revert schemas/v8/tables/modules/fixtures/${exportedname} from pg
 
   BEGIN;
 
-  DELETE FROM v8.modules WHERE name='${name}';
+  DELETE FROM v8.modules WHERE name='${exportedname}';
 
   COMMIT;`);
 
-      revertFile.end();
+    revertFile.end();
 
-      // DEPLOYMENT
-      deployFile.write(`-- Deploy schemas/v8/tables/modules/fixtures/${name} to pg
+    // DEPLOYMENT
+    deployFile.write(`-- Deploy schemas/v8/tables/modules/fixtures/${exportedname} to pg
 
   -- requires: schemas/v8/schema
   -- requires: schemas/v8/tables/modules/table
 
   BEGIN;
 
-  INSERT INTO v8.modules (name, code) VALUES ('${name}', $code$
+  INSERT INTO v8.modules (name, code) VALUES ('${exportedname}', $code$
 
     (function () {
       var module = {
@@ -87,9 +94,9 @@ export default async argv => {
       /* plv8 bundle begins */
   `);
 
-      readStream.on('data', chunk => {});
-      readStream.on('end', () => {
-        deployFile.write(`
+    readStream.on('data', chunk => {});
+    readStream.on('end', () => {
+      deployFile.write(`
 
       /* plv8 bundle ends */
 
@@ -100,9 +107,8 @@ export default async argv => {
 
   COMMIT;`);
 
-        deployFile.end();
-      });
-      readStream.pipe(deployFile);
-    })();
-  });
+      deployFile.end();
+    });
+    readStream.pipe(deployFile);
+  })();
 };
