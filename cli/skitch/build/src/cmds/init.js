@@ -103,6 +103,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, plan_1.default({ name: name })];
             case 4:
                 _b.sent();
+                console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
                 return [2 /*return*/];
         }
     });

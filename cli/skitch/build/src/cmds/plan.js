@@ -151,7 +151,6 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     }
                 });
                 fs.writeFileSync(PKGDIR + "/sqitch.plan", planfile.join('\n'));
-                console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!");
                 return [2 /*return*/];
         }
     });
