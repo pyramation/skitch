@@ -58,4 +58,13 @@ export default async argv => {
   shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
   writeFileSync(`${skitchPath}/package.json`, JSON.stringify(pkg, null, 2));
   await plan({ name });
+  console.log(`
+
+        |||
+       (o o)
+   ooO--(_)--Ooo-
+
+
+✨  All Done!
+`);
 };

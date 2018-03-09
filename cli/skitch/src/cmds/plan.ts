@@ -135,12 +135,4 @@ export default async argv => {
   });
 
   fs.writeFileSync(`${PKGDIR}/sqitch.plan`, planfile.join('\n'));
-  console.log(`
-
-        |||
-       (o o)
-   ooO--(_)--Ooo-
-
-
-✨  All Done!`);
 };
