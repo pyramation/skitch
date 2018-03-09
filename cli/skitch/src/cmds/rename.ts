@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { prompt } from 'inquirerer';
+import skitchPath from 'skitch-path';
 
 const glob = require('glob').sync;
 const path = require('path');
@@ -23,6 +24,7 @@ const questions = [
 
 export default async argv => {
   // e.g., node ./bin/rename procedures/verify_role procedures/verify/role
+  const PKGDIR = await skitchPath();
 
   let { src, dst } = await prompt(questions, argv);
 
@@ -42,7 +44,7 @@ export default async argv => {
     return constructPath(createPathArray(fullpath));
   }
 
-  var files = glob(`${__dirname}/../**/**.sql`);
+  var files = glob(`${PKGDIR}/**/**.sql`);
 
   files.forEach(file => {
     var contents = fs.readFileSync(file).toString();

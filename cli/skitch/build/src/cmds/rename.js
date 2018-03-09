@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
+var skitch_path_1 = require("skitch-path");
 var glob = require('glob').sync;
 var path = require('path');
 var fs = require('fs');
@@ -67,15 +68,18 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         }
         return constructPath(createPathArray(fullpath));
     }
-    var _a, src, dst, files, dirs, ops;
+    var PKGDIR, _a, src, dst, files, dirs, ops;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
+                PKGDIR = _b.sent();
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
                 _a = _b.sent(), src = _a.src, dst = _a.dst;
                 src = sanitize_path(src);
                 dst = sanitize_path(dst);
-                files = glob(__dirname + "/../**/**.sql");
+                files = glob(PKGDIR + "/**/**.sql");
                 files.forEach(function (file) {
                     var contents = fs.readFileSync(file).toString();
                     if (contents.match(src)) {
