@@ -3,6 +3,7 @@ import { prompt } from 'inquirerer';
 
 const questions = [
   {
+    _: true,
     name: 'db',
     message: 'database',
     required: true,

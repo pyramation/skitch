@@ -40,6 +40,7 @@ var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
 var questions = [
     {
+        _: true,
         name: 'db',
         message: 'database',
         required: true,
