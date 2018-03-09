@@ -48,28 +48,31 @@ var readFile = promisify(fs.readFile);
 var writeFile = promisify(fs.writeFile);
 var path = require('path');
 var caseLib = require('case');
-var questions = [
-    {
-        _: true,
-        name: 'modulename',
-        message: 'module',
-        required: true,
-    },
-    {
-        _: true,
-        name: 'exportedname',
-        message: 'exported name (usually same as modulename)',
-        required: true,
-    },
-];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var _this = this;
-    var PKGDIR, _a, modulename, exportedname;
+    var PKGDIR, pkg, questions, _a, modulename, exportedname;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
                 PKGDIR = _b.sent();
+                pkg = require(PKGDIR + "/package.json");
+                questions = [
+                    {
+                        _: true,
+                        type: 'list',
+                        name: 'modulename',
+                        message: 'choose a module',
+                        choices: Object.keys(pkg.dependencies),
+                        required: true,
+                    },
+                    {
+                        _: true,
+                        name: 'exportedname',
+                        message: 'exported name (usually same as modulename)',
+                        required: true,
+                    },
+                ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
                 _a = _b.sent(), modulename = _a.modulename, exportedname = _a.exportedname;

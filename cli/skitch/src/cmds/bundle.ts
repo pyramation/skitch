@@ -12,23 +12,27 @@ const writeFile = promisify(fs.writeFile);
 const path = require('path');
 const caseLib = require('case');
 
-const questions = [
-  {
-    _: true,
-    name: 'modulename',
-    message: 'module',
-    required: true,
-  },
-  {
-    _: true,
-    name: 'exportedname',
-    message: 'exported name (usually same as modulename)',
-    required: true,
-  },
-];
-
 export default async argv => {
   const PKGDIR = await skitchPath();
+
+  const pkg = require(`${PKGDIR}/package.json`);
+
+  const questions = [
+    {
+      _: true,
+      type: 'list',
+      name: 'modulename',
+      message: 'choose a module',
+      choices: Object.keys(pkg.dependencies),
+      required: true,
+    },
+    {
+      _: true,
+      name: 'exportedname',
+      message: 'exported name (usually same as modulename)',
+      required: true,
+    },
+  ];
 
   let { modulename, exportedname } = await prompt(questions, argv);
   exportedname = caseLib.camel(exportedname);
