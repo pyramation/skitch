@@ -1,0 +1,12 @@
+-- Deploy [% change %] to pg
+-- requires: procedures/verify_security
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+
+BEGIN;
+
+ALTER TABLE [% schema %].[% table %]
+    ENABLE ROW LEVEL SECURITY;
+
+COMMIT;

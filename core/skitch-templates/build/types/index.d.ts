@@ -8,6 +8,7 @@ import * as index from './schemas/index';
 import * as peoplestamps from './schemas/peoplestamps';
 import * as policy from './schemas/policy';
 import * as procedure from './schemas/procedure';
+import * as rowLevelSecurity from './schemas/rowLevelSecurity';
 import * as schema from './schemas/schema';
 import * as table from './schemas/table';
 import * as timestamps from './schemas/timestamps';
@@ -26,6 +27,7 @@ declare const _default: {
     peoplestamps: typeof peoplestamps;
     policy: typeof policy;
     procedure: typeof procedure;
+    rowLevelSecurity: typeof rowLevelSecurity;
     schema: typeof schema;
     table: typeof table;
     timestamps: typeof timestamps;

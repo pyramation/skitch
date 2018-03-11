@@ -15,6 +15,6 @@ var imports = paths
     return ["import * as " + f.name + " from '" + f.path + "';"];
 })
     .join('\n');
-var out = "\n    " + imports + "\n    export default {\n      " + paths.map(function (a) { return a.name; }).join(',') + "\n    }\n  ";
+var out = "\n" + imports + "\nexport default {\n  " + paths.map(function (a) { return a.name; }).join(',') + "\n};";
 fs.writeFileSync(__dirname + "/../index.ts", out);
 //# sourceMappingURL=build.js.map

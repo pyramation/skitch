@@ -7,7 +7,7 @@
   "main": "./build/index.js",
   "types": "./build/types/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./build && tsc"
+    "build": "ts-node bin/build.ts && rm -rf ./build && tsc"
   },
   "devDependencies": {
     "@types/jest": "^21.1.0",

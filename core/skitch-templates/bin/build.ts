@@ -19,10 +19,9 @@ const imports = paths
   .join('\n');
 
 const out = `
-    ${imports}
-    export default {
-      ${paths.map(a => a.name).join(',')}
-    }
-  `;
+${imports}
+export default {
+  ${paths.map(a => a.name).join(',')}
+};`;
 
 fs.writeFileSync(`${__dirname}/../index.ts`, out);

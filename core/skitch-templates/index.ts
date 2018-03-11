@@ -8,6 +8,7 @@ import * as index from './schemas/index';
 import * as peoplestamps from './schemas/peoplestamps';
 import * as policy from './schemas/policy';
 import * as procedure from './schemas/procedure';
+import * as rowLevelSecurity from './schemas/rowLevelSecurity';
 import * as schema from './schemas/schema';
 import * as table from './schemas/table';
 import * as timestamps from './schemas/timestamps';
@@ -15,7 +16,6 @@ import * as trigger from './schemas/trigger';
 import * as type from './schemas/type';
 import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
-
 export default {
   column,
   fixture,
@@ -27,6 +27,7 @@ export default {
   peoplestamps,
   policy,
   procedure,
+  rowLevelSecurity,
   schema,
   table,
   timestamps,
