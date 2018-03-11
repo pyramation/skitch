@@ -6,7 +6,7 @@ BEGIN;
 CREATE FUNCTION stamp_created_by_column()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.created_by = current_setting('jwt.claims.user_id');
+    NEW.created_by = current_setting('user.id');
     RETURN NEW;
 END;
 $$ language 'plpgsql';
@@ -14,7 +14,7 @@ $$ language 'plpgsql';
 CREATE FUNCTION stamp_updated_by_column()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.updated_by = current_setting('jwt.claims.user_id');
+    NEW.updated_by = current_setting('user.id');
     RETURN NEW;
 END;
 $$ language 'plpgsql';
