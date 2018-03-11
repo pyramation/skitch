@@ -11,7 +11,9 @@ CREATE POLICY [% policy %] ON [% schema %].[% table %] FOR
     SELECT
         TO [% role %]
         USING (
-            -- insert sql here
+            -- examples:
+            -- USING (author_id = current_setting('user.id')::uuid)
+            -- USING (TRUE)
 );
 
 COMMIT;
