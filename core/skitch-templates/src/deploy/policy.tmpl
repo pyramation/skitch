@@ -14,6 +14,7 @@ CREATE POLICY [% policy %] ON [% schema %].[% table %] FOR
             -- examples:
             -- USING (author_id = current_setting('user.id')::uuid)
             -- USING (TRUE)
+            -- NOTE: make sure to enable row level security, or it won't work!
 );
 
 COMMIT;
