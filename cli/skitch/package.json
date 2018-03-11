@@ -30,6 +30,7 @@
     "inquirerer": "^0.1.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "pg-promise": "^8.2.1",
     "shelljs": "^0.8.1",
     "skitch-path": "^0.1.37",
     "skitch-template": "^0.3.10",

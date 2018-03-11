@@ -6,6 +6,7 @@ var createdb_1 = require("./cmds/createdb");
 var deploy_1 = require("./cmds/deploy");
 var dropdb_1 = require("./cmds/dropdb");
 var generate_1 = require("./cmds/generate");
+var info_1 = require("./cmds/info");
 var init_1 = require("./cmds/init");
 var install_1 = require("./cmds/install");
 var plan_1 = require("./cmds/plan");
@@ -15,6 +16,6 @@ var start_1 = require("./cmds/start");
 var test_1 = require("./cmds/test");
 var verify_1 = require("./cmds/verify");
 exports.default = {
-    add: add_1.default, bundle: bundle_1.default, createdb: createdb_1.default, deploy: deploy_1.default, dropdb: dropdb_1.default, generate: generate_1.default, init: init_1.default, install: install_1.default, plan: plan_1.default, rename: rename_1.default, revert: revert_1.default, start: start_1.default, test: test_1.default, verify: verify_1.default
+    add: add_1.default, bundle: bundle_1.default, createdb: createdb_1.default, deploy: deploy_1.default, dropdb: dropdb_1.default, generate: generate_1.default, info: info_1.default, init: init_1.default, install: install_1.default, plan: plan_1.default, rename: rename_1.default, revert: revert_1.default, start: start_1.default, test: test_1.default, verify: verify_1.default
 };
 //# sourceMappingURL=index.js.map
