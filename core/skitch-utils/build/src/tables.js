@@ -43,7 +43,7 @@ var skitch_path_1 = require("skitch-path");
 exports.searchTables = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-        var path, schema, tablesDir, tables;
+        var path, schema, schemaDir, tables;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, skitch_path_1.default()];
@@ -53,9 +53,9 @@ exports.searchTables = function (answers, input) {
                     if (!schema) {
                         schema = '**';
                     }
-                    tablesDir = path_1.resolve(path + "/deploy/schemas");
+                    schemaDir = path_1.resolve(path + "/deploy/schemas");
                     try {
-                        tables = glob.sync(tablesDir + "/" + schema + "/tables/**/table.sql");
+                        tables = glob.sync(schemaDir + "/" + schema + "/tables/**/table.sql");
                     }
                     catch (e) {
                         tables = [];

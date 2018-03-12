@@ -43,19 +43,19 @@ var skitch_path_1 = require("skitch-path");
 exports.searchProcedures = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var schema, procs, path;
+        var path, schema, procs, schemaDir;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
+                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 1:
+                    path = _a.sent();
                     schema = answers.schema;
                     if (!schema) {
                         schema = '**';
                     }
-                    return [4 /*yield*/, skitch_path_1.default()];
-                case 1:
-                    path = _a.sent();
+                    schemaDir = path_1.resolve(path + "/deploy/schemas");
                     try {
-                        procs = glob_1.default.sync(path + "/deploy/schemas/" + schema + "/procedures/**.sql");
+                        procs = glob_1.default.sync(schemaDir + "/" + schema + "/procedures/**.sql");
                     }
                     catch (e) {
                         procs = [];

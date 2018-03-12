@@ -16,16 +16,19 @@ export interface FuzzyObject {
 export const searchProcedures = (answers: HashObject, input: string) => {
   input = input || '';
   return new Promise(async (resolve, reject) => {
+    const path = await skitchPath();
+
     let { schema } = answers;
     if (!schema) {
       schema = '**';
     }
+
     var procs;
 
-    const path = await skitchPath();
+    const schemaDir = resolvePath(`${path}/deploy/schemas`);
 
     try {
-      procs = glob.sync(`${path}/deploy/schemas/${schema}/procedures/**.sql`);
+      procs = glob.sync(`${schemaDir}/${schema}/procedures/**.sql`);
     } catch (e) {
       procs = [];
     }
