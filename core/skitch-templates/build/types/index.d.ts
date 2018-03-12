@@ -2,6 +2,7 @@ import * as column from './schemas/column';
 import * as fixture from './schemas/fixture';
 import * as foreignKey from './schemas/foreignKey';
 import * as grantExecute from './schemas/grantExecute';
+import * as grantRole from './schemas/grantRole';
 import * as grantSchema from './schemas/grantSchema';
 import * as grantTable from './schemas/grantTable';
 import * as index from './schemas/index';
@@ -22,6 +23,7 @@ declare const _default: {
     fixture: typeof fixture;
     foreignKey: typeof foreignKey;
     grantExecute: typeof grantExecute;
+    grantRole: typeof grantRole;
     grantSchema: typeof grantSchema;
     grantTable: typeof grantTable;
     index: typeof index;
