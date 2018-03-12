@@ -39,6 +39,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
+var shell = require("shelljs");
 var glob = require('glob').sync;
 var path = require('path');
 var fs = require('fs');
@@ -103,6 +104,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     var src = _a[0], dst = _a[1];
                     fs.renameSync(src, dst);
                 });
+                shell.exec("find . -type d -empty -delete");
                 return [2 /*return*/];
         }
     });

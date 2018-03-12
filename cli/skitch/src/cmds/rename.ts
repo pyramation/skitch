@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { prompt } from 'inquirerer';
 import skitchPath from 'skitch-path';
+import * as shell from 'shelljs';
 
 const glob = require('glob').sync;
 const path = require('path');
@@ -53,8 +54,10 @@ export default async argv => {
       fs.writeFileSync(file, contents.replace(regexp, dst));
     }
   });
+
   var dirs = {};
   var ops = [];
+
   files.filter(f => f.match(src)).forEach(file => {
     var parts = file.split(src);
     var newpath = path.resolve(`${parts[0]}/${dst}/${parts[1]}`);
@@ -70,5 +73,6 @@ export default async argv => {
     fs.renameSync(src, dst);
   });
 
+  shell.exec(`find . -type d -empty -delete`);
   // console.log(files);
 };
