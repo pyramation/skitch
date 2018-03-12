@@ -38,7 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var fuzzy = require('fuzzy');
 var path_1 = require("path");
-var glob_1 = require("glob");
+var glob = require("glob");
 var skitch_path_1 = require("skitch-path");
 exports.searchProcedures = function (answers, input) {
     input = input || '';
@@ -56,7 +56,7 @@ exports.searchProcedures = function (answers, input) {
                     schemaDir = path_1.resolve(path + "/deploy/schemas");
                     try {
                         console.log(schemaDir + "/" + schema + "/procedures/**.sql");
-                        procs = glob_1.default.sync(schemaDir + "/" + schema + "/procedures/**.sql");
+                        procs = glob.sync(schemaDir + "/" + schema + "/procedures/**.sql");
                     }
                     catch (e) {
                         console.log(e);
