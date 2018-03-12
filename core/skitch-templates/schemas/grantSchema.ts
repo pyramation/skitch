@@ -1,27 +1,28 @@
-import { change as schema } from './schema'
-import { searchSchemas } from 'skitch-utils'
-import { ChangePathArray, InquirerQuestion } from 'skitch-types'
+import { change as schema } from './schema';
+import { searchSchemas } from 'skitch-utils';
+import { searchRoles } from 'skitch-utils';
+import { ChangePathArray, InquirerQuestion } from 'skitch-types';
 
 export interface GrantSchemaConfig {
-  schema: string
-  table: string
-  role: string
+  schema: string;
+  table: string;
+  role: string;
 }
 
 export const requires = (res: GrantSchemaConfig): Array<ChangePathArray> => [
-  schema(res)
-]
+  schema(res),
+];
 
 export const change = ({
   schema,
   table,
-  role
+  role,
 }: GrantSchemaConfig): ChangePathArray => [
   'schemas',
   schema,
   'grants',
-  `grant_schema_to_${role}`
-]
+  `grant_schema_to_${role}`,
+];
 
 const questions: Array<InquirerQuestion> = [
   {
@@ -29,15 +30,15 @@ const questions: Array<InquirerQuestion> = [
     name: 'schema',
     message: 'enter a schema name',
     source: searchSchemas,
-    required: true
+    required: true,
   },
   {
-    type: 'list',
+    type: 'autocomplete',
     name: 'role',
     message: 'choose the role',
-    choices: ['anonymous_user', 'known_user'],
-    required: true
-  }
-]
+    source: searchRoles,
+    required: true,
+  },
+];
 
-export default questions
+export default questions;

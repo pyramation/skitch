@@ -5,6 +5,6 @@ export interface GrantSchemaConfig {
     role: string;
 }
 export declare const requires: (res: GrantSchemaConfig) => string[][];
-export declare const change: ({ schema, table, role }: GrantSchemaConfig) => string[];
+export declare const change: ({ schema, table, role, }: GrantSchemaConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

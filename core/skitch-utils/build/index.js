@@ -6,4 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./src/procedures"));
 __export(require("./src/schemas"));
 __export(require("./src/tables"));
+__export(require("./src/roles"));
 //# sourceMappingURL=index.js.map
