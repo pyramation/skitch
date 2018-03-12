@@ -2,6 +2,7 @@
 import * as column from './schemas/column';
 import * as fixture from './schemas/fixture';
 import * as foreignKey from './schemas/foreignKey';
+import * as grantAllTables from './schemas/grantAllTables';
 import * as grantExecute from './schemas/grantExecute';
 import * as grantRole from './schemas/grantRole';
 import * as grantSchema from './schemas/grantSchema';
@@ -20,5 +21,5 @@ import * as type from './schemas/type';
 import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
 export default {
-  column,fixture,foreignKey,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility
+  column,fixture,foreignKey,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility
 };

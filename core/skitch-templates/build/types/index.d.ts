@@ -1,6 +1,7 @@
 import * as column from './schemas/column';
 import * as fixture from './schemas/fixture';
 import * as foreignKey from './schemas/foreignKey';
+import * as grantAllTables from './schemas/grantAllTables';
 import * as grantExecute from './schemas/grantExecute';
 import * as grantRole from './schemas/grantRole';
 import * as grantSchema from './schemas/grantSchema';
@@ -22,6 +23,7 @@ declare const _default: {
     column: typeof column;
     fixture: typeof fixture;
     foreignKey: typeof foreignKey;
+    grantAllTables: typeof grantAllTables;
     grantExecute: typeof grantExecute;
     grantRole: typeof grantRole;
     grantSchema: typeof grantSchema;
