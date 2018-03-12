@@ -5,13 +5,13 @@ import { searchTables } from 'skitch-utils';
 
 import { ChangePathArray, InquirerQuestion } from 'skitch-types';
 
-export interface ColumnConfig {
+export interface SecurityConfig {
   schema: string;
   table: string;
   column: string;
 }
 
-export const requires = (res: ColumnConfig): Array<ChangePathArray> => [
+export const requires = (res: SecurityConfig): Array<ChangePathArray> => [
   schema(res),
   table(res),
 ];
@@ -20,7 +20,7 @@ export const change = ({
   schema,
   table,
   column,
-}: ColumnConfig): ChangePathArray => [
+}: SecurityConfig): ChangePathArray => [
   'schemas',
   schema,
   'tables',
