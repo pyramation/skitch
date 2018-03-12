@@ -2,22 +2,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var schema_1 = require("./schema");
 var table_1 = require("./table");
+var role_1 = require("./role");
 var skitch_utils_1 = require("skitch-utils");
-var skitch_utils_2 = require("skitch-utils");
 exports.requires = function (res) { return [
     schema_1.change(res),
-    table_1.change(res)
+    table_1.change(res),
+    role_1.change(res),
 ]; };
 exports.change = function (_a) {
-    var schema = _a.schema, table = _a.table, policy = _a.policy;
+    var schema = _a.schema, table = _a.table, action = _a.action, role = _a.role;
     return [
         'schemas',
         schema,
         'tables',
         table,
         'policies',
-        policy,
-        'policy'
+        ("" + action).toLowerCase(),
+        ("" + role).toLowerCase(),
+        'policy',
     ];
 };
 var questions = [
@@ -26,28 +28,28 @@ var questions = [
         name: 'schema',
         message: 'enter a schema name',
         source: skitch_utils_1.searchSchemas,
-        required: true
+        required: true,
     },
     {
         type: 'autocomplete',
         name: 'table',
         message: 'enter a table name',
-        source: skitch_utils_2.searchTables,
-        required: true
+        source: skitch_utils_1.searchTables,
+        required: true,
     },
     {
-        type: 'string',
-        name: 'policy',
-        message: 'enter an policy name',
-        required: true
+        type: 'list',
+        name: 'action',
+        message: 'which action?',
+        choices: ['ALL', 'SELECT', 'INSERT', 'UPDATE', 'DELETE'],
     },
     {
-        type: 'checkbox',
-        name: 'roles',
-        message: 'choose the roles',
-        choices: ['anonymous_user', 'known_user'],
-        required: true
-    }
+        type: 'autocomplete',
+        name: 'role',
+        message: 'choose a role',
+        source: skitch_utils_1.searchRoles,
+        required: true,
+    },
 ];
 exports.default = questions;
 //# sourceMappingURL=policy.js.map

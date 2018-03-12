@@ -7,8 +7,8 @@
 
 BEGIN;
 
-CREATE POLICY [% policy %] ON [% schema %].[% table %] FOR
-    SELECT
+CREATE POLICY [% action %]_to_[% role %] ON [% schema %].[% table %] FOR
+    [% action %]
         TO [% role %]
         USING (
             -- examples:

@@ -40,10 +40,10 @@ var inquirerer_1 = require("inquirerer");
 var pgPromise = require('pg-promise');
 var policies = "SELECT\n  CONCAT(n.nspname, '.', c.relname) AS tablename,\n  pol.polname AS policyname\n  FROM pg_policy pol\n  JOIN pg_class c ON c.oid = pol.polrelid\n  LEFT JOIN pg_namespace n ON n.oid = c.relnamespace\n";
 var grants = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee != 'postgres'\n  AND grantee != 'PUBLIC'\n  ORDER BY table_schema, table_name\n";
-var anonymous = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee = 'anonymous_user'\n  ORDER BY table_schema, table_name\n";
-var anonymousFunctions = "SELECT\n  CONCAT(routine_schema, '.', routine_name) AS anonFunction\n  FROM information_schema.role_routine_grants\n  WHERE grantee = 'anonymous_user'\n";
-var known = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee = 'known_user'\n  ORDER BY table_schema, table_name\n";
-var knownFunctions = "SELECT\n  CONCAT(routine_schema, '.', routine_name) as knownFunction\n  FROM information_schema.role_routine_grants\n  WHERE grantee = 'known_user'\n";
+var anonymous = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee = 'anonymous'\n  ORDER BY table_schema, table_name\n";
+var anonymousFunctions = "SELECT\n  CONCAT(routine_schema, '.', routine_name) AS anonFunction\n  FROM information_schema.role_routine_grants\n  WHERE grantee = 'anonymous'\n";
+var authenticated = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee = 'authenticated'\n  ORDER BY table_schema, table_name\n";
+var authenticatedFunctions = "SELECT\n  CONCAT(routine_schema, '.', routine_name) as authenticatedFunction\n  FROM information_schema.role_routine_grants\n  WHERE grantee = 'authenticated'\n";
 var tables = "SELECT\n  CONCAT(table_schema, '.', table_name) AS tbl\n  FROM information_schema.tables\n  WHERE table_schema != 'pg_catalog'\n  AND table_schema != 'sqitch'\n  AND table_schema != 'information_schema'\n  ORDER BY table_schema, table_name\n";
 var security = "SELECT\n  CONCAT(relname, '.', n.nspname), 'enabled'::TEXT AS tablename\n\tFROM pg_class p\n\tJOIN pg_catalog.pg_namespace n ON n.oid = p.relnamespace\n\tWHERE relrowsecurity = 'true'\n";
 var QUERIES = {
@@ -55,8 +55,8 @@ var QUERIES = {
     security: security,
     anonymous: anonymous,
     anonymousFunctions: anonymousFunctions,
-    known: known,
-    knownFunctions: knownFunctions,
+    authenticated: authenticated,
+    authenticatedFunctions: authenticatedFunctions,
 };
 var questions = [
     {

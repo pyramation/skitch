@@ -21,27 +21,27 @@ const grants = `SELECT
 const anonymous = `SELECT
   grantee, privilege_type, table_schema, table_name
   FROM information_schema.role_table_grants
-  WHERE grantee = 'anonymous_user'
+  WHERE grantee = 'anonymous'
   ORDER BY table_schema, table_name
 `;
 
 const anonymousFunctions = `SELECT
   CONCAT(routine_schema, '.', routine_name) AS anonFunction
   FROM information_schema.role_routine_grants
-  WHERE grantee = 'anonymous_user'
+  WHERE grantee = 'anonymous'
 `;
 
-const known = `SELECT
+const authenticated = `SELECT
   grantee, privilege_type, table_schema, table_name
   FROM information_schema.role_table_grants
-  WHERE grantee = 'known_user'
+  WHERE grantee = 'authenticated'
   ORDER BY table_schema, table_name
 `;
 
-const knownFunctions = `SELECT
-  CONCAT(routine_schema, '.', routine_name) as knownFunction
+const authenticatedFunctions = `SELECT
+  CONCAT(routine_schema, '.', routine_name) as authenticatedFunction
   FROM information_schema.role_routine_grants
-  WHERE grantee = 'known_user'
+  WHERE grantee = 'authenticated'
 `;
 
 const tables = `SELECT
@@ -69,8 +69,8 @@ const QUERIES = {
   security,
   anonymous,
   anonymousFunctions,
-  known,
-  knownFunctions,
+  authenticated,
+  authenticatedFunctions,
 };
 
 const questions = [

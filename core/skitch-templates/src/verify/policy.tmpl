@@ -3,6 +3,6 @@
 BEGIN;
 
 SELECT
-    verify_policy ('[% policy %]');
+    verify_policy ('[% action %]_to_[% role %]');
 
 ROLLBACK;
