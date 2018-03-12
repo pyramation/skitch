@@ -1,5 +1,5 @@
 import { change as schema } from './schema';
-import { change as role } from './table';
+import { change as role } from './role';
 import { searchSchemas, searchTables, searchRoles } from 'skitch-utils';
 import { ChangePathArray, InquirerQuestion } from 'skitch-types';
 
