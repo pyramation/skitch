@@ -1,10 +1,10 @@
 import { InquirerQuestion } from 'skitch-types';
-export interface ColumnConfig {
+export interface SecurityConfig {
     schema: string;
     table: string;
     column: string;
 }
-export declare const requires: (res: ColumnConfig) => string[][];
-export declare const change: ({ schema, table, column, }: ColumnConfig) => string[];
+export declare const requires: (res: SecurityConfig) => string[][];
+export declare const change: ({ schema, table, column, }: SecurityConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;
