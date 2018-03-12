@@ -55,9 +55,11 @@ exports.searchProcedures = function (answers, input) {
                     }
                     schemaDir = path_1.resolve(path + "/deploy/schemas");
                     try {
+                        console.log(schemaDir + "/" + schema + "/procedures/**.sql");
                         procs = glob_1.default.sync(schemaDir + "/" + schema + "/procedures/**.sql");
                     }
                     catch (e) {
+                        console.log(e);
                         procs = [];
                     }
                     procs = procs.map(function (f) { return path_1.basename(f).replace('.sql', ''); });

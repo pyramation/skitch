@@ -28,8 +28,10 @@ export const searchProcedures = (answers: HashObject, input: string) => {
     const schemaDir = resolvePath(`${path}/deploy/schemas`);
 
     try {
+      console.log(`${schemaDir}/${schema}/procedures/**.sql`);
       procs = glob.sync(`${schemaDir}/${schema}/procedures/**.sql`);
     } catch (e) {
+      console.log(e);
       procs = [];
     }
     procs = procs.map(f => basename(f).replace('.sql', ''));
