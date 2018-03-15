@@ -88,6 +88,9 @@ var makePackage = function (_a) {
         devDependencies: {
             '@types/jest': '^21.1.0',
             '@types/node': '^8.0.0',
+            'babel-cli': '^6.24.1',
+            'babel-jest': '^20.0.3',
+            'babel-preset-react-app': '^3.0.0',
             dotenv: '^5.0.1',
             jest: '^22.4.0',
         },
