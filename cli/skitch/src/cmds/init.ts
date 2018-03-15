@@ -46,6 +46,22 @@ const makePackage = ({ name, description, author }) => {
     description,
     author,
     private: true,
+    scripts: {
+      test: 'jest',
+      'test:watch': 'jest --watch',
+    },
+    devDependencies: {
+      '@types/jest': '^21.1.0',
+      '@types/node': '^8.0.0',
+      dotenv: '^5.0.1',
+      jest: '^22.4.0',
+    },
+    dependencies: {
+      pg: '^6.4.0',
+      'pg-promise': '^6.10.3',
+      'skitch-testing': 'latest',
+      uuid: '^3.1.0',
+    },
   };
 };
 
