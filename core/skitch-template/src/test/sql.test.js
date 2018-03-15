@@ -16,7 +16,7 @@ describe('custom database fields', () => {
     await closeConnection(db);
   });
   afterEach(async () => {
-    await db.any("SELECT truncate_tables(ARRAY['v8'])");
+    await db.none("SELECT truncate_tables(ARRAY['v8'])");
   });
   describe('has a database', () => {
     it('works', async () => {
