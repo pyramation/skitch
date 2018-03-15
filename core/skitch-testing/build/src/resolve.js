@@ -37,11 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference path="../../types/glob.d.ts"/>
-var fs_1 = require("fs");
+var fs = require("fs");
 var util_1 = require("util");
-var glob_1 = require("glob");
-var readFile = util_1.promisify(fs_1.default.readFile);
-var asyncGlob = util_1.promisify(glob_1.default);
+var glob = require("glob");
+var readFile = util_1.promisify(fs.readFile);
+var asyncGlob = util_1.promisify(glob);
 exports.resolve = function (pkgDir) {
     if (pkgDir === void 0) { pkgDir = process.cwd(); }
     return __awaiter(_this, void 0, void 0, function () {
@@ -108,7 +108,7 @@ exports.resolve = function (pkgDir) {
                     deps = Object.assign({
                         '/deploy/apps/index.sql': Object.keys(deps)
                             .filter(function (dep) { return dep.match(/^\/deploy\//); })
-                            .map(function (dep) { return dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''); })
+                            .map(function (dep) { return dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''); }),
                     }, deps);
                     dep_resolve('apps/index', resolved, unresolved);
                     index = resolved.indexOf('apps/index');
@@ -117,7 +117,7 @@ exports.resolve = function (pkgDir) {
                     runners = [];
                     cfiles.forEach(function (p) {
                         var modName = p.split('/deploy/')[1];
-                        var dscript = fs_1.default.readFileSync(p).toString();
+                        var dscript = fs.readFileSync(p).toString();
                         sqlfile.push(dscript);
                     });
                     // TODO use streams
