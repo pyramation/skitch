@@ -1,6 +1,6 @@
 {
   "name": "skitch-testing",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "description": "testing utils",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -33,8 +33,15 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 90,
