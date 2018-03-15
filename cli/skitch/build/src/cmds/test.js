@@ -36,32 +36,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
+var mkdirp = require('mkdirp').sync;
 // sqitch add appschema -n 'Add schema for all flipr objects.'
 var questions = [
     {
         name: 'name',
-        message: 'module name',
-        required: true,
-    },
-    {
-        name: 'comment',
-        message: 'comment or description',
+        message: 'test name',
         required: true,
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, name, comment, cmd, sqitch;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var name;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                _a = _b.sent(), name = _a.name, comment = _a.comment;
-                cmd = ['sqitch', 'add', name, '--n', comment].join(' ');
-                sqitch = child_process_1.exec(cmd.trim());
-                sqitch.stdout.pipe(process.stdout);
-                sqitch.stderr.pipe(process.stderr);
+                name = (_a.sent()).name;
+                console.log(name);
                 return [2 /*return*/];
         }
     });

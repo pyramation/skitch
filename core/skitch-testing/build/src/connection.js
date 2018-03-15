@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var pg_promise_1 = require("pg-promise");
-var pgp = pg_promise_1.default({
-    noWarnings: true
+var pgPromise = require("pg-promise");
+var pgp = pgPromise({
+    noWarnings: true,
 });
 exports.connect = function (connection) { return __awaiter(_this, void 0, void 0, function () {
     var cn, db;
