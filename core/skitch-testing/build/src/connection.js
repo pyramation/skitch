@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var pgPromise = require("pg-promise");
+var pgPromise = require('pg-promise');
 var pgp = pgPromise({
     noWarnings: true,
 });

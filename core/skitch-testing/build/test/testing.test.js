@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -45,7 +53,7 @@ describe('testing', function () {
     afterEach(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.closeTestDb(db)];
+                case 0: return [4 /*yield*/, index_1.closeConnection(db)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -55,10 +63,7 @@ describe('testing', function () {
     it('hot seed option', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.connectTestDb(utils_1.config, {
-                        hot: true,
-                        directory: __dirname + '/fixtures/basic',
-                    })];
+                case 0: return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { hot: true, directory: __dirname + '/fixtures/basic' }))];
                 case 1:
                     db = _a.sent();
                     return [4 /*yield*/, utils_1.expectBasicSeed(db)];
@@ -75,10 +80,7 @@ describe('testing', function () {
                 case 0:
                     dir = process.cwd();
                     process.chdir(__dirname + '/fixtures/basic');
-                    return [4 /*yield*/, index_1.connectTestDb(utils_1.config, {
-                            hot: true,
-                            prefix: 'testing-another-',
-                        })];
+                    return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { hot: true, prefix: 'testing-another-' }))];
                 case 1:
                     db = _a.sent();
                     return [4 /*yield*/, utils_1.expectBasicSeed(db)];
@@ -92,9 +94,7 @@ describe('testing', function () {
     it('sqitch seed option', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.connectTestDb(utils_1.config, {
-                        directory: __dirname + '/fixtures/basic',
-                    })];
+                case 0: return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { directory: __dirname + '/fixtures/basic' }))];
                 case 1:
                     db = _a.sent();
                     return [4 /*yield*/, utils_1.expectBasicSeed(db)];
@@ -111,9 +111,7 @@ describe('testing', function () {
                 case 0:
                     dir = process.cwd();
                     process.chdir(__dirname + '/fixtures/basic');
-                    return [4 /*yield*/, index_1.connectTestDb(utils_1.config, {
-                            prefix: 'testing-another-',
-                        })];
+                    return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { prefix: 'testing-another-' }))];
                 case 1:
                     db = _a.sent();
                     return [4 /*yield*/, utils_1.expectBasicSeed(db)];
@@ -130,10 +128,7 @@ describe('templatedb', function () {
         var templatedb, connectionParameters, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, index_1.connectTestDb(utils_1.config, {
-                        hot: true,
-                        directory: __dirname + '/fixtures/basic',
-                    })];
+                case 0: return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { hot: true, directory: __dirname + '/fixtures/basic' }))];
                 case 1:
                     templatedb = _b.sent();
                     return [4 /*yield*/, utils_1.expectBasicSeed(templatedb)];
@@ -141,9 +136,7 @@ describe('templatedb', function () {
                     _b.sent();
                     index_1.close(templatedb);
                     connectionParameters = templatedb.client.connectionParameters;
-                    return [4 /*yield*/, index_1.connectTestDb(utils_1.config, {
-                            template: connectionParameters.database,
-                        })];
+                    return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { template: connectionParameters.database }))];
                 case 3:
                     db = _b.sent();
                     // without inserting, expect data to be there already
@@ -160,7 +153,7 @@ describe('templatedb', function () {
                     return [4 /*yield*/, index_1.dropdb(connectionParameters)];
                 case 5:
                     _b.sent();
-                    return [4 /*yield*/, index_1.closeTestDb(db)];
+                    return [4 /*yield*/, index_1.closeConnection(db)];
                 case 6:
                     _b.sent();
                     return [2 /*return*/];

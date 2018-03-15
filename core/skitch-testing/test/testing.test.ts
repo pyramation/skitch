@@ -1,6 +1,12 @@
 import { IConnected } from 'pg-promise';
 import v4 from 'uuid/v4';
-import { close, connect, connectTestDb, closeTestDb, dropdb } from '../index';
+import {
+  close,
+  connect,
+  getConnection,
+  closeConnection,
+  dropdb,
+} from '../index';
 import {
   getConnObj,
   getConnStr,
@@ -17,11 +23,12 @@ let db: IConnected<any>;
 
 describe('testing', () => {
   afterEach(async () => {
-    await closeTestDb(db);
+    await closeConnection(db);
   });
 
   it('hot seed option', async () => {
-    db = await connectTestDb(config, {
+    db = await getConnection({
+      ...config,
       hot: true,
       directory: __dirname + '/fixtures/basic',
     });
@@ -30,7 +37,8 @@ describe('testing', () => {
   it('hot seed option prefix', async () => {
     const dir = process.cwd();
     process.chdir(__dirname + '/fixtures/basic');
-    db = await connectTestDb(config, {
+    db = await getConnection({
+      ...config,
       hot: true,
       prefix: 'testing-another-',
     });
@@ -38,7 +46,8 @@ describe('testing', () => {
     process.chdir(dir);
   });
   it('sqitch seed option', async () => {
-    db = await connectTestDb(config, {
+    db = await getConnection({
+      ...config,
       directory: __dirname + '/fixtures/basic',
     });
     await expectBasicSeed(db);
@@ -46,7 +55,8 @@ describe('testing', () => {
   it('sqitch seed option prefix', async () => {
     const dir = process.cwd();
     process.chdir(__dirname + '/fixtures/basic');
-    db = await connectTestDb(config, {
+    db = await getConnection({
+      ...config,
       prefix: 'testing-another-',
     });
     await expectBasicSeed(db);
@@ -55,7 +65,8 @@ describe('testing', () => {
 });
 describe('templatedb', () => {
   it('template option', async () => {
-    const templatedb = await connectTestDb(config, {
+    const templatedb = await getConnection({
+      ...config,
       hot: true,
       directory: __dirname + '/fixtures/basic',
     });
@@ -64,7 +75,8 @@ describe('templatedb', () => {
 
     const { connectionParameters } = templatedb.client;
 
-    db = await connectTestDb(config, {
+    db = await getConnection({
+      ...config,
       template: connectionParameters.database,
     });
 
@@ -80,6 +92,6 @@ describe('templatedb', () => {
       await dropdb(connectionParameters);
     }
 
-    await closeTestDb(db);
+    await closeConnection(db);
   });
 });

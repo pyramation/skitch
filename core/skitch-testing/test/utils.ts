@@ -24,6 +24,11 @@ export const getConnObj = (config: TUtilsConfig = {}) => {
   if (!config.port && PGPORT) {
     config.port = parseInt(PGPORT, 10);
   }
+
+  if (!config.port || !config.user || !config.host) {
+    throw new Error('db config NEEDS info!');
+  }
+
   return config;
 };
 

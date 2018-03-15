@@ -36,10 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-/// <reference path="../../types/glob.d.ts"/>
-var fs = require("fs");
 var util_1 = require("util");
-var glob = require("glob");
+var fs = require('fs');
+var glob = require('glob');
 var readFile = util_1.promisify(fs.readFile);
 var asyncGlob = util_1.promisify(glob);
 exports.resolve = function (pkgDir) {

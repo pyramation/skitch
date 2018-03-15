@@ -57,6 +57,9 @@ exports.getConnObj = function (config) {
     if (!config.port && PGPORT) {
         config.port = parseInt(PGPORT, 10);
     }
+    if (!config.port || !config.user || !config.host) {
+        throw new Error('db config NEEDS info!');
+    }
     return config;
 };
 exports.config = exports.getConnObj();

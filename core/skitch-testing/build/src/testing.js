@@ -44,51 +44,57 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var v4 = require("uuid/v4");
+var v4 = require('uuid/v4');
 var db_1 = require("./db");
 var seed_1 = require("./seed");
 var connection_1 = require("./connection");
-exports.connectTestDb = function (config, _a) {
-    var hot = _a.hot, template = _a.template, _b = _a.prefix, prefix = _b === void 0 ? 'testing-db' : _b, _c = _a.directory, directory = _c === void 0 ? process.cwd() : _c;
+var _a = process.env, PGUSER = _a.PGUSER, PGPASSWORD = _a.PGPASSWORD, PGPORT = _a.PGPORT, PGHOST = _a.PGHOST;
+exports.getConnection = function (_a) {
+    var _b = _a.user, user = _b === void 0 ? PGUSER : _b, _c = _a.password, password = _c === void 0 ? PGPASSWORD : _c, _d = _a.port, port = _d === void 0 ? PGPORT : _d, _e = _a.host, host = _e === void 0 ? PGHOST : _e, hot = _a.hot, template = _a.template, _f = _a.prefix, prefix = _f === void 0 ? 'testing-db' : _f, _g = _a.directory, directory = _g === void 0 ? process.cwd() : _g;
     return __awaiter(_this, void 0, void 0, function () {
         var database, connection, db;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        return __generator(this, function (_h) {
+            switch (_h.label) {
                 case 0:
                     database = prefix + "-" + v4();
                     connection = Object.assign({
                         database: database,
-                    }, config);
+                    }, {
+                        user: user,
+                        port: port,
+                        password: password,
+                        host: host,
+                    });
                     if (!hot) return [3 /*break*/, 3];
                     return [4 /*yield*/, db_1.createdb(connection)];
                 case 1:
-                    _d.sent();
+                    _h.sent();
                     return [4 /*yield*/, seed_1.hotSeed(connection, directory)];
                 case 2:
-                    _d.sent();
+                    _h.sent();
                     return [3 /*break*/, 8];
                 case 3:
                     if (!template) return [3 /*break*/, 5];
                     return [4 /*yield*/, db_1.templatedb(__assign({}, connection, { template: template }))];
                 case 4:
-                    _d.sent();
+                    _h.sent();
                     return [3 /*break*/, 8];
                 case 5: return [4 /*yield*/, db_1.createdb(connection)];
                 case 6:
-                    _d.sent();
+                    _h.sent();
                     return [4 /*yield*/, seed_1.seed(connection, directory)];
                 case 7:
-                    _d.sent();
-                    _d.label = 8;
+                    _h.sent();
+                    _h.label = 8;
                 case 8: return [4 /*yield*/, connection_1.connect(connection)];
                 case 9:
-                    db = _d.sent();
+                    db = _h.sent();
                     return [2 /*return*/, db];
             }
         });
     });
 };
-exports.closeTestDb = function (db) { return __awaiter(_this, void 0, void 0, function () {
+exports.closeConnection = function (db) { return __awaiter(_this, void 0, void 0, function () {
     var connectionParameters;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -98,20 +104,6 @@ exports.closeTestDb = function (db) { return __awaiter(_this, void 0, void 0, fu
                 return [4 /*yield*/, db_1.dropdb(connectionParameters)];
             case 1:
                 _a.sent();
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.truncateTables = function (db) { return __awaiter(_this, void 0, void 0, function () {
-    var query, names;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                query = "SELECT\n     CONCAT(table_schema, '.', table_name) as table\n     FROM   information_schema.tables\n     WHERE table_schema != 'information_schema'\n     AND table_schema != 'pg_catalog'\n     AND table_schema != 'sqitch';";
-                return [4 /*yield*/, db.any(query)];
-            case 1:
-                names = _a.sent();
-                console.log("TRUNCATE TABLE " + names.join(',') + ";");
                 return [2 /*return*/];
         }
     });

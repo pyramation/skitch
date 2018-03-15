@@ -1,6 +1,6 @@
 import { dropdb, createdb, templatedb } from '../src/db';
-import v4 from 'uuid/v4';
-import pgPromise from 'pg-promise';
+const v4 = require('uuid/v4');
+const pgPromise = require('pg-promise');
 
 const pgp = pgPromise({
   noWarnings: true,

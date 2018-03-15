@@ -1,5 +1,4 @@
-/// <reference path="../../types/streamify-string.d.ts"/>
-import * as Streamify from 'streamify-string';
+const Streamify = require('streamify-string');
 import { spawn } from 'child_process';
 import { resolve as resolvePath } from 'path';
 import { resolve as resolveSql } from './resolve';

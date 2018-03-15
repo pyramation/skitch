@@ -43,8 +43,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/// <reference path="../../types/streamify-string.d.ts"/>
-var Streamify = require("streamify-string");
+var Streamify = require('streamify-string');
 var child_process_1 = require("child_process");
 var path_1 = require("path");
 var resolve_1 = require("./resolve");

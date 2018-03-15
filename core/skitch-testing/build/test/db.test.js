@@ -37,16 +37,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("../src/db");
-var v4_1 = require("uuid/v4");
-var pg_promise_1 = require("pg-promise");
-var pgp = pg_promise_1.default({
+var v4 = require('uuid/v4');
+var pgPromise = require('pg-promise');
+var pgp = pgPromise({
     noWarnings: true,
 });
 var utils_1 = require("./utils");
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 require('dotenv').load();
 describe('createdb', function () {
-    var database = "testing-db-" + v4_1.default();
+    var database = "testing-db-" + v4();
     afterEach(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -74,8 +74,8 @@ describe('createdb', function () {
     }); });
 });
 describe('templatedb', function () {
-    var database = "testing-db-" + v4_1.default();
-    var template = "testing-db-template-" + v4_1.default();
+    var database = "testing-db-" + v4();
+    var template = "testing-db-template-" + v4();
     afterEach(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -112,7 +112,7 @@ describe('templatedb', function () {
     }); });
 });
 describe('dropdb', function () {
-    var database = "testing-db-" + v4_1.default();
+    var database = "testing-db-" + v4();
     beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {

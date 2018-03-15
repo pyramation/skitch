@@ -1,4 +1,4 @@
-import * as v4 from 'uuid/v4';
+const v4 = require('uuid/v4');
 import { IConnected } from 'pg-promise';
 import { createdb, dropdb, templatedb } from './db';
 import { hotSeed, seed } from './seed';
@@ -12,21 +12,29 @@ export interface TestOptions {
   template?: string;
 }
 
-export const connectTestDb = async (
-  config: TUtilsConfig,
-  {
-    hot,
-    template,
-    prefix = 'testing-db',
-    directory = process.cwd(),
-  }: TestOptions
-) => {
+const { PGUSER, PGPASSWORD, PGPORT, PGHOST } = process.env;
+
+export const getConnection = async ({
+  user = PGUSER,
+  password = PGPASSWORD,
+  port = PGPORT,
+  host = PGHOST,
+  hot,
+  template,
+  prefix = 'testing-db',
+  directory = process.cwd(),
+}: TestOptions) => {
   const database = `${prefix}-${v4()}`;
   const connection = Object.assign(
     {
       database,
     },
-    config
+    {
+      user,
+      port,
+      password,
+      host,
+    }
   );
 
   if (hot) {
@@ -42,19 +50,8 @@ export const connectTestDb = async (
   return db;
 };
 
-export const closeTestDb = async (db: IConnected<any>) => {
+export const closeConnection = async (db: IConnected<any>) => {
   const { connectionParameters } = db.client;
   close(db);
   await dropdb(connectionParameters);
-};
-
-export const truncateTables = async (db: IConnected<any>) => {
-  const query = `SELECT
-     CONCAT(table_schema, '.', table_name) as table
-     FROM   information_schema.tables
-     WHERE table_schema != 'information_schema'
-     AND table_schema != 'pg_catalog'
-     AND table_schema != 'sqitch';`;
-  const names = await db.any(query);
-  console.log(`TRUNCATE TABLE ${names.join(',')};`);
 };

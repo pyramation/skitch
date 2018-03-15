@@ -1,8 +1,6 @@
-/// <reference path="../../types/glob.d.ts"/>
-import * as fs from 'fs';
 import { promisify } from 'util';
-import * as glob from 'glob';
-
+const fs = require('fs');
+const glob = require('glob');
 const readFile = promisify(fs.readFile);
 const asyncGlob = promisify(glob);
 

@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise';
+const pgPromise = require('pg-promise');
 import { TUtilsConfig } from './types';
 
 const pgp: pgPromise.IMain = pgPromise({
