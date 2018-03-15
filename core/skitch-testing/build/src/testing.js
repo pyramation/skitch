@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var v4_1 = require("uuid/v4");
+var v4 = require("uuid/v4");
 var db_1 = require("./db");
 var seed_1 = require("./seed");
 var connection_1 = require("./connection");
@@ -55,9 +55,9 @@ exports.connectTestDb = function (config, _a) {
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
-                    database = prefix + "-" + v4_1.default();
+                    database = prefix + "-" + v4();
                     connection = Object.assign({
-                        database: database
+                        database: database,
                     }, config);
                     if (!hot) return [3 /*break*/, 3];
                     return [4 /*yield*/, db_1.createdb(connection)];
@@ -98,6 +98,20 @@ exports.closeTestDb = function (db) { return __awaiter(_this, void 0, void 0, fu
                 return [4 /*yield*/, db_1.dropdb(connectionParameters)];
             case 1:
                 _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.truncateTables = function (db) { return __awaiter(_this, void 0, void 0, function () {
+    var query, names;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                query = "SELECT\n     CONCAT(table_schema, '.', table_name) as table\n     FROM   information_schema.tables\n     WHERE table_schema != 'information_schema'\n     AND table_schema != 'pg_catalog'\n     AND table_schema != 'sqitch';";
+                return [4 /*yield*/, db.any(query)];
+            case 1:
+                names = _a.sent();
+                console.log("TRUNCATE TABLE " + names.join(',') + ";");
                 return [2 /*return*/];
         }
     });

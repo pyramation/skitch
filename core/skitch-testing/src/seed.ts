@@ -1,9 +1,9 @@
 /// <reference path="../../types/streamify-string.d.ts"/>
-import Streamify from 'streamify-string'
-import { spawn } from 'child_process'
-import { resolve as resolvePath } from 'path'
-import { resolve as resolveSql } from './resolve'
-import { TUtilsConfig } from './types'
+import * as Streamify from 'streamify-string';
+import { spawn } from 'child_process';
+import { resolve as resolvePath } from 'path';
+import { resolve as resolveSql } from './resolve';
+import { TUtilsConfig } from './types';
 
 export async function seed(
   { database, host, password, port, user }: TUtilsConfig,
@@ -16,49 +16,49 @@ export async function seed(
         PGPASSWORD: password,
         PGUSER: user,
         PGHOST: host,
-        PGPORT: port
-      })
-    })
+        PGPORT: port,
+      }),
+    });
     proc.on('close', code => {
-      resolve()
-    })
-  })
+      resolve();
+    });
+  });
 }
 
 export const setArgs = (config: TUtilsConfig) => {
-  let args: string[] = []
+  let args: string[] = [];
 
   args = Object.entries({
     '-U': config.user,
     '-h': config.host,
-    '-p': config.port
+    '-p': config.port,
   }).reduce((args, [key, value]) => {
-    if (value) args.push(key, `${value}`)
-    return args
-  }, args)
+    if (value) args.push(key, `${value}`);
+    return args;
+  }, args);
 
-  if (config.database) args.push(config.database)
-  return args
-}
+  if (config.database) args.push(config.database);
+  return args;
+};
 
 export async function hotSeed(
   config: TUtilsConfig,
   path: string = process.cwd()
 ) {
-  const args = setArgs(config)
+  const args = setArgs(config);
   // why had to use object, unsure
 
   return new Promise(async resolve => {
-    const sql = await resolveSql(path)
-    const str = new Streamify(sql)
+    const sql = await resolveSql(path);
+    const str = new Streamify(sql);
 
     const proc = spawn('psql', args, {
-      env: { ...process.env, PGPASSWORD: config.password }
-    })
+      env: { ...process.env, PGPASSWORD: config.password },
+    });
 
-    str.pipe(proc.stdin)
+    str.pipe(proc.stdin);
     proc.on('close', code => {
-      resolve()
-    })
-  })
+      resolve();
+    });
+  });
 }

@@ -6,5 +6,6 @@ export interface TestOptions {
     prefix?: string;
     template?: string;
 }
-export declare const connectTestDb: (config: TUtilsConfig, { hot, template, prefix, directory }: TestOptions) => Promise<IConnected<any>>;
+export declare const connectTestDb: (config: TUtilsConfig, { hot, template, prefix, directory, }: TestOptions) => Promise<IConnected<any>>;
 export declare const closeTestDb: (db: IConnected<any>) => Promise<void>;
+export declare const truncateTables: (db: IConnected<any>) => Promise<void>;

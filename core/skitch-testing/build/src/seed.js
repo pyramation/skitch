@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference path="../../types/streamify-string.d.ts"/>
-var streamify_string_1 = require("streamify-string");
+var Streamify = require("streamify-string");
 var child_process_1 = require("child_process");
 var path_1 = require("path");
 var resolve_1 = require("./resolve");
@@ -60,8 +60,8 @@ function seed(_a, path) {
                             PGPASSWORD: password,
                             PGUSER: user,
                             PGHOST: host,
-                            PGPORT: port
-                        })
+                            PGPORT: port,
+                        }),
                     });
                     proc.on('close', function (code) {
                         resolve();
@@ -76,7 +76,7 @@ exports.setArgs = function (config) {
     args = Object.entries({
         '-U': config.user,
         '-h': config.host,
-        '-p': config.port
+        '-p': config.port,
     }).reduce(function (args, _a) {
         var key = _a[0], value = _a[1];
         if (value)
@@ -102,9 +102,9 @@ function hotSeed(config, path) {
                             case 0: return [4 /*yield*/, resolve_1.resolve(path)];
                             case 1:
                                 sql = _a.sent();
-                                str = new streamify_string_1.default(sql);
+                                str = new Streamify(sql);
                                 proc = child_process_1.spawn('psql', args, {
-                                    env: __assign({}, process.env, { PGPASSWORD: config.password })
+                                    env: __assign({}, process.env, { PGPASSWORD: config.password }),
                                 });
                                 str.pipe(proc.stdin);
                                 proc.on('close', function (code) {
