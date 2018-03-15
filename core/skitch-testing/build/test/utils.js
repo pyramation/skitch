@@ -42,14 +42,14 @@ var pg_promise_1 = require("pg-promise");
 var pgp = pg_promise_1.default({
     noWarnings: true,
 });
-var _a = process.env, PGDATABASE = _a.PGDATABASE, PGHOST = _a.PGHOST, PGPASS = _a.PGPASS, PGPORT = _a.PGPORT, PGUSER = _a.PGUSER;
+var _a = process.env, PGDATABASE = _a.PGDATABASE, PGHOST = _a.PGHOST, PGPASSWORD = _a.PGPASSWORD, PGPORT = _a.PGPORT, PGUSER = _a.PGUSER;
 exports.getConnObj = function (config) {
     if (config === void 0) { config = {}; }
     if (!config.host) {
         config.host = PGHOST;
     }
     if (!config.password) {
-        config.password = PGPASS;
+        config.password = PGPASSWORD;
     }
     if (!config.user) {
         config.user = PGUSER;

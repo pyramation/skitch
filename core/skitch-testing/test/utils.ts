@@ -9,14 +9,14 @@ const pgp = pgPromise({
   noWarnings: true,
 });
 
-const { PGDATABASE, PGHOST, PGPASS, PGPORT, PGUSER } = process.env;
+const { PGDATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
 
 export const getConnObj = (config: TUtilsConfig = {}) => {
   if (!config.host) {
     config.host = PGHOST;
   }
   if (!config.password) {
-    config.password = PGPASS;
+    config.password = PGPASSWORD;
   }
   if (!config.user) {
     config.user = PGUSER;
