@@ -15,9 +15,8 @@ export default async argv => {
   const PKGDIR = await skitchPath();
   let { name } = await prompt(questions, argv);
 
-  const template = `jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
-require('dotenv').load();
-import { getConnection, closeConnection, truncateTables } from 'skitch-testing';
+  const template = `
+import { getConnection, closeConnection, truncateTables } from './utils';
 
 let db;
 

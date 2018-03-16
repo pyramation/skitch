@@ -16,7 +16,7 @@ export interface TestOptions {
 export const getOpts = async configOpts => {
   const { PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST } = process.env;
   configOpts = configOpts || {};
-  const {
+  let {
     user = PGUSER,
     password = PGPASSWORD,
     port = PGPORT,

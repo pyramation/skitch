@@ -82,8 +82,8 @@ var makePackage = function (_a) {
         author: author,
         private: true,
         scripts: {
-            test: 'jest',
-            'test:watch': 'jest --watch',
+            test: 'FAST_TEST=1 skitch-templatedb && jest',
+            'test:watch': 'FAST_TEST=1 skitch-templatedb && jest --watch',
         },
         devDependencies: {
             '@types/jest': '^21.1.0',
