@@ -3,7 +3,7 @@
 BEGIN;
 
 SELECT
-    verify_function ('[% schema %].[% procedure %]',
+    verify_function ('public.[% procedure %]',
         'postgres');
 
 ROLLBACK;
