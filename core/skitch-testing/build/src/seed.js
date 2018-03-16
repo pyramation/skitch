@@ -117,4 +117,27 @@ function hotSeed(config, path) {
     });
 }
 exports.hotSeed = hotSeed;
+function setTemplate(config, template) {
+    if (template === void 0) { template = process.cwd(); }
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            if (config.user !== 'postgres') {
+                throw new Error('setTemplate requires postgres user');
+            }
+            return [2 /*return*/, new Promise(function (resolve) {
+                    var args = exports.setArgs(config);
+                    var sql = "UPDATE pg_database SET datistemplate = TRUE, datallowconn = FALSE WHERE datname = '" + template + "'";
+                    var str = new Streamify(sql);
+                    var proc = child_process_1.spawn('psql', args, {
+                        env: __assign({}, process.env, { PGPASSWORD: config.password }),
+                    });
+                    str.pipe(proc.stdin);
+                    proc.on('close', function (code) {
+                        resolve();
+                    });
+                })];
+        });
+    });
+}
+exports.setTemplate = setTemplate;
 //# sourceMappingURL=seed.js.map

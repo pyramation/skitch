@@ -8,4 +8,5 @@ __export(require("./src/db"));
 __export(require("./src/resolve"));
 __export(require("./src/seed"));
 __export(require("./src/testing"));
+__export(require("./src/skitch-test"));
 //# sourceMappingURL=index.js.map

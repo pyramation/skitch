@@ -49,78 +49,83 @@ var utils_1 = require("./utils");
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 require('dotenv').load();
 var db;
-describe('testing', function () {
-    afterEach(function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.closeConnection(db)];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('hot seed option', function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { hot: true, directory: __dirname + '/fixtures/basic' }))];
-                case 1:
-                    db = _a.sent();
-                    return [4 /*yield*/, utils_1.expectBasicSeed(db)];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('hot seed option prefix', function () { return __awaiter(_this, void 0, void 0, function () {
-        var dir;
+var skitch_test_1 = require("../src/skitch-test");
+var testing_1 = require("../src/testing");
+var seed_1 = require("../src/seed");
+var directory = __dirname + '/fixtures/basic';
+describe('skitchtest', function () {
+    it('works', function () { return __awaiter(_this, void 0, void 0, function () {
+        var test, db;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    dir = process.cwd();
-                    process.chdir(__dirname + '/fixtures/basic');
-                    return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { hot: true, prefix: 'testing-another-' }))];
+                    test = new skitch_test_1.SkitchTest({
+                        directory: directory,
+                    });
+                    return [4 /*yield*/, test.init()];
                 case 1:
+                    _a.sent();
+                    return [4 /*yield*/, test.getConnection()];
+                case 2:
                     db = _a.sent();
                     return [4 /*yield*/, utils_1.expectBasicSeed(db)];
-                case 2:
+                case 3:
                     _a.sent();
-                    process.chdir(dir);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('sqitch seed option', function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { directory: __dirname + '/fixtures/basic' }))];
-                case 1:
-                    db = _a.sent();
-                    return [4 /*yield*/, utils_1.expectBasicSeed(db)];
-                case 2:
+                    return [4 /*yield*/, index_1.closeConnection(db)];
+                case 4:
                     _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('sqitch seed option prefix', function () { return __awaiter(_this, void 0, void 0, function () {
-        var dir;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    dir = process.cwd();
-                    process.chdir(__dirname + '/fixtures/basic');
-                    return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { prefix: 'testing-another-' }))];
-                case 1:
-                    db = _a.sent();
-                    return [4 /*yield*/, utils_1.expectBasicSeed(db)];
-                case 2:
+                    return [4 /*yield*/, test.close()];
+                case 5:
                     _a.sent();
-                    process.chdir(dir);
                     return [2 /*return*/];
             }
         });
     }); });
 });
-//# sourceMappingURL=testing.test.js.map
+describe('templatedb', function () {
+    it('template option', function () { return __awaiter(_this, void 0, void 0, function () {
+        var config, templatedb, connectionParameters, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, testing_1.getOpts({
+                        directory: directory,
+                    })];
+                case 1:
+                    config = _b.sent();
+                    return [4 /*yield*/, index_1.getConnection(__assign({}, config, { hot: true, directory: __dirname + '/fixtures/basic' }))];
+                case 2:
+                    templatedb = _b.sent();
+                    return [4 /*yield*/, utils_1.expectBasicSeed(templatedb)];
+                case 3:
+                    _b.sent();
+                    index_1.close(templatedb);
+                    connectionParameters = templatedb.client.connectionParameters;
+                    return [4 /*yield*/, seed_1.setTemplate(config, connectionParameters.database)];
+                case 4:
+                    _b.sent();
+                    return [4 /*yield*/, index_1.getConnection(__assign({}, config, { template: connectionParameters.database }))];
+                case 5:
+                    db = _b.sent();
+                    // without inserting, expect data to be there already
+                    _a = expect;
+                    return [4 /*yield*/, db.any("SELECT * FROM myschema.sometable")];
+                case 6:
+                    // without inserting, expect data to be there already
+                    _a.apply(void 0, [_b.sent()]).toEqual([
+                        { id: 1, name: 'joe' },
+                        { id: 2, name: 'steve' },
+                        { id: 3, name: 'mary' },
+                        { id: 4, name: 'rachel' },
+                    ]);
+                    return [4 /*yield*/, index_1.dropdb(connectionParameters)];
+                case 7:
+                    _b.sent();
+                    return [4 /*yield*/, index_1.closeConnection(db)];
+                case 8:
+                    _b.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+//# sourceMappingURL=template.test.js.map

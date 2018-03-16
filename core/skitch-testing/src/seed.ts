@@ -61,3 +61,27 @@ export async function hotSeed(
     });
   });
 }
+
+export async function setTemplate(
+  config: TUtilsConfig,
+  template: string = process.cwd()
+) {
+  if (config.user !== 'postgres') {
+    throw new Error('setTemplate requires postgres user');
+  }
+  return new Promise(resolve => {
+    const args = setArgs(config);
+    const sql = `UPDATE pg_database SET datistemplate = TRUE, datallowconn = FALSE WHERE datname = '${template}'`;
+
+    const str = new Streamify(sql);
+
+    const proc = spawn('psql', args, {
+      env: { ...process.env, PGPASSWORD: config.password },
+    });
+
+    str.pipe(proc.stdin);
+    proc.on('close', code => {
+      resolve();
+    });
+  });
+}

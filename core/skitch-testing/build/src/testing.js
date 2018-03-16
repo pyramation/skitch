@@ -50,23 +50,45 @@ var seed_1 = require("./seed");
 var skitch_path_1 = require("skitch-path");
 var connection_1 = require("./connection");
 var path_1 = require("path");
-exports.getConnection = function (configOpts) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST, _b, user, _c, password, _d, port, _e, host, _f, hot, template, _g, prefix, directory, database, connection, db;
+exports.getOpts = function (configOpts) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST, _b, user, _c, password, _d, port, _e, host, _f, hot, template, _g, prefix, directory;
     return __generator(this, function (_h) {
         switch (_h.label) {
             case 0:
                 _a = process.env, PGUSER = _a.PGUSER, PGPASSWORD = _a.PGPASSWORD, PGPORT = _a.PGPORT, PGHOST = _a.PGHOST, FAST_TEST = _a.FAST_TEST;
                 configOpts = configOpts || {};
                 _b = configOpts.user, user = _b === void 0 ? PGUSER : _b, _c = configOpts.password, password = _c === void 0 ? PGPASSWORD : _c, _d = configOpts.port, port = _d === void 0 ? PGPORT : _d, _e = configOpts.host, host = _e === void 0 ? PGHOST : _e, _f = configOpts.hot, hot = _f === void 0 ? FAST_TEST : _f, template = configOpts.template, _g = configOpts.prefix, prefix = _g === void 0 ? 'testing-db' : _g, directory = configOpts.directory;
-                if (!!directory) return [3 /*break*/, 2];
+                if (!(!directory && !template)) return [3 /*break*/, 2];
                 return [4 /*yield*/, skitch_path_1.default()];
             case 1:
                 directory = _h.sent();
                 return [3 /*break*/, 3];
             case 2:
-                directory = path_1.resolve(directory);
+                if (directory) {
+                    directory = path_1.resolve(directory);
+                }
                 _h.label = 3;
-            case 3:
+            case 3: return [2 /*return*/, {
+                    user: user,
+                    password: password,
+                    port: port,
+                    host: host,
+                    hot: hot,
+                    template: template,
+                    prefix: prefix,
+                    directory: directory,
+                }];
+        }
+    });
+}); };
+exports.getConnection = function (configOpts) { return __awaiter(_this, void 0, void 0, function () {
+    var user, password, port, host, hot, template, prefix, directory, database, connection, db;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exports.getOpts(configOpts)];
+            case 1:
+                configOpts = _a.sent();
+                user = configOpts.user, password = configOpts.password, port = configOpts.port, host = configOpts.host, hot = configOpts.hot, template = configOpts.template, prefix = configOpts.prefix, directory = configOpts.directory;
                 database = prefix + "-" + v4();
                 connection = {
                     database: database,
@@ -75,30 +97,30 @@ exports.getConnection = function (configOpts) { return __awaiter(_this, void 0, 
                     password: password,
                     host: host,
                 };
-                if (!hot) return [3 /*break*/, 6];
+                if (!hot) return [3 /*break*/, 4];
                 return [4 /*yield*/, db_1.createdb(connection)];
-            case 4:
-                _h.sent();
+            case 2:
+                _a.sent();
                 return [4 /*yield*/, seed_1.hotSeed(connection, directory)];
-            case 5:
-                _h.sent();
-                return [3 /*break*/, 11];
-            case 6:
-                if (!template) return [3 /*break*/, 8];
+            case 3:
+                _a.sent();
+                return [3 /*break*/, 9];
+            case 4:
+                if (!template) return [3 /*break*/, 6];
                 return [4 /*yield*/, db_1.templatedb(__assign({}, connection, { template: template }))];
+            case 5:
+                _a.sent();
+                return [3 /*break*/, 9];
+            case 6: return [4 /*yield*/, db_1.createdb(connection)];
             case 7:
-                _h.sent();
-                return [3 /*break*/, 11];
-            case 8: return [4 /*yield*/, db_1.createdb(connection)];
-            case 9:
-                _h.sent();
+                _a.sent();
                 return [4 /*yield*/, seed_1.seed(connection, directory)];
+            case 8:
+                _a.sent();
+                _a.label = 9;
+            case 9: return [4 /*yield*/, connection_1.connect(connection)];
             case 10:
-                _h.sent();
-                _h.label = 11;
-            case 11: return [4 /*yield*/, connection_1.connect(connection)];
-            case 12:
-                db = _h.sent();
+                db = _a.sent();
                 return [2 /*return*/, db];
         }
     });
