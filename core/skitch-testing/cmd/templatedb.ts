@@ -5,7 +5,10 @@ import { dropdb } from '../src/db';
 import { getOpts } from '../src/testing';
 
 if (!process.env.PGTEMPLATE_DATABASE) {
-  throw new Error('no PGTEMPLATE_DATABASE defined in env!');
+  require('dotenv').load();
+  if (!process.env.PGTEMPLATE_DATABASE) {
+    throw new Error('no PGTEMPLATE_DATABASE defined in env!');
+  }
 }
 
 const run = async () => {

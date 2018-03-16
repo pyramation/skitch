@@ -49,7 +49,10 @@ var skitch_test_1 = require("../src/skitch-test");
 var db_1 = require("../src/db");
 var testing_1 = require("../src/testing");
 if (!process.env.PGTEMPLATE_DATABASE) {
-    throw new Error('no PGTEMPLATE_DATABASE defined in env!');
+    require('dotenv').load();
+    if (!process.env.PGTEMPLATE_DATABASE) {
+        throw new Error('no PGTEMPLATE_DATABASE defined in env!');
+    }
 }
 var run = function () { return __awaiter(_this, void 0, void 0, function () {
     var config, e_1, test;
