@@ -60,3 +60,7 @@ export const closeConnection = async (db: IConnected<any>) => {
   close(db);
   await dropdb(connectionParameters);
 };
+
+export const truncateTables = async (db: IConnected<any>) => {
+  await db.any("SELECT truncate_tables(ARRAY['v8'])");
+};

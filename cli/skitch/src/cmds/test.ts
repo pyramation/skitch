@@ -1,8 +1,8 @@
 import skitchPath from 'skitch-path';
 import { prompt } from 'inquirerer';
+import { basename } from 'path';
 const mkdirp = require('mkdirp').sync;
-
-// sqitch add appschema -n 'Add schema for all flipr objects.'
+const fs = require('fs');
 
 const questions = [
   {
@@ -12,15 +12,38 @@ const questions = [
   },
 ];
 export default async argv => {
-  // const PKGDIR = await skitchPath();
+  const PKGDIR = await skitchPath();
   let { name } = await prompt(questions, argv);
 
-  console.log(name);
-  // console.log(PKGDIR);
+  const template = `
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+  require('dotenv').load();
+  import { getConnection, closeConnection, truncateTables } from 'skitch-testing';
 
-  // const { name, comment } = await prompt(questions, argv);
-  // const cmd = ['sqitch', 'add', name, '--n', comment].join(' ');
-  // const sqitch = exec(cmd.trim());
-  // sqitch.stdout.pipe(process.stdout);
-  // sqitch.stderr.pipe(process.stderr);
+  let db;
+
+  describe('${name}', () => {
+    beforeAll(async () => {
+      db = await getConnection();
+    });
+    afterAll(async () => {
+      await closeConnection(db);
+    });
+    afterEach(async () => {
+      await truncateTables(db);
+    });
+    describe('has a database', () => {
+      it('it works', async () => {
+        const [object] = await db.any(
+          \`INSERT INTO schema.table (name) VALUES ($1) RETURNING *\`,
+          ['hello world']
+        );
+        console.log(object);
+      });
+    });
+  });
+
+  `;
+  mkdirp(`${PKGDIR}/test/`);
+  fs.writeFileSync(`${PKGDIR}/test/${name}.test.js`, template);
 };

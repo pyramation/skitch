@@ -1,25 +1,21 @@
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 require('dotenv').load();
-import { resolve as pathResolve } from 'path';
-import { getConnection, closeConnection } from 'skitch-testing';
+import { getConnection, closeConnection, truncateTables } from 'skitch-testing';
 
 let db;
 
-describe('custom database fields', () => {
+describe('custom database test', () => {
   beforeAll(async () => {
-    db = await getConnection({
-      hot: true,
-      directory: pathResolve(__dirname + '/../'),
-    });
+    db = await getConnection();
   });
   afterAll(async () => {
     await closeConnection(db);
   });
   afterEach(async () => {
-    await db.none("SELECT truncate_tables(ARRAY['v8'])");
+    await truncateTables(db);
   });
   describe('has a database', () => {
-    it('works', async () => {
+    it('it works', async () => {
       const [object] = await db.any(
         `INSERT INTO objects.object (type, data) VALUES ($1, $2::JSON) RETURNING *`,
         ['commit', { hello: 'world' }]
