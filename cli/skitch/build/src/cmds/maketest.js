@@ -57,7 +57,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
                 name = (_a.sent()).name;
-                template = "\nimport { getConnection, closeConnection, truncateTables } from './utils';\n\nlet db;\n\ndescribe('" + name + "', () => {\n  beforeAll(async () => {\n    db = await getConnection();\n  });\n  afterAll(async () => {\n    await closeConnection(db);\n  });\n  afterEach(async () => {\n    await truncateTables(db);\n  });\n  describe('has a database', () => {\n    it('it works', async () => {\n      const [object] = await db.any(\n        `INSERT INTO schema.table (name) VALUES ($1) RETURNING *`,\n        ['hello world']\n      );\n      console.log(object);\n    });\n  });\n});";
+                template = "\nimport { getConnection, closeConnection } from './utils';\n\nlet db;\n\ndescribe('" + name + "', () => {\n  beforeEach(async () => {\n    db = await getConnection();\n  });\n  afterEach(async () => {\n    await closeConnection(db);\n  });\n  describe('has a database', () => {\n    it('it works', async () => {\n      const [object] = await db.any(\n        `INSERT INTO objects.object (name) VALUES ($1) RETURNING *`,\n        ['hello world']\n      );\n      console.log(object);\n    });\n  });\n});";
                 mkdirp(PKGDIR + "/test/");
                 fs.writeFileSync(PKGDIR + "/test/" + name + ".test.js", template);
                 return [2 /*return*/];

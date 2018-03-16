@@ -16,24 +16,21 @@ export default async argv => {
   let { name } = await prompt(questions, argv);
 
   const template = `
-import { getConnection, closeConnection, truncateTables } from './utils';
+import { getConnection, closeConnection } from './utils';
 
 let db;
 
 describe('${name}', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     db = await getConnection();
   });
-  afterAll(async () => {
-    await closeConnection(db);
-  });
   afterEach(async () => {
-    await truncateTables(db);
+    await closeConnection(db);
   });
   describe('has a database', () => {
     it('it works', async () => {
       const [object] = await db.any(
-        \`INSERT INTO schema.table (name) VALUES ($1) RETURNING *\`,
+        \`INSERT INTO objects.object (name) VALUES ($1) RETURNING *\`,
         ['hello world']
       );
       console.log(object);

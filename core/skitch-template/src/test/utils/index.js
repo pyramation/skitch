@@ -15,7 +15,3 @@ export const getConnection = async () => {
 export const closeConnection = async db => {
   await testing.closeConnection(db);
 };
-
-export const truncateTables = async db => {
-  await testing.truncateTables(db);
-};
