@@ -13,7 +13,7 @@ export interface TestOptions {
   template?: string;
 }
 
-export const getConnection = async configOpts => {
+export const getOpts = async configOpts => {
   const { PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST } = process.env;
   configOpts = configOpts || {};
   const {
@@ -27,11 +27,37 @@ export const getConnection = async configOpts => {
     directory,
   } = configOpts;
 
-  if (!directory) {
+  if (!directory && !template) {
     directory = await skitchPath();
-  } else {
+  } else if (directory) {
     directory = pathResolve(directory);
   }
+
+  return {
+    user,
+    password,
+    port,
+    host,
+    hot,
+    template,
+    prefix,
+    directory,
+  };
+};
+
+export const getConnection = async configOpts => {
+  configOpts = await getOpts(configOpts);
+
+  const {
+    user,
+    password,
+    port,
+    host,
+    hot,
+    template,
+    prefix,
+    directory,
+  } = configOpts;
 
   const database = `${prefix}-${v4()}`;
   const connection = {

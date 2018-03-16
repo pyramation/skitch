@@ -63,35 +63,3 @@ describe('testing', () => {
     process.chdir(dir);
   });
 });
-describe('templatedb', () => {
-  it('template option', async () => {
-    const templatedb = await getConnection({
-      ...config,
-      hot: true,
-      directory: __dirname + '/fixtures/basic',
-    });
-    await expectBasicSeed(templatedb);
-    close(templatedb);
-
-    const { connectionParameters } = templatedb.client;
-
-    db = await getConnection({
-      ...config,
-      template: connectionParameters.database,
-    });
-
-    // without inserting, expect data to be there already
-    expect(await db.any(`SELECT * FROM myschema.sometable`)).toEqual([
-      { id: 1, name: 'joe' },
-      { id: 2, name: 'steve' },
-      { id: 3, name: 'mary' },
-      { id: 4, name: 'rachel' },
-    ]);
-
-    {
-      await dropdb(connectionParameters);
-    }
-
-    await closeConnection(db);
-  });
-});
