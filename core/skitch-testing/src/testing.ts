@@ -45,7 +45,7 @@ export const getOpts = async configOpts => {
   };
 };
 
-export const getConnection = async configOpts => {
+export const getConnection = async (configOpts, database) => {
   configOpts = await getOpts(configOpts);
 
   const {
@@ -59,7 +59,9 @@ export const getConnection = async configOpts => {
     directory,
   } = configOpts;
 
-  const database = `${prefix}-${v4()}`;
+  if (!database) {
+    database = `${prefix}-${v4()}`;
+  }
   const connection = {
     database,
     user,

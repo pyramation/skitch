@@ -14,14 +14,20 @@ import { setTemplate } from './seed';
 import { close } from './connection';
 import { dropdb } from './db';
 
-export class SkitchTest {
+export class TestDatabase {
   constructor(public options: object = {}) {
     // this.dbs = [];
   }
   async init() {
+    if (!process.env.PGTEMPLATE_DATABASE) {
+      throw new Error('no PGTEMPLATE_DATABASE defined in env!');
+    }
     this.config = await getOpts(this.options);
     if (!this.config.template) {
-      const templatedb = await getConnection(this.config);
+      const templatedb = await getConnection(
+        this.config,
+        process.env.PGTEMPLATE_DATABASE
+      );
       close(templatedb);
 
       const { connectionParameters } = templatedb.client;

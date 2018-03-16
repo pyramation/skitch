@@ -14,7 +14,7 @@ require('dotenv').load();
 
 let db: IConnected<any>;
 
-import { SkitchTest } from '../src/skitch-test';
+import { TestDatabase } from '../src/skitch-test';
 import { getOpts } from '../src/testing';
 import { setTemplate } from '../src/seed';
 
@@ -22,7 +22,7 @@ const directory = __dirname + '/fixtures/basic';
 
 describe('skitchtest', () => {
   it('works', async () => {
-    var test = new SkitchTest({
+    var test = new TestDatabase({
       directory,
     });
     await test.init();

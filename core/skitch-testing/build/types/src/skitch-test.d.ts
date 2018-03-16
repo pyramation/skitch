@@ -8,7 +8,7 @@ export interface TestOptions {
     prefix?: string;
     directory?: string;
 }
-export declare class SkitchTest {
+export declare class TestDatabase {
     options: object;
     constructor(options?: object);
     init(): Promise<void>;

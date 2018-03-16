@@ -15,6 +15,6 @@ export declare const getOpts: (configOpts: any) => Promise<{
     prefix: any;
     directory: any;
 }>;
-export declare const getConnection: (configOpts: any) => Promise<any>;
+export declare const getConnection: (configOpts: any, database: any) => Promise<any>;
 export declare const closeConnection: (db: IConnected<any>) => Promise<void>;
 export declare const truncateTables: (db: IConnected<any>) => Promise<void>;

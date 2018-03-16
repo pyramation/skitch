@@ -81,15 +81,17 @@ exports.getOpts = function (configOpts) { return __awaiter(_this, void 0, void 0
         }
     });
 }); };
-exports.getConnection = function (configOpts) { return __awaiter(_this, void 0, void 0, function () {
-    var user, password, port, host, hot, template, prefix, directory, database, connection, db;
+exports.getConnection = function (configOpts, database) { return __awaiter(_this, void 0, void 0, function () {
+    var user, password, port, host, hot, template, prefix, directory, connection, db;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, exports.getOpts(configOpts)];
             case 1:
                 configOpts = _a.sent();
                 user = configOpts.user, password = configOpts.password, port = configOpts.port, host = configOpts.host, hot = configOpts.hot, template = configOpts.template, prefix = configOpts.prefix, directory = configOpts.directory;
-                database = prefix + "-" + v4();
+                if (!database) {
+                    database = prefix + "-" + v4();
+                }
                 connection = {
                     database: database,
                     user: user,

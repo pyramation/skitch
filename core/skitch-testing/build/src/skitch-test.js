@@ -47,24 +47,27 @@ var testing_1 = require("./testing");
 var seed_1 = require("./seed");
 var connection_1 = require("./connection");
 var db_1 = require("./db");
-var SkitchTest = /** @class */ (function () {
-    function SkitchTest(options) {
+var TestDatabase = /** @class */ (function () {
+    function TestDatabase(options) {
         if (options === void 0) { options = {}; }
         this.options = options;
         // this.dbs = [];
     }
-    SkitchTest.prototype.init = function () {
+    TestDatabase.prototype.init = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, templatedb, connectionParameters;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        if (!process.env.PGTEMPLATE_DATABASE) {
+                            throw new Error('no PGTEMPLATE_DATABASE defined in env!');
+                        }
                         _a = this;
                         return [4 /*yield*/, testing_1.getOpts(this.options)];
                     case 1:
                         _a.config = _b.sent();
                         if (!!this.config.template) return [3 /*break*/, 4];
-                        return [4 /*yield*/, testing_1.getConnection(this.config)];
+                        return [4 /*yield*/, testing_1.getConnection(this.config, process.env.PGTEMPLATE_DATABASE)];
                     case 2:
                         templatedb = _b.sent();
                         connection_1.close(templatedb);
@@ -79,7 +82,7 @@ var SkitchTest = /** @class */ (function () {
             });
         });
     };
-    SkitchTest.prototype.getConnection = function () {
+    TestDatabase.prototype.getConnection = function () {
         return __awaiter(this, void 0, void 0, function () {
             var db;
             return __generator(this, function (_a) {
@@ -93,7 +96,7 @@ var SkitchTest = /** @class */ (function () {
             });
         });
     };
-    SkitchTest.prototype.close = function () {
+    TestDatabase.prototype.close = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -105,7 +108,7 @@ var SkitchTest = /** @class */ (function () {
             });
         });
     };
-    return SkitchTest;
+    return TestDatabase;
 }());
-exports.SkitchTest = SkitchTest;
+exports.TestDatabase = TestDatabase;
 //# sourceMappingURL=skitch-test.js.map

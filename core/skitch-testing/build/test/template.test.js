@@ -59,7 +59,7 @@ describe('skitchtest', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    test = new skitch_test_1.SkitchTest({
+                    test = new skitch_test_1.TestDatabase({
                         directory: directory,
                     });
                     return [4 /*yield*/, test.init()];
