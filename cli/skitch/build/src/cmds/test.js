@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var skitch_path_1 = require("skitch-path");
 var inquirerer_1 = require("inquirerer");
 var mkdirp = require('mkdirp').sync;
-// sqitch add appschema -n 'Add schema for all flipr objects.'
+var fs = require('fs');
 var questions = [
     {
         name: 'name',
@@ -47,13 +48,18 @@ var questions = [
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var name;
+    var PKGDIR, name, template;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
+                PKGDIR = _a.sent();
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
                 name = (_a.sent()).name;
-                console.log(name);
+                template = "\n  jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;\n  require('dotenv').load();\n  import { getConnection, closeConnection, truncateTables } from 'skitch-testing';\n\n  let db;\n\n  describe('" + name + "', () => {\n    beforeAll(async () => {\n      db = await getConnection();\n    });\n    afterAll(async () => {\n      await closeConnection(db);\n    });\n    afterEach(async () => {\n      await truncateTables(db);\n    });\n    describe('has a database', () => {\n      it('it works', async () => {\n        const [object] = await db.any(\n          `INSERT INTO schema.table (name) VALUES ($1) RETURNING *`,\n          ['hello world']\n        );\n        console.log(object);\n      });\n    });\n  });\n\n  ";
+                mkdirp(PKGDIR + "/test/");
+                fs.writeFileSync(PKGDIR + "/test/" + name + ".test.js", template);
                 return [2 /*return*/];
         }
     });

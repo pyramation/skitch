@@ -117,4 +117,14 @@ exports.closeConnection = function (db) { return __awaiter(_this, void 0, void 0
         }
     });
 }); };
+exports.truncateTables = function (db) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.any("SELECT truncate_tables(ARRAY['v8'])")];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
 //# sourceMappingURL=testing.js.map
