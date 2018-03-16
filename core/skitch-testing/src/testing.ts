@@ -2,9 +2,10 @@ const v4 = require('uuid/v4');
 import { IConnected } from 'pg-promise';
 import { createdb, dropdb, templatedb } from './db';
 import { hotSeed, seed } from './seed';
+import skitchPath from 'skitch-path';
 import { connect, close } from './connection';
 import { TUtilsConfig } from './types';
-
+import { resolve as pathResolve } from 'path';
 export interface TestOptions {
   hot?: boolean;
   directory?: string;
@@ -12,30 +13,32 @@ export interface TestOptions {
   template?: string;
 }
 
-const { PGUSER, PGPASSWORD, PGPORT, PGHOST } = process.env;
+const { PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST } = process.env;
 
 export const getConnection = async ({
   user = PGUSER,
   password = PGPASSWORD,
   port = PGPORT,
   host = PGHOST,
-  hot,
+  hot = FAST_TEST,
   template,
   prefix = 'testing-db',
-  directory = process.cwd(),
+  directory,
 }: TestOptions) => {
+  if (!directory) {
+    directory = await skitchPath();
+  } else {
+    directory = pathResolve(directory);
+  }
+
   const database = `${prefix}-${v4()}`;
-  const connection = Object.assign(
-    {
-      database,
-    },
-    {
-      user,
-      port,
-      password,
-      host,
-    }
-  );
+  const connection = {
+    database,
+    user,
+    port,
+    password,
+    host,
+  };
 
   if (hot) {
     await createdb(connection);
