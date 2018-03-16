@@ -2,6 +2,7 @@
 -- requires: procedures/get_entity_from_str
 -- requires: procedures/get_schema_from_str
 -- requires: procedures/verify_function
+-- requires: procedures/truncate_tables
 
 BEGIN;
 
