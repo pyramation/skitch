@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { TestDatabase } from '../src/skitch-test';
 import { dropdb } from '../src/db';
 import { getOpts } from '../src/testing';
