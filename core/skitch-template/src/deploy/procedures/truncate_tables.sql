@@ -13,7 +13,7 @@ BEGIN
          FROM   information_schema.tables
          WHERE NOT table_schema = ANY(_ignore_schemas)
 	INTO _sql;
-	EXECUTE format('TRUNCATE TABLE %s CASCADE', _sql);
+	EXECUTE format('TRUNCATE TABLE %s', _sql);
 END
 $$
 LANGUAGE plpgsql;
