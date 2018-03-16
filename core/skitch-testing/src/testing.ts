@@ -13,18 +13,20 @@ export interface TestOptions {
   template?: string;
 }
 
-const { PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST } = process.env;
+export const getConnection = async configOpts => {
+  const { PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST } = process.env;
+  configOpts = configOpts || {};
+  const {
+    user = PGUSER,
+    password = PGPASSWORD,
+    port = PGPORT,
+    host = PGHOST,
+    hot = FAST_TEST,
+    template,
+    prefix = 'testing-db',
+    directory,
+  } = configOpts;
 
-export const getConnection = async ({
-  user = PGUSER,
-  password = PGPASSWORD,
-  port = PGPORT,
-  host = PGHOST,
-  hot = FAST_TEST,
-  template,
-  prefix = 'testing-db',
-  directory,
-}: TestOptions) => {
   if (!directory) {
     directory = await skitchPath();
   } else {

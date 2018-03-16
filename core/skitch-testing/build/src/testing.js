@@ -50,60 +50,59 @@ var seed_1 = require("./seed");
 var skitch_path_1 = require("skitch-path");
 var connection_1 = require("./connection");
 var path_1 = require("path");
-var _a = process.env, PGUSER = _a.PGUSER, PGPASSWORD = _a.PGPASSWORD, PGPORT = _a.PGPORT, PGHOST = _a.PGHOST, FAST_TEST = _a.FAST_TEST;
-exports.getConnection = function (_a) {
-    var _b = _a.user, user = _b === void 0 ? PGUSER : _b, _c = _a.password, password = _c === void 0 ? PGPASSWORD : _c, _d = _a.port, port = _d === void 0 ? PGPORT : _d, _e = _a.host, host = _e === void 0 ? PGHOST : _e, _f = _a.hot, hot = _f === void 0 ? FAST_TEST : _f, template = _a.template, _g = _a.prefix, prefix = _g === void 0 ? 'testing-db' : _g, directory = _a.directory;
-    return __awaiter(_this, void 0, void 0, function () {
-        var database, connection, db;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
-                case 0:
-                    if (!!directory) return [3 /*break*/, 2];
-                    return [4 /*yield*/, skitch_path_1.default()];
-                case 1:
-                    directory = _h.sent();
-                    return [3 /*break*/, 3];
-                case 2:
-                    directory = path_1.resolve(directory);
-                    _h.label = 3;
-                case 3:
-                    database = prefix + "-" + v4();
-                    connection = {
-                        database: database,
-                        user: user,
-                        port: port,
-                        password: password,
-                        host: host,
-                    };
-                    if (!hot) return [3 /*break*/, 6];
-                    return [4 /*yield*/, db_1.createdb(connection)];
-                case 4:
-                    _h.sent();
-                    return [4 /*yield*/, seed_1.hotSeed(connection, directory)];
-                case 5:
-                    _h.sent();
-                    return [3 /*break*/, 11];
-                case 6:
-                    if (!template) return [3 /*break*/, 8];
-                    return [4 /*yield*/, db_1.templatedb(__assign({}, connection, { template: template }))];
-                case 7:
-                    _h.sent();
-                    return [3 /*break*/, 11];
-                case 8: return [4 /*yield*/, db_1.createdb(connection)];
-                case 9:
-                    _h.sent();
-                    return [4 /*yield*/, seed_1.seed(connection, directory)];
-                case 10:
-                    _h.sent();
-                    _h.label = 11;
-                case 11: return [4 /*yield*/, connection_1.connect(connection)];
-                case 12:
-                    db = _h.sent();
-                    return [2 /*return*/, db];
-            }
-        });
+exports.getConnection = function (configOpts) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, PGUSER, PGPASSWORD, PGPORT, PGHOST, FAST_TEST, _b, user, _c, password, _d, port, _e, host, _f, hot, template, _g, prefix, directory, database, connection, db;
+    return __generator(this, function (_h) {
+        switch (_h.label) {
+            case 0:
+                _a = process.env, PGUSER = _a.PGUSER, PGPASSWORD = _a.PGPASSWORD, PGPORT = _a.PGPORT, PGHOST = _a.PGHOST, FAST_TEST = _a.FAST_TEST;
+                configOpts = configOpts || {};
+                _b = configOpts.user, user = _b === void 0 ? PGUSER : _b, _c = configOpts.password, password = _c === void 0 ? PGPASSWORD : _c, _d = configOpts.port, port = _d === void 0 ? PGPORT : _d, _e = configOpts.host, host = _e === void 0 ? PGHOST : _e, _f = configOpts.hot, hot = _f === void 0 ? FAST_TEST : _f, template = configOpts.template, _g = configOpts.prefix, prefix = _g === void 0 ? 'testing-db' : _g, directory = configOpts.directory;
+                if (!!directory) return [3 /*break*/, 2];
+                return [4 /*yield*/, skitch_path_1.default()];
+            case 1:
+                directory = _h.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                directory = path_1.resolve(directory);
+                _h.label = 3;
+            case 3:
+                database = prefix + "-" + v4();
+                connection = {
+                    database: database,
+                    user: user,
+                    port: port,
+                    password: password,
+                    host: host,
+                };
+                if (!hot) return [3 /*break*/, 6];
+                return [4 /*yield*/, db_1.createdb(connection)];
+            case 4:
+                _h.sent();
+                return [4 /*yield*/, seed_1.hotSeed(connection, directory)];
+            case 5:
+                _h.sent();
+                return [3 /*break*/, 11];
+            case 6:
+                if (!template) return [3 /*break*/, 8];
+                return [4 /*yield*/, db_1.templatedb(__assign({}, connection, { template: template }))];
+            case 7:
+                _h.sent();
+                return [3 /*break*/, 11];
+            case 8: return [4 /*yield*/, db_1.createdb(connection)];
+            case 9:
+                _h.sent();
+                return [4 /*yield*/, seed_1.seed(connection, directory)];
+            case 10:
+                _h.sent();
+                _h.label = 11;
+            case 11: return [4 /*yield*/, connection_1.connect(connection)];
+            case 12:
+                db = _h.sent();
+                return [2 /*return*/, db];
+        }
     });
-};
+}); };
 exports.closeConnection = function (db) { return __awaiter(_this, void 0, void 0, function () {
     var connectionParameters;
     return __generator(this, function (_a) {
