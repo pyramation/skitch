@@ -3,7 +3,7 @@ import * as testing from 'skitch-testing';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
-
+const prefix = 'testing-db';
 export const getConnection = async () => {
   const options = process.env.FAST_TEST
     ? {

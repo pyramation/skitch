@@ -1,0 +1,20 @@
+language: node_js
+branches:
+  only:
+    - master
+cache:
+  yarn: true
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - node
+services:
+  - docker
+env:
+  - PGPORT=7777
+before_install:
+  - docker run -p 7777:5432 --name postgritty -d clkao/postgres-plv8:9.6-2.0
+script:
+  - npm run test
