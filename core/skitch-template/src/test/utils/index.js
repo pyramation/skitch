@@ -5,10 +5,15 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 
 export const getConnection = async () => {
-  var options = {
-    template: process.env.PGTEMPLATE_DATABASE,
-    prefix: 'app-db',
-  };
+  const options = process.env.FAST_TEST
+    ? {
+        hot: true,
+        prefix,
+      }
+    : {
+        template: process.env.PGTEMPLATE_DATABASE,
+        prefix,
+      };
   return await testing.getConnection(options);
 };
 
