@@ -2,8 +2,6 @@ language: node_js
 branches:
   only:
     - master
-cache:
-  yarn: true
 notifications:
   email: false
 node_js:
@@ -11,7 +9,8 @@ node_js:
 services:
   - docker
 env:
-  - PGPORT=7777
+  global:
+    - PGPORT=7777
   matrix:
     - PACKAGE=skitch-testing
     - PACKAGE=skitch-transform
