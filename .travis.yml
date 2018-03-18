@@ -13,11 +13,11 @@ node_js:
 services:
   - docker
 env:
-  - PGPORT=9876
+  - PGPORT=7777
   matrix:
     - PACKAGE=skitch-testing
     - PACKAGE=skitch-transform
 before_install:
-  - docker run -p 9876:5432 --name postgritty -d postgres:9.6
+  - docker run -p 7777:5432 --name postgritty -d postgres:9.6
 script:
   - lerna run test --scope $PACKAGE
