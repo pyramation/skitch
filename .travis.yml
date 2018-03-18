@@ -17,5 +17,6 @@ env:
 before_install:
   - yarn add global lerna
   - docker run -p 7777:5432 --name postgritty -d postgres:9.6
+  - lerna bootstrap
 script:
   - lerna run test --scope $PACKAGE
