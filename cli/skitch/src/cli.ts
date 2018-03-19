@@ -1,6 +1,7 @@
 import { filter } from 'fuzzy';
 import { prompt } from 'inquirerer';
 import cmds from './index';
+import aliases from './aliases';
 
 export const searchCmds = (answers: object, input: string) => {
   input = input || '';
@@ -29,7 +30,18 @@ const cmdQuestion = [
 export const skitch = async argv => {
   var { cmd } = await prompt(cmdQuestion, argv);
   if (!cmds.hasOwnProperty(cmd)) {
-    throw new Error(`${cmd} does not exist!`);
+    Object.keys(aliases).forEach(aliasCmd => {
+      if (
+        aliases[aliasCmd] &&
+        aliases[aliasCmd].length &&
+        aliases[aliasCmd].includes(cmd)
+      ) {
+        cmd = aliasCmd;
+      }
+    });
+    if (!cmds.hasOwnProperty(cmd)) {
+      throw new Error(`${cmd} does not exist!`);
+    }
   }
   await cmds[cmd](argv);
 };

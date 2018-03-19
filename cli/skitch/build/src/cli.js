@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fuzzy_1 = require("fuzzy");
 var inquirerer_1 = require("inquirerer");
 var index_1 = require("./index");
+var aliases_1 = require("./aliases");
 exports.searchCmds = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve) {
@@ -67,7 +68,16 @@ exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, funct
             case 1:
                 cmd = (_a.sent()).cmd;
                 if (!index_1.default.hasOwnProperty(cmd)) {
-                    throw new Error(cmd + " does not exist!");
+                    Object.keys(aliases_1.default).forEach(function (aliasCmd) {
+                        if (aliases_1.default[aliasCmd] &&
+                            aliases_1.default[aliasCmd].length &&
+                            aliases_1.default[aliasCmd].includes(cmd)) {
+                            cmd = aliasCmd;
+                        }
+                    });
+                    if (!index_1.default.hasOwnProperty(cmd)) {
+                        throw new Error(cmd + " does not exist!");
+                    }
                 }
                 return [4 /*yield*/, index_1.default[cmd](argv)];
             case 2:
