@@ -41,8 +41,9 @@ var fs = require('fs');
 var glob = require('glob');
 var readFile = util_1.promisify(fs.readFile);
 var asyncGlob = util_1.promisify(glob);
-exports.resolve = function (pkgDir) {
+exports.resolve = function (pkgDir, scriptType) {
     if (pkgDir === void 0) { pkgDir = process.cwd(); }
+    if (scriptType === void 0) { scriptType = 'deploy'; }
     return __awaiter(_this, void 0, void 0, function () {
         // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
         function dep_resolve(sqlmodule, resolved, unresolved) {
@@ -112,10 +113,13 @@ exports.resolve = function (pkgDir) {
                     dep_resolve('apps/index', resolved, unresolved);
                     index = resolved.indexOf('apps/index');
                     resolved.splice(index);
-                    cfiles = resolved.map(function (file) { return pkgDir + '/deploy/' + file + '.sql'; });
+                    if (scriptType === 'revert') {
+                        resolved = resolved.reverse();
+                    }
+                    cfiles = resolved.map(function (file) { return pkgDir + "/" + scriptType + "/" + file + ".sql"; });
                     runners = [];
                     cfiles.forEach(function (p) {
-                        var modName = p.split('/deploy/')[1];
+                        var modName = p.split("/" + scriptType + "/")[1];
                         var dscript = fs.readFileSync(p).toString();
                         sqlfile.push(dscript);
                     });
