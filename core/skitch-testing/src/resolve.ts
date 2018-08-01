@@ -8,7 +8,7 @@ export interface ObjHash {
   [key: string]: string[];
 }
 
-export const resolve = async (pkgDir = process.cwd()): Promise<string> => {
+export const resolve = async (pkgDir = process.cwd(), scriptType = 'deploy'): Promise<string> => {
   let sqlfile: string[] = [];
 
   let deps: ObjHash = {};
@@ -83,10 +83,14 @@ export const resolve = async (pkgDir = process.cwd()): Promise<string> => {
   let index = resolved.indexOf('apps/index');
   resolved.splice(index);
 
-  let cfiles = resolved.map(file => pkgDir + '/deploy/' + file + '.sql');
+  if (scriptType === 'revert') {
+    resolved = resolved.reverse();
+  }
+
+  let cfiles = resolved.map(file => `${pkgDir}/${scriptType}/${file}.sql`);
   let runners = [];
   cfiles.forEach(p => {
-    let modName = p.split('/deploy/')[1];
+    let modName = p.split(`/${scriptType}/`)[1];
     let dscript = fs.readFileSync(p).toString();
     sqlfile.push(dscript);
   });
