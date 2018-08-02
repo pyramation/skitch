@@ -4,26 +4,6 @@ import { resolve as resolvePath } from 'path';
 import { resolve as resolveSql } from './resolve';
 import { TUtilsConfig } from './types';
 
-export async function seed(
-  { database, host, password, port, user }: TUtilsConfig,
-  path: string = process.cwd()
-) {
-  return new Promise(resolve => {
-    const proc = spawn('sqitch', ['deploy', `db:pg:${database}`], {
-      cwd: resolvePath(path),
-      env: Object.assign({}, process.env, {
-        PGPASSWORD: password,
-        PGUSER: user,
-        PGHOST: host,
-        PGPORT: port,
-      }),
-    });
-    proc.on('close', code => {
-      resolve();
-    });
-  });
-}
-
 export const setArgs = (config: TUtilsConfig) => {
   let args: string[] = [];
 
@@ -40,15 +20,12 @@ export const setArgs = (config: TUtilsConfig) => {
   return args;
 };
 
-export async function hotSeed(
+export async function streamSql(
   config: TUtilsConfig,
-  path: string = process.cwd()
+  sql: string = ''
 ) {
   const args = setArgs(config);
-  // why had to use object, unsure
-
   return new Promise(async resolve => {
-    const sql = await resolveSql(path);
     const str = new Streamify(sql);
 
     const proc = spawn('psql', args, {
@@ -69,19 +46,6 @@ export async function setTemplate(
   if (config.user !== 'postgres') {
     throw new Error('setTemplate requires postgres user');
   }
-  return new Promise(resolve => {
-    const args = setArgs(config);
-    const sql = `UPDATE pg_database SET datistemplate = TRUE, datallowconn = FALSE WHERE datname = '${template}'`;
-
-    const str = new Streamify(sql);
-
-    const proc = spawn('psql', args, {
-      env: { ...process.env, PGPASSWORD: config.password },
-    });
-
-    str.pipe(proc.stdin);
-    proc.on('close', code => {
-      resolve();
-    });
-  });
+  const sql = `UPDATE pg_database SET datistemplate = TRUE, datallowconn = FALSE WHERE datname = '${template}'`;
+  await streamSql(config, sql);
 }

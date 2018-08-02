@@ -46,7 +46,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var v4 = require('uuid/v4');
 var db_1 = require("./db");
-var seed_1 = require("./seed");
+var sqitch_1 = require("./sqitch");
 var skitch_path_1 = require("skitch-path");
 var connection_1 = require("./connection");
 var path_1 = require("path");
@@ -103,7 +103,7 @@ exports.getConnection = function (configOpts, database) { return __awaiter(_this
                 return [4 /*yield*/, db_1.createdb(connection)];
             case 2:
                 _a.sent();
-                return [4 /*yield*/, seed_1.hotSeed(connection, directory)];
+                return [4 /*yield*/, sqitch_1.sqitchFast(connection, directory)];
             case 3:
                 _a.sent();
                 return [3 /*break*/, 9];
@@ -116,7 +116,7 @@ exports.getConnection = function (configOpts, database) { return __awaiter(_this
             case 6: return [4 /*yield*/, db_1.createdb(connection)];
             case 7:
                 _a.sent();
-                return [4 /*yield*/, seed_1.seed(connection, directory)];
+                return [4 /*yield*/, sqitch_1.sqitch(connection, directory)];
             case 8:
                 _a.sent();
                 _a.label = 9;

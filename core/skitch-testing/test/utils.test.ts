@@ -1,4 +1,4 @@
-import { seed, hotSeed } from '../src/seed';
+import { sqitch, sqitchFast } from '../src/sqitch';
 import v4 from 'uuid/v4';
 import {
   connectionString,
@@ -18,7 +18,7 @@ const pgp = pgPromise({
   noWarnings: true,
 });
 
-describe('seed', () => {
+describe('sqitch', () => {
   let database;
   let opts: TUtilsConfig;
 
@@ -35,8 +35,8 @@ describe('seed', () => {
     await dropdb(opts);
   });
 
-  it('seed', async () => {
-    await seed(opts, __dirname + '/fixtures/basic');
+  it('sqitch', async () => {
+    await sqitch(opts, __dirname + '/fixtures/basic');
 
     const cn = await pgp(opts);
     const db = await cn.connect({ direct: true });
@@ -46,10 +46,10 @@ describe('seed', () => {
     db.done();
   });
 
-  it('seed II', async () => {
+  it('sqitch II', async () => {
     const dir = process.cwd();
     process.chdir(__dirname + '/fixtures/basic');
-    await seed(opts);
+    await sqitch(opts);
 
     const cn = await pgp(opts);
     const db = await cn.connect({ direct: true });
@@ -60,8 +60,8 @@ describe('seed', () => {
     process.chdir(dir);
   });
 
-  it('hotSeed', async () => {
-    await hotSeed(opts, __dirname + '/fixtures/basic');
+  it('sqitchFast', async () => {
+    await sqitchFast(opts, __dirname + '/fixtures/basic');
 
     const cn = await pgp(opts);
     const db = await cn.connect({ direct: true });
@@ -71,10 +71,10 @@ describe('seed', () => {
     db.done();
   });
 
-  it('hotSeed II', async () => {
+  it('sqitchFast II', async () => {
     const dir = process.cwd();
     process.chdir(__dirname + '/fixtures/basic');
-    await hotSeed(opts);
+    await sqitchFast(opts);
 
     const cn = await pgp(opts);
     const db = await cn.connect({ direct: true });

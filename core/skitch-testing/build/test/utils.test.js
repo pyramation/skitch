@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var seed_1 = require("../src/seed");
+var sqitch_1 = require("../src/sqitch");
 var v4_1 = require("uuid/v4");
 var index_1 = require("../index");
 var pg_promise_1 = require("pg-promise");
@@ -54,7 +54,7 @@ require('dotenv').load();
 var pgp = pg_promise_1.default({
     noWarnings: true,
 });
-describe('seed', function () {
+describe('sqitch', function () {
     var database;
     var opts;
     beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
@@ -80,11 +80,11 @@ describe('seed', function () {
             }
         });
     }); });
-    it('seed', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('sqitch', function () { return __awaiter(_this, void 0, void 0, function () {
         var cn, db;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, seed_1.seed(opts, __dirname + '/fixtures/basic')];
+                case 0: return [4 /*yield*/, sqitch_1.sqitch(opts, __dirname + '/fixtures/basic')];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, pgp(opts)];
@@ -101,14 +101,14 @@ describe('seed', function () {
             }
         });
     }); });
-    it('seed II', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('sqitch II', function () { return __awaiter(_this, void 0, void 0, function () {
         var dir, cn, db;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     dir = process.cwd();
                     process.chdir(__dirname + '/fixtures/basic');
-                    return [4 /*yield*/, seed_1.seed(opts)];
+                    return [4 /*yield*/, sqitch_1.sqitch(opts)];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, pgp(opts)];
@@ -126,11 +126,11 @@ describe('seed', function () {
             }
         });
     }); });
-    it('hotSeed', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('sqitchFast', function () { return __awaiter(_this, void 0, void 0, function () {
         var cn, db;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, seed_1.hotSeed(opts, __dirname + '/fixtures/basic')];
+                case 0: return [4 /*yield*/, sqitch_1.sqitchFast(opts, __dirname + '/fixtures/basic')];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, pgp(opts)];
@@ -147,14 +147,14 @@ describe('seed', function () {
             }
         });
     }); });
-    it('hotSeed II', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('sqitchFast II', function () { return __awaiter(_this, void 0, void 0, function () {
         var dir, cn, db;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     dir = process.cwd();
                     process.chdir(__dirname + '/fixtures/basic');
-                    return [4 /*yield*/, seed_1.hotSeed(opts)];
+                    return [4 /*yield*/, sqitch_1.sqitchFast(opts)];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, pgp(opts)];
@@ -176,4 +176,4 @@ describe('seed', function () {
         expect(index_1.setArgs({ host: 'localhost' })).toEqual(['-h', 'localhost']);
     });
 });
-//# sourceMappingURL=seed.test.js.map
+//# sourceMappingURL=utils.test.js.map

@@ -16,7 +16,7 @@ let db: IConnected<any>;
 
 import { TestDatabase } from '../src/skitch-test';
 import { getOpts } from '../src/testing';
-import { setTemplate } from '../src/seed';
+import { setTemplate } from '../src/utils';
 
 const directory = __dirname + '/fixtures/basic';
 

@@ -1,12 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -43,17 +35,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Streamify = require('streamify-string');
 var child_process_1 = require("child_process");
 var path_1 = require("path");
 var resolve_1 = require("./resolve");
-function seed(_a, path) {
+var utils_1 = require("./utils");
+function sqitch(_a, path, scriptType) {
     var database = _a.database, host = _a.host, password = _a.password, port = _a.port, user = _a.user;
     if (path === void 0) { path = process.cwd(); }
+    if (scriptType === void 0) { scriptType = 'deploy'; }
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_b) {
             return [2 /*return*/, new Promise(function (resolve) {
-                    var proc = child_process_1.spawn('sqitch', ['deploy', "db:pg:" + database], {
+                    var proc = child_process_1.spawn('sqitch', [scriptType, "db:pg:" + database], {
                         cwd: path_1.resolve(path),
                         env: Object.assign({}, process.env, {
                             PGPASSWORD: password,
@@ -69,75 +62,24 @@ function seed(_a, path) {
         });
     });
 }
-exports.seed = seed;
-exports.setArgs = function (config) {
-    var args = [];
-    args = Object.entries({
-        '-U': config.user,
-        '-h': config.host,
-        '-p': config.port,
-    }).reduce(function (args, _a) {
-        var key = _a[0], value = _a[1];
-        if (value)
-            args.push(key, "" + value);
-        return args;
-    }, args);
-    if (config.database)
-        args.push(config.database);
-    return args;
-};
-function hotSeed(config, path) {
+exports.sqitch = sqitch;
+function sqitchFast(config, path, scriptType) {
     if (path === void 0) { path = process.cwd(); }
+    if (scriptType === void 0) { scriptType = 'deploy'; }
     return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
-        var args;
+        var sql;
         return __generator(this, function (_a) {
-            args = exports.setArgs(config);
-            // why had to use object, unsure
-            return [2 /*return*/, new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-                    var sql, str, proc;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, resolve_1.resolve(path)];
-                            case 1:
-                                sql = _a.sent();
-                                str = new Streamify(sql);
-                                proc = child_process_1.spawn('psql', args, {
-                                    env: __assign({}, process.env, { PGPASSWORD: config.password }),
-                                });
-                                str.pipe(proc.stdin);
-                                proc.on('close', function (code) {
-                                    resolve();
-                                });
-                                return [2 /*return*/];
-                        }
-                    });
-                }); })];
-        });
-    });
-}
-exports.hotSeed = hotSeed;
-function setTemplate(config, template) {
-    if (template === void 0) { template = process.cwd(); }
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            if (config.user !== 'postgres') {
-                throw new Error('setTemplate requires postgres user');
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, resolve_1.resolve(path, scriptType)];
+                case 1:
+                    sql = _a.sent();
+                    return [4 /*yield*/, utils_1.streamSql(config, sql)];
+                case 2:
+                    _a.sent();
+                    return [2 /*return*/];
             }
-            return [2 /*return*/, new Promise(function (resolve) {
-                    var args = exports.setArgs(config);
-                    var sql = "UPDATE pg_database SET datistemplate = TRUE, datallowconn = FALSE WHERE datname = '" + template + "'";
-                    var str = new Streamify(sql);
-                    var proc = child_process_1.spawn('psql', args, {
-                        env: __assign({}, process.env, { PGPASSWORD: config.password }),
-                    });
-                    str.pipe(proc.stdin);
-                    proc.on('close', function (code) {
-                        resolve();
-                    });
-                })];
         });
     });
 }
-exports.setTemplate = setTemplate;
-//# sourceMappingURL=seed.js.map
+exports.sqitchFast = sqitchFast;
+//# sourceMappingURL=sqitch.js.map

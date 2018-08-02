@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var testing_1 = require("./testing");
-var seed_1 = require("./seed");
+var utils_1 = require("./utils");
 var connection_1 = require("./connection");
 var db_1 = require("./db");
 var TestDatabase = /** @class */ (function () {
@@ -73,7 +73,7 @@ var TestDatabase = /** @class */ (function () {
                         connection_1.close(templatedb);
                         connectionParameters = templatedb.client.connectionParameters;
                         this.templateConfig = connectionParameters;
-                        return [4 /*yield*/, seed_1.setTemplate(this.config, this.templateConfig.database)];
+                        return [4 /*yield*/, utils_1.setTemplate(this.config, this.templateConfig.database)];
                     case 3:
                         _b.sent();
                         _b.label = 4;

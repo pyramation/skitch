@@ -51,7 +51,7 @@ require('dotenv').load();
 var db;
 var skitch_test_1 = require("../src/skitch-test");
 var testing_1 = require("../src/testing");
-var seed_1 = require("../src/seed");
+var utils_2 = require("../src/utils");
 var directory = __dirname + '/fixtures/basic';
 describe('skitchtest', function () {
     it('works', function () { return __awaiter(_this, void 0, void 0, function () {
@@ -100,7 +100,7 @@ describe('templatedb', function () {
                     _b.sent();
                     index_1.close(templatedb);
                     connectionParameters = templatedb.client.connectionParameters;
-                    return [4 /*yield*/, seed_1.setTemplate(config, connectionParameters.database)];
+                    return [4 /*yield*/, utils_2.setTemplate(config, connectionParameters.database)];
                 case 4:
                     _b.sent();
                     return [4 /*yield*/, index_1.getConnection(__assign({}, config, { template: connectionParameters.database }))];

@@ -10,7 +10,7 @@ export interface TestOptions {
 }
 
 import { getOpts, getConnection, closeConnection } from './testing';
-import { setTemplate } from './seed';
+import { setTemplate } from './utils';
 import { close } from './connection';
 import { dropdb } from './db';
 

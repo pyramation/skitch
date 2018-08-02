@@ -1,7 +1,7 @@
 const v4 = require('uuid/v4');
 import { IConnected } from 'pg-promise';
 import { createdb, dropdb, templatedb } from './db';
-import { hotSeed, seed } from './seed';
+import { sqitchFast, sqitch } from './sqitch';
 import skitchPath from 'skitch-path';
 import { connect, close } from './connection';
 import { TUtilsConfig } from './types';
@@ -72,12 +72,12 @@ export const getConnection = async (configOpts, database) => {
 
   if (hot) {
     await createdb(connection);
-    await hotSeed(connection, directory);
+    await sqitchFast(connection, directory);
   } else if (template) {
     await templatedb({ ...connection, template });
   } else {
     await createdb(connection);
-    await seed(connection, directory);
+    await sqitch(connection, directory);
   }
   const db = await connect(connection);
   return db;
