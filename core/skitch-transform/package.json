@@ -24,6 +24,7 @@
     "pg-query-parser": "github:pyramation/pg-query-parser#develop"
   },
   "jest": {
+    "testURL": "http://localhost/",
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
