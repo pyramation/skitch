@@ -2,7 +2,9 @@
 
 BEGIN;
 
+SELECT plan(2);
 SELECT has_fk( '[% schema %]', '[% table %]');
 SELECT col_is_fk( '[% schema %]', '[% table %]', '[% column %]');
+SELECT * FROM finish();
 
 ROLLBACK;

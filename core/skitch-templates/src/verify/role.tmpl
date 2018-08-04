@@ -2,6 +2,8 @@
 
 BEGIN;
 
+SELECT plan(1);
 SELECT has_role( [% role %] );
+SELECT * FROM finish();
 
 ROLLBACK;

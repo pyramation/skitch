@@ -2,6 +2,8 @@
 
 BEGIN;
 
+SELECT plan(1);
 SELECT has_index ('[% schema %]', '[% table %]', '[% index %]');
+SELECT * FROM finish();
 
 ROLLBACK;

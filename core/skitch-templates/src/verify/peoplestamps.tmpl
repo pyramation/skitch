@@ -2,11 +2,13 @@
 
 BEGIN;
 
+SELECT plan(1);
 SELECT created_by FROM [% schema %].[% table %] LIMIT 1;
 [% IF updated_by %]
 SELECT updated_by FROM [% schema %].[% table %] LIMIT 1;
 
 SELECT has_trigger( [% schema %], [% table %], update_[% schema %]_[% table %]_moduser );
 [% END %]
+SELECT * FROM finish();
 
 ROLLBACK;

@@ -2,6 +2,8 @@
 
 BEGIN;
 
+SELECT plan(1);
 SELECT has_type ('[% schema %]', '[% type %]');
+SELECT * FROM finish();
 
 ROLLBACK;
