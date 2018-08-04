@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_index ('[% schema %].[% table %]',
-        '[% index %]');
+SELECT has_index ('[% schema %]', '[% table %]', '[% index %]');
 
 ROLLBACK;

@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT revoke_execute_on_function('[% schema %].[% procedure %]', '[% role %]');
+REVOKE EXECUTE ON [% schema %].[% procedure %] FROM [% role %];
 
 COMMIT;

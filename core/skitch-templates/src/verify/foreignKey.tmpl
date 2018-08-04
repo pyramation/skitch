@@ -2,6 +2,7 @@
 
 BEGIN;
 
-SELECT verify_constraint('[% schema %].[% table %]', 'fk_[% schema %]_[% table %]_[% column %]');
+SELECT has_fk( '[% schema %]', '[% table %]');
+SELECT col_is_fk( '[% schema %]', '[% table %]', '[% column %]');
 
 ROLLBACK;

@@ -2,7 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_type ('[% schema %].[% type %]');
+SELECT has_type ('[% schema %]', '[% type %]');
 
 ROLLBACK;

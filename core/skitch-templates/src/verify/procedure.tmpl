@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_function ('[% schema %].[% procedure %]',
-        'postgres');
+SELECT has_function( [% schema %], [% procedure %] );
 
 ROLLBACK;

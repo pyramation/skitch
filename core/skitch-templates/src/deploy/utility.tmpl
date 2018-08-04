@@ -1,6 +1,5 @@
 -- Deploy [% change %] to pg
 
--- requires: procedures/verify_function
 [% FOREACH item IN requires -%]
 -- requires: [% item %]
 [% END -%]
@@ -14,9 +13,6 @@ CREATE FUNCTION [% procedure %](
 $$
 LANGUAGE '[% lang %]' [% stability %];
 
-COMMENT ON FUNCTION [% procedure %](
-  -- args here
-)
-IS 'Your comment here';
+COMMENT ON FUNCTION [% procedure %] IS 'Your comment here';
 
 COMMIT;

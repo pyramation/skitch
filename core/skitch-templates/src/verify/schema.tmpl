@@ -2,7 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_schema ('[% schema %]');
+SELECT has_schema ('[% schema %]');
 
 ROLLBACK;

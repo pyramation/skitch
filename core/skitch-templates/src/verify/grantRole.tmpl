@@ -2,7 +2,6 @@
 
 BEGIN;
 
-SELECT
-  verify_membership('[% grantee %]', '[% role %]');
+SELECT is_member_of( [% grantee %], [% role %] );
 
 ROLLBACK;

@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT drop_function('[% schema %].[% procedure %]');
+DROP FUNCTION [% schema %].[% procedure %];
 
 COMMIT;

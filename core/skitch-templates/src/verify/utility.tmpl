@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_function ('public.[% procedure %]',
-        'postgres');
+SELECT has_function( public, [% procedure %] );
 
 ROLLBACK;

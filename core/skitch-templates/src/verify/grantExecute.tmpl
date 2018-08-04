@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_function ('[% schema %].[% procedure %]',
-        '[% role %]');
+SELECT function_privs_are ( [% schema %], [% procedure %], ARRAY[], [% role %] );
 
 ROLLBACK;

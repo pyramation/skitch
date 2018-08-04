@@ -2,7 +2,6 @@
 
 BEGIN;
 
-SELECT
-    verify_table ('[% schema %].[% table %]');
+SELECT has_table ('[% schema %]', '[% table %]');
 
 ROLLBACK;
