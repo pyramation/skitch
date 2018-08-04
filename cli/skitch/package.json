@@ -15,28 +15,28 @@
     "test:watch": "jest --watch"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.0",
-    "@types/node": "^8.0.0",
-    "@types/shelljs": "^0.7.8",
-    "jest": "^22.4.0",
-    "ts-jest": "^21.0.0",
-    "ts-node": "^5.0.0",
-    "tslint": "^5.4.3",
-    "typescript": "^2.7.1"
+    "@types/jest": "21.1.0",
+    "@types/node": "8.0.0",
+    "@types/shelljs": "0.7.8",
+    "jest": "22.4.0",
+    "ts-jest": "21.0.0",
+    "ts-node": "5.0.0",
+    "tslint": "5.4.3",
+    "typescript": "2.7.1"
   },
   "dependencies": {
-    "case": "^1.5.4",
-    "glob": "^7.1.2",
-    "inquirerer": "^0.1.1",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "pg-promise": "^8.2.1",
-    "shelljs": "^0.8.1",
-    "skitch-path": "^0.6.5",
-    "skitch-template": "^0.6.9",
-    "skitch-templates": "^0.6.11",
-    "skitch-types": "^0.6.5",
-    "skitch-utils": "^0.6.5"
+    "case": "1.5.4",
+    "glob": "7.1.2",
+    "inquirerer": "0.1.1",
+    "minimist": "1.2.0",
+    "mkdirp": "0.5.1",
+    "pg-promise": "8.2.1",
+    "shelljs": "0.8.1",
+    "skitch-path": "0.6.5",
+    "skitch-template": "0.6.9",
+    "skitch-templates": "0.6.11",
+    "skitch-types": "0.6.5",
+    "skitch-utils": "0.6.5"
   },
   "jest": {
     "transform": {

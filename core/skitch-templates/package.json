@@ -10,16 +10,16 @@
     "build": "ts-node bin/build.ts && rm -rf ./build && tsc"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.0",
-    "@types/node": "^8.0.0",
-    "jest": "^22.4.0",
-    "skitch-types": "^0.6.5",
-    "ts-jest": "^21.0.0",
-    "ts-node": "^5.0.0",
-    "tslint": "^5.4.3",
-    "typescript": "^2.7.1"
+    "@types/jest": "21.1.0",
+    "@types/node": "8.0.0",
+    "jest": "22.4.0",
+    "skitch-types": "0.6.5",
+    "ts-jest": "21.0.0",
+    "ts-node": "5.0.0",
+    "tslint": "5.4.3",
+    "typescript": "2.7.1"
   },
   "dependencies": {
-    "skitch-utils": "^0.6.5"
+    "skitch-utils": "0.6.5"
   }
 }
