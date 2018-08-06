@@ -2,6 +2,7 @@ import * as shell from 'shelljs';
 // TODO move resolve to skitch-utils
 import { resolve } from 'skitch-testing';
 import { prompt } from 'inquirerer';
+import { writeFileSync } from 'fs';
 
 const questions = [
   {
@@ -18,5 +19,5 @@ const questions = [
 export default async argv => {
   const { name, version } = await prompt(questions, argv);
   const sql = await resolve();
-  fs.writeFileSync(`${__dirname}/${name}--${version}.sql`, sql);
+  writeFileSync(`${__dirname}/${name}--${version}.sql`, sql);
 };

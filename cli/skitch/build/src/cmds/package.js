@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // TODO move resolve to skitch-utils
 var skitch_testing_1 = require("skitch-testing");
 var inquirerer_1 = require("inquirerer");
+var fs_1 = require("fs");
 var questions = [
     {
         name: 'name',
@@ -61,7 +62,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_testing_1.resolve()];
             case 2:
                 sql = _b.sent();
-                fs.writeFileSync(__dirname + "/" + name + "--" + version + ".sql", sql);
+                fs_1.writeFileSync(__dirname + "/" + name + "--" + version + ".sql", sql);
                 return [2 /*return*/];
         }
     });
