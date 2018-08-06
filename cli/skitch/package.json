@@ -35,6 +35,7 @@
     "skitch-path": "^0.6.18",
     "skitch-template": "^0.6.20",
     "skitch-templates": "^0.6.18",
+    "skitch-testing": "^0.6.18",
     "skitch-types": "^0.6.18",
     "skitch-utils": "^0.6.18"
   },
