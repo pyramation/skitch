@@ -5,4 +5,5 @@ export * from './src/utils';
 export * from './src/testing';
 export * from './src/sqitch';
 export * from './src/types';
+
 export * from './src/skitch-test';

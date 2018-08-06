@@ -3273,23 +3273,23 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-path@^0.6.18:
+skitch-path@^0.6.18, skitch-path@^0.7.0:
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.6.18.tgz#f7c8a27a922587eacba8599cfdab5a6d1c2c5503"
   dependencies:
     node-walkup "1.1.1"
 
-skitch-template@^0.6.20:
-  version "0.6.20"
-  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.6.20.tgz#a88d96cd8d8e180b5f1ed91b68f626d9974d0493"
+skitch-template@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.7.1.tgz#658798686db54f670626f0cf420e921fca536216"
 
-skitch-templates@^0.6.18:
+skitch-templates@^0.7.0:
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.6.18.tgz#bfaa5f8cc94ad73452d245a55be4799f3459c523"
   dependencies:
     skitch-utils "^0.6.18"
 
-skitch-testing@^0.6.18:
+skitch-testing@^0.7.0:
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.6.18.tgz#fd68c99591c836f7260a6e277414a754fd3c1374"
   dependencies:
@@ -3299,11 +3299,11 @@ skitch-testing@^0.6.18:
     streamify-string "1.0.1"
     uuid "3.1.0"
 
-skitch-types@^0.6.18:
+skitch-types@^0.7.0:
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.6.18.tgz#1fbb5efc737313c8cafa95f6101b7f32164d2cde"
 
-skitch-utils@^0.6.18:
+skitch-utils@^0.6.18, skitch-utils@^0.7.0:
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.6.18.tgz#35dd923c8392290c290863305c4eb5ee0ed224e1"
   dependencies:

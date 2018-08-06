@@ -7,7 +7,6 @@ export interface ReplaceHash {
 }
 const transformProps = (obj: any, props: ReplaceHash): any => {
   var copy;
-
   // Handle the 3 simple types, and null or undefined
   if (null == obj || 'object' != typeof obj) return obj;
 

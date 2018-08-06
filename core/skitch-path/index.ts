@@ -1,6 +1,7 @@
 import * as walkup from 'node-walkup';
 export const path = (cwd: string = process.cwd()) => {
   let obj;
+
   return new Promise<string[]>((resolve, reject) => {
     if (process.env.SKITCH_PATH) {
       return resolve(process.env.SKITCH_PATH);
