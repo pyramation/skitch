@@ -62,7 +62,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_testing_1.resolve()];
             case 2:
                 sql = _b.sent();
-                fs_1.writeFileSync(__dirname + "/" + name + "--" + version + ".sql", sql);
+                fs_1.writeFileSync(process.cwd() + "/" + name + "--" + version + ".sql", sql);
                 return [2 /*return*/];
         }
     });

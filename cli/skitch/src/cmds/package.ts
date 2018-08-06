@@ -19,5 +19,5 @@ const questions = [
 export default async argv => {
   const { name, version } = await prompt(questions, argv);
   const sql = await resolve();
-  writeFileSync(`${__dirname}/${name}--${version}.sql`, sql);
+  writeFileSync(`${process.cwd()}/${name}--${version}.sql`, sql);
 };
