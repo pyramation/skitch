@@ -1,6 +1,6 @@
 {
   "name": "skitch",
-  "version": "0.6.19",
+  "version": "0.6.20",
   "description": "PostgreSQL change management",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -33,7 +33,7 @@
     "pg-promise": "8.2.1",
     "shelljs": "0.8.1",
     "skitch-path": "^0.6.18",
-    "skitch-template": "^0.6.19",
+    "skitch-template": "^0.6.20",
     "skitch-templates": "^0.6.18",
     "skitch-types": "^0.6.18",
     "skitch-utils": "^0.6.18"
