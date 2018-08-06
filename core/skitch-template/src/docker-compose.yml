@@ -2,7 +2,7 @@ version: '2'
 services:
     postgres:
         container_name: postgres
-        image: clkao/postgres-plv8:9.6-2.0
+        image: pyramation/postgres-plv8
         ports:
           - "5432:5432"
         expose:
