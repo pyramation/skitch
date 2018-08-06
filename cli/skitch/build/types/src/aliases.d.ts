@@ -9,6 +9,7 @@ declare const _default: {
     init: any;
     install: any;
     maketest: any;
+    package: any;
     plan: any;
     rename: any;
     revert: any;

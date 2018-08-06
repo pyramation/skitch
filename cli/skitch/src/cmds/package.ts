@@ -1,0 +1,22 @@
+import * as shell from 'shelljs';
+// TODO move resolve to skitch-utils
+import { resolve } from 'skitch-testing';
+import { prompt } from 'inquirerer';
+
+const questions = [
+  {
+    name: 'name',
+    message: 'extension name',
+    required: true,
+  },
+  {
+    name: 'version',
+    message: 'extension version',
+    required: true,
+  },
+];
+export default async argv => {
+  const { name, version } = await prompt(questions, argv);
+  const sql = await resolve();
+  fs.writeFileSync(`${__dirname}/${name}--${version}.sql`, sql);
+};

@@ -9,6 +9,7 @@ declare const _default: {
     init: (argv: any) => Promise<void>;
     install: (argv: any) => Promise<void>;
     maketest: (argv: any) => Promise<void>;
+    package: (argv: any) => Promise<void>;
     plan: (argv: any) => Promise<void>;
     rename: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
