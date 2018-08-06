@@ -1,6 +1,6 @@
 {
   "name": "skitch",
-  "version": "0.6.23",
+  "version": "0.7.0",
   "description": "PostgreSQL change management",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -32,12 +32,12 @@
     "mkdirp": "0.5.1",
     "pg-promise": "8.2.1",
     "shelljs": "0.8.1",
-    "skitch-path": "^0.6.18",
-    "skitch-template": "^0.6.20",
-    "skitch-templates": "^0.6.18",
-    "skitch-testing": "^0.6.18",
-    "skitch-types": "^0.6.18",
-    "skitch-utils": "^0.6.18"
+    "skitch-path": "^0.7.0",
+    "skitch-template": "^0.7.0",
+    "skitch-templates": "^0.7.0",
+    "skitch-testing": "^0.7.0",
+    "skitch-types": "^0.7.0",
+    "skitch-utils": "^0.7.0"
   },
   "jest": {
     "transform": {
