@@ -68,6 +68,14 @@ const makePackage = ({ name, description, author }) => {
   };
 };
 
+const sluggify = (text) => {
+  return text.toString().toLowerCase().trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+}
+
 export default async argv => {
   const { name, description, author } = await prompt(questions, argv);
   const cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
@@ -76,6 +84,23 @@ export default async argv => {
   const pkg = makePackage({ name, description, author });
   shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
   shell.cp('-r', `${srcPath}/src/.*`, `${skitchPath}/`);
+  const extname = sluggify(name);
+  writeFileSync(`${skitchPath}/Makefile`, `EXTENSION = ${extname}
+DATA = ${extname}--0.0.1.sql  # script files to install
+
+# postgres build stuff
+PG_CONFIG = pg_config
+PGXS := $(shell $(PG_CONFIG) --pgxs)
+include $(PGXS)
+  `);
+  writeFileSync(`${skitchPath}/${extname}.control`, `# ${extname} extension
+comment = '${description}'
+default_version = '0.0.1'
+module_pathname = '$libdir/${extname}'
+requires = 'plpgsql,uuid'
+relocatable = false
+superuser = false
+  `);
   writeFileSync(`${skitchPath}/package.json`, JSON.stringify(pkg, null, 2));
   await plan({ name });
   console.log(`

@@ -102,8 +102,15 @@ var makePackage = function (_a) {
         },
     };
 };
+var sluggify = function (text) {
+    return text.toString().toLowerCase().trim()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, name, description, author, cmd, skitchPath, pkg;
+    var _a, name, description, author, cmd, skitchPath, pkg, extname;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
@@ -119,6 +126,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 pkg = makePackage({ name: name, description: description, author: author });
                 shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
                 shell.cp('-r', srcPath + "/src/.*", skitchPath + "/");
+                extname = sluggify(name);
+                fs_1.writeFileSync(skitchPath + "/Makefile", "EXTENSION = " + extname + "\nDATA = " + extname + "--0.0.1.sql  # script files to install\n\n# postgres build stuff\nPG_CONFIG = pg_config\nPGXS := $(shell $(PG_CONFIG) --pgxs)\ninclude $(PGXS)\n  ");
+                fs_1.writeFileSync(skitchPath + "/" + extname + ".control", "# " + extname + " extension\ncomment = '" + description + "'\ndefault_version = '0.0.1'\nmodule_pathname = '$libdir/" + extname + "'\nrequires = 'plpgsql,uuid'\nrelocatable = false\nsuperuser = false\n  ");
                 fs_1.writeFileSync(skitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                 return [4 /*yield*/, plan_1.default({ name: name })];
             case 4:
