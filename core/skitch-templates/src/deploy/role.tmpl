@@ -3,20 +3,12 @@
 [% FOREACH item IN requires -%]
 -- requires: [% item %]
 [% END -%]
+[% FOREACH item IN conflicts -%]
+-- conflicts: [% item %]
+[% END -%]
 
 BEGIN;
 
-DO $$
-BEGIN
-    IF NOT EXISTS (
-            SELECT
-                1
-            FROM
-                pg_roles
-            WHERE
-                rolname = '[% role %]') THEN
-            CREATE ROLE [% role %];
-    END IF;
-END $$;
+CREATE ROLE [% role %];
 
 COMMIT;

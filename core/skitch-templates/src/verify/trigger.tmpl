@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT plan(1);
-SELECT has_trigger ('[% schema %]', '[% table %]', '[% triggername %]');
-SELECT * FROM finish();
+SELECT verify_trigger ('[% schema %].[% triggername %]');
 
 ROLLBACK;

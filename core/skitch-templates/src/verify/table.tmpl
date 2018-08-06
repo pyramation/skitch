@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT plan(1);
-SELECT has_table ('[% schema %]', '[% table %]');
-SELECT * FROM finish();
+SELECT verify_table ('[% schema %].[% table %]');
 
 ROLLBACK;

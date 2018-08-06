@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SELECT plan(1);
-SELECT is_member_of( [% grantee %], [% role %] );
-SELECT * FROM finish();
+SELECT verify_membership('[% grantee %]', '[% role %]');
 
 ROLLBACK;

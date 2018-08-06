@@ -2,9 +2,6 @@
 
 BEGIN;
 
-SELECT plan(1);
-SELECT has_function( [% schema %], [% procedure %] );
-SELECT * FROM finish();
-
+SELECT verify_function ('[% schema %].[% procedure %]', 'postgres');
 
 ROLLBACK;

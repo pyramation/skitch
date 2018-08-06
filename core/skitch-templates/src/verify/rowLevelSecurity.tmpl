@@ -2,8 +2,6 @@
 
 BEGIN;
 
--- TODO PGTAP TODO
-SELECT
-    verify_security ('[% schema %].[% table %]');
+SELECT verify_security ('[% schema %].[% table %]');
 
 ROLLBACK;
