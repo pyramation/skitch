@@ -811,6 +811,10 @@ dotenv@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
 
+dotty@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/dotty/-/dotty-0.1.0.tgz#da371ccd931a37282f8f7f77adada7d54539708a"
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"
@@ -2824,10 +2828,11 @@ pgpass@1.x:
   dependencies:
     split "^1.0.0"
 
-pgsql-parser@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.2.3.tgz#389e615edf7465cf70a302978bbb7188e4772aa5"
+pgsql-parser@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.2.9.tgz#544b623ea182bcd812af9019cef49060b85c6427"
   dependencies:
+    dotty "^0.1.0"
     lodash "^4.13.1"
     pg-query-native "^1.1.0"
 
