@@ -19,28 +19,40 @@ const sluggify = (text) => {
 export default async argv => {
   const sql = await resolve();
   const skitchPath = await path();
-  const pkg = require(`${skitchPath}/package.json`);
+
+  const pkgPath = `${skitchPath}/package.json`;
+  const pkg = require(pkgPath);
 
   const questions = [
     {
       name: 'version',
+      message: 'version',
       default: pkg.version,
       required: true,
     },
   ];
+
   const { version } = await prompt(questions, argv);
 
   const extname = sluggify(pkg.name);
-  const Makefile = readFileSync(`${skitchPath}/${extname}.control`).toString();
-  const control = readFileSync(`${skitchPath}/package.json`).toString();
+  const makePath = `${skitchPath}/Makefile`;
+  const controlPath = `${skitchPath}/${extname}.control`;
+  const sqlFileName = `${extname}--${version}.sql`;
+
+  const Makefile = readFileSync(makePath).toString();
+  const control = readFileSync(controlPath).toString();
 
   // control file
-  writeFileSync(`${skitchPath}/${extname}.control`, control.replace(/default_version = '[0-9\.]+'/, `default_version = '${version}'`));
+  writeFileSync(controlPath, control.replace(/default_version = '[0-9\.]+'/, `default_version = '${version}'`));
+
+  // package json
+  writeFileSync(pkgPath, JSON.stringify(Object.assign({}, pkg, {version}), null, 2));
 
   // makefile
-  var regex = new RegExp(name + '--[0-9\.]+.sql')
-  writeFileSync(`${skitchPath}/Makefile`, Makefile.replace(regex,`${skitchPath}/${extname}--${pkg.version}.sql`));
+  var regex = new RegExp(extname + '--[0-9\.]+.sql')
+  writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
 
   // sql
-  writeFileSync(`${skitchPath}/${extname}--${pkg.version}.sql`, sql);
+  writeFileSync(`${skitchPath}/sql/${sqlFileName}`, sql);
+  console.log(`${sqlFileName} written`);
 };

@@ -84,9 +84,10 @@ export default async argv => {
   const pkg = makePackage({ name, description, author });
   shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
   shell.cp('-r', `${srcPath}/src/.*`, `${skitchPath}/`);
+  shell.mkdir('-p', `${skitchPath}/sql`);
   const extname = sluggify(name);
   writeFileSync(`${skitchPath}/Makefile`, `EXTENSION = ${extname}
-DATA = ${extname}--0.0.1.sql  # script files to install
+DATA = sql/${extname}--0.0.1.sql  # script files to install
 
 # postgres build stuff
 PG_CONFIG = pg_config
@@ -97,7 +98,7 @@ include $(PGXS)
 comment = '${description}'
 default_version = '0.0.1'
 module_pathname = '$libdir/${extname}'
-requires = 'plpgsql,uuid'
+requires = 'plpgsql,uuid-ossp'
 relocatable = false
 superuser = false
   `);
