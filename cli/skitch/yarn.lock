@@ -3461,12 +3461,13 @@ skitch-templates@^0.7.2:
   dependencies:
     skitch-utils "^0.7.2"
 
-skitch-testing@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.7.2.tgz#1b54c24714fef22ae8a0be719b759db91a0ae3be"
+skitch-testing@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.7.7.tgz#f0c7c8cc6c31933a940a98881e64234da70a6316"
   dependencies:
     pg "6.4.0"
     pg-promise "6.10.3"
+    pgsql-parser "^0.2.9"
     skitch-path "^0.7.2"
     streamify-string "1.0.1"
     uuid "3.1.0"

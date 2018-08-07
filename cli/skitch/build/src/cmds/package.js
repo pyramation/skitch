@@ -50,7 +50,7 @@ var sluggify = function (text) {
         .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sql, skitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query;
+    var sql, skitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query, finalSql;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
@@ -86,13 +86,14 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 fs_1.writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
                 // sql
                 try {
-                    console.log(parser.parse(sql));
                     query = parser.parse(sql).query.reduce(function (m, stmt) {
                         if (stmt.hasOwnProperty('TransactionStmt'))
                             return m;
                         return m.concat([stmt]);
                     }, []);
-                    fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName, parser.deparse(query));
+                    finalSql = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
+                    finalSql += parser.deparse(query);
+                    fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName, finalSql);
                 }
                 catch (e) {
                     console.error(e);

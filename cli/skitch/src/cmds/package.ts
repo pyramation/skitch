@@ -30,7 +30,7 @@ export default async argv => {
       message: 'version',
       default: pkg.version,
       required: true,
-    },
+    }
   ];
 
   const { version } = await prompt(questions, argv);
@@ -55,12 +55,14 @@ export default async argv => {
 
   // sql
   try {
-   console.log(parser.parse(sql));
     const query = parser.parse(sql).query.reduce((m, stmt)=>{
       if (stmt.hasOwnProperty('TransactionStmt')) return m;
       return [...m, stmt];
     }, []);
-    writeFileSync(`${skitchPath}/sql/${sqlFileName}`, parser.deparse(query));
+
+    let finalSql = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
+    finalSql += parser.deparse(query);
+    writeFileSync(`${skitchPath}/sql/${sqlFileName}`, finalSql);
   } catch (e) {
     console.error(e);
   }
