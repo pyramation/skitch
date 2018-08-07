@@ -1,5 +1,6 @@
 import * as shell from 'shelljs';
 import path from 'skitch-path';
+const parser = require('pgsql-parser');
 
 // TODO move resolve to skitch-utils
 import { resolve } from 'skitch-testing';
@@ -53,6 +54,16 @@ export default async argv => {
   writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
 
   // sql
-  writeFileSync(`${skitchPath}/sql/${sqlFileName}`, sql);
+  try {
+   console.log(parser.parse(sql));
+    const query = parser.parse(sql).query.reduce((m, stmt)=>{
+      if (stmt.hasOwnProperty('TransactionStmt')) return m;
+      return [...m, stmt];
+    }, []);
+    writeFileSync(`${skitchPath}/sql/${sqlFileName}`, parser.deparse(query));
+  } catch (e) {
+    console.error(e);
+  }
+
   console.log(`${sqlFileName} written`);
 };
