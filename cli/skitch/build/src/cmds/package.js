@@ -36,33 +36,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var skitch_path_1 = require("skitch-path");
 // TODO move resolve to skitch-utils
 var skitch_testing_1 = require("skitch-testing");
 var inquirerer_1 = require("inquirerer");
 var fs_1 = require("fs");
-var questions = [
-    {
-        name: 'name',
-        message: 'extension name',
-        required: true,
-    },
-    {
-        name: 'version',
-        message: 'extension version',
-        required: true,
-    },
-];
+var sluggify = function (text) {
+    return text.toString().toLowerCase().trim()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, name, version, sql;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+    var sql, skitchPath, package, questions, version, extname, Makefile, control, regex;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
             case 1:
-                _a = _b.sent(), name = _a.name, version = _a.version;
-                return [4 /*yield*/, skitch_testing_1.resolve()];
+                sql = _a.sent();
+                return [4 /*yield*/, skitch_path_1.default()];
             case 2:
-                sql = _b.sent();
-                fs_1.writeFileSync(process.cwd() + "/" + name + "--" + version + ".sql", sql);
+                skitchPath = _a.sent();
+                package = require(skitchPath + "/package.json");
+                questions = [
+                    {
+                        name: 'version',
+                        default: package.version,
+                        required: true,
+                    },
+                ];
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 3:
+                version = (_a.sent()).version;
+                extname = sluggify(package.name);
+                Makefile = fs_1.readFileSync(skitchPath + "/" + extname + ".control").toString();
+                control = fs_1.readFileSync(skitchPath + "/package.json").toString();
+                // control file
+                fs_1.writeFileSync(skitchPath + "/" + extname + ".control", control.replace(/default_version = '[0-9\.]+'/, "default_version = '" + version + "'"));
+                regex = new RegExp(name + '--[0-9\.]+.sql');
+                fs_1.writeFileSync(skitchPath + "/Makefile", Makefile.replace(regex, skitchPath + "/" + extname + "--" + package.version + ".sql"));
+                // sql
+                fs_1.writeFileSync(skitchPath + "/" + extname + "--" + package.version + ".sql", sql);
                 return [2 /*return*/];
         }
     });
