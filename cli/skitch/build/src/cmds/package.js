@@ -49,7 +49,7 @@ var sluggify = function (text) {
         .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sql, skitchPath, package, questions, version, extname, Makefile, control, regex;
+    var sql, skitchPath, pkg, questions, version, extname, Makefile, control, regex;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
@@ -58,26 +58,26 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_path_1.default()];
             case 2:
                 skitchPath = _a.sent();
-                package = require(skitchPath + "/package.json");
+                pkg = require(skitchPath + "/package.json");
                 questions = [
                     {
                         name: 'version',
-                        default: package.version,
+                        default: pkg.version,
                         required: true,
                     },
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 3:
                 version = (_a.sent()).version;
-                extname = sluggify(package.name);
+                extname = sluggify(pkg.name);
                 Makefile = fs_1.readFileSync(skitchPath + "/" + extname + ".control").toString();
                 control = fs_1.readFileSync(skitchPath + "/package.json").toString();
                 // control file
                 fs_1.writeFileSync(skitchPath + "/" + extname + ".control", control.replace(/default_version = '[0-9\.]+'/, "default_version = '" + version + "'"));
                 regex = new RegExp(name + '--[0-9\.]+.sql');
-                fs_1.writeFileSync(skitchPath + "/Makefile", Makefile.replace(regex, skitchPath + "/" + extname + "--" + package.version + ".sql"));
+                fs_1.writeFileSync(skitchPath + "/Makefile", Makefile.replace(regex, skitchPath + "/" + extname + "--" + pkg.version + ".sql"));
                 // sql
-                fs_1.writeFileSync(skitchPath + "/" + extname + "--" + package.version + ".sql", sql);
+                fs_1.writeFileSync(skitchPath + "/" + extname + "--" + pkg.version + ".sql", sql);
                 return [2 /*return*/];
         }
     });

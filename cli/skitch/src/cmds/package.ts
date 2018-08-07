@@ -19,18 +19,18 @@ const sluggify = (text) => {
 export default async argv => {
   const sql = await resolve();
   const skitchPath = await path();
-  const package = require(`${skitchPath}/package.json`);
+  const pkg = require(`${skitchPath}/package.json`);
 
   const questions = [
     {
       name: 'version',
-      default: package.version,
+      default: pkg.version,
       required: true,
     },
   ];
   const { version } = await prompt(questions, argv);
 
-  const extname = sluggify(package.name);
+  const extname = sluggify(pkg.name);
   const Makefile = readFileSync(`${skitchPath}/${extname}.control`).toString();
   const control = readFileSync(`${skitchPath}/package.json`).toString();
 
@@ -39,8 +39,8 @@ export default async argv => {
 
   // makefile
   var regex = new RegExp(name + '--[0-9\.]+.sql')
-  writeFileSync(`${skitchPath}/Makefile`, Makefile.replace(regex,`${skitchPath}/${extname}--${package.version}.sql`));
+  writeFileSync(`${skitchPath}/Makefile`, Makefile.replace(regex,`${skitchPath}/${extname}--${pkg.version}.sql`));
 
   // sql
-  writeFileSync(`${skitchPath}/${extname}--${package.version}.sql`, sql);
+  writeFileSync(`${skitchPath}/${extname}--${pkg.version}.sql`, sql);
 };
