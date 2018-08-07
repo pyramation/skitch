@@ -82,10 +82,14 @@ export default async argv => {
   await promisify(exec)(cmd.trim());
   const skitchPath = await path();
   const pkg = makePackage({ name, description, author });
+
+  // initialize template
   shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
   shell.cp('-r', `${srcPath}/src/.*`, `${skitchPath}/`);
+
   shell.mkdir('-p', `${skitchPath}/sql`);
   const extname = sluggify(name);
+
   writeFileSync(`${skitchPath}/Makefile`, `EXTENSION = ${extname}
 DATA = sql/${extname}--0.0.1.sql  # script files to install
 
@@ -94,6 +98,7 @@ PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
   `);
+
   writeFileSync(`${skitchPath}/${extname}.control`, `# ${extname} extension
 comment = '${description}'
 default_version = '0.0.1'
@@ -102,6 +107,7 @@ requires = 'plpgsql,uuid-ossp'
 relocatable = false
 superuser = false
   `);
+  
   writeFileSync(`${skitchPath}/package.json`, JSON.stringify(pkg, null, 2));
   await plan({ name });
   console.log(`
