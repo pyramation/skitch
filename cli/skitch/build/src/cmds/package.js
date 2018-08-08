@@ -67,7 +67,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         message: 'version',
                         default: pkg.version,
                         required: true,
-                    },
+                    }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 3:

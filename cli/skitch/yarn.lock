@@ -3001,6 +3001,14 @@ pgsql-parser@^0.2.9:
     lodash "^4.13.1"
     pg-query-native "^1.1.0"
 
+pgsql-parser@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.3.1.tgz#e2d071a59ba3cdb8fb76eae3a0e240d6ab2ffe4a"
+  dependencies:
+    dotty "^0.1.0"
+    lodash "^4.13.1"
+    pg-query-native "^1.1.0"
+
 pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -3451,9 +3459,9 @@ skitch-path@^0.7.2:
   dependencies:
     node-walkup "1.1.1"
 
-skitch-template@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.7.1.tgz#658798686db54f670626f0cf420e921fca536216"
+skitch-template@^0.7.8:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.7.8.tgz#2011aff4fb77b365c2902d7c148590a75ba40132"
 
 skitch-templates@^0.7.2:
   version "0.7.2"

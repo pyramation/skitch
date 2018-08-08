@@ -124,6 +124,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 3:
                 skitchPath = _b.sent();
                 pkg = makePackage({ name: name, description: description, author: author });
+                // initialize template
                 shell.cp('-r', srcPath + "/src/*", skitchPath + "/");
                 shell.cp('-r', srcPath + "/src/.*", skitchPath + "/");
                 shell.mkdir('-p', skitchPath + "/sql");
