@@ -91,9 +91,8 @@ export default async argv => {
   const extname = sluggify(name);
 
   writeFileSync(`${skitchPath}/Makefile`, `EXTENSION = ${extname}
-DATA = sql/${extname}--0.0.1.sql  # script files to install
+DATA = sql/${extname}--0.0.1.sql
 
-# postgres build stuff
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
@@ -107,7 +106,7 @@ requires = 'plpgsql,uuid-ossp'
 relocatable = false
 superuser = false
   `);
-  
+
   writeFileSync(`${skitchPath}/package.json`, JSON.stringify(pkg, null, 2));
   await plan({ name });
   console.log(`
