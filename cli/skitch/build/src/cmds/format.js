@@ -37,16 +37,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cli_1 = require("./src/cli");
-var argv = require('minimist')(process.argv.slice(2));
-(function () { return __awaiter(_this, void 0, void 0, function () {
+var inquirerer_1 = require("inquirerer");
+var skitch_path_1 = require("skitch-path");
+var path = require('path');
+var fs = require('fs');
+var mkdirp = require('mkdirp').sync;
+var promisify = require('util').promisify;
+var glob = promisify(require('glob'));
+var exec = require('child_process').exec;
+var asyncExec = promisify(exec);
+var readFile = promisify(fs.readFile);
+var writeFile = promisify(fs.writeFile);
+var questions = [
+    {
+        _: true,
+        name: 'src',
+        message: 'choose a filter, e.g, schemas/users',
+        required: true,
+    },
+];
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    function sanitize_path(fullpath) {
+        function constructPath(pathArray) {
+            return pathArray.length ? pathArray.join('/') : '';
+        }
+        // TODO: NOT DRY
+        function createPathArray(str) {
+            return str.split('/').filter(function (f) { return f; });
+        }
+        return constructPath(createPathArray(fullpath));
+    }
+    var PKGDIR, src, files, i, data, stdout;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
+                PKGDIR = _a.sent();
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
+                src = (_a.sent()).src;
+                src = sanitize_path(src);
+                return [4 /*yield*/, glob(PKGDIR + "/**/**.sql")];
+            case 3:
+                files = _a.sent();
+                i = 0;
+                _a.label = 4;
+            case 4:
+                if (!(i < files.length)) return [3 /*break*/, 9];
+                return [4 /*yield*/, readFile(files[i])];
+            case 5:
+                data = _a.sent();
+                if (!files[i].match(src))
+                    return [3 /*break*/, 8];
+                console.log(src);
+                console.log(files[i]);
+                if (!!/plv8/.test(data)) return [3 /*break*/, 8];
+                return [4 /*yield*/, asyncExec("pg_format " + files[i])];
+            case 6:
+                stdout = (_a.sent()).stdout;
+                return [4 /*yield*/, writeFile(files[i], stdout)];
+            case 7:
                 _a.sent();
-                return [2 /*return*/];
+                _a.label = 8;
+            case 8:
+                i++;
+                return [3 /*break*/, 4];
+            case 9: return [2 /*return*/];
         }
     });
-}); })();
-//# sourceMappingURL=index.js.map
+}); });
+//# sourceMappingURL=format.js.map

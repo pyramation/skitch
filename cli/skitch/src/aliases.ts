@@ -4,6 +4,7 @@ import { aliases as bundle } from './cmds/bundle';
 import { aliases as createdb } from './cmds/createdb';
 import { aliases as deploy } from './cmds/deploy';
 import { aliases as dropdb } from './cmds/dropdb';
+import { aliases as format } from './cmds/format';
 import { aliases as generate } from './cmds/generate';
 import { aliases as info } from './cmds/info';
 import { aliases as init } from './cmds/init';
@@ -17,6 +18,6 @@ import { aliases as start } from './cmds/start';
 import { aliases as verify } from './cmds/verify';
 
   export default {
-    add,bundle,createdb,deploy,dropdb,generate,info,init,install,maketest,package,plan,rename,revert,start,verify
+    add,bundle,createdb,deploy,dropdb,format,generate,info,init,install,maketest,package,plan,rename,revert,start,verify
   }
     

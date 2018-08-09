@@ -4,6 +4,7 @@ declare const _default: {
     createdb: (argv: any) => Promise<void>;
     deploy: (argv: any) => Promise<void>;
     dropdb: (argv: any) => Promise<void>;
+    format: (argv: any) => Promise<void>;
     generate: (argv: any) => Promise<void>;
     info: (argv: any) => Promise<void>;
     init: (argv: any) => Promise<void>;
