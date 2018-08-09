@@ -51,7 +51,7 @@ var writeFile = promisify(fs.writeFile);
 var questions = [
     {
         _: true,
-        name: 'src',
+        name: 'filter',
         message: 'choose a filter, e.g, schemas/users',
         required: true,
     },
@@ -67,7 +67,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         }
         return constructPath(createPathArray(fullpath));
     }
-    var PKGDIR, src, files, i, data, stdout;
+    var PKGDIR, filter, files, i, data, stdout;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_path_1.default()];
@@ -75,8 +75,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 PKGDIR = _a.sent();
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
-                src = (_a.sent()).src;
-                src = sanitize_path(src);
+                filter = (_a.sent()).filter;
+                filter = sanitize_path(filter);
                 return [4 /*yield*/, glob(PKGDIR + "/**/**.sql")];
             case 3:
                 files = _a.sent();
@@ -87,10 +87,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, readFile(files[i])];
             case 5:
                 data = _a.sent();
-                if (!files[i].match(src))
+                if (!files[i].match(filter))
                     return [3 /*break*/, 8];
-                console.log(src);
-                console.log(files[i]);
                 if (!!/plv8/.test(data)) return [3 /*break*/, 8];
                 return [4 /*yield*/, asyncExec("pg_format " + files[i])];
             case 6:

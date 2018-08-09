@@ -2993,17 +2993,9 @@ pgpass@1.x:
   dependencies:
     split "^1.0.0"
 
-pgsql-parser@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.3.5.tgz#448d84550fdfb891063dc025906956eff0257a73"
-  dependencies:
-    dotty "^0.1.0"
-    lodash "^4.13.1"
-    pg-query-native "^1.1.0"
-
-pgsql-parser@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.3.6.tgz#87dfc1380fcff6cc9ef4bdba06819c98f8deb813"
+pgsql-parser@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.3.7.tgz#56c3b7efc7fed4802edac3a7685aec59d7e77254"
   dependencies:
     dotty "^0.1.0"
     lodash "^4.13.1"
@@ -3453,44 +3445,43 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-path@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.7.2.tgz#715bb52b52a2e570fc77ed36a24f64a547f1f8b6"
+skitch-path@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.8.0.tgz#e1743159f82813b24a55710f65f8649012e7e5b4"
   dependencies:
     node-walkup "1.1.1"
 
-skitch-template@^0.7.8:
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.7.8.tgz#2011aff4fb77b365c2902d7c148590a75ba40132"
+skitch-template@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.8.0.tgz#8089632fe63ed5ebf695d9c629ecf9cc0aceedf1"
 
-skitch-templates@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.7.2.tgz#e5a67ee08e3b9085c69501a4fe45a8de6a63fc20"
+skitch-templates@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.8.0.tgz#900a5fd212b6f95d3529d417c371440fdc2a9777"
   dependencies:
-    skitch-utils "^0.7.2"
+    skitch-utils "^0.8.0"
 
-skitch-testing@^0.7.12:
-  version "0.7.12"
-  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.7.12.tgz#1d6b6294ae2763a2df507da738f253e3cba4b31e"
+skitch-testing@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.8.0.tgz#222447864debf2f32b988f34749a20f880e0b11c"
   dependencies:
     pg "6.4.0"
     pg-promise "6.10.3"
-    pgsql-parser "^0.3.5"
-    skitch-path "^0.7.2"
+    skitch-path "^0.8.0"
     streamify-string "1.0.1"
     uuid "3.1.0"
 
-skitch-types@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.7.2.tgz#c5c19f03fd232a1598e3f6b20c7c633605b770dd"
+skitch-types@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.8.0.tgz#c8834c95028a96c27b1a7860d1dd9b38a23e6da9"
 
-skitch-utils@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.7.2.tgz#47acdad097405fc7be6530acdb38968c2c762c95"
+skitch-utils@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.8.0.tgz#3285258f0d90be05244897b5e552bdd50ca27ce0"
   dependencies:
     fuzzy "0.1.3"
     glob "7.1.2"
-    skitch-path "^0.7.2"
+    skitch-path "^0.8.0"
 
 slash@^1.0.0:
   version "1.0.0"
