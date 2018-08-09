@@ -1,6 +1,6 @@
 {
   "name": "skitch-templates",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -13,13 +13,13 @@
     "@types/jest": "21.1.0",
     "@types/node": "8.0.0",
     "jest": "22.4.0",
-    "skitch-types": "^0.7.2",
+    "skitch-types": "^0.8.0",
     "ts-jest": "21.0.0",
     "ts-node": "5.0.0",
     "tslint": "5.4.3",
     "typescript": "2.7.1"
   },
   "dependencies": {
-    "skitch-utils": "^0.7.2"
+    "skitch-utils": "^0.8.0"
   }
 }

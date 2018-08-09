@@ -1,6 +1,6 @@
 {
   "name": "skitch-utils",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -18,6 +18,6 @@
   "dependencies": {
     "fuzzy": "0.1.3",
     "glob": "7.1.2",
-    "skitch-path": "^0.7.2"
+    "skitch-path": "^0.8.0"
   }
 }
