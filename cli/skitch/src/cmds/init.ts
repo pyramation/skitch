@@ -40,7 +40,8 @@ const questions = [
   {
     name: 'extensions',
     message: 'which extensions?',
-    checkbox: ['plpgsql','uuid-ossp','airpage-utils','airpage-verify'],
+    choices: ['plpgsql','uuid-ossp','airpage-utils','airpage-verify'],
+    type: 'checkbox',
     default: ['plpgsql'],
     required: true,
   },
