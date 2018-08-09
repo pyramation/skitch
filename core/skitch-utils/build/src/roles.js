@@ -40,7 +40,7 @@ var fuzzy = require('fuzzy');
 var path_1 = require("path");
 var glob = require("glob");
 var skitch_path_1 = require("skitch-path");
-exports.searchRoles = function (answers, input) {
+exports.searchRolesLocal = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
         var path, roles, roleDir;
@@ -58,6 +58,27 @@ exports.searchRoles = function (answers, input) {
                         roles = [];
                     }
                     roles = roles.map(function (f) { return path_1.basename(path_1.dirname(f)); });
+                    setTimeout(function () {
+                        var fuzzyResult = fuzzy.filter(input, roles);
+                        resolve(fuzzyResult.map(function (el) {
+                            return el.original;
+                        }));
+                    }, 25);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+};
+exports.searchRoles = function (answers, input) {
+    input = input || '';
+    return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+        var path, roles;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 1:
+                    path = _a.sent();
+                    roles = ['anonymous', 'authenticated', 'administrator'];
                     setTimeout(function () {
                         var fuzzyResult = fuzzy.filter(input, roles);
                         resolve(fuzzyResult.map(function (el) {

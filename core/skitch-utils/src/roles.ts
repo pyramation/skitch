@@ -46,7 +46,7 @@ export const searchRoles = (answers: HashObject, input: string) => {
   return new Promise(async (resolve, reject) => {
     const path = await skitchPath();
 
-    const roles = ['app_anonymous', 'app_authenticated', 'app_administrator'];
+    const roles = ['anonymous', 'authenticated', 'administrator'];
 
     setTimeout(function() {
       var fuzzyResult = fuzzy.filter(input, roles);
