@@ -21,6 +21,8 @@ export const change = ({
 }: TriggerConfig): ChangePathArray => [
   'schemas',
   schema,
+  'tables',
+  table,
   'triggers',
   triggername
 ]

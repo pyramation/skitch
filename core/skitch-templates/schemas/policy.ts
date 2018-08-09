@@ -13,7 +13,6 @@ export interface PolicyConfig {
 export const requires = (res: PolicyConfig): Array<ChangePathArray> => [
   schema(res),
   table(res),
-  role(res),
 ];
 
 export const change = ({

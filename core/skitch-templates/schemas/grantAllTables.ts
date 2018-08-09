@@ -9,8 +9,7 @@ export interface GrantAllTables {
 }
 
 export const requires = (res: GrantAllTables): Array<ChangePathArray> => [
-  schema(res),
-  role(res),
+  schema(res)
 ];
 
 export const change = ({ schema, role }: GrantAllTables) => [

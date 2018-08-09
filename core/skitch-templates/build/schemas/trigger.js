@@ -13,6 +13,8 @@ exports.change = function (_a) {
     return [
         'schemas',
         schema,
+        'tables',
+        table_1.change,
         'triggers',
         triggername
     ];

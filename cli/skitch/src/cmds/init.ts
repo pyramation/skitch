@@ -37,6 +37,13 @@ const questions = [
     default: 'skitch project',
     required: true,
   },
+  {
+    name: 'extensions',
+    message: 'which extensions?',
+    checkbox: ['plpgsql','uuid-ossp','airpage-utils','airpage-verify'],
+    default: ['plpgsql'],
+    required: true,
+  },
 ];
 
 const makePackage = ({ name, description, author }) => {
@@ -77,7 +84,7 @@ const sluggify = (text) => {
 }
 
 export default async argv => {
-  const { name, description, author } = await prompt(questions, argv);
+  const { name, description, author, extensions } = await prompt(questions, argv);
   const cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
   await promisify(exec)(cmd.trim());
   const skitchPath = await path();
@@ -102,7 +109,7 @@ include $(PGXS)
 comment = '${description}'
 default_version = '0.0.1'
 module_pathname = '$libdir/${extname}'
-requires = 'plpgsql,uuid-ossp'
+requires = '${extensions.join(',')}'
 relocatable = false
 superuser = false
   `);

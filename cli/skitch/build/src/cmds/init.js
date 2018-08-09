@@ -72,6 +72,13 @@ var questions = [
         default: 'skitch project',
         required: true,
     },
+    {
+        name: 'extensions',
+        message: 'which extensions?',
+        checkbox: ['plpgsql', 'uuid-ossp', 'airpage-utils', 'airpage-verify'],
+        default: ['plpgsql'],
+        required: true,
+    },
 ];
 var makePackage = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author;
@@ -110,12 +117,12 @@ var sluggify = function (text) {
         .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, name, description, author, cmd, skitchPath, pkg, extname;
+    var _a, name, description, author, extensions, cmd, skitchPath, pkg, extname;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                _a = _b.sent(), name = _a.name, description = _a.description, author = _a.author;
+                _a = _b.sent(), name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
                 cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
                 return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
             case 2:
@@ -130,7 +137,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 shell.mkdir('-p', skitchPath + "/sql");
                 extname = sluggify(name);
                 fs_1.writeFileSync(skitchPath + "/Makefile", "EXTENSION = " + extname + "\nDATA = sql/" + extname + "--0.0.1.sql\n\nPG_CONFIG = pg_config\nPGXS := $(shell $(PG_CONFIG) --pgxs)\ninclude $(PGXS)\n  ");
-                fs_1.writeFileSync(skitchPath + "/" + extname + ".control", "# " + extname + " extension\ncomment = '" + description + "'\ndefault_version = '0.0.1'\nmodule_pathname = '$libdir/" + extname + "'\nrequires = 'plpgsql,uuid-ossp'\nrelocatable = false\nsuperuser = false\n  ");
+                fs_1.writeFileSync(skitchPath + "/" + extname + ".control", "# " + extname + " extension\ncomment = '" + description + "'\ndefault_version = '0.0.1'\nmodule_pathname = '$libdir/" + extname + "'\nrequires = '" + extensions.join(',') + "'\nrelocatable = false\nsuperuser = false\n  ");
                 fs_1.writeFileSync(skitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                 return [4 /*yield*/, plan_1.default({ name: name })];
             case 4:
