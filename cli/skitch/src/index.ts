@@ -13,10 +13,11 @@ import maketest from './cmds/maketest';
 import package from './cmds/package';
 import plan from './cmds/plan';
 import rename from './cmds/rename';
+import resolve from './cmds/resolve';
 import revert from './cmds/revert';
 import start from './cmds/start';
 import verify from './cmds/verify';
 export default {
-  add,bundle,createdb,deploy,dropdb,format,generate,info,init,install,maketest,package,plan,rename,revert,start,verify
+  add,bundle,createdb,deploy,dropdb,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,start,verify
 }
   

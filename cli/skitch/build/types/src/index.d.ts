@@ -13,6 +13,7 @@ declare const _default: {
     package: (argv: any) => Promise<void>;
     plan: (argv: any) => Promise<void>;
     rename: (argv: any) => Promise<void>;
+    resolve: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
     start: (argv: any) => Promise<void>;
     verify: (argv: any) => Promise<void>;

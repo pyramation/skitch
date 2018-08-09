@@ -13,11 +13,12 @@ import { aliases as maketest } from './cmds/maketest';
 import { aliases as package } from './cmds/package';
 import { aliases as plan } from './cmds/plan';
 import { aliases as rename } from './cmds/rename';
+import { aliases as resolve } from './cmds/resolve';
 import { aliases as revert } from './cmds/revert';
 import { aliases as start } from './cmds/start';
 import { aliases as verify } from './cmds/verify';
 
   export default {
-    add,bundle,createdb,deploy,dropdb,format,generate,info,init,install,maketest,package,plan,rename,revert,start,verify
+    add,bundle,createdb,deploy,dropdb,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,start,verify
   }
     

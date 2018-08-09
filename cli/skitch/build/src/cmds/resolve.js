@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,16 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cli_1 = require("./src/cli");
-var argv = require('minimist')(process.argv.slice(2));
-(function () { return __awaiter(_this, void 0, void 0, function () {
+var parser = require('pgsql-parser');
+// TODO move resolve to skitch-utils
+var skitch_testing_1 = require("skitch-testing");
+var sluggify = function (text) {
+    return text.toString().toLowerCase().trim()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+};
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var sql, query, finalSql;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+            case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
             case 1:
-                _a.sent();
+                sql = _a.sent();
+                // sql
+                try {
+                    query = parser.parse(sql).query;
+                    finalSql = parser.deparse(query);
+                }
+                catch (e) {
+                    console.error(e);
+                }
+                console.log(finalSql);
                 return [2 /*return*/];
         }
     });
-}); })();
-//# sourceMappingURL=index.js.map
+}); });
+//# sourceMappingURL=resolve.js.map

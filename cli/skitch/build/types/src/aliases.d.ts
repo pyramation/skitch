@@ -13,6 +13,7 @@ declare const _default: {
     package: any;
     plan: any;
     rename: any;
+    resolve: any;
     revert: any;
     start: any;
     verify: any;
