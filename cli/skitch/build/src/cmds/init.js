@@ -100,7 +100,7 @@ var makePackage = function (_a) {
             'babel-jest': '20.0.3',
             'babel-preset-react-app': '3.0.0',
             dotenv: '5.0.1',
-            jest: '22.4.0',
+            jest: '20.0.4',
         },
         dependencies: {
             pg: '6.4.0',
