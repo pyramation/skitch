@@ -1,11 +1,11 @@
-import { parse, deparse } from 'pg-query-parser';
+import { parse, deparse } from 'pgsql-parser';
 export interface ObjectHash {
   [type: string]: string;
 }
 export interface ReplaceHash {
   [type: string]: Function | ObjectHash;
 }
-const transformProps = (obj: any, props: ReplaceHash): any => {
+export const transformProps = (obj: any, props: ReplaceHash): any => {
   var copy;
   // Handle the 3 simple types, and null or undefined
   if (null == obj || 'object' != typeof obj) return obj;
@@ -27,7 +27,7 @@ const transformProps = (obj: any, props: ReplaceHash): any => {
   }
 
   // Handle Object
-  if (obj instanceof Object) {
+  if (obj instanceof Object || typeof obj === 'object') {
     copy = {};
     for (var attr in obj) {
       if (obj.hasOwnProperty(attr)) {

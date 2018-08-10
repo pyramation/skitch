@@ -803,6 +803,10 @@ domexception@^1.0.1:
   dependencies:
     webidl-conversions "^4.0.2"
 
+dotty@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/dotty/-/dotty-0.1.0.tgz#da371ccd931a37282f8f7f77adada7d54539708a"
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"
@@ -2698,20 +2702,21 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
-pg-query-native@^1.1.0:
+pg-query-native-latest@^1.1.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/pg-query-native/-/pg-query-native-1.1.0.tgz#1b645b1ab1a5a33563d6f90969caffc419744372"
+  resolved "https://registry.yarnpkg.com/pg-query-native-latest/-/pg-query-native-latest-1.1.0.tgz#5714134ed8ef2575bfe0f7f5e75d8172797265ac"
   dependencies:
     bindings "^1.2.1"
     nan "^2.3.5"
     node-gyp "^3.3.1"
 
-"pg-query-parser@github:pyramation/pg-query-parser#develop":
-  version "0.2.1"
-  resolved "https://codeload.github.com/pyramation/pg-query-parser/tar.gz/86da3f5848a105923237d43b360d7f92d03f93c7"
+pgsql-parser@latest:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.4.2.tgz#faaad749e762c11009a70f14dcba3fb13ecc1b25"
   dependencies:
+    dotty "^0.1.0"
     lodash "^4.13.1"
-    pg-query-native "^1.1.0"
+    pg-query-native-latest "^1.1.0"
 
 pify@^2.0.0:
   version "2.3.0"

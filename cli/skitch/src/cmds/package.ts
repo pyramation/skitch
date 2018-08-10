@@ -1,9 +1,11 @@
 import * as shell from 'shelljs';
 import path from 'skitch-path';
 const parser = require('pgsql-parser');
+import { diff } from 'json-diff';
 
 // TODO move resolve to skitch-utils
 import { resolve } from 'skitch-testing';
+import { transformProps } from 'skitch-transform';
 import { prompt } from 'inquirerer';
 import { writeFileSync, readFileSync } from 'fs';
 
@@ -14,6 +16,17 @@ const sluggify = (text) => {
     .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
     .replace(/\-\-+/g, '-');        // Replace multiple - with single -
 }
+
+const noop = () => undefined;
+
+export const cleanTree = (tree) => {
+  return transformProps(tree, {
+    stmt_len: noop,
+    stmt_location: noop,
+    location: noop
+  });
+};
+
 
 
 
@@ -63,9 +76,15 @@ export default async argv => {
     let finalSql = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
     finalSql += parser.deparse(query);
     writeFileSync(`${skitchPath}/sql/${sqlFileName}`, finalSql);
+
+    const tree1 = query;
+    const tree2 = parser.parse(finalSql);
+
+    console.log(diff(tree1, tree2));
+
+    console.log(`${sqlFileName} written`);
   } catch (e) {
     console.error(e);
   }
 
-  console.log(`${sqlFileName} written`);
 };

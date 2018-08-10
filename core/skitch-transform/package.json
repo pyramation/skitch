@@ -21,7 +21,7 @@
     "typescript": "2.7.1"
   },
   "dependencies": {
-    "pg-query-parser": "github:pyramation/pg-query-parser#develop"
+    "pgsql-parser": "latest"
   },
   "jest": {
     "testURL": "http://localhost/",

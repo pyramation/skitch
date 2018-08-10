@@ -47,20 +47,22 @@ var sluggify = function (text) {
         .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sql, query, finalSql;
+    var sql, query, finalSql, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, skitch_testing_1.resolve()];
             case 1:
                 sql = _a.sent();
-                // sql
-                try {
-                    query = parser.parse(sql).query;
-                    finalSql = parser.deparse(query);
-                }
-                catch (e) {
-                    console.error(e);
-                }
+                query = parser.parse(sql).query;
+                finalSql = parser.deparse(query);
+                return [3 /*break*/, 3];
+            case 2:
+                e_1 = _a.sent();
+                console.error(e_1);
+                return [3 /*break*/, 3];
+            case 3:
                 console.log(finalSql);
                 return [2 /*return*/];
         }

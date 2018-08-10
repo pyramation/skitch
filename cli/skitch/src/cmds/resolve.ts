@@ -16,10 +16,9 @@ const sluggify = (text) => {
 }
 
 export default async argv => {
-  const sql = await resolve();
-
   // sql
   try {
+    const sql = await resolve();
     const {query} = parser.parse(sql);
     var finalSql = parser.deparse(query);
   } catch (e) {
