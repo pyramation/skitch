@@ -56,7 +56,7 @@ export default async argv => {
   // sql
   try {
     const query = parser.parse(sql).query.reduce((m, stmt)=>{
-      if (stmt.hasOwnProperty('TransactionStmt')) return m;
+      if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt')) return m;
       return [...m, stmt];
     }, []);
 

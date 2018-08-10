@@ -87,7 +87,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 // sql
                 try {
                     query = parser.parse(sql).query.reduce(function (m, stmt) {
-                        if (stmt.hasOwnProperty('TransactionStmt'))
+                        if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt'))
                             return m;
                         return m.concat([stmt]);
                     }, []);
