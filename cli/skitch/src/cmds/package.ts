@@ -1,7 +1,6 @@
 import * as shell from 'shelljs';
 import path from 'skitch-path';
 const parser = require('pgsql-parser');
-import { diff } from 'json-diff';
 
 // TODO move resolve to skitch-utils
 import { resolve } from 'skitch-testing';
@@ -26,9 +25,6 @@ export const cleanTree = (tree) => {
     location: noop
   });
 };
-
-
-
 
 export default async argv => {
   const sql = await resolve();
@@ -73,14 +69,19 @@ export default async argv => {
       return [...m, stmt];
     }, []);
 
-    let finalSql = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
-    finalSql += parser.deparse(query);
-    writeFileSync(`${skitchPath}/sql/${sqlFileName}`, finalSql);
+    const topLine = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
+    const finalSql = parser.deparse(query);
+    writeFileSync(`${skitchPath}/sql/${sqlFileName}`, `${topLine}${finalSql}`);
 
     const tree1 = query;
-    const tree2 = parser.parse(finalSql);
+    const tree2 = parser.parse(finalSql).query;
 
-    console.log(diff(tree1, tree2));
+    const diff = (JSON.stringify(cleanTree(tree1)) !== JSON.stringify(cleanTree(tree2)));
+    if (diff) {
+      console.error('DIFF exists! Careful. Check sql/ folder...');
+      writeFileSync(`${skitchPath}/sql/${sqlFileName}.tree.orig.json`, JSON.stringify(cleanTree(tree1), null, 2));
+      writeFileSync(`${skitchPath}/sql/${sqlFileName}.tree.parsed.json`, JSON.stringify(cleanTree(tree2), null, 2));
+    }
 
     console.log(`${sqlFileName} written`);
   } catch (e) {

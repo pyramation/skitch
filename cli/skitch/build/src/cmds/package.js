@@ -38,7 +38,6 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var skitch_path_1 = require("skitch-path");
 var parser = require('pgsql-parser');
-var json_diff_1 = require("json-diff");
 // TODO move resolve to skitch-utils
 var skitch_testing_1 = require("skitch-testing");
 var skitch_transform_1 = require("skitch-transform");
@@ -60,7 +59,7 @@ exports.cleanTree = function (tree) {
     });
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sql, skitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query, finalSql, tree1, tree2;
+    var sql, skitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query, topLine, finalSql, tree1, tree2, diff;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
@@ -101,12 +100,17 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                             return m;
                         return m.concat([stmt]);
                     }, []);
-                    finalSql = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
-                    finalSql += parser.deparse(query);
-                    fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName, finalSql);
+                    topLine = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
+                    finalSql = parser.deparse(query);
+                    fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName, "" + topLine + finalSql);
                     tree1 = query;
-                    tree2 = parser.parse(finalSql);
-                    console.log(json_diff_1.diff(tree1, tree2));
+                    tree2 = parser.parse(finalSql).query;
+                    diff = (JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2)));
+                    if (diff) {
+                        console.error('DIFF exists! Careful. Check sql/ folder...');
+                        fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName + ".tree.orig.json", JSON.stringify(exports.cleanTree(tree1), null, 2));
+                        fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName + ".tree.parsed.json", JSON.stringify(exports.cleanTree(tree2), null, 2));
+                    }
                     console.log(sqlFileName + " written");
                 }
                 catch (e) {
