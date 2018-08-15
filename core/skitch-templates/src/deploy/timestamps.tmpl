@@ -9,12 +9,12 @@
 
 BEGIN;
 -- created_at
-ALTER TABLE [% schema %].[% table %] ADD COLUMN created_at TIMESTAMP;
+ALTER TABLE [% schema %].[% table %] ADD COLUMN created_at TIMESTAMPZ;
 ALTER TABLE [% schema %].[% table %] ALTER COLUMN created_at SET DEFAULT NOW();
 
 [% IF updated_at %]
 -- updated_at
-ALTER TABLE [% schema %].[% table %] ADD COLUMN updated_at TIMESTAMP;
+ALTER TABLE [% schema %].[% table %] ADD COLUMN updated_at TIMESTAMPZ;
 ALTER TABLE [% schema %].[% table %] ALTER COLUMN updated_at SET DEFAULT NOW();
 
 CREATE TRIGGER update_[% schema %]_[% table %]_modtime
