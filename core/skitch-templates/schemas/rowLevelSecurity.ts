@@ -25,7 +25,7 @@ export const change = ({
   schema,
   'tables',
   table,
-  'alterations',
+  'policies',
   `enable_row_level_security`,
 ];
 

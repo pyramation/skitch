@@ -15,7 +15,7 @@ exports.change = function (_a) {
         schema,
         'tables',
         table,
-        'alterations',
+        'policies',
         "enable_row_level_security",
     ];
 };
