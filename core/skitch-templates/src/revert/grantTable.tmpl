@@ -2,6 +2,6 @@
 
 BEGIN;
 
-REVOKE [% arr__actions %] ON TABLE [% schema %].[% table %] FROM [% role %];
+REVOKE [% actions.join(', ') %] ON TABLE [% schema %].[% table %] FROM [% role %];
 
 COMMIT;

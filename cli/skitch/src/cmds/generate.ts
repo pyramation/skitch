@@ -42,17 +42,6 @@ export default async argv => {
   var params: Array<{ key: string; value: any }> = Object.keys(answers).reduce(
     (m: Array<{ key: string; value: any }>, v: string) => {
       if (answers[v] instanceof Array) {
-        m.push({
-          key: `arr__${v}`,
-          value: answers[v].join(','),
-        });
-        // cannot detect arrays, so for elements of 1, need to tell template it is not an array for elements of one
-        if (answers[v].length > 1) {
-          m.push({
-            key: `${v}__is_array`,
-            value: true,
-          });
-        }
         answers[v].forEach((value: string) => {
           m.push({
             key: v,

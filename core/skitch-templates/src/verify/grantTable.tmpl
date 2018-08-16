@@ -2,12 +2,8 @@
 
 BEGIN;
 
-[% IF actions__is_array %]
 [% FOREACH privilege IN actions -%]
 SELECT has_table_privilege('[% role %]', '[% schema %].[% table %]', '[% privilege %]');
-[% END -%]
-[% ELSE -%]
-SELECT has_table_privilege('[% role %]', '[% schema %].[% table %]', '[% actions %]');
 [% END -%]
 
 ROLLBACK;

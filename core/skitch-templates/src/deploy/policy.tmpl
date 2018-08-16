@@ -9,23 +9,11 @@
 
 BEGIN;
 
-[% IF role %]
 CREATE POLICY [% policy %] ON [% schema %].[% table %]
-FOR [% action %]
-[% IF role__is_array %]
-TO [% arr__role %]
-[% ELSE %]
-TO [% role %]
-[% END %]
-USING (
-  author_id = current_setting('user.id')::uuid
-);
-[% ELSE %]
-CREATE POLICY [% policy %] ON [% schema %].[% table %]
-FOR [% action %]
-USING (
-  author_id = current_setting('user.id')::uuid
-);
-[% END %]
+  FOR [% action %]
+  [% IF role.size %]TO [% role.join(', ') %][% END %]
+  USING (
+    author_id = current_setting('user.id')::uuid
+  );
 
 COMMIT;
