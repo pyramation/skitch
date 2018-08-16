@@ -20,9 +20,9 @@ export const requires = (res: GrantTableConfig): Array<ChangePathArray> => [
 export const change = ({ schema, table, actions, role }: GrantTableConfig) => [
   'schemas',
   schema,
-  'grants',
   'tables',
   table,
+  'grants',
   `grant_${actions.join('_')}_to_${role}`.toLowerCase(),
 ];
 

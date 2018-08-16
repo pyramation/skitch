@@ -14,9 +14,9 @@ exports.change = function (_a) {
     return [
         'schemas',
         schema,
-        'grants',
         'tables',
         table,
+        'grants',
         ("grant_" + actions.join('_') + "_to_" + role).toLowerCase(),
     ];
 };
