@@ -40,6 +40,7 @@ var questions = [
         name: 'action',
         message: 'which action?',
         choices: ['ALL', 'SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+        required: true,
     },
     {
         type: 'string',
@@ -48,11 +49,11 @@ var questions = [
         required: true,
     },
     {
-        type: 'list',
+        type: 'checkbox',
         name: 'role',
         message: 'choose role (optional)',
         choices: ['authenticated', 'anonymous', 'administrator'],
-        required: false
+        required: false,
     }
 ];
 exports.default = questions;

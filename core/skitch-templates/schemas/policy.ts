@@ -51,6 +51,7 @@ const questions: Array<InquirerQuestion> = [
     name: 'action',
     message: 'which action?',
     choices: ['ALL', 'SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+    required: true,
   },
   {
     type: 'string',
@@ -59,11 +60,11 @@ const questions: Array<InquirerQuestion> = [
     required: true,
   },
   {
-    type: 'list',
+    type: 'checkbox',
     name: 'role',
     message: 'choose role (optional)',
     choices: ['authenticated', 'anonymous', 'administrator'],
-    required: false
+    required: false,
   }
 ];
 
