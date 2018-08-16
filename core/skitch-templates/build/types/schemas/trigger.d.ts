@@ -5,6 +5,6 @@ export interface TriggerConfig {
     triggername: string;
 }
 export declare const requires: (res: TriggerConfig) => string[][];
-export declare const change: ({ schema, triggername }: TriggerConfig) => string[];
+export declare const change: ({ schema, table, triggername }: TriggerConfig) => string[];
 declare const questions: Array<InquirerQuestion>;
 export default questions;

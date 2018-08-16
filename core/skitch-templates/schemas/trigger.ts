@@ -17,6 +17,7 @@ export const requires = (res: TriggerConfig): Array<ChangePathArray> => [
 
 export const change = ({
   schema,
+  table,
   triggername
 }: TriggerConfig): ChangePathArray => [
   'schemas',

@@ -56,7 +56,7 @@ const makePackage = ({ name, description, author }) => {
     private: true,
     scripts: {
       test: 'FAST_TEST=1 skitch-templatedb && jest',
-      'test:watch': 'FAST_TEST=1 skitch-templatedb && jest --watch',
+      'test:watch': 'FAST_TEST=1 jest --watch',
     },
     devDependencies: {
       '@types/jest': '21.1.0',

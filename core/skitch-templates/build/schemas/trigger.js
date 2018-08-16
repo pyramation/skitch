@@ -9,12 +9,12 @@ exports.requires = function (res) { return [
     table_1.change(res)
 ]; };
 exports.change = function (_a) {
-    var schema = _a.schema, triggername = _a.triggername;
+    var schema = _a.schema, table = _a.table, triggername = _a.triggername;
     return [
         'schemas',
         schema,
         'tables',
-        table_1.change,
+        table,
         'triggers',
         triggername
     ];

@@ -109,6 +109,8 @@ export default async argv => {
     reqs,
   ].join(' ');
 
+  console.log(cmd);
+
   const sqitch = exec(cmd.trim());
   sqitch.stdout.pipe(process.stdout);
   sqitch.stderr.pipe(process.stderr);

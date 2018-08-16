@@ -138,6 +138,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     vars,
                     reqs,
                 ].join(' ');
+                console.log(cmd);
                 sqitch = child_process_1.exec(cmd.trim());
                 sqitch.stdout.pipe(process.stdout);
                 sqitch.stderr.pipe(process.stderr);
