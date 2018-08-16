@@ -9,6 +9,8 @@
 
 BEGIN;
 
+-- TODO make sure to require any policies on this table!
+
 GRANT [% arr__actions %] ON TABLE [% schema %].[% table %] TO [% role %];
 
 COMMIT;

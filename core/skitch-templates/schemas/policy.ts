@@ -1,4 +1,5 @@
 import { change as schema } from './schema';
+import { change as rowLevelSecurity } from './rowLevelSecurity';
 import { change as table } from './table';
 import { change as role } from './role';
 import { searchSchemas, searchTables, searchRoles } from 'skitch-utils';
@@ -13,6 +14,7 @@ export interface PolicyConfig {
 export const requires = (res: PolicyConfig): Array<ChangePathArray> => [
   schema(res),
   table(res),
+  rowLevelSecurity(res),
 ];
 
 export const change = ({
