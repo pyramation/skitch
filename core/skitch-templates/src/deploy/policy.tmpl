@@ -9,14 +9,19 @@
 
 BEGIN;
 
-CREATE POLICY [% action %]_to_[% role %] ON [% schema %].[% table %] FOR
-    [% action %]
-        TO [% role %]
-        USING (
-            -- examples:
-            -- USING (author_id = current_setting('user.id')::uuid)
-            -- USING (TRUE)
-            -- NOTE: make sure to enable row level security, or it won't work!
+[% IF role %]
+CREATE POLICY [% policy %] ON [% schema %].[% table %]
+FOR [% action %]
+TO [% role %]
+USING (
+  author_id = current_setting('user.id')::uuid
 );
+[% ELSE %]
+CREATE POLICY [% policy %] ON [% schema %].[% table %]
+FOR [% action %]
+USING (
+  author_id = current_setting('user.id')::uuid
+);
+[% END %]
 
 COMMIT;

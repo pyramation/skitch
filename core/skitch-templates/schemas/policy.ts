@@ -28,9 +28,7 @@ export const change = ({
   'tables',
   table,
   'policies',
-  `${action}`.toLowerCase(),
-  `${role}`.toLowerCase(),
-  'policy',
+  `${policy}`.toLowerCase(),
 ];
 
 const questions: Array<InquirerQuestion> = [
@@ -55,12 +53,18 @@ const questions: Array<InquirerQuestion> = [
     choices: ['ALL', 'SELECT', 'INSERT', 'UPDATE', 'DELETE'],
   },
   {
-    type: 'autocomplete',
-    name: 'role',
-    message: 'choose a role',
-    source: searchRoles,
+    type: 'string',
+    name: 'policy',
+    message: 'choose a policy name',
     required: true,
   },
+  {
+    type: 'list',
+    name: 'role',
+    message: 'choose role (optional)',
+    choices: ['authenticated', 'anonymous', 'administrator'],
+    required: false
+  }
 ];
 
 export default questions;

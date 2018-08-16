@@ -17,9 +17,7 @@ exports.change = function (_a) {
         'tables',
         table,
         'policies',
-        ("" + action).toLowerCase(),
-        ("" + role).toLowerCase(),
-        'policy',
+        ("" + policy).toLowerCase(),
     ];
 };
 var questions = [
@@ -44,12 +42,18 @@ var questions = [
         choices: ['ALL', 'SELECT', 'INSERT', 'UPDATE', 'DELETE'],
     },
     {
-        type: 'autocomplete',
-        name: 'role',
-        message: 'choose a role',
-        source: skitch_utils_1.searchRoles,
+        type: 'string',
+        name: 'policy',
+        message: 'choose a policy name',
         required: true,
     },
+    {
+        type: 'list',
+        name: 'role',
+        message: 'choose role (optional)',
+        choices: ['authenticated', 'anonymous', 'administrator'],
+        required: false
+    }
 ];
 exports.default = questions;
 //# sourceMappingURL=policy.js.map
