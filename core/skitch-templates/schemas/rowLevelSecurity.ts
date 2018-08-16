@@ -8,7 +8,6 @@ import { ChangePathArray, InquirerQuestion } from 'skitch-types';
 export interface SecurityConfig {
   schema: string;
   table: string;
-  column: string;
 }
 
 export const requires = (res: SecurityConfig): Array<ChangePathArray> => [
@@ -18,8 +17,7 @@ export const requires = (res: SecurityConfig): Array<ChangePathArray> => [
 
 export const change = ({
   schema,
-  table,
-  column,
+  table
 }: SecurityConfig): ChangePathArray => [
   'schemas',
   schema,

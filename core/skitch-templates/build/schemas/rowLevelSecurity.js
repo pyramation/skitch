@@ -9,7 +9,7 @@ exports.requires = function (res) { return [
     table_1.change(res),
 ]; };
 exports.change = function (_a) {
-    var schema = _a.schema, table = _a.table, column = _a.column;
+    var schema = _a.schema, table = _a.table;
     return [
         'schemas',
         schema,

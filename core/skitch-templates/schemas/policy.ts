@@ -22,13 +22,14 @@ export const change = ({
   table,
   action,
   role,
+  policy,
 }: PolicyConfig): ChangePathArray => [
   'schemas',
   schema,
   'tables',
   table,
   'policies',
-  `${policy}`.toLowerCase(),
+  policy
 ];
 
 const questions: Array<InquirerQuestion> = [
@@ -58,6 +59,7 @@ const questions: Array<InquirerQuestion> = [
     name: 'policy',
     message: 'choose a policy name',
     required: true,
+    filter: (val) => val.toLowerCase()
   },
   {
     type: 'checkbox',

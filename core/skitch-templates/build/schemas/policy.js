@@ -10,14 +10,14 @@ exports.requires = function (res) { return [
     rowLevelSecurity_1.change(res),
 ]; };
 exports.change = function (_a) {
-    var schema = _a.schema, table = _a.table, action = _a.action, role = _a.role;
+    var schema = _a.schema, table = _a.table, action = _a.action, role = _a.role, policy = _a.policy;
     return [
         'schemas',
         schema,
         'tables',
         table,
         'policies',
-        ("" + policy).toLowerCase(),
+        policy
     ];
 };
 var questions = [
@@ -47,6 +47,7 @@ var questions = [
         name: 'policy',
         message: 'choose a policy name',
         required: true,
+        filter: function (val) { return val.toLowerCase(); }
     },
     {
         type: 'checkbox',
