@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT verify_policy ('[% policy %]');
+SELECT verify_policy ('[% policy %]', '[% schema %].[% table %]');
 
 ROLLBACK;
