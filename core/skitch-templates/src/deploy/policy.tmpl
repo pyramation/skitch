@@ -10,7 +10,7 @@
 BEGIN;
 
 CREATE POLICY [% policy %] ON [% schema %].[% table %]
-  FOR [% action %]
+  FOR [% action.join(', ') %]
   [% IF role.size %]TO [% role.join(', ') %][% END %]
   USING (
     author_id = current_setting('user.id')::uuid

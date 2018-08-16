@@ -48,10 +48,10 @@ const questions: Array<InquirerQuestion> = [
     required: true,
   },
   {
-    type: 'list',
+    type: 'checkbox',
     name: 'action',
-    message: 'which action?',
-    choices: ['ALL', 'SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+    message: 'which action(s)?',
+    choices: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
     required: true,
   },
   {

@@ -2,8 +2,10 @@
 
 BEGIN;
 
-[% FOREACH privilege IN actions -%]
-SELECT has_table_privilege('[% role %]', '[% schema %].[% table %]', '[% privilege %]');
+[% FOREACH user IN role -%]
+  [% FOREACH privilege IN actions -%]
+SELECT has_table_privilege('[% user %]', '[% schema %].[% table %]', '[% privilege %]');
+  [% END -%]
 [% END -%]
 
 ROLLBACK;

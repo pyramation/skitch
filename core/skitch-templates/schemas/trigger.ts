@@ -53,11 +53,11 @@ const questions: Array<InquirerQuestion> = [
     type: 'list',
     name: 'when',
     message: 'choose when',
-    choices: ['BEFORE', 'AFTER'],
+    choices: ['BEFORE', 'AFTER', 'INSTEAD OF'],
     required: true
   },
   {
-    type: 'list',
+    type: 'checkbox',
     name: 'op',
     message: 'choose ops',
     choices: ['INSERT', 'UPDATE', 'DELETE', 'TRUNCATE'],

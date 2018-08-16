@@ -10,7 +10,7 @@
 BEGIN;
 
 CREATE TRIGGER [% triggername %] [% when %]
-[% op %]
+[% op.join(' OR ') %]
     ON [% schema %].[% table %] FOR EACH ROW
     WHEN (
         NEW.data
