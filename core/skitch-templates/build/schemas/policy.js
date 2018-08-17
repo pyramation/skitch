@@ -55,6 +55,13 @@ var questions = [
         message: 'choose role (optional)',
         choices: ['authenticated', 'anonymous', 'administrator'],
         required: false,
+    },
+    {
+        type: 'checkbox',
+        name: 'grant',
+        message: 'choose role for grant (optional)',
+        choices: ['authenticated', 'anonymous', 'administrator'],
+        required: false,
     }
 ];
 exports.default = questions;
