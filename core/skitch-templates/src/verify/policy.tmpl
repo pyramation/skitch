@@ -4,12 +4,10 @@ BEGIN;
 
 SELECT verify_policy ('[% policy %]', '[% schema %].[% table %]');
 
-[% IF grant.size %]
-  [% FOREACH user IN grant -%]
-    [% FOREACH privilege IN action -%]
-  SELECT has_table_privilege('[% user %]', '[% schema %].[% table %]', '[% privilege %]');
-    [% END -%]
-  [% END -%]
+[% FOREACH user IN grant -%]
+[% FOREACH privilege IN action -%]
+SELECT has_table_privilege('[% user %]', '[% schema %].[% table %]', '[% privilege %]');
+[% END -%]
 [% END -%]
 
 ROLLBACK;
