@@ -98,6 +98,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     query = parser.parse(sql).query.reduce(function (m, stmt) {
                         if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt'))
                             return m;
+                        if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt'))
+                            return m;
                         return m.concat([stmt]);
                     }, []);
                     topLine = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
