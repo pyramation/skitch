@@ -1,4 +1,5 @@
 import * as column from './schemas/column';
+import * as extension from './schemas/extension';
 import * as fixture from './schemas/fixture';
 import * as foreignKey from './schemas/foreignKey';
 import * as grantAllTables from './schemas/grantAllTables';
@@ -21,6 +22,7 @@ import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
 declare const _default: {
     column: typeof column;
+    extension: typeof extension;
     fixture: typeof fixture;
     foreignKey: typeof foreignKey;
     grantAllTables: typeof grantAllTables;

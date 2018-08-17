@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var column = require("./schemas/column");
+var extension = require("./schemas/extension");
 var fixture = require("./schemas/fixture");
 var foreignKey = require("./schemas/foreignKey");
 var grantAllTables = require("./schemas/grantAllTables");
@@ -22,6 +23,6 @@ var type = require("./schemas/type");
 var uniqueIndex = require("./schemas/uniqueIndex");
 var utility = require("./schemas/utility");
 exports.default = {
-    column: column, fixture: fixture, foreignKey: foreignKey, grantAllTables: grantAllTables, grantExecute: grantExecute, grantRole: grantRole, grantSchema: grantSchema, grantTable: grantTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, role: role, rowLevelSecurity: rowLevelSecurity, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility
+    column: column, extension: extension, fixture: fixture, foreignKey: foreignKey, grantAllTables: grantAllTables, grantExecute: grantExecute, grantRole: grantRole, grantSchema: grantSchema, grantTable: grantTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, role: role, rowLevelSecurity: rowLevelSecurity, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility
 };
 //# sourceMappingURL=index.js.map
