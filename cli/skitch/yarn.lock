@@ -2993,9 +2993,9 @@ pgpass@1.x:
   dependencies:
     split "^1.0.0"
 
-pgsql-parser@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.0.tgz#44db0dea64e5843229839a76fa33b5f2630842c8"
+pgsql-parser@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.1.tgz#7102eceea0aa6cbce2dd61c92b17d471f75164b8"
   dependencies:
     dotty "^0.1.0"
     lodash "^4.13.1"
