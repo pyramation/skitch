@@ -55,6 +55,8 @@ export default async argv => {
   output.revert.push(`-- Revert extensions/${extname} from pg`);
   output.revert.push('BEGIN;\n');
   extensions.reverse().forEach(ext=>{
+    if (ext === 'uuid-ossp') return;
+    if (ext === 'plpgsql') return;
     output.revert.push(`DROP EXTENSION IF EXISTS "${ext}";`);
   });
   output.revert.push('\nCOMMIT;');
