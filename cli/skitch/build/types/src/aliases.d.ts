@@ -4,6 +4,7 @@ declare const _default: {
     createdb: any;
     deploy: any;
     dropdb: any;
+    ext: any;
     format: any;
     generate: string[];
     info: any;

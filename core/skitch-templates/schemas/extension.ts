@@ -21,7 +21,7 @@ const questions: Array<InquirerQuestion> = [
     name: 'extension',
     message: 'enter a extension name',
     required: true,
-  },
+  }
 ];
 
 export default questions;

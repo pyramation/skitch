@@ -4,6 +4,7 @@ import bundle from './cmds/bundle';
 import createdb from './cmds/createdb';
 import deploy from './cmds/deploy';
 import dropdb from './cmds/dropdb';
+import ext from './cmds/ext';
 import format from './cmds/format';
 import generate from './cmds/generate';
 import info from './cmds/info';
@@ -18,6 +19,6 @@ import revert from './cmds/revert';
 import start from './cmds/start';
 import verify from './cmds/verify';
 export default {
-  add,bundle,createdb,deploy,dropdb,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,start,verify
+  add,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,start,verify
 }
   

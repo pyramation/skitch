@@ -76,7 +76,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         var index = unresolved.indexOf(sqlmodule);
         unresolved.splice(index);
     }
-    var PKGDIR, name, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index;
+    var PKGDIR, name, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_path_1.default()];
@@ -142,6 +142,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 dep_resolve('apps/index', resolved, unresolved);
                 index = resolved.indexOf('apps/index');
                 resolved.splice(index);
+                extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
+                normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
+                resolved = extensions.concat(normalSql);
                 resolved.forEach(function (res) {
                     if (deps['/deploy/' + res + '.sql'].length) {
                         planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);

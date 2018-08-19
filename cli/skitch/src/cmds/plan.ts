@@ -107,7 +107,7 @@ export default async argv => {
   %project=${name}
   `);
 
-  var resolved: string[] = [];
+  let resolved: string[] = [];
   var unresolved: string[] = [];
 
   deps = Object.assign(
@@ -122,6 +122,12 @@ export default async argv => {
   dep_resolve('apps/index', resolved, unresolved);
   var index = resolved.indexOf('apps/index');
   resolved.splice(index);
+
+  // move extensions up
+  const extensions = resolved.filter(a=>a.match(/^extensions/));
+  const normalSql = resolved.filter(a=>!a.match(/^extensions/));
+  resolved = [...extensions, ...normalSql];
+
   resolved.forEach(res => {
     if (deps['/deploy/' + res + '.sql'].length) {
       planfile.push(
