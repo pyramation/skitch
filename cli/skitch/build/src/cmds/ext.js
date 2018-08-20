@@ -89,6 +89,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 output.revert.push("-- Revert extensions/" + extname + " from pg");
                 output.revert.push('BEGIN;\n');
                 extensions.reverse().forEach(function (ext) {
+                    // certain extensions let us not drop, thanks
                     if (ext === 'uuid-ossp')
                         return;
                     if (ext === 'plpgsql')
