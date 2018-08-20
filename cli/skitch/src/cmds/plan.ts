@@ -126,7 +126,10 @@ export default async argv => {
   // move extensions up
   const extensions = resolved.filter(a=>a.match(/^extensions/));
   const normalSql = resolved.filter(a=>!a.match(/^extensions/));
+
   resolved = [...extensions, ...normalSql];
+
+  console.log(JSON.stringify(resolved, null, 2));
 
   resolved.forEach(res => {
     if (deps['/deploy/' + res + '.sql'].length) {
