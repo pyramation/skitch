@@ -83,6 +83,11 @@ export const resolve = async (pkgDir = process.cwd(), scriptType = 'deploy'): Pr
   let index = resolved.indexOf('apps/index');
   resolved.splice(index);
 
+  // move extensions up
+  const extensions = resolved.filter(a=>a.match(/^extensions/));
+  const normalSql = resolved.filter(a=>!a.match(/^extensions/));
+  resolved = [...extensions, ...normalSql];
+
   if (scriptType === 'revert') {
     resolved = resolved.reverse();
   }

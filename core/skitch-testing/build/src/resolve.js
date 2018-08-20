@@ -65,7 +65,7 @@ exports.resolve = function (pkgDir, scriptType) {
             var index = unresolved.indexOf(sqlmodule);
             unresolved.splice(index);
         }
-        var sqlfile, deps, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, cfiles, runners;
+        var sqlfile, deps, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql, cfiles, runners;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -113,6 +113,9 @@ exports.resolve = function (pkgDir, scriptType) {
                     dep_resolve('apps/index', resolved, unresolved);
                     index = resolved.indexOf('apps/index');
                     resolved.splice(index);
+                    extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
+                    normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
+                    resolved = extensions.concat(normalSql);
                     if (scriptType === 'revert') {
                         resolved = resolved.reverse();
                     }
