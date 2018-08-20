@@ -1,6 +1,6 @@
 {
   "name": "skitch-transform",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "description": "transform sql queries",
   "author": "pyramation@gmail.com",
   "license": "MIT",
