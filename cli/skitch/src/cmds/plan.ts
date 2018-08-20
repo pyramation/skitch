@@ -129,8 +129,6 @@ export default async argv => {
 
   resolved = [...extensions, ...normalSql];
 
-  console.log(JSON.stringify(resolved, null, 2));
-
   resolved.forEach(res => {
     if (deps['/deploy/' + res + '.sql'].length) {
       planfile.push(

@@ -116,6 +116,7 @@ exports.resolve = function (pkgDir, scriptType) {
                     extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
                     normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
                     resolved = extensions.concat(normalSql);
+                    console.log(JSON.stringify(resolved, null, 2));
                     if (scriptType === 'revert') {
                         resolved = resolved.reverse();
                     }
