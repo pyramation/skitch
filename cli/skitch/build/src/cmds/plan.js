@@ -145,7 +145,6 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
                 normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
                 resolved = extensions.concat(normalSql);
-                console.log(JSON.stringify(resolved, null, 2));
                 resolved.forEach(function (res) {
                     if (deps['/deploy/' + res + '.sql'].length) {
                         planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
