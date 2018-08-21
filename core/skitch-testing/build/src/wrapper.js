@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function PgpWrapper(db, ctx) {
     this.db = db;
+    this.database = db.database;
     this.ctxStmts = Object.keys(ctx).reduce(function (m, el) {
         m.push("SELECT set_config('" + el + "', '" + ctx[el] + "', true);");
         return m;
