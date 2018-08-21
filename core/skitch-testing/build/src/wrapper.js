@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var OPS = ['none', 'one', 'many', 'oneOrNone', 'manyOrNone', 'any', 'result'];
 function PgpWrapper(db) {
     var _this = this;
     this.db = db;
-    this.ctx = {}['none', 'one', 'many', 'oneOrNone', 'manyOrNone', 'any', 'result'].forEach(function (op) {
+    this.ctx = {};
+    OPS.forEach(function (op) {
         _this.ctx[op] = function (ctx, query, values) {
             var stmts = Object.keys(ctx).reduce(function (m, el) {
                 m.push("SELECT set_config('" + el + "', '" + ctx[el] + "', true);");
@@ -12,12 +14,12 @@ function PgpWrapper(db) {
             return this.db[op](stmts + query, values);
         };
     });
-    ['none', 'one', 'many', 'oneOrNone', 'manyOrNone', 'any', 'result'].forEach(function (op) {
+    OPS.forEach(function (op) {
         _this.ctx[op] = _this.ctx[op].bind(_this);
     });
 }
 exports.default = PgpWrapper;
-['none', 'one', 'many', 'oneOrNone', 'manyOrNone', 'any', 'result'].forEach(function (op) {
+OPS.forEach(function (op) {
     PgpWrapper.prototype[op] = function (query, values) {
         return this.db[op](query, values);
     };
