@@ -1,6 +1,6 @@
 export default function PgpWrapper(db) {
   this.db = db;
-  this.database = db.database;
+  this.client = db.client;
   this.ctxStmts = '';
 }
 

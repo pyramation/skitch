@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function PgpWrapper(db) {
     this.db = db;
-    this.database = db.database;
+    this.client = db.client;
     this.ctxStmts = '';
 }
 exports.default = PgpWrapper;
