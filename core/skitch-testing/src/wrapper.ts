@@ -1,11 +1,15 @@
-export default function PgpWrapper(db, ctx) {
+export default function PgpWrapper(db) {
   this.db = db;
   this.database = db.database;
-  this.ctxStmts = Object.keys(ctx).reduce((m,el)=>{
+  this.ctxStmts = '';
+}
+
+PgpWrapper.prototype.setContext = function(ctx) {
+  this.ctxStmts = Object.keys(ctx || {}).reduce((m,el)=>{
     m.push(`SELECT set_config('${el}', '${ctx[el]}', true);`);
     return m;
   }, []).join('\n');
-}
+};
 
 PgpWrapper.prototype.none = function(query, values) {
   return this.db.none(this.ctxStmts + query, values);

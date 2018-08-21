@@ -1,14 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function PgpWrapper(db, ctx) {
+function PgpWrapper(db) {
     this.db = db;
     this.database = db.database;
-    this.ctxStmts = Object.keys(ctx).reduce(function (m, el) {
+    this.ctxStmts = '';
+}
+exports.default = PgpWrapper;
+PgpWrapper.prototype.setContext = function (ctx) {
+    this.ctxStmts = Object.keys(ctx || {}).reduce(function (m, el) {
         m.push("SELECT set_config('" + el + "', '" + ctx[el] + "', true);");
         return m;
     }, []).join('\n');
-}
-exports.default = PgpWrapper;
+};
 PgpWrapper.prototype.none = function (query, values) {
     return this.db.none(this.ctxStmts + query, values);
 };
