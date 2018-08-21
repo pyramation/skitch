@@ -5,9 +5,14 @@ const pgp: pgPromise.IMain = pgPromise({
   noWarnings: true,
 });
 
+import Wrapper from './wrapper';
+
 export const connect = async (connection: TUtilsConfig) => {
   const cn = await pgp(connection);
   const db: pgPromise.IConnected<any> = await cn.connect({ direct: true });
+  db.withContext = function (ctx) {
+    return new Wrapper(db, ctx);
+  }
   return db;
 };
 
