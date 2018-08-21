@@ -1,34 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var OPS = ['none', 'one', 'many', 'oneOrNone', 'manyOrNone', 'any', 'result'];
-function PgpWrapper(db) {
-    var _this = this;
+function PgpWrapper(db, ctx) {
     this.db = db;
-    this.ctx = {};
-    OPS.forEach(function (op) {
-        _this.ctx[op] = function (ctx, query, values) {
-            var stmts = Object.keys(ctx).reduce(function (m, el) {
-                m.push("SELECT set_config('" + el + "', '" + ctx[el] + "', true);");
-                return m;
-            }, []).join('\n');
-            return this.db[op](stmts + query, values);
-        };
-    });
-    OPS.forEach(function (op) {
-        _this.ctx[op] = _this.ctx[op].bind(_this);
-    });
+    this._ctx = Object.keys(ctx).reduce(function (m, el) {
+        m.push("SELECT set_config('" + el + "', '" + ctx[el] + "', true);");
+        return m;
+    }, []).join('\n');
+    ;
 }
 exports.default = PgpWrapper;
-OPS.forEach(function (op) {
-    PgpWrapper.prototype[op] = function (query, values) {
-        return this.db[op](query, values);
+['none', 'one', 'many', 'oneOrNone', 'manyOrNone', 'any', 'result'].forEach(function (op) {
+    PgpWrapper.prototype[op] = function (ctx, query, values) {
+        return this.db[op](this._ctx + query, values);
     };
 });
-PgpWrapper.prototype.task = function (p1, p2) {
-    p1 = p1.bind({}, this);
-    if (p2) {
-        p2 = p2.bind({}, this);
-    }
-    return this.db.task(p1, p2);
-};
 //# sourceMappingURL=wrapper.js.map

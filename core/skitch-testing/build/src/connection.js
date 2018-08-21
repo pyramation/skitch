@@ -51,7 +51,10 @@ exports.connect = function (connection) { return __awaiter(_this, void 0, void 0
                 return [4 /*yield*/, cn.connect({ direct: true })];
             case 2:
                 db = _a.sent();
-                return [2 /*return*/, new wrapper_1.default(db)];
+                db.ctx = function (ctx) {
+                    return new wrapper_1.default(db, ctx);
+                };
+                return [2 /*return*/, db];
         }
     });
 }); };

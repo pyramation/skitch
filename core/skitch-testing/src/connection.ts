@@ -10,7 +10,12 @@ const pgp: pgPromise.IMain = pgPromise({
 export const connect = async (connection: TUtilsConfig) => {
   const cn = await pgp(connection);
   const db: pgPromise.IConnected<any> = await cn.connect({ direct: true });
-  return new PgpWrapper(db);
+
+  db.ctx = (ctx) => {
+    return new PgpWrapper(db, ctx);
+  }
+
+  return db;
 };
 
 export const close = (db: pgPromise.IConnected<any>) => {
