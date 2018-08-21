@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var pgPromise = require('pg-promise');
+var wrapper_1 = require("./wrapper");
 var pgp = pgPromise({
     noWarnings: true,
 });
@@ -50,7 +51,7 @@ exports.connect = function (connection) { return __awaiter(_this, void 0, void 0
                 return [4 /*yield*/, cn.connect({ direct: true })];
             case 2:
                 db = _a.sent();
-                return [2 /*return*/, db];
+                return [2 /*return*/, new wrapper_1.default(db)];
         }
     });
 }); };
