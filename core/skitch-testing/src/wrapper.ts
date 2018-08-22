@@ -40,6 +40,10 @@ PgpWrapper.prototype.result = function(query, values) {
   return this.db.result(this.ctxStmts + query, values);
 };
 
+PgpWrapper.prototype.func = function(query, values) {
+  return this.db.func(this.ctxStmts + query, values);
+};
+
 PgpWrapper.prototype.task = function (p1, p2) {
   p1 = p1.bind({}, this);
 
