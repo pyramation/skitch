@@ -39,6 +39,18 @@ uniqueIndex
 utility
 ```
 
-## other features, less documented, or work in progress
+## bundle an npm module
 
-* installing and bundling v8 modules
+You can install an npm module and then bundle it for `plv8`
+
+```sh
+yarn add my-awesome-npm-module
+skitch bundle my-awesome-npm-module awesomeThing
+```
+
+## Install some existing packages
+
+```sh
+skitch install @pyramation/skitch-inflection
+skitch install @pyramation/skitch-ajv
+```
