@@ -14,7 +14,7 @@ var questions = [
         name: 'extension',
         message: 'enter a extension name',
         required: true,
-    },
+    }
 ];
 exports.default = questions;
 //# sourceMappingURL=extension.js.map

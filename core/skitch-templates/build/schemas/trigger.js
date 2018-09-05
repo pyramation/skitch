@@ -53,6 +53,12 @@ var questions = [
         message: 'choose ops',
         choices: ['INSERT', 'UPDATE', 'DELETE', 'TRUNCATE'],
         required: true
+    },
+    {
+        type: 'confirm',
+        name: 'procedure',
+        message: 'add procedure for the trigger?',
+        required: true
     }
 ];
 exports.default = questions;

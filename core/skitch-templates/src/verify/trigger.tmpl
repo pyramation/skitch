@@ -2,6 +2,7 @@
 
 BEGIN;
 
+[% IF procedure %] SELECT verify_function ('[% schema %].tg_[% triggername %]', 'postgres'); [% END %]
 SELECT verify_trigger ('[% schema %].[% triggername %]');
 
 ROLLBACK;

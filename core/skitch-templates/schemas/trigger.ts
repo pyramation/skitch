@@ -7,7 +7,8 @@ import { ChangePathArray, InquirerQuestion } from 'skitch-types'
 export interface TriggerConfig {
   schema: string
   table: string
-  triggername: string
+  triggername: string,
+  procedure: boolean
 }
 
 export const requires = (res: TriggerConfig): Array<ChangePathArray> => [
@@ -18,7 +19,7 @@ export const requires = (res: TriggerConfig): Array<ChangePathArray> => [
 export const change = ({
   schema,
   table,
-  triggername
+  triggername,
 }: TriggerConfig): ChangePathArray => [
   'schemas',
   schema,
@@ -61,6 +62,12 @@ const questions: Array<InquirerQuestion> = [
     name: 'op',
     message: 'choose ops',
     choices: ['INSERT', 'UPDATE', 'DELETE', 'TRUNCATE'],
+    required: true
+  },
+  {
+    type: 'confirm',
+    name: 'procedure',
+    message: 'add procedure for the trigger?',
     required: true
   }
 ]

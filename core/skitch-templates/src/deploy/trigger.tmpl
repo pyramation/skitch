@@ -9,12 +9,32 @@
 
 BEGIN;
 
-CREATE TRIGGER [% triggername %] [% when %]
-[% op.join(' OR ') %]
-    ON [% schema %].[% table %] FOR EACH ROW
-    WHEN (
-        NEW.data
-IS DISTINCT FROM OLD.data)
-EXECUTE PROCEDURE some.method ();
+[% IF procedure %]
+
+CREATE FUNCTION [% schema %].tg_[% triggername %]()
+RETURNS TRIGGER AS $$
+BEGIN
+ -- code here
+ RETURN NEW;
+END;
+$$
+LANGUAGE 'plpgsql' STABLE; -- TODO VOLATILE or IMMUTABLE or STABLE?
+
+CREATE TRIGGER [% triggername %]
+[% when %] [% op.join(' OR ') %] ON [% schema %].[% table %]
+FOR EACH ROW
+[% IF when %] WHEN (NEW.data IS DISTINCT FROM OLD.data) [% END %]
+EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
+
+[% ELSE %]
+
+CREATE TRIGGER [% triggername %]
+[% when %] [% op.join(' OR ') %] ON [% schema %].[% table %]
+FOR EACH ROW
+[% IF when %] WHEN (NEW.data IS DISTINCT FROM OLD.data) [% END %]
+EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
+
+[% END %]
+
 
 COMMIT;
