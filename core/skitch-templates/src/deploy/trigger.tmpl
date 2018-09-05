@@ -23,7 +23,7 @@ LANGUAGE 'plpgsql' STABLE; -- TODO VOLATILE or IMMUTABLE or STABLE?
 CREATE TRIGGER [% triggername %]
 [% when %] [% op.join(' OR ') %] ON [% schema %].[% table %]
 FOR EACH ROW
-[% IF when %] WHEN (NEW.data IS DISTINCT FROM OLD.data) [% END %]
+WHEN (NEW.data IS DISTINCT FROM OLD.data)
 EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
 
 [% ELSE %]
@@ -31,10 +31,9 @@ EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
 CREATE TRIGGER [% triggername %]
 [% when %] [% op.join(' OR ') %] ON [% schema %].[% table %]
 FOR EACH ROW
-[% IF when %] WHEN (NEW.data IS DISTINCT FROM OLD.data) [% END %]
+WHEN (NEW.data IS DISTINCT FROM OLD.data)
 EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
 
 [% END %]
-
 
 COMMIT;
