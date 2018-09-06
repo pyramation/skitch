@@ -26,6 +26,10 @@ sudo cpan Template
 npm install -g skitch
 ```
 
+#### Get the verification utils
+
+https://github.com/pyramation/pg-utils
+
 ## what's different
 
 * interactive shell
@@ -35,14 +39,19 @@ npm install -g skitch
 
 ```
 column
+extension
+fixture
 foreignKey
+grantAllTables
 grantExecute
+grantRole
 grantSchema
 grantTable
 index
-peoplestamps
 policy
 procedure
+role
+rowLevelSecurity
 schema
 table
 timestamps
