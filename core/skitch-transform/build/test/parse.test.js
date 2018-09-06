@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../index");
+var utils_1 = require("./utils");
+var parser = require('pgsql-parser');
 describe('transforms', function () {
     it('function', function () {
-        var result = index_1.transform("SELECT * FROM original.table;", {
+        var input = "SELECT * FROM original.table";
+        var expectResult = "SELECT * FROM amazing.\"table\";";
+        var result = index_1.transform(input, {
             schemaname: function (value) {
                 if (value === 'original') {
                     return 'amazing';
@@ -11,18 +15,22 @@ describe('transforms', function () {
                 return value;
             },
         });
-        expect(result).toEqual("SELECT * FROM \"amazing\" . \"table\"");
+        expect(utils_1.cleanTree(parser.parse(result))).toEqual(utils_1.cleanTree(parser.parse(expectResult)));
     });
     it('object', function () {
-        var result = index_1.transform("SELECT * FROM original.table;", {
+        var input = "SELECT * FROM original.table";
+        var expectResult = "SELECT * FROM amazing.\"table\";";
+        var result = index_1.transform(input, {
             schemaname: {
                 original: 'amazing',
             },
         });
-        expect(result).toEqual("SELECT * FROM \"amazing\" . \"table\"");
+        expect(utils_1.cleanTree(parser.parse(result))).toEqual(utils_1.cleanTree(parser.parse(expectResult)));
     });
     it('integration', function () {
-        var result = index_1.transform("CREATE TABLE users_private.user_account (\n    user_id uuid PRIMARY KEY REFERENCES users.user (id) ON DELETE CASCADE,\n    email text NOT NULL UNIQUE CHECK (email ~* '^.+@.+..+$'),\n    password_hash text NOT NULL\n);\n", {
+        var input = "CREATE TABLE users_private.user_account (\n        user_id uuid PRIMARY KEY REFERENCES users.user (id) ON DELETE CASCADE,\n        email text NOT NULL UNIQUE CHECK (email ~* '^.+@.+..+$'),\n        password_hash text NOT NULL\n    );";
+        var expectResult = "CREATE TABLE customers.profile (\n     \tuser_id uuid PRIMARY KEY REFERENCES users.\"user\" ( id ) ON DELETE CASCADE,\n    \temail text NOT NULL UNIQUE CHECK ( ((email) ~* ('^.+@.+..+$')) ),\n    \tpassword_hash text NOT NULL\n    );";
+        var result = index_1.transform(input, {
             schemaname: {
                 users_private: 'customers',
             },
@@ -30,7 +38,7 @@ describe('transforms', function () {
                 user_account: 'profile',
             },
         });
-        expect(result).toEqual("CREATE TABLE \"customers\" . \"profile\" ( \"user_id\" uuid PRIMARY KEY REFERENCES \"users\" . \"user\" ( id ) ON DELETE CASCADE, \"email\" text NOT NULL UNIQUE CHECK ((\"email\") ~* ('^.+@.+..+$')), \"password_hash\" text NOT NULL ) ;");
+        expect(utils_1.cleanTree(parser.parse(result))).toEqual(utils_1.cleanTree(parser.parse(expectResult)));
     });
 });
 //# sourceMappingURL=parse.test.js.map
