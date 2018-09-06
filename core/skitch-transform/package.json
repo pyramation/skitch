@@ -21,7 +21,7 @@
     "typescript": "2.7.1"
   },
   "dependencies": {
-    "pgsql-parser": "latest"
+    "pgsql-parser": "0.5.7"
   },
   "jest": {
     "testURL": "http://localhost/",
