@@ -4,6 +4,10 @@
 npm install -g skitch
 ```
 
+Install sqitch
+
+https://github.com/sqitchers/homebrew-sqitch
+
 Then install the Template library from http://www.tt2.org/
 
 ```sh
