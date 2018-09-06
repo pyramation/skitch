@@ -30,7 +30,6 @@ export default async argv => {
 
   let extensions
   try {
-    // requires = 'plpgsql,uuid-ossp,plv8,airpage-utils,airpage-verify,airpage-roles,airpage-users,airpage-v8'
     extensions = readFileSync(controlFile[0]).toString().split('\n').find(line=>line.match(/^requires/)).split('=')[1].split("'")[1].split(',').map(a=>a.trim());
   } catch (e) {
     throw new Error('missing requires from control files or bad syntax');
