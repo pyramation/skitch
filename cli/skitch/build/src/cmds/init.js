@@ -75,7 +75,7 @@ var questions = [
     {
         name: 'extensions',
         message: 'which extensions?',
-        choices: ['plpgsql', 'uuid-ossp', 'airpage-utils', 'airpage-verify'],
+        choices: ['plpgsql', 'uuid-ossp', 'pg-utilities', 'pg-verify'],
         type: 'checkbox',
         default: ['plpgsql'],
         required: true,

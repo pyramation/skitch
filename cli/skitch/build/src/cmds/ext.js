@@ -66,7 +66,6 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     throw new Error('no control file found!');
                 }
                 try {
-                    // requires = 'plpgsql,uuid-ossp,plv8,airpage-utils,airpage-verify,airpage-roles,airpage-users,airpage-v8'
                     extensions = fs_1.readFileSync(controlFile[0]).toString().split('\n').find(function (line) { return line.match(/^requires/); }).split('=')[1].split("'")[1].split(',').map(function (a) { return a.trim(); });
                 }
                 catch (e) {
