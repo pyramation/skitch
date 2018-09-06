@@ -1,9 +1,12 @@
 version: '2'
 services:
-    postgres:
-        container_name: postgres
-        image: pyramation/postgres-plv8
-        ports:
-          - "5432:5432"
-        expose:
-          - "5432"
+  postgres:
+    container_name: postgres
+    image: pyramation/postgres-plv8
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=password"
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"

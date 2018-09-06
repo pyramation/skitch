@@ -4,6 +4,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 const prefix = 'testing-db';
+
 export const getConnection = async () => {
   const options = process.env.FAST_TEST
     ? {
@@ -20,3 +21,26 @@ export const getConnection = async () => {
 export const closeConnection = async db => {
   await testing.closeConnection(db);
 };
+
+export const close = db => {
+  testing.close(db);
+};
+
+export const connect = async (database, user, password) => {
+  let connection = await testing.getOpts();
+  connection = { ...connection, database, user, password };
+  return await testing.connect(connection);
+};
+
+export const getConnections = async () => {
+  const db = await getConnection();
+  const dbName = db.client.database;
+  await createUserRole(db, process.env.APP_USER, process.env.APP_PASSWORD);
+  const conn = await connect(dbName, process.env.APP_USER, process.env.APP_PASSWORD);
+  return {db, conn};
+}
+
+export const closeConnections = async ({db, conn}) => {
+  close(conn);
+  await closeConnection(db);
+}
