@@ -1,21 +1,30 @@
 # skitch
 
-```sh
-npm install -g skitch
-```
+[![Build Status](https://travis-ci.org/pyramation/skitch.svg?branch=master)](https://travis-ci.org/pyramation/skitch)
 
-Install sqitch
+Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
 
-https://github.com/sqitchers/homebrew-sqitch
+`skitch` is a wrapper around `sqitch` to enable a sane workflow for sane database management.
 
-Then install the Template library from http://www.tt2.org/
+
+## installation
+
+#### Install sqitch
+
+https://sqitch.org/
+mac users can use brew: https://github.com/sqitchers/homebrew-sqitch
+
+#### Install the Template library from http://www.tt2.org/
 
 ```sh
 sudo cpan Template
 ```
-Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
 
-`skitch` is a wrapper around `sqitch` to enable a sane workflow for sane database management.
+#### Install `skitch` globally
+
+```sh
+npm install -g skitch
+```
 
 ## what's different
 
