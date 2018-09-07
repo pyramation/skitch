@@ -9,6 +9,14 @@ Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
 
 ## installation
 
+#### Install `psql`
+
+Install `psql` without actually running the database. On mac you can use
+
+`brew install libpq`
+
+Or you can install the full-blown postgres locally, but it is recommended that you shut the service down. You'll be using `psql` to connect to the postgres that runs inside of a docker container.
+
 #### Install sqitch
 
 https://sqitch.org/
