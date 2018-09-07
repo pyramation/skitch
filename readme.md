@@ -38,6 +38,12 @@ npm install -g skitch
 
 https://github.com/pyramation/pg-utils
 
+## getting started
+
+Inititalize a project with `skitch init`
+
+Generate some SQL with `skitch generate` or `skitch g`
+
 ## what's different
 
 * interactive shell
