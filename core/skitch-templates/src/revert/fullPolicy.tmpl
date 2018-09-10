@@ -3,7 +3,10 @@
 BEGIN;
 
 [% IF grant.size %]
-REVOKE [% action.join(', ') %] ON TABLE [% schema %].[% table %] FROM [% grant.join(', ') %];
+REVOKE INSERT ON TABLE [% schema %].[% table %] FROM [% grant.join(', ') %];
+REVOKE SELECT ON TABLE [% schema %].[% table %] FROM [% grant.join(', ') %];
+REVOKE UPDATE ON TABLE [% schema %].[% table %] FROM [% grant.join(', ') %];
+REVOKE DELETE ON TABLE [% schema %].[% table %] FROM [% grant.join(', ') %];
 [% END %]
 
 DROP POLICY can_select_[% table %] ON [% schema %].[% table %];
