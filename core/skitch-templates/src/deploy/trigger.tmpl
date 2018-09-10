@@ -11,20 +11,20 @@ BEGIN;
 
 [% IF procedure %]
 
-CREATE FUNCTION [% schema %].tg_[% triggername %]()
+CREATE FUNCTION [% schema | replace('_public', '_private') %].tg_[% triggername %]()
 RETURNS TRIGGER AS $$
 BEGIN
  -- code here
  RETURN NEW;
 END;
 $$
-LANGUAGE 'plpgsql' STABLE; -- TODO VOLATILE or IMMUTABLE or STABLE?
+LANGUAGE 'plpgsql' VOLATILE; -- TODO VOLATILE or IMMUTABLE or STABLE?
 
 CREATE TRIGGER [% triggername %]
 [% when %] [% op.join(' OR ') %] ON [% schema %].[% table %]
 FOR EACH ROW
 WHEN (NEW.data IS DISTINCT FROM OLD.data)
-EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
+EXECUTE PROCEDURE [% schema | replace('_public', '_private') %].tg_[% triggername %] ();
 
 [% ELSE %]
 
@@ -32,7 +32,7 @@ CREATE TRIGGER [% triggername %]
 [% when %] [% op.join(' OR ') %] ON [% schema %].[% table %]
 FOR EACH ROW
 WHEN (NEW.data IS DISTINCT FROM OLD.data)
-EXECUTE PROCEDURE [% schema %].tg_[% triggername %] ();
+EXECUTE PROCEDURE [% schema | replace('_public', '_private') %].tg_[% triggername %] ();
 
 [% END %]
 

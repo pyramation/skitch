@@ -2,6 +2,7 @@ import * as column from './schemas/column';
 import * as extension from './schemas/extension';
 import * as fixture from './schemas/fixture';
 import * as foreignKey from './schemas/foreignKey';
+import * as fullPolicy from './schemas/fullPolicy';
 import * as grantAllTables from './schemas/grantAllTables';
 import * as grantExecute from './schemas/grantExecute';
 import * as grantRole from './schemas/grantRole';
@@ -25,6 +26,7 @@ declare const _default: {
     extension: typeof extension;
     fixture: typeof fixture;
     foreignKey: typeof foreignKey;
+    fullPolicy: typeof fullPolicy;
     grantAllTables: typeof grantAllTables;
     grantExecute: typeof grantExecute;
     grantRole: typeof grantRole;
