@@ -46,7 +46,10 @@ CREATE POLICY can_delete_[% table %] ON [% schema %].[% table %]
   );
 
 [% IF grant.size %]
-GRANT [% action.join(', ') %] ON TABLE [% schema %].[% table %] TO [% grant.join(', ') %];
+GRANT INSERT ON TABLE [% schema %].[% table %] TO [% grant.join(', ') %];
+GRANT SELECT ON TABLE [% schema %].[% table %] TO [% grant.join(', ') %];
+GRANT UPDATE ON TABLE [% schema %].[% table %] TO [% grant.join(', ') %];
+GRANT DELETE ON TABLE [% schema %].[% table %] TO [% grant.join(', ') %];
 [% END %]
 
 COMMIT;
