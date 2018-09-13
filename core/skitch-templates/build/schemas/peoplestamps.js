@@ -33,12 +33,6 @@ var questions = [
         message: 'enter a table name',
         source: skitch_utils_2.searchTables,
         required: true
-    },
-    {
-        type: 'confirm',
-        name: 'updated_by',
-        message: 'add updated_by trigger?',
-        required: true
     }
 ];
 exports.default = questions;

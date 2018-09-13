@@ -40,12 +40,6 @@ const questions: Array<InquirerQuestion> = [
     message: 'enter a table name',
     source: searchTables,
     required: true
-  },
-  {
-    type: 'confirm',
-    name: 'updated_by',
-    message: 'add updated_by trigger?',
-    required: true
   }
 ]
 export default questions

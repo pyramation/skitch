@@ -9,22 +9,12 @@
 
 BEGIN;
 
--- created_by
 ALTER TABLE [% schema %].[% table %] ADD COLUMN created_by UUID;
-
-CREATE TRIGGER insert_[% schema %]_[% table %]_creator
-BEFORE INSERT ON [% schema %].[% table %]
-FOR EACH ROW
-EXECUTE PROCEDURE stamp_created_by_column();
-
-[% IF updated_by %]
--- updated_by
 ALTER TABLE [% schema %].[% table %] ADD COLUMN updated_by UUID;
 
 CREATE TRIGGER update_[% schema %]_[% table %]_moduser
-BEFORE UPDATE ON [% schema %].[% table %]
+BEFORE UPDATE OR INSERT ON [% schema %].[% table %]
 FOR EACH ROW
-EXECUTE PROCEDURE stamp_updated_by_column();
-[% END %]
+EXECUTE PROCEDURE tg_update_peoplestamps();
 
 COMMIT;

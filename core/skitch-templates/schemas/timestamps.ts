@@ -40,12 +40,6 @@ const questions: Array<InquirerQuestion> = [
     message: 'enter a table name',
     source: searchTables,
     required: true
-  },
-  {
-    type: 'confirm',
-    name: 'updated_at',
-    message: 'add updated_at trigger?',
-    required: true
   }
 ]
 
