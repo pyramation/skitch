@@ -3,10 +3,7 @@
 BEGIN;
 
 ALTER TABLE [% schema %].[% table %] DROP COLUMN created_at;
-[% IF updated_at %]
 ALTER TABLE [% schema %].[% table %] DROP COLUMN updated_at;
-
 DROP TRIGGER update_[% schema %]_[% table %]_modtime ON [% schema %].[% table %];
-[% END %]
 
 COMMIT;

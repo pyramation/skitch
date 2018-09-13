@@ -3,10 +3,7 @@
 BEGIN;
 
 SELECT created_at FROM [% schema %].[% table %] LIMIT 1;
-[% IF updated_at %]
 SELECT updated_at FROM [% schema %].[% table %] LIMIT 1;
-
 SELECT verify_trigger ('[% schema %].update_[% schema %]_[% table %]_modtime');
-[% END %]
 
 ROLLBACK;
