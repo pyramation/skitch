@@ -1,5 +1,6 @@
 
   import { aliases as add } from './cmds/add';
+import { aliases as build } from './cmds/build';
 import { aliases as bundle } from './cmds/bundle';
 import { aliases as createdb } from './cmds/createdb';
 import { aliases as deploy } from './cmds/deploy';
@@ -16,10 +17,11 @@ import { aliases as plan } from './cmds/plan';
 import { aliases as rename } from './cmds/rename';
 import { aliases as resolve } from './cmds/resolve';
 import { aliases as revert } from './cmds/revert';
+import { aliases as sql } from './cmds/sql';
 import { aliases as start } from './cmds/start';
 import { aliases as verify } from './cmds/verify';
 
   export default {
-    add,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,start,verify
+    add,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sql,start,verify
   }
     

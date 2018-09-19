@@ -1,5 +1,6 @@
 declare const _default: {
     add: (argv: any) => Promise<void>;
+    build: (argv: any) => Promise<void>;
     bundle: (argv: any) => Promise<void>;
     createdb: (argv: any) => Promise<void>;
     deploy: (argv: any) => Promise<void>;
@@ -16,6 +17,7 @@ declare const _default: {
     rename: (argv: any) => Promise<void>;
     resolve: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
+    sql: (argv: any) => Promise<void>;
     start: (argv: any) => Promise<void>;
     verify: (argv: any) => Promise<void>;
 };

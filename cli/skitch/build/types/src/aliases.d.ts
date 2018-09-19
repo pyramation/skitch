@@ -1,5 +1,6 @@
 declare const _default: {
     add: any;
+    build: any;
     bundle: any;
     createdb: any;
     deploy: any;
@@ -16,6 +17,7 @@ declare const _default: {
     rename: any;
     resolve: any;
     revert: any;
+    sql: any;
     start: any;
     verify: any;
 };
