@@ -97,6 +97,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 vars = params.map(function (obj) { return "--set " + obj.key + "=\"" + obj.value + "\""; }).join(' ');
                 change = skitch_templates_1.default[template].change(answers);
                 reqd = [];
+                console.log(skitch_templates_1.default[template].requires(answers));
                 reqs = skitch_templates_1.default[template]
                     .requires(answers)
                     .filter(function (req) {

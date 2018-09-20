@@ -1,5 +1,6 @@
 declare const _default: {
     add: any;
+    addproject: any;
     build: any;
     bundle: any;
     createdb: any;

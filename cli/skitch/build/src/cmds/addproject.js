@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,16 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cli_1 = require("./src/cli");
-var argv = require('minimist')(process.argv.slice(2));
-(function () { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+var child_process_1 = require("child_process");
+var inquirerer_1 = require("inquirerer");
+var questions = [
+    {
+        type: 'string',
+        name: 'project',
+        message: 'enter a project name',
+        required: true
+    },
+    {
+        type: 'string',
+        name: 'change',
+        message: 'enter a change name',
+        required: true
+    }
+];
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, project, change, name, comment, cmd, sqitch;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                _a.sent();
+                _a = _b.sent(), project = _a.project, change = _a.change;
+                name = ['projects', project].concat(change.split('/')).join('/');
+                comment = "adding project " + project;
+                cmd = ['sqitch', 'add', name, '-r', project + ":" + change, '--n', "\"" + comment + "\""].join(' ');
+                console.log(cmd);
+                sqitch = child_process_1.exec(cmd.trim());
+                sqitch.stdout.pipe(process.stdout);
+                sqitch.stderr.pipe(process.stderr);
                 return [2 /*return*/];
         }
     });
-}); })();
-//# sourceMappingURL=index.js.map
+}); });
+//# sourceMappingURL=addproject.js.map

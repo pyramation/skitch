@@ -1,5 +1,6 @@
 declare const _default: {
     add: (argv: any) => Promise<void>;
+    addproject: (argv: any) => Promise<void>;
     build: (argv: any) => Promise<void>;
     bundle: (argv: any) => Promise<void>;
     createdb: (argv: any) => Promise<void>;

@@ -49,6 +49,9 @@ export default async argv => {
   var deps: { [type: string]: any } = {};
   var reg: { [type: string]: any } = {};
 
+  const makeKey = (sqlmodule) =>
+    '/deploy/' + sqlmodule + '.sql';
+
   // TODO make a class that uses paths instead of some.sql
 
   // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
@@ -58,7 +61,7 @@ export default async argv => {
     unresolved: string[]
   ) {
     unresolved.push(sqlmodule);
-    let edges = deps['/deploy/' + sqlmodule + '.sql'];
+    let edges = deps[makeKey(sqlmodule)];
     if (!edges) {
       if (/:/.test(sqlmodule)) {
         external.push(sqlmodule);
@@ -113,7 +116,7 @@ export default async argv => {
       // check only:
       var m2 = lines[j].match(/-- Deploy (.*) to pg/);
       if (m2) {
-        if (key != `/deploy/${m2[1]}.sql`) {
+        if (key != makeKey(m2[1])) {
           throw new Error(
             'deployment script in wrong place or is named wrong internally' + m2
           );
@@ -134,7 +137,7 @@ export default async argv => {
 
   deps = Object.assign(
     {
-      '/deploy/apps/index.sql': Object.keys(deps)
+      [makeKey('apps/index')]: Object.keys(deps)
         .filter(dep => dep.match(/^\/deploy\//))
         .map(dep => dep.replace(/^\/deploy\//, '').replace(/.sql$/, '')),
     },
@@ -154,9 +157,9 @@ export default async argv => {
 
   resolved.forEach(res => {
     if (/:/.test(res)) return;
-    if (deps['/deploy/' + res + '.sql'] && deps['/deploy/' + res + '.sql'].length) {
+    if (deps[makeKey(res)] && deps[makeKey(res)].length) {
       planfile.push(
-        `${res} [${deps['/deploy/' + res + '.sql'].join(
+        `${res} [${deps[makeKey(res)].join(
           ' '
         )}] ${now} skitch <skitch@5b0c196eeb62> # add ${res}`
       );

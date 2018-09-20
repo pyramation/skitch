@@ -1,5 +1,6 @@
 
   import { aliases as add } from './cmds/add';
+import { aliases as addproject } from './cmds/addproject';
 import { aliases as build } from './cmds/build';
 import { aliases as bundle } from './cmds/bundle';
 import { aliases as createdb } from './cmds/createdb';
@@ -23,6 +24,6 @@ import { aliases as start } from './cmds/start';
 import { aliases as verify } from './cmds/verify';
 
   export default {
-    add,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
+    add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
   }
     

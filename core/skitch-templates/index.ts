@@ -13,7 +13,6 @@ import * as index from './schemas/index';
 import * as peoplestamps from './schemas/peoplestamps';
 import * as policy from './schemas/policy';
 import * as procedure from './schemas/procedure';
-import * as project from './schemas/project';
 import * as role from './schemas/role';
 import * as rowLevelSecurity from './schemas/rowLevelSecurity';
 import * as schema from './schemas/schema';
@@ -24,5 +23,5 @@ import * as type from './schemas/type';
 import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
 export default {
-  column,extension,fixture,foreignKey,fullPolicy,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,project,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility
+  column,extension,fixture,foreignKey,fullPolicy,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility
 };

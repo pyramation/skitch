@@ -2947,23 +2947,23 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-path@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.11.0.tgz#345694ab6cff28522d4bb774ef30aa3f62d9b154"
+skitch-path@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.12.0.tgz#69e19d850899cb1304b7065902c257aa7998def2"
   dependencies:
     node-walkup "1.1.1"
 
-skitch-types@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.11.0.tgz#faab209f1e9669e827e9b4950271a974e673281f"
+skitch-types@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.12.0.tgz#a43073c8e2d7a0869a2bcf6f93be249958b877c9"
 
-skitch-utils@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.11.0.tgz#e2e3caaafee2fd6fdd3d552f505cee03771cb34e"
+skitch-utils@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.12.0.tgz#f79e91fed42c47a68be99073ddd01308c7358031"
   dependencies:
     fuzzy "0.1.3"
     glob "7.1.2"
-    skitch-path "^0.11.0"
+    skitch-path "^0.12.0"
 
 slash@^1.0.0:
   version "1.0.0"

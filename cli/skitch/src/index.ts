@@ -1,5 +1,6 @@
 
 import add from './cmds/add';
+import addproject from './cmds/addproject';
 import build from './cmds/build';
 import bundle from './cmds/bundle';
 import createdb from './cmds/createdb';
@@ -22,6 +23,6 @@ import sql from './cmds/sql';
 import start from './cmds/start';
 import verify from './cmds/verify';
 export default {
-  add,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
+  add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
 }
   
