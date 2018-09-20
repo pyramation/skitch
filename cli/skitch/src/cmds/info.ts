@@ -1,7 +1,12 @@
 import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
 const pgPromise = require('pg-promise');
-import env from 'skitch-env';
+import {
+  PGUSER,
+  PGPASSWORD,
+  PGHOST,
+  PGPORT,
+} from 'skitch-env';
 
 const policies = `SELECT
   CONCAT(n.nspname, '.', c.relname) AS tablename,
@@ -100,11 +105,11 @@ export default async argv => {
     };
     const pgp = pgPromise(initOptions);
     const cn = {
-      host: env.PGHOST,
-      port: env.PGPORT,
+      host: PGHOST,
+      port: PGPORT,
       database: db,
-      user: env.PGUSER,
-      password: env.PGPASSWORD,
+      user: PGUSER,
+      password: PGPASSWORD,
     };
 
     const d = pgp(cn); // database instance;

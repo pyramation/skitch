@@ -55,7 +55,12 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 1:
                 db = (_a.sent()).db;
                 shell.exec("dropdb " + db, {
-                    env: skitch_env_1.default
+                    env: {
+                        PGUSER: skitch_env_1.PGUSER,
+                        PGPASSWORD: skitch_env_1.PGPASSWORD,
+                        PGHOST: skitch_env_1.PGHOST,
+                        PGPORT: skitch_env_1.PGPORT
+                    }
                 });
                 return [2 /*return*/];
         }

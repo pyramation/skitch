@@ -87,11 +87,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 initOptions = {};
                 pgp = pgPromise(initOptions);
                 cn = {
-                    host: skitch_env_1.default.PGHOST,
-                    port: skitch_env_1.default.PGPORT,
+                    host: skitch_env_1.PGHOST,
+                    port: skitch_env_1.PGPORT,
                     database: db,
-                    user: skitch_env_1.default.PGUSER,
-                    password: skitch_env_1.default.PGPASSWORD,
+                    user: skitch_env_1.PGUSER,
+                    password: skitch_env_1.PGPASSWORD,
                 };
                 d = pgp(cn);
                 console.log(query);

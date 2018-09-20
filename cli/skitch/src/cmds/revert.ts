@@ -1,6 +1,11 @@
 import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
-import env from 'skitch-env';
+import {
+  PGUSER,
+  PGPASSWORD,
+  PGHOST,
+  PGPORT,
+} from 'skitch-env';
 
 const questions = [
   {
@@ -20,6 +25,11 @@ export default async argv => {
   const { db, confirm } = await prompt(questions, argv);
   if (!confirm) return;
   shell.exec(`sqitch revert db:pg:${db} -y`, {
-    env
+    env: {
+      PGUSER,
+      PGPASSWORD,
+      PGHOST,
+      PGPORT
+    }
   });
 };
