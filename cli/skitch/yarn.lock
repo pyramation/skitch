@@ -3463,9 +3463,9 @@ skitch-template@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.11.10.tgz#8ac75e3bbf2ea851961ebe2ebcb9af61ab2f6a61"
 
-skitch-templates@^0.11.16:
-  version "0.11.16"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.11.16.tgz#647291431c9b435767c4eef4cfa7a23a0fbf9a8f"
+skitch-templates@^0.11.20:
+  version "0.11.20"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.11.20.tgz#c823e62dcb2299ac3c2fc84c660861c08ee9e524"
   dependencies:
     skitch-utils "^0.11.11"
 
