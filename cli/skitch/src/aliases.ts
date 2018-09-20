@@ -21,9 +21,10 @@ import { aliases as revert } from './cmds/revert';
 import { aliases as sqitch } from './cmds/sqitch';
 import { aliases as sql } from './cmds/sql';
 import { aliases as start } from './cmds/start';
+import { aliases as test } from './cmds/test';
 import { aliases as verify } from './cmds/verify';
 
   export default {
-    add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
+    add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify
   }
     

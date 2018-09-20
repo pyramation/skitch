@@ -54,14 +54,15 @@ var questions = [
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, db, confirm;
+    var _a, db, yes;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                _a = _b.sent(), db = _a.db, confirm = _a.confirm;
-                if (!confirm)
+                _a = _b.sent(), db = _a.db, yes = _a.yes;
+                if (!yes)
                     return [2 /*return*/];
+                console.log("sqitch deploy db:pg:" + db);
                 shell.exec("sqitch deploy db:pg:" + db, {
                     env: {
                         PGUSER: skitch_env_1.PGUSER,

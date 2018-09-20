@@ -5,7 +5,7 @@ import {
   PGPASSWORD,
   PGHOST,
   PGPORT,
-  PATH,
+  PATH
 } from 'skitch-env';
 
 const questions = [

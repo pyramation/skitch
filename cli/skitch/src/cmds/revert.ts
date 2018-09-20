@@ -16,15 +16,15 @@ const questions = [
     required: true,
   },
   {
-    name: 'confirm',
+    name: 'yes',
     type: 'confirm',
     message: 'are you sure?',
     required: true,
   },
 ];
 export default async argv => {
-  const { db, confirm } = await prompt(questions, argv);
-  if (!confirm) return;
+  const { db, yes } = await prompt(questions, argv);
+  if (!yes) return;
   shell.exec(`sqitch revert db:pg:${db} -y`, {
     env: {
       PGUSER,

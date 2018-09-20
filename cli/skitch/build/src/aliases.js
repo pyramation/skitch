@@ -22,8 +22,9 @@ var revert_1 = require("./cmds/revert");
 var sqitch_1 = require("./cmds/sqitch");
 var sql_1 = require("./cmds/sql");
 var start_1 = require("./cmds/start");
+var test_1 = require("./cmds/test");
 var verify_1 = require("./cmds/verify");
 exports.default = {
-    add: add_1.aliases, addproject: addproject_1.aliases, build: build_1.aliases, bundle: bundle_1.aliases, createdb: createdb_1.aliases, deploy: deploy_1.aliases, dropdb: dropdb_1.aliases, ext: ext_1.aliases, format: format_1.aliases, generate: generate_1.aliases, info: info_1.aliases, init: init_1.aliases, install: install_1.aliases, maketest: maketest_1.aliases, package: package_1.aliases, plan: plan_1.aliases, rename: rename_1.aliases, resolve: resolve_1.aliases, revert: revert_1.aliases, sqitch: sqitch_1.aliases, sql: sql_1.aliases, start: start_1.aliases, verify: verify_1.aliases
+    add: add_1.aliases, addproject: addproject_1.aliases, build: build_1.aliases, bundle: bundle_1.aliases, createdb: createdb_1.aliases, deploy: deploy_1.aliases, dropdb: dropdb_1.aliases, ext: ext_1.aliases, format: format_1.aliases, generate: generate_1.aliases, info: info_1.aliases, init: init_1.aliases, install: install_1.aliases, maketest: maketest_1.aliases, package: package_1.aliases, plan: plan_1.aliases, rename: rename_1.aliases, resolve: resolve_1.aliases, revert: revert_1.aliases, sqitch: sqitch_1.aliases, sql: sql_1.aliases, start: start_1.aliases, test: test_1.aliases, verify: verify_1.aliases
 };
 //# sourceMappingURL=aliases.js.map

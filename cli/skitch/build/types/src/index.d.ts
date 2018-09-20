@@ -21,6 +21,7 @@ declare const _default: {
     sqitch: (argv: any) => Promise<void>;
     sql: (argv: any) => Promise<void>;
     start: (argv: any) => Promise<void>;
+    test: (argv: any) => Promise<void>;
     verify: (argv: any) => Promise<void>;
 };
 export default _default;

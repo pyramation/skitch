@@ -5,7 +5,7 @@ import {
   PGPASSWORD,
   PGHOST,
   PGPORT,
-  PATH,
+  PATH
 } from 'skitch-env';
 
 const questions = [
@@ -23,8 +23,9 @@ const questions = [
   },
 ];
 export default async argv => {
-  const { db, confirm } = await prompt(questions, argv);
-  if (!confirm) return;
+  const { db, yes } = await prompt(questions, argv);
+  if (!yes) return;
+  console.log(`sqitch deploy db:pg:${db}`);
   shell.exec(`sqitch deploy db:pg:${db}`, {
     env: {
       PGUSER,

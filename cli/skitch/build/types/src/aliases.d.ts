@@ -21,6 +21,7 @@ declare const _default: {
     sqitch: any;
     sql: any;
     start: any;
+    test: any;
     verify: any;
 };
 export default _default;

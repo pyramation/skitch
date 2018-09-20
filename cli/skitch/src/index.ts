@@ -21,8 +21,9 @@ import revert from './cmds/revert';
 import sqitch from './cmds/sqitch';
 import sql from './cmds/sql';
 import start from './cmds/start';
+import test from './cmds/test';
 import verify from './cmds/verify';
 export default {
-  add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
+  add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify
 }
   
