@@ -153,7 +153,8 @@ export default async argv => {
   const normalSql = resolved.filter(a=>!a.match(/^extensions/));
 
   // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
-  resolved = [...normalSql];
+  resolved = [...extensions, ...normalSql]
+  // resolved = [...normalSql];
 
   resolved.forEach(res => {
     if (/:/.test(res)) return;

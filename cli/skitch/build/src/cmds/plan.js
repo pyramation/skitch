@@ -168,7 +168,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
                 normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
                 // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
-                resolved = normalSql.slice();
+                resolved = extensions.concat(normalSql);
+                // resolved = [...normalSql];
                 resolved.forEach(function (res) {
                     if (/:/.test(res))
                         return;
