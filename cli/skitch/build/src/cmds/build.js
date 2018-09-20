@@ -63,9 +63,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         var index = unresolved.indexOf(sqlmodule);
         unresolved.splice(index);
     }
-    var native, extensions, deps, resolved, unresolved, questions, dep, sql;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var native, extensions, deps, resolved, unresolved, questions, _a, dep, path, sql;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 native = [];
                 extensions = glob_1.sync(process.cwd() + '/**/*.control').reduce(function (m, v) {
@@ -105,11 +105,21 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         message: 'choose a dep',
                         choices: Object.keys(extensions),
                         required: true,
+                    },
+                    {
+                        _: true,
+                        name: 'path',
+                        message: 'choose a name',
+                        filter: function (val) {
+                            val = /.sql$/.test(val) ? val : val + '.sql';
+                            return path_1.resolve(process.cwd() + '/' + val);
+                        },
+                        required: true,
                     }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                dep = (_a.sent()).dep;
+                _a = _b.sent(), dep = _a.dep, path = _a.path;
                 dep_resolve(dep, resolved, unresolved);
                 sql = [];
                 resolved.forEach(function (extension) {
@@ -120,7 +130,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         sql.push(extensions[extension].sql);
                     }
                 });
-                console.log(sql.join('\n'));
+                fs_1.writeFileSync(path, sql.join('\n'));
                 return [2 /*return*/];
         }
     });

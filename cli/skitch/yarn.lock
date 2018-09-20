@@ -2993,7 +2993,7 @@ pgpass@1.x:
   dependencies:
     split "^1.0.0"
 
-pgsql-parser@^0.5.7:
+pgsql-parser@0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.7.tgz#e02624d491d13898cb8e37686c56e04c7fdcad97"
   dependencies:
@@ -3001,9 +3001,9 @@ pgsql-parser@^0.5.7:
     lodash "^4.13.1"
     pg-query-native-latest "^1.1.0"
 
-pgsql-parser@latest:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.4.2.tgz#faaad749e762c11009a70f14dcba3fb13ecc1b25"
+pgsql-parser@^0.5.8:
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.8.tgz#fce24e85a4305ce1d4d07115f840cb495839fcdf"
   dependencies:
     dotty "^0.1.0"
     lodash "^4.13.1"
@@ -3459,19 +3459,19 @@ skitch-path@^0.11.0:
   dependencies:
     node-walkup "1.1.1"
 
-skitch-template@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.11.0.tgz#82725a9c1f78f752093bca93417d32f615f0bf5c"
+skitch-template@^0.11.10:
+  version "0.11.10"
+  resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.11.10.tgz#8ac75e3bbf2ea851961ebe2ebcb9af61ab2f6a61"
 
-skitch-templates@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.11.0.tgz#c42a4ac27b0d3e846be8abc58ddcaee1af340c66"
+skitch-templates@^0.11.16:
+  version "0.11.16"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.11.16.tgz#647291431c9b435767c4eef4cfa7a23a0fbf9a8f"
   dependencies:
-    skitch-utils "^0.11.0"
+    skitch-utils "^0.11.11"
 
-skitch-testing@^0.11.5:
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.11.5.tgz#a64f911e59c9dcdb5eae8100641f925237c4c3c7"
+skitch-testing@^0.11.10:
+  version "0.11.10"
+  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.11.10.tgz#1b5bf460a9a09328d0ce1c60c902d11e4e8fd583"
   dependencies:
     pg "6.4.0"
     pg-promise "6.10.3"
@@ -3479,19 +3479,19 @@ skitch-testing@^0.11.5:
     streamify-string "1.0.1"
     uuid "3.1.0"
 
-skitch-transform@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-transform/-/skitch-transform-0.11.0.tgz#4a354b44ed5730e778dfc895850e412520e706c5"
+skitch-transform@^0.11.11:
+  version "0.11.11"
+  resolved "https://registry.yarnpkg.com/skitch-transform/-/skitch-transform-0.11.11.tgz#a142495aa657794edbc3e8d92610ea17708893db"
   dependencies:
-    pgsql-parser latest
+    pgsql-parser "0.5.7"
 
-skitch-types@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.11.0.tgz#faab209f1e9669e827e9b4950271a974e673281f"
+skitch-types@^0.11.11:
+  version "0.11.11"
+  resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.11.11.tgz#1860160ed1c586fdf18ddbe4e0b3b5d57439f33f"
 
-skitch-utils@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.11.0.tgz#e2e3caaafee2fd6fdd3d552f505cee03771cb34e"
+skitch-utils@^0.11.11:
+  version "0.11.11"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.11.11.tgz#4379fe92a45278785383821b71455131164b2d25"
   dependencies:
     fuzzy "0.1.3"
     glob "7.1.2"

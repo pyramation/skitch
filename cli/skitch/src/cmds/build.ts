@@ -1,6 +1,6 @@
 import * as shell from 'shelljs';
 const parser = require('pgsql-parser');
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { prompt } from 'inquirerer';
 import { dirname, basename, resolve } from 'path';
 import { sync as glob } from 'glob';
@@ -77,14 +77,25 @@ export default async argv => {
       message: 'choose a dep',
       choices: Object.keys(extensions),
       required: true,
+    },
+    {
+      _: true,
+      name: 'path',
+      message: 'choose a name',
+      filter: (val) => {
+        val = /.sql$/.test(val) ? val : val + '.sql';
+        return resolve( process.cwd() + '/' + val )
+      },
+      required: true,
     }
   ];
 
-  let { dep } = await prompt(questions, argv);
+  let { dep, path } = await prompt(questions, argv);
 
   dep_resolve(dep, resolved, unresolved);
 
   let sql = [];
+
 
   resolved.forEach(extension=> {
       if (native.includes(extension)) {
@@ -94,6 +105,5 @@ export default async argv => {
       }
   });
 
-  console.log(sql.join('\n'));
-
+  writeFileSync(path, sql.join('\n'));
 };
