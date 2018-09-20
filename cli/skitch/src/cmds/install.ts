@@ -38,7 +38,6 @@ export default async argv => {
       return;
     }
     case 'local': {
-      // const skitchPath = await path();
       const results = await prompt([
         {
           name: 'where',
