@@ -40,6 +40,8 @@ var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
 var shell = require("shelljs");
 var plan_1 = require("./plan");
+var path_1 = require("path");
+var glob_1 = require("glob");
 var questions = [
     {
         _: true,
@@ -47,24 +49,58 @@ var questions = [
         message: 'module name',
         required: true,
     },
+    {
+        type: 'list',
+        name: 'type',
+        message: 'choose a module',
+        choices: ['github', 'local', 'yarn'],
+        required: true
+    }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var modulename, skitchPath, files;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, modulename, type, _b, skitchPath, files, results;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                modulename = (_a.sent()).modulename;
+                _a = _c.sent(), modulename = _a.modulename, type = _a.type;
+                console.log(argv);
+                _b = type;
+                switch (_b) {
+                    case 'yarn': return [3 /*break*/, 2];
+                    case 'local': return [3 /*break*/, 5];
+                }
+                return [3 /*break*/, 7];
+            case 2:
                 shell.exec("yarn add " + modulename);
                 return [4 /*yield*/, skitch_path_1.default()];
-            case 2:
-                skitchPath = _a.sent();
+            case 3:
+                skitchPath = _c.sent();
                 files = skitchPath + "/node_modules/" + modulename + "/src/*";
                 shell.cp('-r', files, skitchPath + "/");
                 return [4 /*yield*/, plan_1.default({})];
-            case 3:
-                _a.sent();
+            case 4:
+                _c.sent();
                 return [2 /*return*/];
+            case 5: return [4 /*yield*/, inquirerer_1.prompt([
+                    {
+                        name: 'where',
+                        message: 'where at? (e.g. ../my-module)',
+                        filter: function (val) {
+                            return path_1.resolve(process.cwd() + '/' + val);
+                        },
+                        required: true,
+                    }
+                ], argv)];
+            case 6:
+                results = _c.sent();
+                console.log(results);
+                console.log(glob_1.sync(results.where + '/**/sqitch.plan'));
+                return [2 /*return*/];
+            case 7:
+                console.log('not implemented');
+                _c.label = 8;
+            case 8: return [2 /*return*/];
         }
     });
 }); });

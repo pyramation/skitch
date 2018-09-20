@@ -105,6 +105,8 @@ export default async argv => {
 
   planfile.push(`%syntax-version=1.0.0
   %project=${name}
+  %uri=${name}
+
   `);
 
   let resolved: string[] = [];
@@ -127,7 +129,8 @@ export default async argv => {
   const extensions = resolved.filter(a=>a.match(/^extensions/));
   const normalSql = resolved.filter(a=>!a.match(/^extensions/));
 
-  resolved = [...extensions, ...normalSql];
+  // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
+  resolved = [...normalSql];
 
   resolved.forEach(res => {
     if (deps['/deploy/' + res + '.sql'].length) {

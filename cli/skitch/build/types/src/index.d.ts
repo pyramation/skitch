@@ -17,6 +17,7 @@ declare const _default: {
     rename: (argv: any) => Promise<void>;
     resolve: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
+    sqitch: (argv: any) => Promise<void>;
     sql: (argv: any) => Promise<void>;
     start: (argv: any) => Promise<void>;
     verify: (argv: any) => Promise<void>;

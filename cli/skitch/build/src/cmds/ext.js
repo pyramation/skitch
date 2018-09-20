@@ -50,17 +50,23 @@ var questions = [
         default: 'app-extensions',
         required: true,
     },
+    {
+        name: 'projects',
+        type: 'confirm',
+        message: 'use sibling sqitch projects?',
+        required: true,
+    },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var extname, skitchPath, controlFile, extensions, note, output, pkg;
+    var skitchPath, extname, controlFile, extensions, note, output, pkg;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
-                extname = (_a.sent()).extname;
-                return [4 /*yield*/, skitch_path_1.default()];
-            case 2:
                 skitchPath = _a.sent();
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
+                extname = (_a.sent()).extname;
                 controlFile = glob_1.sync(skitchPath + "/*.control");
                 if (!controlFile || !controlFile.length) {
                     throw new Error('no control file found!');
@@ -103,6 +109,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     output.verify.push("SELECT verify_extension('" + ext + "');");
                 });
                 output.verify.push('\nROLLBACK;');
+                if (others) {
+                }
                 Object.keys(output).forEach(function (type) {
                     mkdirp_1.sync(skitchPath + "/" + type + "/extensions");
                     fs_1.writeFileSync(skitchPath + "/" + type + "/extensions/" + extname + ".sql", output[type].join('\n'));

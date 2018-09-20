@@ -1,0 +1,13 @@
+-- Deploy [% change %] to pg
+
+-- requires: [% refproject %]:[% refchange %]
+[% FOREACH item IN requires -%]
+-- requires: [% item %]
+[% END -%]
+[% FOREACH item IN conflicts -%]
+-- conflicts: [% item %]
+[% END -%]
+
+BEGIN;
+
+COMMIT;

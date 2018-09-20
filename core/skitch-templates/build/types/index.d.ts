@@ -12,6 +12,7 @@ import * as index from './schemas/index';
 import * as peoplestamps from './schemas/peoplestamps';
 import * as policy from './schemas/policy';
 import * as procedure from './schemas/procedure';
+import * as project from './schemas/project';
 import * as role from './schemas/role';
 import * as rowLevelSecurity from './schemas/rowLevelSecurity';
 import * as schema from './schemas/schema';
@@ -36,6 +37,7 @@ declare const _default: {
     peoplestamps: typeof peoplestamps;
     policy: typeof policy;
     procedure: typeof procedure;
+    project: typeof project;
     role: typeof role;
     rowLevelSecurity: typeof rowLevelSecurity;
     schema: typeof schema;

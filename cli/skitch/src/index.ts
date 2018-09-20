@@ -17,10 +17,11 @@ import plan from './cmds/plan';
 import rename from './cmds/rename';
 import resolve from './cmds/resolve';
 import revert from './cmds/revert';
+import sqitch from './cmds/sqitch';
 import sql from './cmds/sql';
 import start from './cmds/start';
 import verify from './cmds/verify';
 export default {
-  add,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sql,start,verify
+  add,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,verify
 }
   

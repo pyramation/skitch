@@ -131,7 +131,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 i++;
                 return [3 /*break*/, 5];
             case 8:
-                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  ");
+                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + name + "\n\n  ");
                 resolved = [];
                 unresolved = [];
                 deps = Object.assign({
@@ -144,7 +144,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 resolved.splice(index);
                 extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
                 normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
-                resolved = extensions.concat(normalSql);
+                // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
+                resolved = normalSql.slice();
                 resolved.forEach(function (res) {
                     if (deps['/deploy/' + res + '.sql'].length) {
                         planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);

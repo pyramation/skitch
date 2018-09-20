@@ -17,6 +17,7 @@ declare const _default: {
     rename: any;
     resolve: any;
     revert: any;
+    sqitch: any;
     sql: any;
     start: any;
     verify: any;

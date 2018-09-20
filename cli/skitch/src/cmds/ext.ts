@@ -5,7 +5,7 @@ import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
 import { sync as glob } from 'glob';
 import path from 'skitch-path';
-import { dirname, basename } from 'path';
+import { dirname, basename, resolve } from 'path';
 import * as shell from 'shelljs';
 import { writeFileSync, readFileSync } from 'fs';
 
@@ -18,11 +18,18 @@ const questions = [
     default: 'app-extensions',
     required: true,
   },
+  {
+    name: 'projects',
+    type: 'confirm',
+    message: 'use sibling sqitch projects?',
+    required: true,
+  },
 ];
 
 export default async argv => {
-  const { extname } = await prompt(questions, argv);
   const skitchPath = await path();
+
+  const { extname } = await prompt(questions, argv);
   const controlFile = glob(`${skitchPath}/*.control`);
   if (!controlFile || !controlFile.length) {
     throw new Error('no control file found!');
@@ -68,6 +75,10 @@ export default async argv => {
     output.verify.push(`SELECT verify_extension('${ext}');`);
   });
   output.verify.push('\nROLLBACK;');
+
+  if (others) {
+
+  }
 
   Object.keys(output).forEach(type=>{
     mkdirp(`${skitchPath}/${type}/extensions`);
