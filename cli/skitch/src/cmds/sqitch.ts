@@ -51,7 +51,7 @@ export default async argv => {
     unresolved: string[]
   ) {
     unresolved.push(sqlmodule);
-    const edges = deps[sqlmodule];
+    let edges = deps[sqlmodule];
     if (!edges) {
       native.push(sqlmodule);
       edges = deps[sqlmodule] = [];

@@ -61,22 +61,37 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         unresolved.push(sqlmodule);
         var edges = deps['/deploy/' + sqlmodule + '.sql'];
         if (!edges) {
-            throw new Error("no module " + sqlmodule);
-        }
-        for (var i = 0; i < edges.length; i++) {
-            var dep = edges[i];
-            if (!resolved.includes(dep)) {
-                if (unresolved.includes(dep)) {
-                    throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
-                }
-                dep_resolve(dep, resolved, unresolved);
+            if (/:/.test(sqlmodule)) {
+                external.push(sqlmodule);
+                edges = deps[sqlmodule] = [];
             }
+            else {
+                throw new Error("no module " + sqlmodule);
+            }
+        }
+        try {
+            console.log('edges');
+            console.log(edges);
+            for (var i = 0; i < edges.length; i++) {
+                console.log('edges[i]');
+                console.log(edges[i]);
+                var dep = edges[i];
+                if (!resolved.includes(dep)) {
+                    if (unresolved.includes(dep)) {
+                        throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
+                    }
+                    dep_resolve(dep, resolved, unresolved);
+                }
+            }
+        }
+        catch (e) {
+            console.error(e);
         }
         resolved.push(sqlmodule);
         var index = unresolved.indexOf(sqlmodule);
         unresolved.splice(index);
     }
-    var PKGDIR, name, now, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql;
+    var PKGDIR, name, now, external, planfile, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_path_1.default()];
@@ -96,16 +111,21 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 _a.label = 3;
             case 3:
                 now = '2017-08-11T08:11:51Z';
+                external = [];
                 planfile = [];
                 deps = {};
                 reg = {};
                 return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
             case 4:
                 files = _a.sent();
+                console.log('files');
+                console.log(files);
                 i = 0;
                 _a.label = 5;
             case 5:
                 if (!(i < files.length)) return [3 /*break*/, 8];
+                console.log('files[i]');
+                console.log(files[i]);
                 return [4 /*yield*/, readFile(files[i])];
             case 6:
                 data = _a.sent();
@@ -147,7 +167,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
                 resolved = normalSql.slice();
                 resolved.forEach(function (res) {
-                    if (deps['/deploy/' + res + '.sql'].length) {
+                    if (/:/.test(res))
+                        return;
+                    if (deps['/deploy/' + res + '.sql'] && deps['/deploy/' + res + '.sql'].length) {
                         planfile.push(res + " [" + deps['/deploy/' + res + '.sql'].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
                     }
                     else {

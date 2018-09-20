@@ -42,6 +42,8 @@ export default async argv => {
 
   var now = '2017-08-11T08:11:51Z';
 
+  var external = [];
+
   var planfile: string[] = [];
 
   var deps: { [type: string]: any } = {};
@@ -56,11 +58,23 @@ export default async argv => {
     unresolved: string[]
   ) {
     unresolved.push(sqlmodule);
-    const edges = deps['/deploy/' + sqlmodule + '.sql'];
+    let edges = deps['/deploy/' + sqlmodule + '.sql'];
     if (!edges) {
-      throw new Error(`no module ${sqlmodule}`);
+      if (/:/.test(sqlmodule)) {
+        external.push(sqlmodule);
+        edges = deps[sqlmodule] = [];
+      } else {
+        throw new Error(`no module ${sqlmodule}`);
+      }
+
     }
+    try {
+      console.log('edges');
+      console.log(edges);
+
     for (var i = 0; i < edges.length; i++) {
+      console.log('edges[i]');
+      console.log(edges[i]);
       var dep = edges[i];
       if (!resolved.includes(dep)) {
         if (unresolved.includes(dep)) {
@@ -69,14 +83,20 @@ export default async argv => {
         dep_resolve(dep, resolved, unresolved);
       }
     }
+  } catch (e) {
+    console.error(e);
+  }
     resolved.push(sqlmodule);
     var index = unresolved.indexOf(sqlmodule);
     unresolved.splice(index);
   }
 
   var files = await glob(`${PKGDIR}/deploy/**/**.sql`);
-
+  console.log('files');
+  console.log(files);
   for (var i = 0; i < files.length; i++) {
+    console.log('files[i]');
+    console.log(files[i]);
     const data = await readFile(files[i]);
 
     var lines = data.toString().split('\n');
@@ -133,7 +153,8 @@ export default async argv => {
   resolved = [...normalSql];
 
   resolved.forEach(res => {
-    if (deps['/deploy/' + res + '.sql'].length) {
+    if (/:/.test(res)) return;
+    if (deps['/deploy/' + res + '.sql'] && deps['/deploy/' + res + '.sql'].length) {
       planfile.push(
         `${res} [${deps['/deploy/' + res + '.sql'].join(
           ' '
