@@ -59,7 +59,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         PGUSER: skitch_env_1.PGUSER,
                         PGPASSWORD: skitch_env_1.PGPASSWORD,
                         PGHOST: skitch_env_1.PGHOST,
-                        PGPORT: skitch_env_1.PGPORT
+                        PGPORT: skitch_env_1.PGPORT,
+                        PATH: skitch_env_1.PATH
                     }
                 });
                 return [2 /*return*/];

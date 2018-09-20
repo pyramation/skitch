@@ -5,6 +5,7 @@ import {
   PGPASSWORD,
   PGHOST,
   PGPORT,
+  PATH
 } from 'skitch-env';
 
 const questions = [
@@ -22,7 +23,8 @@ export default async argv => {
       PGUSER,
       PGPASSWORD,
       PGHOST,
-      PGPORT
+      PGPORT,
+      PATH
     }
   });
 };
