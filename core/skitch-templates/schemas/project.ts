@@ -8,7 +8,7 @@ export interface SchemaConfig {
 export const change = ({ refproject, refchange }: SchemaConfig): ChangePathArray => [
   'projects',
   refproject,
-  ...change.split('/')
+  ...refchange.split('/')
 ]
 
 export const requires = (res: SchemaConfig): Array<ChangePathArray> => []

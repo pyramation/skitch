@@ -5,7 +5,7 @@ exports.change = function (_a) {
     return [
         'projects',
         refproject
-    ].concat(exports.change.split('/'));
+    ].concat(refchange.split('/'));
 };
 exports.requires = function (res) { return []; };
 var questions = [
