@@ -71,11 +71,15 @@ export const getConnection = async (configOpts, database) => {
   };
 
   if (hot) {
+    // FAST_TEST=1
+    // createdb + hot loaded sql
     await createdb(connection);
     await sqitchFast(connection, directory);
   } else if (template) {
+    // createdb from a template already with data...
     await templatedb({ ...connection, template });
   } else {
+    // createdb + sqitch it
     await createdb(connection);
     await sqitch(connection, directory);
   }

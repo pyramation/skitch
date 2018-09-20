@@ -32,6 +32,25 @@ export const connect = async (database, user, password) => {
   return await testing.connect(connection);
 };
 
+export const createUserRole = async (db, user, password) => {
+  await db.any(`
+  DO $$
+  BEGIN
+  IF NOT EXISTS (
+          SELECT
+              1
+          FROM
+              pg_roles
+          WHERE
+              rolname = '${user}') THEN
+          CREATE ROLE ${user} LOGIN PASSWORD '${password}';
+          GRANT anonymous TO ${user};
+          GRANT authenticated TO ${user};
+  END IF;
+  END $$;
+    `);
+};
+
 export const getConnections = async () => {
   const db = await getConnection();
   const dbName = db.client.database;
