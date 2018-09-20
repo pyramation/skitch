@@ -1,6 +1,6 @@
 {
   "name": "skitch",
-  "version": "0.11.17",
+  "version": "0.11.18",
   "description": "PostgreSQL change management",
   "author": "pyramation@gmail.com",
   "license": "MIT",
