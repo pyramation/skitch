@@ -5,6 +5,7 @@ import { promisify } from 'util';
 import { prompt } from 'inquirerer';
 import skitchPath from 'skitch-path';
 import * as shell from 'shelljs';
+import env from 'skitch-env';
 
 export default async argv => {
   const path = await skitchPath();
@@ -26,7 +27,7 @@ export default async argv => {
   const cmd = [
     'postgraphile',
     '--connection',
-    `postgres://postgres:@localhost/${db}`,
+    `postgres://${env.PGUSER}:${env.PGPASSWORD}@${env.PGHOST}:${env.PGPORT}/${db}`,
     '--schema',
     schemas.join(','),
   ].join(' ');

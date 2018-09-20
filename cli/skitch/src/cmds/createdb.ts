@@ -1,5 +1,6 @@
 import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
+import env from 'skitch-env';
 
 const questions = [
   {
@@ -11,5 +12,7 @@ const questions = [
 ];
 export default async argv => {
   const { db } = await prompt(questions, argv);
-  shell.exec(`createdb -U postgres -h localhost ${db}`);
+  shell.exec(`createdb ${db}`, {
+    env
+  });
 };

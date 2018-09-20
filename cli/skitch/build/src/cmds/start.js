@@ -42,6 +42,7 @@ var util_1 = require("util");
 var inquirerer_1 = require("inquirerer");
 var skitch_path_1 = require("skitch-path");
 var shell = require("shelljs");
+var skitch_env_1 = require("skitch-env");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var path, questions, _a, _b, _c, schemas, db, cmd;
     return __generator(this, function (_d) {
@@ -72,7 +73,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 cmd = [
                     'postgraphile',
                     '--connection',
-                    "postgres://postgres:@localhost/" + db,
+                    "postgres://" + skitch_env_1.default.PGUSER + ":" + skitch_env_1.default.PGPASSWORD + "@" + skitch_env_1.default.PGHOST + ":" + skitch_env_1.default.PGPORT + "/" + db,
                     '--schema',
                     schemas.join(','),
                 ].join(' ');

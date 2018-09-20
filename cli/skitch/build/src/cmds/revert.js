@@ -38,6 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
+var skitch_env_1 = require("skitch-env");
 var questions = [
     {
         _: true,
@@ -53,7 +54,7 @@ var questions = [
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, db, confirm, sqitch;
+    var _a, db, confirm;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
@@ -61,7 +62,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 _a = _b.sent(), db = _a.db, confirm = _a.confirm;
                 if (!confirm)
                     return [2 /*return*/];
-                sqitch = shell.exec("PGUSER=postgres PGHOST=localhost sqitch revert db:pg:" + db + " -y");
+                shell.exec("sqitch revert db:pg:" + db + " -y", {
+                    env: skitch_env_1.default
+                });
                 return [2 /*return*/];
         }
     });

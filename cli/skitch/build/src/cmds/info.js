@@ -38,6 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
 var pgPromise = require('pg-promise');
+var skitch_env_1 = require("skitch-env");
 var policies = "SELECT\n  CONCAT(n.nspname, '.', c.relname) AS tablename,\n  pol.polname AS policyname\n  FROM pg_policy pol\n  JOIN pg_class c ON c.oid = pol.polrelid\n  LEFT JOIN pg_namespace n ON n.oid = c.relnamespace\n";
 var grants = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee != 'postgres'\n  AND grantee != 'PUBLIC'\n  ORDER BY table_schema, table_name\n";
 var anonymous = "SELECT\n  grantee, privilege_type, table_schema, table_name\n  FROM information_schema.role_table_grants\n  WHERE grantee = 'anonymous'\n  ORDER BY table_schema, table_name\n";
@@ -86,11 +87,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 initOptions = {};
                 pgp = pgPromise(initOptions);
                 cn = {
-                    host: 'localhost',
-                    port: 5432,
+                    host: skitch_env_1.default.PGHOST,
+                    port: skitch_env_1.default.PGPORT,
                     database: db,
-                    user: 'postgres',
-                    password: '',
+                    user: skitch_env_1.default.PGUSER,
+                    password: skitch_env_1.default.PGPASSWORD,
                 };
                 d = pgp(cn);
                 console.log(query);

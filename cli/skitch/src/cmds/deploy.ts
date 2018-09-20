@@ -1,5 +1,6 @@
 import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
+import env from 'skitch-env';
 
 const questions = [
   {
@@ -9,7 +10,7 @@ const questions = [
     required: true,
   },
   {
-    name: 'confirm',
+    name: 'yes',
     type: 'confirm',
     message: 'are you sure?',
     required: true,
@@ -18,5 +19,7 @@ const questions = [
 export default async argv => {
   const { db, confirm } = await prompt(questions, argv);
   if (!confirm) return;
-  shell.exec(`PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${db}`);
+  shell.exec(`sqitch deploy db:pg:${db}`, {
+    env
+  });
 };
