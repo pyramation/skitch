@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var child_process_1 = require("child_process");
 var path_1 = require("path");
-var resolve_1 = require("./resolve");
+var skitch_utils_1 = require("skitch-utils");
 var utils_1 = require("./utils");
 function sqitch(_a, path, scriptType) {
     var database = _a.database, host = _a.host, password = _a.password, port = _a.port, user = _a.user;
@@ -70,7 +70,7 @@ function sqitchFast(config, path, scriptType) {
         var sql;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, resolve_1.resolve(path, scriptType)];
+                case 0: return [4 /*yield*/, skitch_utils_1.resolve(path, scriptType)];
                 case 1:
                     sql = _a.sent();
                     return [4 /*yield*/, utils_1.streamSql(config, sql)];

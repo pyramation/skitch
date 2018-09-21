@@ -47,7 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var v4 = require('uuid/v4');
 var db_1 = require("./db");
 var sqitch_1 = require("./sqitch");
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var connection_1 = require("./connection");
 var path_1 = require("path");
 exports.getOpts = function (configOpts) { return __awaiter(_this, void 0, void 0, function () {
@@ -59,7 +59,7 @@ exports.getOpts = function (configOpts) { return __awaiter(_this, void 0, void 0
                 configOpts = configOpts || {};
                 _b = configOpts.user, user = _b === void 0 ? PGUSER : _b, _c = configOpts.password, password = _c === void 0 ? PGPASSWORD : _c, _d = configOpts.port, port = _d === void 0 ? PGPORT : _d, _e = configOpts.host, host = _e === void 0 ? PGHOST : _e, _f = configOpts.hot, hot = _f === void 0 ? FAST_TEST : _f, template = configOpts.template, _g = configOpts.prefix, prefix = _g === void 0 ? 'testing-db' : _g, directory = configOpts.directory;
                 if (!(!directory && !template)) return [3 /*break*/, 2];
-                return [4 /*yield*/, skitch_path_1.default()];
+                return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
                 directory = _h.sent();
                 return [3 /*break*/, 3];

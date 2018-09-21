@@ -5,3 +5,4 @@ export * from './src/roles';
 export * from './src/modules';
 export * from './src/paths';
 export * from './src/plans';
+export * from './src/resolve';

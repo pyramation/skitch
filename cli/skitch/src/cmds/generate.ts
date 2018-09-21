@@ -66,7 +66,7 @@ export default async argv => {
   let change = templates[template].change(answers);
 
   var reqd: ChangePathArray = [];
-  console.log(templates[template].requires(answers))
+
   let reqs: Array<ChangePathArray> = templates[template]
     .requires(answers)
     .filter((req: ChangePathArray) => {
