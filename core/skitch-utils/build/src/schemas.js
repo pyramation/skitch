@@ -40,14 +40,14 @@ var fuzzy = require('fuzzy');
 var fs_1 = require("fs");
 var path_1 = require("path");
 var util_1 = require("util");
-var skitch_path_1 = require("skitch-path");
+var paths_1 = require("./paths");
 exports.searchSchemas = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
         var path, dirs, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 0: return [4 /*yield*/, paths_1.sqitchPath()];
                 case 1:
                     path = _a.sent();
                     _a.label = 2;

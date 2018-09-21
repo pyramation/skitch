@@ -7,4 +7,7 @@ __export(require("./src/procedures"));
 __export(require("./src/schemas"));
 __export(require("./src/tables"));
 __export(require("./src/roles"));
+__export(require("./src/modules"));
+__export(require("./src/paths"));
+__export(require("./src/plans"));
 //# sourceMappingURL=index.js.map

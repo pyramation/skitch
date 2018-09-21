@@ -100,8 +100,12 @@ exports.getConnection = function (configOpts, database) { return __awaiter(_this
                     host: host,
                 };
                 if (!hot) return [3 /*break*/, 4];
+                // FAST_TEST=1
+                // createdb + hot loaded sql
                 return [4 /*yield*/, db_1.createdb(connection)];
             case 2:
+                // FAST_TEST=1
+                // createdb + hot loaded sql
                 _a.sent();
                 return [4 /*yield*/, sqitch_1.sqitchFast(connection, directory)];
             case 3:
@@ -109,12 +113,17 @@ exports.getConnection = function (configOpts, database) { return __awaiter(_this
                 return [3 /*break*/, 9];
             case 4:
                 if (!template) return [3 /*break*/, 6];
+                // createdb from a template already with data...
                 return [4 /*yield*/, db_1.templatedb(__assign({}, connection, { template: template }))];
             case 5:
+                // createdb from a template already with data...
                 _a.sent();
                 return [3 /*break*/, 9];
-            case 6: return [4 /*yield*/, db_1.createdb(connection)];
+            case 6: 
+            // createdb + sqitch it
+            return [4 /*yield*/, db_1.createdb(connection)];
             case 7:
+                // createdb + sqitch it
                 _a.sent();
                 return [4 /*yield*/, sqitch_1.sqitch(connection, directory)];
             case 8:

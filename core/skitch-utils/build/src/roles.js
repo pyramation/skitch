@@ -39,14 +39,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fuzzy = require('fuzzy');
 var path_1 = require("path");
 var glob = require("glob");
-var skitch_path_1 = require("skitch-path");
+var paths_1 = require("./paths");
 exports.searchRolesLocal = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
         var path, roles, roleDir;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 0: return [4 /*yield*/, paths_1.sqitchPath()];
                 case 1:
                     path = _a.sent();
                     roleDir = path_1.resolve(path + "/deploy/roles");
@@ -75,7 +75,7 @@ exports.searchRoles = function (answers, input) {
         var path, roles;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, skitch_path_1.default()];
+                case 0: return [4 /*yield*/, paths_1.sqitchPath()];
                 case 1:
                     path = _a.sent();
                     roles = ['anonymous', 'authenticated', 'administrator'];
