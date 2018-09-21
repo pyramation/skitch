@@ -51,8 +51,8 @@ var questions = [
         name: 'name',
         message: 'project name (e.g., flipr)',
         default: path_1.basename(process.cwd()),
-        required: true,
-    },
+        required: true
+    }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     // TODO make a class that uses paths instead of some.sql
@@ -115,9 +115,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 planfile = [];
                 deps = {};
                 reg = {};
-                makeKey = function (sqlmodule) {
-                    return '/deploy/' + sqlmodule + '.sql';
-                };
+                makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
                 return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
             case 4:
                 files = _b.sent();

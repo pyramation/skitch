@@ -5,7 +5,6 @@ import { skitchPath } from './paths';
 import { listModules } from './modules';
 
 export const makePlan = async (packageDir, name) => {
-
   var now = '2017-08-11T08:11:51Z';
 
   var external = [];
@@ -15,8 +14,7 @@ export const makePlan = async (packageDir, name) => {
   var deps: { [type: string]: any } = {};
   var reg: { [type: string]: any } = {};
 
-  const makeKey = (sqlmodule) =>
-    '/deploy/' + sqlmodule + '.sql';
+  const makeKey = sqlmodule => '/deploy/' + sqlmodule + '.sql';
 
   // TODO make a class that uses paths instead of some.sql
 
@@ -35,7 +33,6 @@ export const makePlan = async (packageDir, name) => {
       } else {
         throw new Error(`no module ${sqlmodule}`);
       }
-
     }
 
     for (var i = 0; i < edges.length; i++) {
@@ -93,7 +90,7 @@ export const makePlan = async (packageDir, name) => {
     {
       [makeKey('apps/index')]: Object.keys(deps)
         .filter(dep => dep.match(/^\/deploy\//))
-        .map(dep => dep.replace(/^\/deploy\//, '').replace(/.sql$/, '')),
+        .map(dep => dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''))
     },
     deps
   );
@@ -103,11 +100,11 @@ export const makePlan = async (packageDir, name) => {
   resolved.splice(index);
 
   // move extensions up
-  const extensions = resolved.filter(a=>a.match(/^extensions/));
-  const normalSql = resolved.filter(a=>!a.match(/^extensions/));
+  const extensions = resolved.filter(a => a.match(/^extensions/));
+  const normalSql = resolved.filter(a => !a.match(/^extensions/));
 
   // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
-  resolved = [...extensions, ...normalSql]
+  resolved = [...extensions, ...normalSql];
   // resolved = [...normalSql];
 
   resolved.forEach(res => {
@@ -124,10 +121,9 @@ export const makePlan = async (packageDir, name) => {
   });
 
   return planfile.join('\n');
-
 };
 
-export const getPlan = async (name) => {
+export const getPlan = async name => {
   const modules = await listModules();
   if (!modules[name]) {
     throw new Error(`${name} NOT FOUND!`);

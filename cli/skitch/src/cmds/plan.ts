@@ -14,8 +14,8 @@ const questions = [
     name: 'name',
     message: 'project name (e.g., flipr)',
     default: basename(process.cwd()),
-    required: true,
-  },
+    required: true
+  }
 ];
 
 export default async argv => {
@@ -49,8 +49,7 @@ export default async argv => {
   var deps: { [type: string]: any } = {};
   var reg: { [type: string]: any } = {};
 
-  const makeKey = (sqlmodule) =>
-    '/deploy/' + sqlmodule + '.sql';
+  const makeKey = sqlmodule => '/deploy/' + sqlmodule + '.sql';
 
   // TODO make a class that uses paths instead of some.sql
 
@@ -69,26 +68,25 @@ export default async argv => {
       } else {
         throw new Error(`no module ${sqlmodule}`);
       }
-
     }
     try {
       console.log('edges');
       console.log(edges);
 
-    for (var i = 0; i < edges.length; i++) {
-      console.log('edges[i]');
-      console.log(edges[i]);
-      var dep = edges[i];
-      if (!resolved.includes(dep)) {
-        if (unresolved.includes(dep)) {
-          throw new Error(`Circular reference detected ${sqlmodule}, ${dep}`);
+      for (var i = 0; i < edges.length; i++) {
+        console.log('edges[i]');
+        console.log(edges[i]);
+        var dep = edges[i];
+        if (!resolved.includes(dep)) {
+          if (unresolved.includes(dep)) {
+            throw new Error(`Circular reference detected ${sqlmodule}, ${dep}`);
+          }
+          dep_resolve(dep, resolved, unresolved);
         }
-        dep_resolve(dep, resolved, unresolved);
       }
+    } catch (e) {
+      console.error(e);
     }
-  } catch (e) {
-    console.error(e);
-  }
     resolved.push(sqlmodule);
     var index = unresolved.indexOf(sqlmodule);
     unresolved.splice(index);
@@ -139,7 +137,7 @@ export default async argv => {
     {
       [makeKey('apps/index')]: Object.keys(deps)
         .filter(dep => dep.match(/^\/deploy\//))
-        .map(dep => dep.replace(/^\/deploy\//, '').replace(/.sql$/, '')),
+        .map(dep => dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''))
     },
     deps
   );
@@ -149,11 +147,11 @@ export default async argv => {
   resolved.splice(index);
 
   // move extensions up
-  const extensions = resolved.filter(a=>a.match(/^extensions/));
-  const normalSql = resolved.filter(a=>!a.match(/^extensions/));
+  const extensions = resolved.filter(a => a.match(/^extensions/));
+  const normalSql = resolved.filter(a => !a.match(/^extensions/));
 
   // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
-  resolved = [...extensions, ...normalSql]
+  resolved = [...extensions, ...normalSql];
   // resolved = [...normalSql];
 
   resolved.forEach(res => {

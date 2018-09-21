@@ -8,32 +8,33 @@ import { sync as glob } from 'glob';
 import { skitchPath as sPath } from 'skitch-utils';
 
 export default async argv => {
-
   const native = [];
   const skitchPath = await sPath();
 
-  const extensions = glob (skitchPath + '/**/*.control').reduce((m, v)=> {
+  const extensions = glob(skitchPath + '/**/*.control').reduce((m, v) => {
     const contents = readFileSync(v).toString();
     const key = basename(v).split('.control')[0];
     m[key] = {};
-    m[key] = {path: v};
+    m[key] = { path: v };
     m[key].requires = contents
-                      .split('\n')
-                      .find(el=>/^requires/.test(el))
-                      .split('=')[1]
-                      .split(',').map(el=>
-                        el
-                          .replace(/[\'\s]*/g, '')
-                          .trim()
-                      );
+      .split('\n')
+      .find(el => /^requires/.test(el))
+      .split('=')[1]
+      .split(',')
+      .map(el => el.replace(/[\'\s]*/g, '').trim());
     m[key].version = contents
-                      .split('\n')
-                      .find(el=>/^default_version/.test(el))
-                      .split('=')[1]
-                      .replace(/[\']*/g, '')
-                      .trim()
-                      ;
-    m[key].sql = readFileSync(resolve(`${dirname(v)}/sql/${key}--${m[key].version}.sql`)).toString().split('\n').filter((l, i)=>i!==0).join('\n');
+      .split('\n')
+      .find(el => /^default_version/.test(el))
+      .split('=')[1]
+      .replace(/[\']*/g, '')
+      .trim();
+    m[key].sql = readFileSync(
+      resolve(`${dirname(v)}/sql/${key}--${m[key].version}.sql`)
+    )
+      .toString()
+      .split('\n')
+      .filter((l, i) => i !== 0)
+      .join('\n');
     return m;
   }, {});
 
@@ -71,7 +72,6 @@ export default async argv => {
   let resolved: string[] = [];
   let unresolved: string[] = [];
 
-
   const questions = [
     {
       _: true,
@@ -79,17 +79,17 @@ export default async argv => {
       name: 'dep',
       message: 'choose a dep',
       choices: Object.keys(extensions),
-      required: true,
+      required: true
     },
     {
       _: true,
       name: 'path',
       message: 'choose a name',
-      filter: (val) => {
+      filter: val => {
         val = /.sql$/.test(val) ? val : val + '.sql';
-        return resolve( skitchPath + '/' + val )
+        return resolve(skitchPath + '/' + val);
       },
-      required: true,
+      required: true
     }
   ];
 
@@ -99,13 +99,12 @@ export default async argv => {
 
   let sql = [];
 
-
-  resolved.forEach(extension=> {
-      if (native.includes(extension)) {
-        sql.push(`CREATE EXTENSION IF NOT EXISTS "${extension}" CASCADE;`);
-      } else {
-        sql.push(extensions[extension].sql);
-      }
+  resolved.forEach(extension => {
+    if (native.includes(extension)) {
+      sql.push(`CREATE EXTENSION IF NOT EXISTS "${extension}" CASCADE;`);
+    } else {
+      sql.push(extensions[extension].sql);
+    }
   });
 
   writeFileSync(path, sql.join('\n'));

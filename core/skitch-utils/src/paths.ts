@@ -12,7 +12,7 @@ const sqitchPath = (cwd: string = process.cwd()) => {
     walkup(
       'sqitch.conf',
       {
-        cwd: process.cwd(),
+        cwd: process.cwd()
       },
       (err, matches) => {
         if (err) {
@@ -42,7 +42,7 @@ const skitchPath = (cwd: string = process.cwd()) => {
     walkup(
       'skitch.json',
       {
-        cwd: process.cwd(),
+        cwd: process.cwd()
       },
       (err, matches) => {
         if (err) {
@@ -59,7 +59,4 @@ const skitchPath = (cwd: string = process.cwd()) => {
   });
 };
 
-export {
-  skitchPath,
-  sqitchPath
-};
+export { skitchPath, sqitchPath };

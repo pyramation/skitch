@@ -64,14 +64,14 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         name: 'modulename',
                         message: 'choose a module',
                         choices: Object.keys(pkg.dependencies),
-                        required: true,
+                        required: true
                     },
                     {
                         _: true,
                         name: 'exportedname',
                         message: 'exported name (usually same as modulename)',
-                        required: true,
-                    },
+                        required: true
+                    }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:

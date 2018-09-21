@@ -24,14 +24,14 @@ export default async argv => {
       name: 'modulename',
       message: 'choose a module',
       choices: Object.keys(pkg.dependencies),
-      required: true,
+      required: true
     },
     {
       _: true,
       name: 'exportedname',
       message: 'exported name (usually same as modulename)',
-      required: true,
-    },
+      required: true
+    }
   ];
 
   let { modulename, exportedname } = await prompt(questions, argv);

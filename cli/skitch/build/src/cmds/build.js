@@ -81,18 +81,19 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         .split('\n')
                         .find(function (el) { return /^requires/.test(el); })
                         .split('=')[1]
-                        .split(',').map(function (el) {
-                        return el
-                            .replace(/[\'\s]*/g, '')
-                            .trim();
-                    });
+                        .split(',')
+                        .map(function (el) { return el.replace(/[\'\s]*/g, '').trim(); });
                     m[key].version = contents
                         .split('\n')
                         .find(function (el) { return /^default_version/.test(el); })
                         .split('=')[1]
                         .replace(/[\']*/g, '')
                         .trim();
-                    m[key].sql = fs_1.readFileSync(path_1.resolve(path_1.dirname(v) + "/sql/" + key + "--" + m[key].version + ".sql")).toString().split('\n').filter(function (l, i) { return i !== 0; }).join('\n');
+                    m[key].sql = fs_1.readFileSync(path_1.resolve(path_1.dirname(v) + "/sql/" + key + "--" + m[key].version + ".sql"))
+                        .toString()
+                        .split('\n')
+                        .filter(function (l, i) { return i !== 0; })
+                        .join('\n');
                     return m;
                 }, {});
                 deps = Object.keys(extensions).reduce(function (m, k) {
@@ -108,7 +109,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         name: 'dep',
                         message: 'choose a dep',
                         choices: Object.keys(extensions),
-                        required: true,
+                        required: true
                     },
                     {
                         _: true,
@@ -118,7 +119,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                             val = /.sql$/.test(val) ? val : val + '.sql';
                             return path_1.resolve(skitchPath + '/' + val);
                         },
-                        required: true,
+                        required: true
                     }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
