@@ -40,8 +40,8 @@ var child_process_1 = require("child_process");
 var fuzzy_1 = require("fuzzy");
 var inquirerer_1 = require("inquirerer");
 var skitch_templates_1 = require("skitch-templates");
+var skitch_utils_1 = require("skitch-utils");
 var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
-// sqitch add appschema -n 'Add schema for all flipr objects.'
 var searchTemplates = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve) {
@@ -59,12 +59,12 @@ var templateQuestion = [
         type: 'autocomplete',
         name: 'template',
         message: 'what do you want to create?',
-        source: searchTemplates,
-    },
+        source: searchTemplates
+    }
 ];
 exports.aliases = ['g'];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var template, questions, answers, params, vars, change, reqd, reqs, cmd, sqitch;
+    var template, questions, answers, cmd, sqitch;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(templateQuestion, argv)];
@@ -74,59 +74,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
                 answers = _a.sent();
-                params = Object.keys(answers).reduce(function (m, v) {
-                    if (answers[v] instanceof Array) {
-                        answers[v].forEach(function (value) {
-                            m.push({
-                                key: v,
-                                value: value,
-                            });
-                        });
-                    }
-                    else {
-                        if (typeof answers[v] === 'boolean' && !answers[v]) {
-                            return m;
-                        }
-                        m.push({
-                            key: v,
-                            value: answers[v],
-                        });
-                    }
-                    return m;
-                }, []);
-                vars = params.map(function (obj) { return "--set " + obj.key + "=\"" + obj.value + "\""; }).join(' ');
-                change = skitch_templates_1.default[template].change(answers);
-                reqd = [];
-                reqs = skitch_templates_1.default[template]
-                    .requires(answers)
-                    .filter(function (req) {
-                    if (reqd.includes(req.join('/'))) {
-                        return false;
-                    }
-                    reqd.push(req.join('/'));
-                    return true;
-                })
-                    .map(function (req) {
-                    return "-r " + req.join('/');
-                })
-                    .join(' ');
-                change = change.join('/');
-                if (!change || change === '' || change === '/') {
-                    throw new Error('no change found!');
-                }
-                cmd = [
-                    'sqitch',
-                    'add',
-                    change,
-                    '--template',
-                    template,
-                    '--template-directory',
-                    templatePath,
-                    '-n',
-                    "'add " + change + "'",
-                    vars,
-                    reqs,
-                ].join(' ');
+                return [4 /*yield*/, skitch_utils_1.generate({ templates: skitch_templates_1.default, template: template, templatePath: templatePath, payload: payload })];
+            case 3:
+                cmd = _a.sent();
                 console.log(cmd);
                 sqitch = child_process_1.exec(cmd.trim());
                 sqitch.stdout.pipe(process.stdout);
