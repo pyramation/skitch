@@ -1,5 +1,5 @@
 import * as walkup from 'node-walkup';
-export const sqitchPath = (cwd: string = process.cwd()) => {
+const sqitchPath = (cwd: string = process.cwd()) => {
   let obj;
 
   return new Promise<string[]>((resolve, reject) => {
@@ -29,7 +29,7 @@ export const sqitchPath = (cwd: string = process.cwd()) => {
   });
 };
 
-export const skitchPath = (cwd: string = process.cwd()) => {
+const skitchPath = (cwd: string = process.cwd()) => {
   let obj;
 
   return new Promise<string[]>((resolve, reject) => {
@@ -59,4 +59,7 @@ export const skitchPath = (cwd: string = process.cwd()) => {
   });
 };
 
-export default sqitchPath;
+export {
+  skitchPath,
+  sqitchPath
+};

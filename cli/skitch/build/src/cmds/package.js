@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var skitch_path_1 = require("skitch-path");
 var parser = require('pgsql-parser');
 // TODO move resolve to skitch-utils
 var skitch_testing_1 = require("skitch-testing");
@@ -65,7 +64,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
             case 1:
                 sql = _a.sent();
-                return [4 /*yield*/, skitch_path_1.default()];
+                return [4 /*yield*/, sqitchPath()];
             case 2:
                 sqitchPath = _a.sent();
                 pkgPath = sqitchPath + "/package.json";

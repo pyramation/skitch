@@ -1,7 +1,4 @@
 language: node_js
-branches:
-  only:
-    - master
 notifications:
   email: false
 node_js:
@@ -19,6 +16,7 @@ env:
   matrix:
     - PACKAGE=core/skitch-testing
     - PACKAGE=core/skitch-transform
+    - PACKAGE=core/skitch-utils
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -qy --force-yes perl build-essential cpanminus

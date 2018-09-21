@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { prompt } from 'inquirerer';
-import sqitchPath from 'skitch-path';
+import { sqitchPath } from 'skitch-utils';
 import * as shell from 'shelljs';
 
 const path = require('path');

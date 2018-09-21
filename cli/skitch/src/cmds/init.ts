@@ -2,7 +2,7 @@ import 'skitch-template';
 import { promisify } from 'util';
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
-import path from 'skitch-path';
+import { sqitchPath as path } from 'skitch-utils';
 import { dirname, basename } from 'path';
 import * as shell from 'shelljs';
 import { writeFileSync } from 'fs';

@@ -1,5 +1,5 @@
 import { prompt } from 'inquirerer';
-import path from 'skitch-path';
+import { sqitchPath as path } from 'skitch-utils';
 import * as shell from 'shelljs';
 import plan from './plan';
 import { resolve } from 'path';

@@ -38,7 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
 var child_process_1 = require("child_process");
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var plan_1 = require("./plan");
 var promisify = require('util').promisify;
 var fs = require('fs');
@@ -53,7 +53,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
     var PKGDIR, pkg, questions, _a, modulename, exportedname;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
                 PKGDIR = _b.sent();
                 pkg = require(PKGDIR + "/package.json");
