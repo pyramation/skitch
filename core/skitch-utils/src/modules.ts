@@ -3,7 +3,9 @@ import { basename, dirname, resolve, relative } from 'path';
 import { sync as glob } from 'glob';
 import { skitchPath } from './paths';
 
+let _listModules = null;
 export const listModules = async () => {
+  if (_listModules) return _listModules;
   const path = await skitchPath();
   const extensions = glob (path + '/**/*.control').reduce((m, v)=> {
     const contents = readFileSync(v).toString();
@@ -28,7 +30,7 @@ export const listModules = async () => {
                       ;
     return m;
   }, {});
-
+  _listModules = extensions;
   return extensions;
 };
 
@@ -179,15 +181,25 @@ export const getPlan = async (name) => {
 
 };
 
-
 export const getExtensionsAndModules = async (sqlmodule) => {
   const modules = await listModules();
   if (!modules[sqlmodule]) {
     throw new Error(`${sqlmodule} NOT FOUND!`);
   }
   const native = modules[sqlmodule].requires.filter(a=>!Object.keys(modules).includes(a));
-  const sqitch = modules[sqlmodule].requires.filter(a=>Object.keys(modules).includes(a));;
+  const sqitch = modules[sqlmodule].requires.filter(a=>Object.keys(modules).includes(a));
   return {
     native, sqitch
   }
+};
+
+export const getExtensionsAndModulesChanges = async (sqlmodule) => {
+  const modules = await getExtensionsAndModules(sqlmodule);
+  const sqitchies = [];
+  for (let i=0; i<modules.sqitch.length; i++) {
+    const mod = modules.sqitch[i];
+    sqitchies.push( {[mod]: await latestChange(mod)} );
+  }
+  modules.sqitch = sqitchies;
+  return modules;
 };
