@@ -12,7 +12,7 @@ commit;`;
 
 describe('resolve', () => {
   it('resolves sql in proper order', async () => {
-    let sql = await resolve(__dirname + '/fixtures/basic', 'revert');
+    let sql = await resolve(__dirname + '/fixtures/resolve/basic', 'revert');
     expect(sql).toBeTruthy();
     expect(sql.trim()).toEqual(expectResult);
   });

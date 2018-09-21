@@ -78,9 +78,7 @@ exports.makePlan = function (packageDir, name) { return __awaiter(_this, void 0,
                 planfile = [];
                 deps = {};
                 reg = {};
-                makeKey = function (sqlmodule) {
-                    return '/deploy/' + sqlmodule + '.sql';
-                };
+                makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
                 return [4 /*yield*/, glob_1.sync(packageDir + "/deploy/**/**.sql")];
             case 1:
                 files = _b.sent();

@@ -1,9 +1,7 @@
 import * as shell from 'shelljs';
 import { sqitchPath as path } from 'skitch-utils';
 const parser = require('pgsql-parser');
-
-// TODO move resolve to skitch-utils
-import { resolve } from 'skitch-testing';
+import { resolve } from 'skitch-utils';
 import { transformProps } from 'skitch-transform';
 import { prompt } from 'inquirerer';
 import { writeFileSync, readFileSync } from 'fs';

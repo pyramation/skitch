@@ -1,4 +1,4 @@
-process.env.SKITCH_PATH = __dirname + "/fixtures/";
+process.env.SKITCH_PATH = __dirname + "/fixtures/skitch";
 
 import {
   listModules,

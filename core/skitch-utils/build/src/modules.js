@@ -60,11 +60,8 @@ exports.listModules = function () { return __awaiter(_this, void 0, void 0, func
                         .split('\n')
                         .find(function (el) { return /^requires/.test(el); })
                         .split('=')[1]
-                        .split(',').map(function (el) {
-                        return el
-                            .replace(/[\'\s]*/g, '')
-                            .trim();
-                    });
+                        .split(',')
+                        .map(function (el) { return el.replace(/[\'\s]*/g, '').trim(); });
                     m[key].version = contents
                         .split('\n')
                         .find(function (el) { return /^default_version/.test(el); })
@@ -91,7 +88,11 @@ exports.latestChange = function (sqlmodule) { return __awaiter(_this, void 0, vo
                 return [4 /*yield*/, paths_1.skitchPath()];
             case 2:
                 path = _a.sent();
-                plan = fs_1.readFileSync(path + "/" + modules[sqlmodule].path + "/sqitch.plan").toString().split('\n').map(function (a) { return a.trim(); }).filter(function (a) { return a; });
+                plan = fs_1.readFileSync(path + "/" + modules[sqlmodule].path + "/sqitch.plan")
+                    .toString()
+                    .split('\n')
+                    .map(function (a) { return a.trim(); })
+                    .filter(function (a) { return a; });
                 return [2 /*return*/, plan[plan.length - 1].split(' ')[0]];
         }
     });
@@ -107,9 +108,12 @@ exports.getExtensionsAndModules = function (sqlmodule) { return __awaiter(_this,
                     throw new Error(sqlmodule + " NOT FOUND!");
                 }
                 native = modules[sqlmodule].requires.filter(function (a) { return !Object.keys(modules).includes(a); });
-                sqitch = modules[sqlmodule].requires.filter(function (a) { return Object.keys(modules).includes(a); });
+                sqitch = modules[sqlmodule].requires.filter(function (a) {
+                    return Object.keys(modules).includes(a);
+                });
                 return [2 /*return*/, {
-                        native: native, sqitch: sqitch
+                        native: native,
+                        sqitch: sqitch
                     }];
         }
     });

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-process.env.SKITCH_PATH = __dirname + "/fixtures/";
+process.env.SKITCH_PATH = __dirname + "/fixtures/skitch";
 var index_1 = require("../index");
 var cleanText = function (t) {
     return t

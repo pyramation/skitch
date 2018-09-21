@@ -1,7 +1,7 @@
 const Streamify = require('streamify-string');
 import { spawn } from 'child_process';
 import { resolve as resolvePath } from 'path';
-import { resolve as resolveSql } from './resolve';
+import { resolve as resolveSql } from 'skitch-utils';
 import { TUtilsConfig } from './types';
 
 export const setArgs = (config: TUtilsConfig) => {

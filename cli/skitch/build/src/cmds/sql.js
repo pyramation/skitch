@@ -38,13 +38,15 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var skitch_utils_1 = require("skitch-utils");
 var parser = require('pgsql-parser');
-// TODO move resolve to skitch-utils
-var skitch_testing_1 = require("skitch-testing");
+var skitch_utils_2 = require("skitch-utils");
 var skitch_transform_1 = require("skitch-transform");
 var inquirerer_1 = require("inquirerer");
 var fs_1 = require("fs");
 var sluggify = function (text) {
-    return text.toString().toLowerCase().trim()
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
         .replace(/\s+/g, '-') // Replace spaces with -
         .replace(/&/g, '-and-') // Replace & with 'and'
         .replace(/[^\w\-]+/g, '') // Remove all non-word chars
@@ -62,7 +64,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
     var sql, sqitchPath, pkgPath, pkg, questions, _a, version, ignore, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query, finalSql, tree1, tree2, diff;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
+            case 0: return [4 /*yield*/, skitch_utils_2.resolve()];
             case 1:
                 sql = _b.sent();
                 return [4 /*yield*/, skitch_utils_1.sqitchPath()];
@@ -75,7 +77,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         name: 'version',
                         message: 'version',
                         default: pkg.version,
-                        required: true,
+                        required: true
                     },
                     {
                         name: 'ignore',
@@ -104,7 +106,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 fs_1.writeFileSync(controlPath, control.replace(/default_version = '[0-9\.]+'/, "default_version = '" + version + "'"));
                 // package json
                 fs_1.writeFileSync(pkgPath, JSON.stringify(Object.assign({}, pkg, { version: version }), null, 2));
-                regex = new RegExp(extname + '--[0-9\.]+.sql');
+                regex = new RegExp(extname + '--[0-9.]+.sql');
                 fs_1.writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
                 // sql
                 try {
@@ -117,7 +119,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     fs_1.writeFileSync(sqitchPath + "/" + sqlFileName, "" + finalSql);
                     tree1 = query;
                     tree2 = parser.parse(finalSql).query;
-                    diff = (JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2)));
+                    diff = JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2));
                     if (diff) {
                         console.error('DIFF exists! Careful. Check current folder...');
                         fs_1.writeFileSync(sqitchPath + "/" + sqlFileName + ".tree.orig.json", JSON.stringify(exports.cleanTree(tree1), null, 2));

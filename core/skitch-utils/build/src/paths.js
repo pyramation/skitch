@@ -12,7 +12,7 @@ var sqitchPath = function (cwd) {
             return resolve(obj);
         }
         walkup('sqitch.conf', {
-            cwd: process.cwd(),
+            cwd: process.cwd()
         }, function (err, matches) {
             if (err) {
                 return reject(err);
@@ -38,7 +38,7 @@ var skitchPath = function (cwd) {
             return resolve(obj);
         }
         walkup('skitch.json', {
-            cwd: process.cwd(),
+            cwd: process.cwd()
         }, function (err, matches) {
             if (err) {
                 return reject(err);
