@@ -1,4 +1,4 @@
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import { prompt } from 'inquirerer';
 import { basename } from 'path';
 const mkdirp = require('mkdirp').sync;
@@ -12,7 +12,7 @@ const questions = [
   },
 ];
 export default async argv => {
-  const PKGDIR = await skitchPath();
+  const PKGDIR = await sqitchPath();
   let { name } = await prompt(questions, argv);
 
   const template = `

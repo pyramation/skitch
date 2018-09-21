@@ -2,7 +2,7 @@ var fuzzy = require('fuzzy');
 import { readdir } from 'fs';
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 
 export interface HashObject {
   [key: string]: string;
@@ -15,7 +15,7 @@ export interface FuzzyObject {
 export const searchSchemas = (answers: HashObject, input: string) => {
   input = input || '';
   return new Promise(async resolve => {
-    const path = await skitchPath();
+    const path = await sqitchPath();
     var dirs;
     try {
       dirs = await promisify(readdir)(resolvePath(path + '/deploy/schemas'));

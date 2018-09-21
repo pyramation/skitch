@@ -3,12 +3,12 @@ import { readdir } from 'fs';
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
 import { prompt } from 'inquirerer';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import * as shell from 'shelljs';
 import env from 'skitch-env';
 
 export default async argv => {
-  const path = await skitchPath();
+  const path = await sqitchPath();
   const questions: Array<InquirerQuestion> = [
     {
       name: 'db',

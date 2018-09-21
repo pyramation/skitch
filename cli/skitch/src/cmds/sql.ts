@@ -28,9 +28,9 @@ export const cleanTree = (tree) => {
 
 export default async argv => {
   const sql = await resolve();
-  const skitchPath = await path();
+  const sqitchPath = await path();
 
-  const pkgPath = `${skitchPath}/package.json`;
+  const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);
 
   const questions = [
@@ -59,8 +59,8 @@ export default async argv => {
   console.log(ignore);
 
   const extname = sluggify(pkg.name);
-  const makePath = `${skitchPath}/Makefile`;
-  const controlPath = `${skitchPath}/${extname}.control`;
+  const makePath = `${sqitchPath}/Makefile`;
+  const controlPath = `${sqitchPath}/${extname}.control`;
   const sqlFileName = `${extname}--${version}.sql`;
 
   const Makefile = readFileSync(makePath).toString();
@@ -84,7 +84,7 @@ export default async argv => {
     }, []);
 
     const finalSql = parser.deparse(query);
-    writeFileSync(`${skitchPath}/${sqlFileName}`, `${finalSql}`);
+    writeFileSync(`${sqitchPath}/${sqlFileName}`, `${finalSql}`);
 
     const tree1 = query;
     const tree2 = parser.parse(finalSql).query;
@@ -92,8 +92,8 @@ export default async argv => {
     const diff = (JSON.stringify(cleanTree(tree1)) !== JSON.stringify(cleanTree(tree2)));
     if (diff) {
       console.error('DIFF exists! Careful. Check current folder...');
-      writeFileSync(`${skitchPath}/${sqlFileName}.tree.orig.json`, JSON.stringify(cleanTree(tree1), null, 2));
-      writeFileSync(`${skitchPath}/${sqlFileName}.tree.parsed.json`, JSON.stringify(cleanTree(tree2), null, 2));
+      writeFileSync(`${sqitchPath}/${sqlFileName}.tree.orig.json`, JSON.stringify(cleanTree(tree1), null, 2));
+      writeFileSync(`${sqitchPath}/${sqlFileName}.tree.parsed.json`, JSON.stringify(cleanTree(tree2), null, 2));
     }
 
     console.log(`${sqlFileName} written`);

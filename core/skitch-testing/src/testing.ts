@@ -2,7 +2,7 @@ const v4 = require('uuid/v4');
 import { IConnected } from 'pg-promise';
 import { createdb, dropdb, templatedb } from './db';
 import { sqitchFast, sqitch } from './sqitch';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import { connect, close } from './connection';
 import { TUtilsConfig } from './types';
 import { resolve as pathResolve } from 'path';
@@ -28,7 +28,7 @@ export const getOpts = async configOpts => {
   } = configOpts;
 
   if (!directory && !template) {
-    directory = await skitchPath();
+    directory = await sqitchPath();
   } else if (directory) {
     directory = pathResolve(directory);
   }

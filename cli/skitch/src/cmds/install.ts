@@ -31,9 +31,9 @@ export default async argv => {
   switch (type) {
     case 'yarn': {
       shell.exec(`yarn add ${modulename}`);
-      const skitchPath = await path();
-      const files = `${skitchPath}/node_modules/${modulename}/src/*`;
-      shell.cp('-r', files, `${skitchPath}/`);
+      const sqitchPath = await path();
+      const files = `${sqitchPath}/node_modules/${modulename}/src/*`;
+      shell.cp('-r', files, `${sqitchPath}/`);
       await plan({});
       return;
     }

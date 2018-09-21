@@ -5,8 +5,8 @@ exports.path = function (cwd) {
     if (cwd === void 0) { cwd = process.cwd(); }
     var obj;
     return new Promise(function (resolve, reject) {
-        if (process.env.SKITCH_PATH) {
-            return resolve(process.env.SKITCH_PATH);
+        if (process.env.SQITCH_PATH) {
+            return resolve(process.env.SQITCH_PATH);
         }
         if (obj) {
             return resolve(obj);

@@ -27,10 +27,10 @@ const questions = [
 ];
 
 export default async argv => {
-  const skitchPath = await path();
+  const sqitchPath = await path();
 
   const { extname } = await prompt(questions, argv);
-  const controlFile = glob(`${skitchPath}/*.control`);
+  const controlFile = glob(`${sqitchPath}/*.control`);
   if (!controlFile || !controlFile.length) {
     throw new Error('no control file found!');
   }
@@ -81,11 +81,11 @@ export default async argv => {
   }
 
   Object.keys(output).forEach(type=>{
-    mkdirp(`${skitchPath}/${type}/extensions`);
-    writeFileSync(`${skitchPath}/${type}/extensions/${extname}.sql`, output[type].join('\n'));
+    mkdirp(`${sqitchPath}/${type}/extensions`);
+    writeFileSync(`${sqitchPath}/${type}/extensions/${extname}.sql`, output[type].join('\n'));
   });
 
-  const pkg = require(`${skitchPath}/package.json`);
+  const pkg = require(`${sqitchPath}/package.json`);
   await plan({ name: pkg.name });
 
 };

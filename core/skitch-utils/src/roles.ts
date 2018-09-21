@@ -2,7 +2,7 @@ var fuzzy = require('fuzzy');
 import { readdir } from 'fs';
 import { resolve as resolvePath, basename, dirname } from 'path';
 import * as glob from 'glob';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 
 export interface HashObject {
   schema: string;
@@ -16,7 +16,7 @@ export interface FuzzyObject {
 export const searchRolesLocal = (answers: HashObject, input: string) => {
   input = input || '';
   return new Promise(async (resolve, reject) => {
-    const path = await skitchPath();
+    const path = await sqitchPath();
 
     var roles;
 
@@ -44,7 +44,7 @@ export const searchRolesLocal = (answers: HashObject, input: string) => {
 export const searchRoles = (answers: HashObject, input: string) => {
   input = input || '';
   return new Promise(async (resolve, reject) => {
-    const path = await skitchPath();
+    const path = await sqitchPath();
 
     const roles = ['anonymous', 'authenticated', 'administrator'];
 

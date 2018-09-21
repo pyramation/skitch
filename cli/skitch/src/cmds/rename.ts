@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { prompt } from 'inquirerer';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import * as shell from 'shelljs';
 
 const glob = require('glob').sync;
@@ -25,7 +25,7 @@ const questions = [
 
 export default async argv => {
   // e.g., node ./bin/rename procedures/verify_role procedures/verify/role
-  const PKGDIR = await skitchPath();
+  const PKGDIR = await sqitchPath();
 
   let { src, dst } = await prompt(questions, argv);
 

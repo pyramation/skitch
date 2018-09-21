@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { prompt } from 'inquirerer';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import * as shell from 'shelljs';
 
 const path = require('path');
@@ -25,7 +25,7 @@ const questions = [
 ];
 
 export default async argv => {
-  const PKGDIR = await skitchPath();
+  const PKGDIR = await sqitchPath();
 
   let { filter } = await prompt(questions, argv);
 

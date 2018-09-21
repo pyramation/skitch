@@ -5,11 +5,14 @@ import { prompt } from 'inquirerer';
 import { dirname, basename, resolve } from 'path';
 import { sync as glob } from 'glob';
 
+import { skitchPath } from 'skitch-path';
+
 export default async argv => {
 
   const native = [];
+  const skitchPath = await skitchPath();
 
-  const extensions = glob (process.cwd() + '/**/*.control').reduce((m, v)=> {
+  const extensions = glob (skitchPath + '/**/*.control').reduce((m, v)=> {
     const contents = readFileSync(v).toString();
     const key = basename(v).split('.control')[0];
     m[key] = {};
@@ -84,7 +87,7 @@ export default async argv => {
       message: 'choose a name',
       filter: (val) => {
         val = /.sql$/.test(val) ? val : val + '.sql';
-        return resolve( process.cwd() + '/' + val )
+        return resolve( skitchPath + '/' + val )
       },
       required: true,
     }

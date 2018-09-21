@@ -63,12 +63,15 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         var index = unresolved.indexOf(sqlmodule);
         unresolved.splice(index);
     }
-    var native, extensions, deps, resolved, unresolved, questions, _a, dep, path, sql;
+    var native, skitchPath, extensions, deps, resolved, unresolved, questions, _a, dep, path, sql;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 native = [];
-                extensions = glob_1.sync(process.cwd() + '/**/*.control').reduce(function (m, v) {
+                return [4 /*yield*/, skitchPath()];
+            case 1:
+                skitchPath = _b.sent();
+                extensions = glob_1.sync(skitchPath + '/**/*.control').reduce(function (m, v) {
                     var contents = fs_1.readFileSync(v).toString();
                     var key = path_1.basename(v).split('.control')[0];
                     m[key] = {};
@@ -112,13 +115,13 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         message: 'choose a name',
                         filter: function (val) {
                             val = /.sql$/.test(val) ? val : val + '.sql';
-                            return path_1.resolve(process.cwd() + '/' + val);
+                            return path_1.resolve(skitchPath + '/' + val);
                         },
                         required: true,
                     }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-            case 1:
+            case 2:
                 _a = _b.sent(), dep = _a.dep, path = _a.path;
                 dep_resolve(dep, resolved, unresolved);
                 sql = [];

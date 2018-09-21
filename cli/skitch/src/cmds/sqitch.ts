@@ -119,8 +119,8 @@ export default async argv => {
       if (native.includes(extension)) {
         sh.push(`psql --dbname "$DATABASE" -c 'CREATE EXTENSION IF NOT EXISTS "${extension}" CASCADE;'`);
       } else {
-        // sh.push(`SKITCH_PATH=${extensions[extension].sqitchPath}`);
-        // sh.push(`SKITCH_PATH=${extensions[extension].sqitchPath} skitch deploy`);
+        // sh.push(`SQITCH_PATH=${extensions[extension].sqitchPath}`);
+        // sh.push(`SQITCH_PATH=${extensions[extension].sqitchPath} skitch deploy`);
         // shell.exec(`PGUSER=postgres PGHOST=localhost sqitch deploy db:pg:${db}`);
         // shell.exec(`cd ${}`);
         // NOTE just local right now

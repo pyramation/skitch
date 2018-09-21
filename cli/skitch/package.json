@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "case": "1.5.4",
+    "fuzzy": "0.1.3",
     "glob": "7.1.2",
     "inquirerer": "0.1.1",
     "minimist": "^1.2.0",

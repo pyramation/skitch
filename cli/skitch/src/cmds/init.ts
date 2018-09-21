@@ -88,17 +88,17 @@ export default async argv => {
   const { name, description, author, extensions } = await prompt(questions, argv);
   const cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
   await promisify(exec)(cmd.trim());
-  const skitchPath = await path();
+  const sqitchPath = await path();
   const pkg = makePackage({ name, description, author });
 
   // initialize template
-  shell.cp('-r', `${srcPath}/src/*`, `${skitchPath}/`);
-  shell.cp('-r', `${srcPath}/src/.*`, `${skitchPath}/`);
+  shell.cp('-r', `${srcPath}/src/*`, `${sqitchPath}/`);
+  shell.cp('-r', `${srcPath}/src/.*`, `${sqitchPath}/`);
 
-  shell.mkdir('-p', `${skitchPath}/sql`);
+  shell.mkdir('-p', `${sqitchPath}/sql`);
   const extname = sluggify(name);
 
-  writeFileSync(`${skitchPath}/Makefile`, `EXTENSION = ${extname}
+  writeFileSync(`${sqitchPath}/Makefile`, `EXTENSION = ${extname}
 DATA = sql/${extname}--0.0.1.sql
 
 PG_CONFIG = pg_config
@@ -106,7 +106,7 @@ PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
   `);
 
-  writeFileSync(`${skitchPath}/${extname}.control`, `# ${extname} extension
+  writeFileSync(`${sqitchPath}/${extname}.control`, `# ${extname} extension
 comment = '${description}'
 default_version = '0.0.1'
 module_pathname = '$libdir/${extname}'
@@ -115,7 +115,7 @@ relocatable = false
 superuser = false
   `);
 
-  writeFileSync(`${skitchPath}/package.json`, JSON.stringify(pkg, null, 2));
+  writeFileSync(`${sqitchPath}/package.json`, JSON.stringify(pkg, null, 2));
   await plan({ name });
   console.log(`
 

@@ -1,6 +1,6 @@
 import { prompt } from 'inquirerer';
 import { exec } from 'child_process';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import plan from './plan';
 
 const promisify = require('util').promisify;
@@ -13,7 +13,7 @@ const path = require('path');
 const caseLib = require('case');
 
 export default async argv => {
-  const PKGDIR = await skitchPath();
+  const PKGDIR = await sqitchPath();
 
   const pkg = require(`${PKGDIR}/package.json`);
 

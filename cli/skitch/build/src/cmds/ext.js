@@ -58,16 +58,16 @@ var questions = [
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var skitchPath, extname, controlFile, extensions, note, output, pkg;
+    var sqitchPath, extname, controlFile, extensions, note, output, pkg;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_path_1.default()];
             case 1:
-                skitchPath = _a.sent();
+                sqitchPath = _a.sent();
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
                 extname = (_a.sent()).extname;
-                controlFile = glob_1.sync(skitchPath + "/*.control");
+                controlFile = glob_1.sync(sqitchPath + "/*.control");
                 if (!controlFile || !controlFile.length) {
                     throw new Error('no control file found!');
                 }
@@ -112,10 +112,10 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 if (others) {
                 }
                 Object.keys(output).forEach(function (type) {
-                    mkdirp_1.sync(skitchPath + "/" + type + "/extensions");
-                    fs_1.writeFileSync(skitchPath + "/" + type + "/extensions/" + extname + ".sql", output[type].join('\n'));
+                    mkdirp_1.sync(sqitchPath + "/" + type + "/extensions");
+                    fs_1.writeFileSync(sqitchPath + "/" + type + "/extensions/" + extname + ".sql", output[type].join('\n'));
                 });
-                pkg = require(skitchPath + "/package.json");
+                pkg = require(sqitchPath + "/package.json");
                 return [4 /*yield*/, plan_1.default({ name: pkg.name })];
             case 3:
                 _a.sent();

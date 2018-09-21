@@ -28,9 +28,9 @@ export const cleanTree = (tree) => {
 
 export default async argv => {
   const sql = await resolve();
-  const skitchPath = await path();
+  const sqitchPath = await path();
 
-  const pkgPath = `${skitchPath}/package.json`;
+  const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);
 
   const questions = [
@@ -45,8 +45,8 @@ export default async argv => {
   const { version } = await prompt(questions, argv);
 
   const extname = sluggify(pkg.name);
-  const makePath = `${skitchPath}/Makefile`;
-  const controlPath = `${skitchPath}/${extname}.control`;
+  const makePath = `${sqitchPath}/Makefile`;
+  const controlPath = `${sqitchPath}/${extname}.control`;
   const sqlFileName = `${extname}--${version}.sql`;
 
   const Makefile = readFileSync(makePath).toString();
@@ -72,7 +72,7 @@ export default async argv => {
 
     const topLine = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
     const finalSql = parser.deparse(query);
-    writeFileSync(`${skitchPath}/sql/${sqlFileName}`, `${topLine}${finalSql}`);
+    writeFileSync(`${sqitchPath}/sql/${sqlFileName}`, `${topLine}${finalSql}`);
 
     const tree1 = query;
     const tree2 = parser.parse(finalSql).query;
@@ -80,8 +80,8 @@ export default async argv => {
     const diff = (JSON.stringify(cleanTree(tree1)) !== JSON.stringify(cleanTree(tree2)));
     if (diff) {
       console.error('DIFF exists! Careful. Check sql/ folder...');
-      writeFileSync(`${skitchPath}/sql/${sqlFileName}.tree.orig.json`, JSON.stringify(cleanTree(tree1), null, 2));
-      writeFileSync(`${skitchPath}/sql/${sqlFileName}.tree.parsed.json`, JSON.stringify(cleanTree(tree2), null, 2));
+      writeFileSync(`${sqitchPath}/sql/${sqlFileName}.tree.orig.json`, JSON.stringify(cleanTree(tree1), null, 2));
+      writeFileSync(`${sqitchPath}/sql/${sqlFileName}.tree.parsed.json`, JSON.stringify(cleanTree(tree2), null, 2));
     }
 
     console.log(`${sqlFileName} written`);

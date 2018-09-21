@@ -59,7 +59,7 @@ exports.cleanTree = function (tree) {
     });
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sql, skitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query, topLine, finalSql, tree1, tree2, diff;
+    var sql, sqitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, query, topLine, finalSql, tree1, tree2, diff;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_testing_1.resolve()];
@@ -67,8 +67,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 sql = _a.sent();
                 return [4 /*yield*/, skitch_path_1.default()];
             case 2:
-                skitchPath = _a.sent();
-                pkgPath = skitchPath + "/package.json";
+                sqitchPath = _a.sent();
+                pkgPath = sqitchPath + "/package.json";
                 pkg = require(pkgPath);
                 questions = [
                     {
@@ -82,8 +82,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 3:
                 version = (_a.sent()).version;
                 extname = sluggify(pkg.name);
-                makePath = skitchPath + "/Makefile";
-                controlPath = skitchPath + "/" + extname + ".control";
+                makePath = sqitchPath + "/Makefile";
+                controlPath = sqitchPath + "/" + extname + ".control";
                 sqlFileName = extname + "--" + version + ".sql";
                 Makefile = fs_1.readFileSync(makePath).toString();
                 control = fs_1.readFileSync(controlPath).toString();
@@ -104,14 +104,14 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     }, []);
                     topLine = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
                     finalSql = parser.deparse(query);
-                    fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName, "" + topLine + finalSql);
+                    fs_1.writeFileSync(sqitchPath + "/sql/" + sqlFileName, "" + topLine + finalSql);
                     tree1 = query;
                     tree2 = parser.parse(finalSql).query;
                     diff = (JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2)));
                     if (diff) {
                         console.error('DIFF exists! Careful. Check sql/ folder...');
-                        fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName + ".tree.orig.json", JSON.stringify(exports.cleanTree(tree1), null, 2));
-                        fs_1.writeFileSync(skitchPath + "/sql/" + sqlFileName + ".tree.parsed.json", JSON.stringify(exports.cleanTree(tree2), null, 2));
+                        fs_1.writeFileSync(sqitchPath + "/sql/" + sqlFileName + ".tree.orig.json", JSON.stringify(exports.cleanTree(tree1), null, 2));
+                        fs_1.writeFileSync(sqitchPath + "/sql/" + sqlFileName + ".tree.parsed.json", JSON.stringify(exports.cleanTree(tree2), null, 2));
                     }
                     console.log(sqlFileName + " written");
                 }

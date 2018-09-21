@@ -58,7 +58,7 @@ var questions = [
     }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, modulename, type, _b, skitchPath, files, results;
+    var _a, modulename, type, _b, sqitchPath, files, results;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
@@ -75,9 +75,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 shell.exec("yarn add " + modulename);
                 return [4 /*yield*/, skitch_path_1.default()];
             case 3:
-                skitchPath = _c.sent();
-                files = skitchPath + "/node_modules/" + modulename + "/src/*";
-                shell.cp('-r', files, skitchPath + "/");
+                sqitchPath = _c.sent();
+                files = sqitchPath + "/node_modules/" + modulename + "/src/*";
+                shell.cp('-r', files, sqitchPath + "/");
                 return [4 /*yield*/, plan_1.default({})];
             case 4:
                 _c.sent();

@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
-import skitchPath from 'skitch-path';
+import sqitchPath from 'skitch-path';
 import { basename } from 'path';
 const promisify = require('util').promisify;
 const fs = require('fs');
@@ -19,7 +19,7 @@ const questions = [
 ];
 
 export default async argv => {
-  const PKGDIR = await skitchPath();
+  const PKGDIR = await sqitchPath();
 
   let name = argv.name;
   if (!name) {
