@@ -1,6 +1,6 @@
 {
   "name": "skitch-templates",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -20,6 +20,6 @@
     "typescript": "2.7.1"
   },
   "dependencies": {
-    "skitch-utils": "^0.14.3"
+    "skitch-utils": "^0.14.4"
   }
 }
