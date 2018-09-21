@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -36,54 +44,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var paths_1 = require("./paths");
 var modules_1 = require("./modules");
-var deps_1 = require("./deps");
-exports.makePlan = function (packageDir, name) { return __awaiter(_this, void 0, void 0, function () {
-    var now, planfile, external, _a, resolved, external, deps, makeKey;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                now = '2017-08-11T08:11:51Z';
-                planfile = [];
-                external = [];
-                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + name + "\n\n  ");
-                return [4 /*yield*/, deps_1.getDeps(packageDir)];
-            case 1:
-                _a = _b.sent(), resolved = _a.resolved, external = _a.external, deps = _a.deps;
-                makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
-                resolved.forEach(function (res) {
-                    // TODO allow for two plans
-                    if (/:/.test(res))
-                        return;
-                    if (deps[makeKey(res)] && deps[makeKey(res)].length) {
-                        planfile.push(res + " [" + deps[makeKey(res)].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                    }
-                    else {
-                        planfile.push(res + " " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                    }
-                });
-                return [2 /*return*/, planfile.join('\n')];
-        }
-    });
-}); };
-exports.getPlan = function (name) { return __awaiter(_this, void 0, void 0, function () {
-    var modules, path, packageDir;
+var path_1 = require("path");
+var paths_1 = require("./paths");
+var fs_1 = require("fs");
+exports.build = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var skitchPath, modules, modulesWithChanges, extensions;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, modules_1.listModules()];
+            case 0: return [4 /*yield*/, paths_1.skitchPath()];
             case 1:
-                modules = _a.sent();
-                if (!modules[name]) {
-                    throw new Error(name + " NOT FOUND!");
-                }
-                return [4 /*yield*/, paths_1.skitchPath()];
+                skitchPath = _a.sent();
+                return [4 /*yield*/, modules_1.listModules()];
             case 2:
-                path = _a.sent();
-                packageDir = path + "/" + modules[name].path;
-                return [4 /*yield*/, exports.makePlan(packageDir, name)];
-            case 3: return [2 /*return*/, _a.sent()];
+                modules = _a.sent();
+                return [4 /*yield*/, modules_1.getExtensionsAndModulesChanges('utils')];
+            case 3:
+                modulesWithChanges = _a.sent();
+                console.log(modules);
+                console.log(modulesWithChanges);
+                extensions = Object.keys(modules).map(function (key) {
+                    var mod = modules[key];
+                    return __assign({}, mod, { sql: fs_1.readFileSync(path_1.resolve(skitchPath + "/" + mod.path + "/sql/" + key + "--" + mod.version + ".sql"))
+                            .toString()
+                            .split('\n')
+                            .filter(function (l, i) { return i !== 0; })
+                            .join('\n') });
+                });
+                return [2 /*return*/, extensions];
         }
     });
 }); };
-//# sourceMappingURL=plans.js.map
+//# sourceMappingURL=build.js.map

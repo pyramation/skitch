@@ -102,7 +102,7 @@ describe('resolve', function () {
                     return [3 /*break*/, 4];
                 case 3:
                     e_3 = _a.sent();
-                    expect(e_3.message).toEqual('deployment script in wrong place or is named wrong internally');
+                    expect(e_3.message).toEqual('deployment script in wrong place or is named wrong internally-- Deploy schemas/notmyschema/schema to pg,schemas/notmyschema/schema');
                     failed = true;
                     return [3 /*break*/, 4];
                 case 4:

@@ -6,3 +6,7 @@ export * from './src/modules';
 export * from './src/paths';
 export * from './src/plans';
 export * from './src/resolve';
+export * from './src/generate';
+export * from './src/build';
+export * from './src/package';
+export * from './src/deps';

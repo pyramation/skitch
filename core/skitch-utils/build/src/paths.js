@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var walkup = require("node-walkup");
-var sqitchPath = function (cwd) {
+var walkup = require('node-walkup');
+exports.sqitchPath = function (cwd) {
     if (cwd === void 0) { cwd = process.cwd(); }
     var obj;
     return new Promise(function (resolve, reject) {
@@ -26,8 +26,7 @@ var sqitchPath = function (cwd) {
         });
     });
 };
-exports.sqitchPath = sqitchPath;
-var skitchPath = function (cwd) {
+exports.skitchPath = function (cwd) {
     if (cwd === void 0) { cwd = process.cwd(); }
     var obj;
     return new Promise(function (resolve, reject) {
@@ -52,5 +51,4 @@ var skitchPath = function (cwd) {
         });
     });
 };
-exports.skitchPath = skitchPath;
 //# sourceMappingURL=paths.js.map

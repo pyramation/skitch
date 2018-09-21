@@ -11,4 +11,8 @@ __export(require("./src/modules"));
 __export(require("./src/paths"));
 __export(require("./src/plans"));
 __export(require("./src/resolve"));
+__export(require("./src/generate"));
+__export(require("./src/build"));
+__export(require("./src/package"));
+__export(require("./src/deps"));
 //# sourceMappingURL=index.js.map

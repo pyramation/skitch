@@ -41,92 +41,30 @@ var fs = require('fs');
 var glob = require('glob');
 var readFile = util_1.promisify(fs.readFile);
 var asyncGlob = util_1.promisify(glob);
+var deps_1 = require("./deps");
 exports.resolve = function (pkgDir, scriptType) {
     if (pkgDir === void 0) { pkgDir = process.cwd(); }
     if (scriptType === void 0) { scriptType = 'deploy'; }
     return __awaiter(_this, void 0, void 0, function () {
-        // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
-        function dep_resolve(sqlmodule, resolved, unresolved) {
-            unresolved.push(sqlmodule);
-            var edges = deps['/deploy/' + sqlmodule + '.sql'];
-            if (!edges) {
-                throw new Error("no module " + sqlmodule);
-            }
-            for (var i = 0; i < edges.length; i++) {
-                var dep = edges[i];
-                if (!resolved.includes(dep)) {
-                    if (unresolved.includes(dep)) {
-                        throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
-                    }
-                    dep_resolve(dep, resolved, unresolved);
-                }
-            }
-            resolved.push(sqlmodule);
-            var index = unresolved.indexOf(sqlmodule);
-            unresolved.splice(index);
-        }
-        var sqlfile, deps, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql, cfiles, runners;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var sqlfile, _a, resolved, external, i, file, modName, dscript;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     sqlfile = [];
-                    deps = {};
-                    return [4 /*yield*/, asyncGlob(pkgDir + '/deploy/**/**.sql')];
+                    return [4 /*yield*/, deps_1.getDeps(pkgDir)];
                 case 1:
-                    files = _a.sent();
-                    i = 0;
-                    _a.label = 2;
-                case 2:
-                    if (!(i < files.length)) return [3 /*break*/, 5];
-                    return [4 /*yield*/, readFile(files[i])];
-                case 3:
-                    data = _a.sent();
-                    lines = data.toString().split('\n');
-                    key = files[i].split(pkgDir)[1];
-                    deps[key] = [];
-                    for (j = 0; j < lines.length; j++) {
-                        m = lines[j].match(/-- requires: (.*)/);
-                        if (m) {
-                            deps[key].push(m[1].trim());
-                        }
-                        m2 = lines[j].match(/-- Deploy (.*) to pg/);
-                        if (m2) {
-                            if (key !== "/deploy/" + m2[1] + ".sql") {
-                                throw new Error('deployment script in wrong place or is named wrong internally');
-                            }
-                        }
-                    }
-                    _a.label = 4;
-                case 4:
-                    i++;
-                    return [3 /*break*/, 2];
-                case 5:
-                    resolved = [];
-                    unresolved = [];
-                    // add one new dep, "the app index"
-                    // which has a dependancy of every module! (kinda a hack)
-                    deps = Object.assign({
-                        '/deploy/apps/index.sql': Object.keys(deps)
-                            .filter(function (dep) { return dep.match(/^\/deploy\//); })
-                            .map(function (dep) { return dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''); }),
-                    }, deps);
-                    dep_resolve('apps/index', resolved, unresolved);
-                    index = resolved.indexOf('apps/index');
-                    resolved.splice(index);
-                    extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
-                    normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
-                    resolved = extensions.concat(normalSql);
+                    _a = _b.sent(), resolved = _a.resolved, external = _a.external;
                     if (scriptType === 'revert') {
                         resolved = resolved.reverse();
                     }
-                    cfiles = resolved.map(function (file) { return pkgDir + "/" + scriptType + "/" + file + ".sql"; });
-                    runners = [];
-                    cfiles.forEach(function (p) {
-                        var modName = p.split("/" + scriptType + "/")[1];
-                        var dscript = fs.readFileSync(p).toString();
+                    for (i = 0; i < resolved.length; i++) {
+                        if (external.includes(resolved[i]))
+                            continue;
+                        file = pkgDir + "/" + scriptType + "/" + resolved[i] + ".sql";
+                        modName = file.split("/" + scriptType + "/")[1];
+                        dscript = fs.readFileSync(file).toString();
                         sqlfile.push(dscript);
-                    });
-                    // TODO use streams
+                    }
                     return [2 /*return*/, sqlfile.join('\n')];
             }
         });

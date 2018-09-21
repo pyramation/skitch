@@ -51,7 +51,7 @@ describe('resolve', () => {
       await resolve(__dirname + '/fixtures/resolve/invalid');
     } catch (e) {
       expect(e.message).toEqual(
-        'deployment script in wrong place or is named wrong internally'
+        'deployment script in wrong place or is named wrong internally-- Deploy schemas/notmyschema/schema to pg,schemas/notmyschema/schema'
       );
       failed = true;
     }

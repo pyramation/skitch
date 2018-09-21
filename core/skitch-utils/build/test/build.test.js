@@ -36,54 +36,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var paths_1 = require("./paths");
-var modules_1 = require("./modules");
-var deps_1 = require("./deps");
-exports.makePlan = function (packageDir, name) { return __awaiter(_this, void 0, void 0, function () {
-    var now, planfile, external, _a, resolved, external, deps, makeKey;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                now = '2017-08-11T08:11:51Z';
-                planfile = [];
-                external = [];
-                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + name + "\n\n  ");
-                return [4 /*yield*/, deps_1.getDeps(packageDir)];
-            case 1:
-                _a = _b.sent(), resolved = _a.resolved, external = _a.external, deps = _a.deps;
-                makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
-                resolved.forEach(function (res) {
-                    // TODO allow for two plans
-                    if (/:/.test(res))
-                        return;
-                    if (deps[makeKey(res)] && deps[makeKey(res)].length) {
-                        planfile.push(res + " [" + deps[makeKey(res)].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                    }
-                    else {
-                        planfile.push(res + " " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                    }
-                });
-                return [2 /*return*/, planfile.join('\n')];
-        }
-    });
-}); };
-exports.getPlan = function (name) { return __awaiter(_this, void 0, void 0, function () {
-    var modules, path, packageDir;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, modules_1.listModules()];
-            case 1:
-                modules = _a.sent();
-                if (!modules[name]) {
-                    throw new Error(name + " NOT FOUND!");
-                }
-                return [4 /*yield*/, paths_1.skitchPath()];
-            case 2:
-                path = _a.sent();
-                packageDir = path + "/" + modules[name].path;
-                return [4 /*yield*/, exports.makePlan(packageDir, name)];
-            case 3: return [2 /*return*/, _a.sent()];
-        }
-    });
-}); };
-//# sourceMappingURL=plans.js.map
+var build_1 = require("../src/build");
+process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
+describe('build', function () {
+    it('works', function () { return __awaiter(_this, void 0, void 0, function () {
+        var cmd;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, build_1.build()];
+                case 1:
+                    cmd = _a.sent();
+                    console.log(cmd);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+//# sourceMappingURL=build.test.js.map

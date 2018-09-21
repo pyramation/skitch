@@ -1,6 +1,6 @@
 import { ChangePathArray } from 'skitch-types';
 
-export default async ({templates, template, templatePath, payload}) => {
+export const generate = async ({templates, template, templatePath, payload}) => {
 
   var params: Array<{ key: string; value: any }> = Object.keys(payload).reduce(
     (m: Array<{ key: string; value: any }>, v: string) => {
