@@ -66,7 +66,7 @@ export const getExtensionsAndModulesChanges = async sqlmodule => {
     const sqitchies = [];
     for (let i = 0; i < modules.sqitch.length; i++) {
         const mod = modules.sqitch[i];
-        sqitchies.push({ [mod]: await latestChange(mod) });
+        sqitchies.push({ name: mod, latest: await latestChange(mod) });
     }
     modules.sqitch = sqitchies;
     return modules;

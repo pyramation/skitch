@@ -2,10 +2,18 @@ import { readFileSync, readFile } from 'fs';
 import { basename, dirname, resolve, relative } from 'path';
 import { sync as glob } from 'glob';
 import { skitchPath } from './paths';
-import { listModules } from './modules';
+import { listModules, getExtensionsAndModulesChanges } from './modules';
 import { getDeps } from './deps';
 
-export const makePlan = async (packageDir, name) => {
+export const makePlan = async (packageDir, options) => {
+
+  let { name, uri, projects } = options;
+  if (!name) {
+    throw new Error('plans require a project name');
+  }
+  if (!uri) uri = name;
+
+  // TEMP
   var now = '2017-08-11T08:11:51Z';
 
   var planfile = [];
@@ -18,7 +26,18 @@ export const makePlan = async (packageDir, name) => {
   `);
 
   let { resolved, external, deps } = await getDeps(packageDir);
+
+  const externalReqs = [];
+
+  if (projects) {
+    const skPath = await skitchPath();
+    const results = await getExtensionsAndModulesChanges(name);
+    [].push.apply(externalReqs, results.sqitch);
+  }
+
   const makeKey = sqlmodule => '/deploy/' + sqlmodule + '.sql';
+
+  [].push.apply(deps[makeKey(resolved[0])], externalReqs.map(a=>`${a.name}:${a.latest}`))
 
   resolved.forEach(res => {
     // TODO allow for two plans
@@ -39,7 +58,7 @@ export const makePlan = async (packageDir, name) => {
   return planfile.join('\n');
 };
 
-export const getPlan = async name => {
+export const getPlan = async ({name, ...rest}) => {
   const modules = await listModules();
   if (!modules[name]) {
     throw new Error(`${name} NOT FOUND!`);
@@ -47,5 +66,5 @@ export const getPlan = async name => {
   const path = await skitchPath();
   const packageDir = `${path}/${modules[name].path}`;
 
-  return await makePlan(packageDir, name);
+  return await makePlan(packageDir, {name, ...rest});
 };
