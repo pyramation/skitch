@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var inquirerer_1 = require("inquirerer");
 var mkdirp = require('mkdirp').sync;
 var fs = require('fs');
@@ -51,7 +51,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
     var PKGDIR, name, template;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
                 PKGDIR = _a.sent();
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];

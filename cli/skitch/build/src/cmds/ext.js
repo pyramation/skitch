@@ -40,7 +40,7 @@ require("skitch-template");
 var mkdirp_1 = require("mkdirp");
 var inquirerer_1 = require("inquirerer");
 var glob_1 = require("glob");
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var fs_1 = require("fs");
 var plan_1 = require("./plan");
 var questions = [
@@ -61,7 +61,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
     var sqitchPath, extname, controlFile, extensions, note, output, pkg;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
                 sqitchPath = _a.sent();
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];

@@ -40,7 +40,7 @@ require("skitch-template");
 var util_1 = require("util");
 var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var path_1 = require("path");
 var shell = require("shelljs");
 var fs_1 = require("fs");
@@ -128,7 +128,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
             case 2:
                 _b.sent();
-                return [4 /*yield*/, skitch_path_1.default()];
+                return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 3:
                 sqitchPath = _b.sent();
                 pkg = makePackage({ name: name, description: description, author: author });

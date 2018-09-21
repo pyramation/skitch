@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var shell = require("shelljs");
 var plan_1 = require("./plan");
 var path_1 = require("path");
@@ -73,7 +73,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [3 /*break*/, 7];
             case 2:
                 shell.exec("yarn add " + modulename);
-                return [4 /*yield*/, skitch_path_1.default()];
+                return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 3:
                 sqitchPath = _c.sent();
                 files = sqitchPath + "/node_modules/" + modulename + "/src/*";

@@ -3351,9 +3351,9 @@ skitch-env@^0.12.5:
   dependencies:
     envalid "^4.1.4"
 
-skitch-path@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.12.0.tgz#69e19d850899cb1304b7065902c257aa7998def2"
+skitch-path@^0.12.10:
+  version "0.12.10"
+  resolved "https://registry.yarnpkg.com/skitch-path/-/skitch-path-0.12.10.tgz#ae15f6e1f95d7b3cf7cb8b2a799ea204d704f4e9"
   dependencies:
     node-walkup "1.1.1"
 
@@ -3361,19 +3361,19 @@ skitch-template@^0.12.4:
   version "0.12.4"
   resolved "https://registry.yarnpkg.com/skitch-template/-/skitch-template-0.12.4.tgz#785d5c62bfb5f6ef7141edd39c7aeba56517f443"
 
-skitch-templates@^0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.12.3.tgz#a95e912100c12be4bb4b89aab2e2157ed32e416c"
+skitch-templates@^0.12.10:
+  version "0.12.10"
+  resolved "https://registry.yarnpkg.com/skitch-templates/-/skitch-templates-0.12.10.tgz#d7390ea23ceedd7caf01dc27a634a029706fb971"
   dependencies:
-    skitch-utils "^0.12.3"
+    skitch-utils "^0.12.10"
 
-skitch-testing@^0.12.4:
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.12.4.tgz#d7cabbb2f3475d121a6c6ecf142e5c1c5aae454d"
+skitch-testing@^0.12.10:
+  version "0.12.10"
+  resolved "https://registry.yarnpkg.com/skitch-testing/-/skitch-testing-0.12.10.tgz#404d6ac1970a8e99168009ff8108c894a8e6519e"
   dependencies:
     pg "6.4.0"
     pg-promise "6.10.3"
-    skitch-path "^0.12.0"
+    skitch-path "^0.12.10"
     streamify-string "1.0.1"
     uuid "3.1.0"
 
@@ -3387,13 +3387,13 @@ skitch-types@^0.12.3:
   version "0.12.3"
   resolved "https://registry.yarnpkg.com/skitch-types/-/skitch-types-0.12.3.tgz#d37a9855440189531ee47106995e77948fa1921f"
 
-skitch-utils@^0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.12.3.tgz#b56fc681eca68a8c5998ff116805fbcb135f61b6"
+skitch-utils@^0.12.10:
+  version "0.12.10"
+  resolved "https://registry.yarnpkg.com/skitch-utils/-/skitch-utils-0.12.10.tgz#63e2c61b19eb2f4f22adeb0bf5e772aaf8d168e8"
   dependencies:
     fuzzy "0.1.3"
     glob "7.1.2"
-    skitch-path "^0.12.0"
+    skitch-path "^0.12.10"
 
 slash@^1.0.0:
   version "1.0.0"

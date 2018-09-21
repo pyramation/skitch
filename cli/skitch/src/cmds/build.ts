@@ -5,7 +5,7 @@ import { prompt } from 'inquirerer';
 import { dirname, basename, resolve } from 'path';
 import { sync as glob } from 'glob';
 
-import { skitchPath } from 'skitch-path';
+import { skitchPath } from 'skitch-utils';
 
 export default async argv => {
 

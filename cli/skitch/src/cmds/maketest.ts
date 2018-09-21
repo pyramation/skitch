@@ -1,4 +1,4 @@
-import sqitchPath from 'skitch-path';
+import { sqitchPath } from 'skitch-utils';
 import { prompt } from 'inquirerer';
 import { basename } from 'path';
 const mkdirp = require('mkdirp').sync;

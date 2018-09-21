@@ -1,6 +1,6 @@
 import { prompt } from 'inquirerer';
 import { exec } from 'child_process';
-import sqitchPath from 'skitch-path';
+import { sqitchPath } from 'skitch-utils';
 import plan from './plan';
 
 const promisify = require('util').promisify;

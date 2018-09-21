@@ -2,7 +2,7 @@ var fuzzy = require('fuzzy');
 import { readdir } from 'fs';
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
-import sqitchPath from 'skitch-path';
+import { sqitchPath } from './paths';
 
 export interface HashObject {
   [key: string]: string;

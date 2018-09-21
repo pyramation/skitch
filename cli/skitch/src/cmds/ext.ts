@@ -4,7 +4,7 @@ import { sync as mkdirp } from 'mkdirp';
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
 import { sync as glob } from 'glob';
-import path from 'skitch-path';
+import { sqitchPath as path } from 'skitch-utils';
 import { dirname, basename, resolve } from 'path';
 import * as shell from 'shelljs';
 import { writeFileSync, readFileSync } from 'fs';
