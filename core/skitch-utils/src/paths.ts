@@ -59,7 +59,6 @@ const skitchPath = (cwd: string = process.cwd()) => {
   });
 };
 
-export default sqitchPath;
 export {
   skitchPath,
   sqitchPath
