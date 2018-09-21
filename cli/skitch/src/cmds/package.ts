@@ -1,5 +1,5 @@
 import * as shell from 'shelljs';
-import { sqitchPath } from 'skitch-utils';
+import { sqitchPath as path } from 'skitch-utils';
 const parser = require('pgsql-parser');
 
 // TODO move resolve to skitch-utils
@@ -28,7 +28,7 @@ export const cleanTree = (tree) => {
 
 export default async argv => {
   const sql = await resolve();
-  const sqitchPath = await sqitchPath();
+  const sqitchPath = await path();
 
   const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);

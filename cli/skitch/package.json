@@ -35,7 +35,6 @@
     "pgsql-parser": "^0.5.8",
     "shelljs": "0.8.1",
     "skitch-env": "^0.14.0",
-    "skitch-path": "^0.12.10",
     "skitch-template": "^0.14.0",
     "skitch-templates": "^0.14.0",
     "skitch-testing": "^0.14.0",

@@ -1,5 +1,4 @@
 import * as shell from 'shelljs';
-import path from 'skitch-path';
 const parser = require('pgsql-parser');
 
 // TODO move resolve to skitch-utils
