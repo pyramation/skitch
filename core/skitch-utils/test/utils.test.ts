@@ -34,7 +34,7 @@ procedures/myfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add pr
 projects/totp/procedures/generate_secret [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add projects/totp/procedures/generate_secret`));
   });
   it('should be able to create a deps for cross-project requires', async () => {
-    const plan = await getExtensionsAndModules('utils');
-    console.log(plan);
+    const deps = await getExtensionsAndModules('utils');
+    expect(deps).toEqual({ native: [ 'plpgsql', 'uuid-ossp' ], sqitch: [ 'totp' ] });
   });
 });

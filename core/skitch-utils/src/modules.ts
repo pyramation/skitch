@@ -185,7 +185,9 @@ export const getExtensionsAndModules = async (sqlmodule) => {
   if (!modules[sqlmodule]) {
     throw new Error(`${sqlmodule} NOT FOUND!`);
   }
-  const path = await skitchPath();
-  // const plan = readFileSync(`${path}/${modules[sqlmodule].path}/sqitch.plan`).toString().split('\n').map(a=>a.trim()).filter(a=>a);
-  // return plan[plan.length-1].split(' ')[0];
+  const native = modules[sqlmodule].requires.filter(a=>!Object.keys(modules).includes(a));
+  const sqitch = modules[sqlmodule].requires.filter(a=>Object.keys(modules).includes(a));;
+  return {
+    native, sqitch
+  }
 };
