@@ -41,6 +41,7 @@ var fs_1 = require("fs");
 var inquirerer_1 = require("inquirerer");
 var path_1 = require("path");
 var glob_1 = require("glob");
+var skitch_utils_1 = require("skitch-utils");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
     function dep_resolve(sqlmodule, resolved, unresolved) {
@@ -68,7 +69,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
         switch (_b.label) {
             case 0:
                 native = [];
-                return [4 /*yield*/, skitchPath()];
+                return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 1:
                 skitchPath = _b.sent();
                 extensions = glob_1.sync(skitchPath + '/**/*.control').reduce(function (m, v) {

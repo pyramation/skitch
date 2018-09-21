@@ -5,12 +5,12 @@ import { prompt } from 'inquirerer';
 import { dirname, basename, resolve } from 'path';
 import { sync as glob } from 'glob';
 
-import { skitchPath } from 'skitch-utils';
+import { skitchPath as sPath } from 'skitch-utils';
 
 export default async argv => {
 
   const native = [];
-  const skitchPath = await skitchPath();
+  const skitchPath = await sPath();
 
   const extensions = glob (skitchPath + '/**/*.control').reduce((m, v)=> {
     const contents = readFileSync(v).toString();
