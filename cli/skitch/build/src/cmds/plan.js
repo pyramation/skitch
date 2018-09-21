@@ -36,16 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
 var skitch_utils_1 = require("skitch-utils");
 var path_1 = require("path");
-var promisify = require('util').promisify;
 var fs = require('fs');
-var glob = promisify(require('glob'));
-var asyncExec = promisify(child_process_1.exec);
-var readFile = promisify(fs.readFile);
-var writeFile = promisify(fs.writeFile);
 var questions = [
     {
         name: 'name',
@@ -55,48 +49,12 @@ var questions = [
     }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    // TODO make a class that uses paths instead of some.sql
-    // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
-    function dep_resolve(sqlmodule, resolved, unresolved) {
-        unresolved.push(sqlmodule);
-        var edges = deps[makeKey(sqlmodule)];
-        if (!edges) {
-            if (/:/.test(sqlmodule)) {
-                external.push(sqlmodule);
-                edges = deps[sqlmodule] = [];
-            }
-            else {
-                throw new Error("no module " + sqlmodule);
-            }
-        }
-        try {
-            console.log('edges');
-            console.log(edges);
-            for (var i = 0; i < edges.length; i++) {
-                console.log('edges[i]');
-                console.log(edges[i]);
-                var dep = edges[i];
-                if (!resolved.includes(dep)) {
-                    if (unresolved.includes(dep)) {
-                        throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
-                    }
-                    dep_resolve(dep, resolved, unresolved);
-                }
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
-        resolved.push(sqlmodule);
-        var index = unresolved.indexOf(sqlmodule);
-        unresolved.splice(index);
-    }
-    var PKGDIR, name, now, external, planfile, deps, reg, makeKey, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql, _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var PKGDIR, name, plan;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
-                PKGDIR = _b.sent();
+                PKGDIR = _a.sent();
                 name = argv.name;
                 if (!!name) return [3 /*break*/, 3];
                 try {
@@ -107,78 +65,12 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 if (!!name) return [3 /*break*/, 3];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
-                (name = (_b.sent()).name);
-                _b.label = 3;
-            case 3:
-                now = '2017-08-11T08:11:51Z';
-                external = [];
-                planfile = [];
-                deps = {};
-                reg = {};
-                makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
-                return [4 /*yield*/, glob(PKGDIR + "/deploy/**/**.sql")];
+                (name = (_a.sent()).name);
+                _a.label = 3;
+            case 3: return [4 /*yield*/, skitch_utils_1.makePlan(PKGDIR, name)];
             case 4:
-                files = _b.sent();
-                console.log('files');
-                console.log(files);
-                i = 0;
-                _b.label = 5;
-            case 5:
-                if (!(i < files.length)) return [3 /*break*/, 8];
-                console.log('files[i]');
-                console.log(files[i]);
-                return [4 /*yield*/, readFile(files[i])];
-            case 6:
-                data = _b.sent();
-                lines = data.toString().split('\n');
-                key = files[i].split(PKGDIR)[1];
-                deps[key] = [];
-                reg[key] = [];
-                for (j = 0; j < lines.length; j++) {
-                    m = lines[j].match(/-- requires: (.*)/);
-                    if (m) {
-                        deps[key].push(m[1].trim());
-                    }
-                    m2 = lines[j].match(/-- Deploy (.*) to pg/);
-                    if (m2) {
-                        if (key != makeKey(m2[1])) {
-                            throw new Error('deployment script in wrong place or is named wrong internally' + m2);
-                        }
-                        reg[key].push(m2[1]);
-                    }
-                }
-                _b.label = 7;
-            case 7:
-                i++;
-                return [3 /*break*/, 5];
-            case 8:
-                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + name + "\n\n  ");
-                resolved = [];
-                unresolved = [];
-                deps = Object.assign((_a = {},
-                    _a[makeKey('apps/index')] = Object.keys(deps)
-                        .filter(function (dep) { return dep.match(/^\/deploy\//); })
-                        .map(function (dep) { return dep.replace(/^\/deploy\//, '').replace(/.sql$/, ''); }),
-                    _a), deps);
-                dep_resolve('apps/index', resolved, unresolved);
-                index = resolved.indexOf('apps/index');
-                resolved.splice(index);
-                extensions = resolved.filter(function (a) { return a.match(/^extensions/); });
-                normalSql = resolved.filter(function (a) { return !a.match(/^extensions/); });
-                // resolved = useExtensions ? [...extensions, ...normalSql] : [...normalSql];
-                resolved = extensions.concat(normalSql);
-                // resolved = [...normalSql];
-                resolved.forEach(function (res) {
-                    if (/:/.test(res))
-                        return;
-                    if (deps[makeKey(res)] && deps[makeKey(res)].length) {
-                        planfile.push(res + " [" + deps[makeKey(res)].join(' ') + "] " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                    }
-                    else {
-                        planfile.push(res + " " + now + " skitch <skitch@5b0c196eeb62> # add " + res);
-                    }
-                });
-                fs.writeFileSync(PKGDIR + "/sqitch.plan", planfile.join('\n'));
+                plan = _a.sent();
+                fs.writeFileSync(PKGDIR + "/sqitch.plan", plan);
                 return [2 /*return*/];
         }
     });
