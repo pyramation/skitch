@@ -36,35 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var parser = require('pgsql-parser');
 var fs_1 = require("fs");
 var inquirerer_1 = require("inquirerer");
 var path_1 = require("path");
-var glob_1 = require("glob");
 var skitch_utils_1 = require("skitch-utils");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
-    function dep_resolve(sqlmodule, resolved, unresolved) {
-        unresolved.push(sqlmodule);
-        var edges = deps[sqlmodule];
-        if (!edges) {
-            native.push(sqlmodule);
-            edges = deps[sqlmodule] = [];
-        }
-        for (var i = 0; i < edges.length; i++) {
-            var dep_1 = edges[i];
-            if (!resolved.includes(dep_1)) {
-                if (unresolved.includes(dep_1)) {
-                    throw new Error("Circular reference detected " + sqlmodule + ", " + dep_1);
-                }
-                dep_resolve(dep_1, resolved, unresolved);
-            }
-        }
-        resolved.push(sqlmodule);
-        var index = unresolved.indexOf(sqlmodule);
-        unresolved.splice(index);
-    }
-    var native, skitchPath, extensions, deps, resolved, unresolved, questions, _a, dep, path, sql;
+    var native, skitchPath, modules, questions, _a, project, path, sql;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -72,43 +49,16 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 1:
                 skitchPath = _b.sent();
-                extensions = glob_1.sync(skitchPath + '/**/*.control').reduce(function (m, v) {
-                    var contents = fs_1.readFileSync(v).toString();
-                    var key = path_1.basename(v).split('.control')[0];
-                    m[key] = {};
-                    m[key] = { path: v };
-                    m[key].requires = contents
-                        .split('\n')
-                        .find(function (el) { return /^requires/.test(el); })
-                        .split('=')[1]
-                        .split(',')
-                        .map(function (el) { return el.replace(/[\'\s]*/g, '').trim(); });
-                    m[key].version = contents
-                        .split('\n')
-                        .find(function (el) { return /^default_version/.test(el); })
-                        .split('=')[1]
-                        .replace(/[\']*/g, '')
-                        .trim();
-                    m[key].sql = fs_1.readFileSync(path_1.resolve(path_1.dirname(v) + "/sql/" + key + "--" + m[key].version + ".sql"))
-                        .toString()
-                        .split('\n')
-                        .filter(function (l, i) { return i !== 0; })
-                        .join('\n');
-                    return m;
-                }, {});
-                deps = Object.keys(extensions).reduce(function (m, k) {
-                    m[k] = extensions[k].requires;
-                    return m;
-                }, {});
-                resolved = [];
-                unresolved = [];
+                return [4 /*yield*/, skitch_utils_1.listModules()];
+            case 2:
+                modules = _b.sent();
                 questions = [
                     {
                         _: true,
                         type: 'list',
-                        name: 'dep',
-                        message: 'choose a dep',
-                        choices: Object.keys(extensions),
+                        name: 'project',
+                        message: 'choose a project',
+                        choices: Object.keys(modules),
                         required: true
                     },
                     {
@@ -123,18 +73,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-            case 2:
-                _a = _b.sent(), dep = _a.dep, path = _a.path;
-                dep_resolve(dep, resolved, unresolved);
-                sql = [];
-                resolved.forEach(function (extension) {
-                    if (native.includes(extension)) {
-                        sql.push("CREATE EXTENSION IF NOT EXISTS \"" + extension + "\" CASCADE;");
-                    }
-                    else {
-                        sql.push(extensions[extension].sql);
-                    }
-                });
+            case 3:
+                _a = _b.sent(), project = _a.project, path = _a.path;
+                return [4 /*yield*/, skitch_utils_1.build(project)];
+            case 4:
+                sql = _b.sent();
                 fs_1.writeFileSync(path, sql.join('\n'));
                 return [2 /*return*/];
         }

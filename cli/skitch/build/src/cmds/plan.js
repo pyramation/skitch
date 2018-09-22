@@ -67,7 +67,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 2:
                 (name = (_a.sent()).name);
                 _a.label = 3;
-            case 3: return [4 /*yield*/, skitch_utils_1.makePlan(PKGDIR, name)];
+            case 3: return [4 /*yield*/, skitch_utils_1.makePlan(PKGDIR, { name: name })];
             case 4:
                 plan = _a.sent();
                 fs.writeFileSync(PKGDIR + "/sqitch.plan", plan);

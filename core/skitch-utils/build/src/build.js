@@ -92,7 +92,6 @@ exports.build = function (project) { return __awaiter(_this, void 0, void 0, fun
                             .join('\n') });
                     return m;
                 }, {});
-                console.log(extensions);
                 deps = Object.keys(extensions).reduce(function (m, k) {
                     m[k] = extensions[k].requires;
                     return m;
@@ -101,10 +100,6 @@ exports.build = function (project) { return __awaiter(_this, void 0, void 0, fun
                 unresolved = [];
                 dep_resolve(project, resolved, unresolved);
                 sql = [];
-                console.log(resolved);
-                console.log(resolved);
-                console.log(resolved);
-                console.log(resolved);
                 resolved.forEach(function (extension) {
                     if (native.includes(extension)) {
                         sql.push("CREATE EXTENSION IF NOT EXISTS \"" + extension + "\" CASCADE;");

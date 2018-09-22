@@ -24,8 +24,6 @@ export const build = async (project) => {
     return m;
   }, {});
 
-console.log(extensions);
-
   let deps = Object.keys(extensions).reduce((m, k) => {
     m[k] = extensions[k].requires;
     return m;
@@ -63,11 +61,6 @@ console.log(extensions);
   dep_resolve(project, resolved, unresolved);
 
   let sql = [];
-
-  console.log(resolved);
-  console.log(resolved);
-  console.log(resolved);
-  console.log(resolved);
 
   resolved.forEach(extension => {
     if (native.includes(extension)) {
