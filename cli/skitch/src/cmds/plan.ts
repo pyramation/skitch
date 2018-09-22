@@ -26,7 +26,15 @@ export default async argv => {
     }
   }
 
-  const plan = await makePlan(PKGDIR, {name});
+  const settings = {
+    name
+  };
+
+  if (argv.projects) {
+    settings.projects = true;
+  }
+
+  const plan = await makePlan(PKGDIR, settings);
 
   fs.writeFileSync(`${PKGDIR}/sqitch.plan`, plan);
 };

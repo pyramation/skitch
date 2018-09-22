@@ -49,7 +49,7 @@ var questions = [
     }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var PKGDIR, name, plan;
+    var PKGDIR, name, settings, plan;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
@@ -67,7 +67,14 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 2:
                 (name = (_a.sent()).name);
                 _a.label = 3;
-            case 3: return [4 /*yield*/, skitch_utils_1.makePlan(PKGDIR, { name: name })];
+            case 3:
+                settings = {
+                    name: name
+                };
+                if (argv.projects) {
+                    settings.projects = true;
+                }
+                return [4 /*yield*/, skitch_utils_1.makePlan(PKGDIR, settings)];
             case 4:
                 plan = _a.sent();
                 fs.writeFileSync(PKGDIR + "/sqitch.plan", plan);
