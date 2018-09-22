@@ -17,7 +17,7 @@ const run = async () => {
     await dropdb({ ...config, database: process.env.PGTEMPLATE_DATABASE });
   } catch (e) {}
   const test = new TestDatabase();
-  await test.init();
+  await test.init(process.env.PGEXTENSIONS);
 };
 
 run();

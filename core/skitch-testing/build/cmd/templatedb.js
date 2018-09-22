@@ -73,7 +73,7 @@ var run = function () { return __awaiter(_this, void 0, void 0, function () {
                 return [3 /*break*/, 5];
             case 5:
                 test = new skitch_test_1.TestDatabase();
-                return [4 /*yield*/, test.init()];
+                return [4 /*yield*/, test.init(process.env.PGEXTENSIONS)];
             case 6:
                 _a.sent();
                 return [2 /*return*/];

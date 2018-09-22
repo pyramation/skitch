@@ -9,7 +9,7 @@ const pgp = pgPromise({
   noWarnings: true,
 });
 
-const { PGDATABASE, PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
+const { PGHOST, PGPASSWORD, PGPORT, PGUSER } = process.env;
 
 export const getConnObj = (config: TUtilsConfig = {}) => {
   if (!config.host) {

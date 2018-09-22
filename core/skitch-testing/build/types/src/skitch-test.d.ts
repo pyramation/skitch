@@ -11,7 +11,7 @@ export interface TestOptions {
 export declare class TestDatabase {
     options: object;
     constructor(options?: object);
-    init(): Promise<void>;
+    init(extensions?: never[]): Promise<void>;
     getConnection(): Promise<any>;
     close(): Promise<void>;
 }

@@ -53,9 +53,10 @@ var TestDatabase = /** @class */ (function () {
         this.options = options;
         // this.dbs = [];
     }
-    TestDatabase.prototype.init = function () {
+    TestDatabase.prototype.init = function (extensions) {
+        if (extensions === void 0) { extensions = []; }
         return __awaiter(this, void 0, void 0, function () {
-            var _a, templatedb, connectionParameters;
+            var _a, config, templatedb, connectionParameters;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -67,7 +68,8 @@ var TestDatabase = /** @class */ (function () {
                     case 1:
                         _a.config = _b.sent();
                         if (!!this.config.template) return [3 /*break*/, 4];
-                        return [4 /*yield*/, testing_1.getConnection(this.config, process.env.PGTEMPLATE_DATABASE)];
+                        config = __assign({}, this.config, { extensions: extensions });
+                        return [4 /*yield*/, testing_1.getConnection(config, process.env.PGTEMPLATE_DATABASE)];
                     case 2:
                         templatedb = _b.sent();
                         connection_1.close(templatedb);
