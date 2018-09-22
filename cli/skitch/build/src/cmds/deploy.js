@@ -38,11 +38,12 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
+var skitch_utils_1 = require("skitch-utils");
 var skitch_env_1 = require("skitch-env");
 var questions = [
     {
         _: true,
-        name: 'db',
+        name: 'database',
         message: 'database',
         required: true,
     },
@@ -54,16 +55,36 @@ var questions = [
     },
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, db, yes;
+    var _a, database, yes, recursive, modules, name_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                _a = _b.sent(), db = _a.db, yes = _a.yes;
+                _a = _b.sent(), database = _a.database, yes = _a.yes, recursive = _a.recursive;
                 if (!yes)
                     return [2 /*return*/];
-                console.log("sqitch deploy db:pg:" + db);
-                shell.exec("sqitch deploy db:pg:" + db, {
+                if (!recursive) return [3 /*break*/, 5];
+                return [4 /*yield*/, skitch_utils_1.listModules()];
+            case 2:
+                modules = _b.sent();
+                return [4 /*yield*/, inquirerer_1.prompt([
+                        {
+                            type: 'list',
+                            name: 'name',
+                            message: 'choose a project',
+                            choices: Object.keys(modules),
+                            required: true,
+                        }
+                    ], {})];
+            case 3:
+                name_1 = (_b.sent()).name;
+                return [4 /*yield*/, deploy(name_1, database)];
+            case 4:
+                _b.sent();
+                return [3 /*break*/, 6];
+            case 5:
+                console.log("sqitch deploy db:pg:" + database);
+                shell.exec("sqitch deploy db:pg:" + database, {
                     env: {
                         PGUSER: skitch_env_1.PGUSER,
                         PGPASSWORD: skitch_env_1.PGPASSWORD,
@@ -72,7 +93,8 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         PATH: skitch_env_1.PATH
                     }
                 });
-                return [2 /*return*/];
+                _b.label = 6;
+            case 6: return [2 /*return*/];
         }
     });
 }); });
