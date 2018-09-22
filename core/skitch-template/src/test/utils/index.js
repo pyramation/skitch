@@ -15,6 +15,7 @@ export const getConnection = async () => {
         template: process.env.PGTEMPLATE_DATABASE,
         prefix,
       };
+  options.extensions = process.env.PGEXTENSIONS;
   return await testing.getConnection(options);
 };
 
