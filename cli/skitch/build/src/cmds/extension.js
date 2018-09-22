@@ -86,14 +86,12 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 catch (e) {
                     throw new Error('missing env files or bad syntax');
                 }
-                if (projects) {
-                    envs.PGEXTENSIONS = extensions.join(',');
-                    fs_1.writeFileSync(envFile[0], Object.keys(envs).reduce(function (m, key) {
-                        var value = envs[key];
-                        m = m + "\n" + key + "=" + value;
-                        return m;
-                    }, ''));
-                }
+                envs.PGEXTENSIONS = extensions.join(',');
+                fs_1.writeFileSync(envFile[0], Object.keys(envs).reduce(function (m, key) {
+                    var value = envs[key];
+                    m = m + "\n" + key + "=" + value;
+                    return m;
+                }, ''));
                 return [2 /*return*/];
         }
     });

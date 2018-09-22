@@ -54,16 +54,13 @@ export default async argv => {
     throw new Error('missing env files or bad syntax');
   }
 
-  if (projects) {
-    envs.PGEXTENSIONS = extensions.join(',');
-    writeFileSync(
-      envFile[0],
-      Object.keys(envs).reduce((m, key) => {
-        const value = envs[key];
-        m = `${m}\n${key}=${value}`;
-        return m;
-      }, '')
-    );
-  }
-
+  envs.PGEXTENSIONS = extensions.join(',');
+  writeFileSync(
+    envFile[0],
+    Object.keys(envs).reduce((m, key) => {
+      const value = envs[key];
+      m = `${m}\n${key}=${value}`;
+      return m;
+    }, '')
+  );
 };
