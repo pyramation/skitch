@@ -86,6 +86,39 @@ function templatedb(_a) {
     });
 }
 exports.templatedb = templatedb;
+function installExt(_a, extensions) {
+    var database = _a.database, host = _a.host, password = _a.password, port = _a.port, template = _a.template, user = _a.user;
+    return __awaiter(this, void 0, void 0, function () {
+        var i, extension;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    i = 0;
+                    _b.label = 1;
+                case 1:
+                    if (!(i < extensions.length)) return [3 /*break*/, 4];
+                    extension = extensions[i];
+                    return [4 /*yield*/, asyncExec("psql --dbname \"" + database + "\" -c 'CREATE EXTENSION IF NOT EXISTS \"" + extension + "\" CASCADE;'", {
+                            env: {
+                                PGPASSWORD: password,
+                                PGUSER: user,
+                                PGHOST: host,
+                                PGPORT: port,
+                                PATH: process.env.PATH
+                            }
+                        })];
+                case 2:
+                    _b.sent();
+                    _b.label = 3;
+                case 3:
+                    i++;
+                    return [3 /*break*/, 1];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.installExt = installExt;
 exports.connectionString = function (_a) {
     var database = _a.database, host = _a.host, password = _a.password, port = _a.port, user = _a.user;
     return "postgres://" + user + ":" + password + "@" + host + ":" + port + "/" + database;

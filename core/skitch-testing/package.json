@@ -28,7 +28,6 @@
   "dependencies": {
     "pg": "6.4.0",
     "pg-promise": "6.10.3",
-    "skitch-path": "^0.12.10",
     "skitch-utils": "^0.15.5",
     "streamify-string": "1.0.1",
     "uuid": "3.1.0"

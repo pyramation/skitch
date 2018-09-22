@@ -14,6 +14,7 @@ export declare const getOpts: (configOpts: any) => Promise<{
     template: any;
     prefix: any;
     directory: any;
+    extensions: any;
 }>;
 export declare const getConnection: (configOpts: any, database: any) => Promise<any>;
 export declare const closeConnection: (db: IConnected<any>) => Promise<void>;

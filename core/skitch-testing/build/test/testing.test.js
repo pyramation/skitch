@@ -60,6 +60,19 @@ describe('testing', function () {
             }
         });
     }); });
+    it('hot seed w extensions', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, index_1.getConnection(__assign({}, utils_1.config, { hot: true, directory: __dirname + '/fixtures/basic', extensions: ['pgcrypto', 'plv8'] }))];
+                case 1:
+                    db = _a.sent();
+                    return [4 /*yield*/, utils_1.expectBasicSeed(db)];
+                case 2:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     it('hot seed option', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {

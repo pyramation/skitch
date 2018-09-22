@@ -57,6 +57,33 @@ export async function templatedb({
   )
 }
 
+export async function installExt({
+  database,
+  host,
+  password,
+  port,
+  template,
+  user
+}, extensions) {
+
+  for (let i=0; i<extensions.length; i++) {
+    const extension = extensions[i];
+    await asyncExec(
+      `psql --dbname "${database}" -c 'CREATE EXTENSION IF NOT EXISTS "${extension}" CASCADE;'`,
+      {
+        env: {
+          PGPASSWORD: password,
+          PGUSER: user,
+          PGHOST: host,
+          PGPORT: port,
+          PATH: process.env.PATH
+        }
+      }
+    );
+  }
+
+}
+
 export const connectionString = ({
   database,
   host,

@@ -1,6 +1,6 @@
 const v4 = require('uuid/v4');
 import { IConnected } from 'pg-promise';
-import { createdb, dropdb, templatedb } from './db';
+import { createdb, dropdb, templatedb, installExt } from './db';
 import { sqitchFast, sqitch } from './sqitch';
 import { sqitchPath } from 'skitch-utils';
 import { connect, close } from './connection';
@@ -25,6 +25,7 @@ export const getOpts = async configOpts => {
     template,
     prefix = 'testing-db',
     directory,
+    extensions = []
   } = configOpts;
 
   if (!directory && !template) {
@@ -42,6 +43,7 @@ export const getOpts = async configOpts => {
     template,
     prefix,
     directory,
+    extensions
   };
 };
 
@@ -57,6 +59,7 @@ export const getConnection = async (configOpts, database) => {
     template,
     prefix,
     directory,
+    extensions
   } = configOpts;
 
   if (!database) {
@@ -74,6 +77,8 @@ export const getConnection = async (configOpts, database) => {
     // FAST_TEST=1
     // createdb + hot loaded sql
     await createdb(connection);
+    await installExt(connection, extensions);
+
     await sqitchFast(connection, directory);
   } else if (template) {
     // createdb from a template already with data...
@@ -81,6 +86,7 @@ export const getConnection = async (configOpts, database) => {
   } else {
     // createdb + sqitch it
     await createdb(connection);
+    await installExt(connection, extensions);
     await sqitch(connection, directory);
   }
   const db = await connect(connection);

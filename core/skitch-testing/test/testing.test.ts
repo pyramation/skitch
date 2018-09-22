@@ -26,6 +26,15 @@ describe('testing', () => {
     await closeConnection(db);
   });
 
+  it('hot seed w extensions', async () => {
+    db = await getConnection({
+      ...config,
+      hot: true,
+      directory: __dirname + '/fixtures/basic',
+      extensions: ['pgcrypto', 'plv8']
+    });
+    await expectBasicSeed(db);
+  });
   it('hot seed option', async () => {
     db = await getConnection({
       ...config,
