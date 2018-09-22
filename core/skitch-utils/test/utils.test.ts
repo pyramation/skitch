@@ -51,7 +51,7 @@ describe('sqitch modules', () => {
     const deps = await getExtensionsAndModulesChanges('utils');
     expect(deps).toEqual({
       native: ['plpgsql', 'uuid-ossp'],
-      sqitch: [{ totp: 'procedures/generate_secret' }]
+      sqitch: [{ latest: 'procedures/generate_secret', name: 'totp' }]
     });
   });
 });

@@ -7,7 +7,9 @@ let _listModules = null;
 export const listModules = async () => {
     if (_listModules) return _listModules;
     const path = await skitchPath();
+    // TODO use skitchPath/package.json to get packages/*
     const extensions = glob(path + '/**/*.control').reduce((m, v) => {
+        if (/node_modules/.test(v)) return m;
         const contents = readFileSync(v).toString();
         const key = basename(v).split('.control')[0];
         m[key] = {};
