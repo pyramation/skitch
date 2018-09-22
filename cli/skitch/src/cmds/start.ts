@@ -3,7 +3,7 @@ import { readdir } from 'fs';
 import { resolve as resolvePath } from 'path';
 import { promisify } from 'util';
 import { prompt } from 'inquirerer';
-import sqitchPath from 'skitch-path';
+import { sqitchPath } from 'skitch-utils';
 import * as shell from 'shelljs';
 import env from 'skitch-env';
 

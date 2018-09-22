@@ -89,13 +89,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         if (!line.length)
                             return m;
                         var parts = line.split('=');
-                        console.log(parts);
                         m[parts[0].trim()] = parts[1].trim();
                         return m;
                     }, {});
                 }
                 catch (e) {
-                    console.error(e);
                     throw new Error('missing env files or bad syntax');
                 }
                 if (projects) {

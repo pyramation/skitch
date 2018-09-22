@@ -3112,15 +3112,15 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-skitch-env@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/skitch-env/-/skitch-env-0.14.0.tgz#65baf03265fe925129de3cb7c624453e06cf913e"
+skitch-env@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/skitch-env/-/skitch-env-0.15.0.tgz#7889cbeb16dab365164c8267a60c886a9dee638d"
   dependencies:
     envalid "^4.1.4"
 
-skitch-transform@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/skitch-transform/-/skitch-transform-0.14.0.tgz#5bc4cf7cbb01c10fcfa69fafbb8b5eef101b0f2b"
+skitch-transform@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/skitch-transform/-/skitch-transform-0.15.0.tgz#8df52a23bf2b6822ec9d5e2bdb07a4c5be2de035"
   dependencies:
     pgsql-parser "0.5.7"
 

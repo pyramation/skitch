@@ -40,14 +40,14 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var util_1 = require("util");
 var inquirerer_1 = require("inquirerer");
-var skitch_path_1 = require("skitch-path");
+var skitch_utils_1 = require("skitch-utils");
 var shell = require("shelljs");
 var skitch_env_1 = require("skitch-env");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var path, questions, _a, _b, _c, schemas, db, cmd;
     return __generator(this, function (_d) {
         switch (_d.label) {
-            case 0: return [4 /*yield*/, skitch_path_1.default()];
+            case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
                 path = _d.sent();
                 _a = [{
