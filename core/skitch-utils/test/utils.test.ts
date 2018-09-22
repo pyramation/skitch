@@ -26,7 +26,7 @@ describe('sqitch modules', () => {
       },
       totp: {
         path: 'packages/totp',
-        requires: ['plpgsql', 'uuid-ossp'],
+        requires: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
         version: '0.0.1'
       },
       utils: {

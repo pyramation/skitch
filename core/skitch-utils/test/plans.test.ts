@@ -43,7 +43,7 @@ projects/totp/procedures/generate_secret [totp:procedures/generate_secret] 2017-
   %project=secrets
   %uri=secrets
 
-procedures/myfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/myfunction
+procedures/secretfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction
 `);
   });
   it("create a plan that references projects", async () => {
@@ -56,7 +56,7 @@ procedures/myfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add pr
   %project=secrets
   %uri=secrets
 
-procedures/myfunction [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/myfunction
+procedures/secretfunction [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction
 `);
   });
 });

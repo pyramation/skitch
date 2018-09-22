@@ -54,8 +54,10 @@ describe('deploy sqitch modules', () => {
     );
   });
   it('works', async () => {
-    const utils = await deploy('utils', database);
+    const utils = await deploy('secrets', database);
     const {rows: [{generate_secret: secret}]} = await pgPool.query(`SELECT * FROM generate_secret()`);
+    const {rows: [{secretfunction: secret2}]} = await pgPool.query(`SELECT * FROM secretfunction()`);
     expect(secret).toBeTruthy();
+    expect(secret2).toBeTruthy();
   });
 });

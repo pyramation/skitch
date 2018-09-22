@@ -7,8 +7,6 @@ export const build = async argv => {
   const skitchPath = await sPath();
   const modules = await listModules();
   const modulesWithChanges = await getExtensionsAndModulesChanges('utils');
-  console.log(modules)
-  console.log(modulesWithChanges)
 
   const extensions = Object.keys(modules).map(key=>{
     const mod = modules[key];
