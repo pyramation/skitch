@@ -95,7 +95,7 @@ describe('sqitch modules', function () {
                     })];
                 case 1:
                     plan = _a.sent();
-                    expect(cleanText(plan)).toEqual(cleanText("\n%syntax-version=1.0.0\n  %project=secrets\n  %uri=secrets\n\nprocedures/secretfunction [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction\n"));
+                    expect(cleanText(plan)).toEqual(cleanText("\n%syntax-version=1.0.0\n  %project=secrets\n  %uri=secrets\n\nprocedures/secretfunction [totp:procedures/generate_secret pg-verify:procedures/verify_view] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction\n"));
                     return [2 /*return*/];
             }
         });

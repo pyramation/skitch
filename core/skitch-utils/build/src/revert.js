@@ -45,7 +45,7 @@ var skitch_env_1 = require("skitch-env");
 var pg = require('pg');
 // should we be parsing the plan file?
 // currently assuming only extensions in control file...
-exports.deploy = function (name, database, opts) { return __awaiter(_this, void 0, void 0, function () {
+exports.revert = function (name, database, opts) { return __awaiter(_this, void 0, void 0, function () {
     var modules, path, extensions, pgPool, i, extension, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -64,6 +64,8 @@ exports.deploy = function (name, database, opts) { return __awaiter(_this, void 
                 pgPool = new pg.Pool({
                     connectionString: "postgres://" + skitch_env_1.PGUSER + ":" + skitch_env_1.PGPASSWORD + "@" + skitch_env_1.PGHOST + ":" + skitch_env_1.PGPORT + "/" + database
                 });
+                // just reverse it
+                extensions.resolved = extensions.resolved.reverse();
                 i = 0;
                 _a.label = 4;
             case 4:
@@ -73,15 +75,15 @@ exports.deploy = function (name, database, opts) { return __awaiter(_this, void 
             case 5:
                 _a.trys.push([5, 9, , 10]);
                 if (!extensions.external.includes(extension)) return [3 /*break*/, 7];
-                console.log("CREATE EXTENSION IF NOT EXISTS \"" + extension + "\" CASCADE;");
-                return [4 /*yield*/, pgPool.query("CREATE EXTENSION IF NOT EXISTS \"" + extension + "\" CASCADE;")];
+                console.log("DROP EXTENSION IF EXISTS \"" + extension + "\" CASCADE;");
+                return [4 /*yield*/, pgPool.query("DROP EXTENSION IF EXISTS \"" + extension + "\" CASCADE;")];
             case 6:
                 _a.sent();
                 return [3 /*break*/, 8];
             case 7:
                 console.log(modules[extension].path);
-                console.log("sqitch deploy db:pg:" + database);
-                shell.exec("sqitch deploy db:pg:" + database, {
+                console.log("sqitch revert db:pg:" + database + " -y");
+                shell.exec("sqitch revert db:pg:" + database + " -y", {
                     cwd: path_1.resolve(path, modules[extension].path),
                     env: {
                         PGUSER: skitch_env_1.PGUSER,
@@ -106,4 +108,4 @@ exports.deploy = function (name, database, opts) { return __awaiter(_this, void 
         }
     });
 }); };
-//# sourceMappingURL=deploy.js.map
+//# sourceMappingURL=revert.js.map

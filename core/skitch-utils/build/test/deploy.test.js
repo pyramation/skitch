@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 var util_1 = require("util");
 var child_process_1 = require("child_process");
 var asyncExec = util_1.promisify(child_process_1.exec);
@@ -98,21 +99,98 @@ describe('deploy sqitch modules', function () {
             }
         });
     }); });
-    it('works', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('deploy', function () { return __awaiter(_this, void 0, void 0, function () {
         var utils, secret, secret2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, index_1.deploy('secrets', database)];
                 case 1:
                     utils = _a.sent();
-                    return [4 /*yield*/, pgPool.query("SELECT * FROM generate_secret()")];
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM generate_secret()')];
                 case 2:
                     secret = (_a.sent()).rows[0].generate_secret;
-                    return [4 /*yield*/, pgPool.query("SELECT * FROM secretfunction()")];
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM secretfunction()')];
                 case 3:
                     secret2 = (_a.sent()).rows[0].secretfunction;
                     expect(secret).toBeTruthy();
                     expect(secret2).toBeTruthy();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('revert', function () { return __awaiter(_this, void 0, void 0, function () {
+        var deployUtils, secret, secret2, failed, revertUtils, secret3, e_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, index_1.deploy('secrets', database)];
+                case 1:
+                    deployUtils = _a.sent();
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM generate_secret()')];
+                case 2:
+                    secret = (_a.sent()).rows[0].generate_secret;
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM secretfunction()')];
+                case 3:
+                    secret2 = (_a.sent()).rows[0].secretfunction;
+                    expect(secret).toBeTruthy();
+                    expect(secret2).toBeTruthy();
+                    failed = false;
+                    return [4 /*yield*/, index_1.revert('secrets', database)];
+                case 4:
+                    revertUtils = _a.sent();
+                    _a.label = 5;
+                case 5:
+                    _a.trys.push([5, 7, , 8]);
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM generate_secret()')];
+                case 6:
+                    secret3 = (_a.sent()).rows[0].generate_secret;
+                    return [3 /*break*/, 8];
+                case 7:
+                    e_2 = _a.sent();
+                    failed = true;
+                    return [3 /*break*/, 8];
+                case 8:
+                    expect(failed).toBe(true);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('verify', function () { return __awaiter(_this, void 0, void 0, function () {
+        var deployUtils, secret, secret2, failed, revertUtils, secret3, e_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, index_1.deploy('secrets', database)];
+                case 1:
+                    deployUtils = _a.sent();
+                    // verify
+                    return [4 /*yield*/, index_1.verify('secrets', database)];
+                case 2:
+                    // verify
+                    _a.sent();
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM generate_secret()')];
+                case 3:
+                    secret = (_a.sent()).rows[0].generate_secret;
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM secretfunction()')];
+                case 4:
+                    secret2 = (_a.sent()).rows[0].secretfunction;
+                    expect(secret).toBeTruthy();
+                    expect(secret2).toBeTruthy();
+                    failed = false;
+                    return [4 /*yield*/, index_1.revert('secrets', database)];
+                case 5:
+                    revertUtils = _a.sent();
+                    _a.label = 6;
+                case 6:
+                    _a.trys.push([6, 8, , 9]);
+                    return [4 /*yield*/, pgPool.query('SELECT * FROM generate_secret()')];
+                case 7:
+                    secret3 = (_a.sent()).rows[0].generate_secret;
+                    return [3 /*break*/, 9];
+                case 8:
+                    e_3 = _a.sent();
+                    failed = true;
+                    return [3 /*break*/, 9];
+                case 9:
+                    expect(failed).toBe(true);
                     return [2 /*return*/];
             }
         });

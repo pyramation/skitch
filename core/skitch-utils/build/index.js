@@ -16,4 +16,6 @@ __export(require("./src/build"));
 __export(require("./src/package"));
 __export(require("./src/deps"));
 __export(require("./src/deploy"));
+__export(require("./src/revert"));
+__export(require("./src/verify"));
 //# sourceMappingURL=index.js.map

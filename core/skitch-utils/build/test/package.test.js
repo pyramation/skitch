@@ -54,7 +54,7 @@ describe('package', function () {
                 case 0: return [4 /*yield*/, package_1.packageModule()];
                 case 1:
                     sql = (_a.sent()).sql;
-                    expect(clean(sql)).toEqual(clean("\n\\echo Use \"CREATE EXTENSION secrets\" to load this file. \\quit\nCREATE FUNCTION secretfunction (  ) RETURNS text AS $EOFCODE$\n  select * from generate_secret();\n$EOFCODE$ LANGUAGE sql STABLE;"));
+                    expect(clean(sql)).toMatchSnapshot();
                     return [2 /*return*/];
             }
         });

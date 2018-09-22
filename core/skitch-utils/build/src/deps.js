@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var path_1 = require("path");
 var glob_1 = require("glob");
+var modules_1 = require("./modules");
 var makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
 exports.getDeps = function (packageDir) { return __awaiter(_this, void 0, void 0, function () {
     // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
@@ -118,6 +119,49 @@ exports.getDeps = function (packageDir) { return __awaiter(_this, void 0, void 0
                         resolved: resolved,
                         deps: deps
                     }];
+        }
+    });
+}); };
+exports.extDeps = function (name) { return __awaiter(_this, void 0, void 0, function () {
+    // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
+    function dep_resolve(sqlmodule, resolved, unresolved) {
+        unresolved.push(sqlmodule);
+        var edges = deps[sqlmodule];
+        if (!edges) {
+            external.push(sqlmodule);
+            edges = deps[sqlmodule] = [];
+        }
+        for (var i = 0; i < edges.length; i++) {
+            var dep = edges[i];
+            if (!resolved.includes(dep)) {
+                if (unresolved.includes(dep)) {
+                    throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
+                }
+                dep_resolve(dep, resolved, unresolved);
+            }
+        }
+        resolved.push(sqlmodule);
+        var index = unresolved.indexOf(sqlmodule);
+        unresolved.splice(index);
+    }
+    var modules, external, deps, resolved, unresolved;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, modules_1.listModules()];
+            case 1:
+                modules = _a.sent();
+                external = [];
+                if (!modules[name]) {
+                    throw new Error("module " + name + " does not exist!");
+                }
+                deps = Object.keys(modules).reduce(function (memo, key) {
+                    memo[key] = modules[key].requires;
+                    return memo;
+                }, {});
+                resolved = [];
+                unresolved = [];
+                dep_resolve(name, resolved, unresolved);
+                return [2 /*return*/, { external: external, resolved: resolved }];
         }
     });
 }); };

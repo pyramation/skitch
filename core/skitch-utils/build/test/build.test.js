@@ -53,7 +53,7 @@ describe('build', function () {
                 case 0: return [4 /*yield*/, build_1.build('secrets')];
                 case 1:
                     results = _a.sent();
-                    expect(clean(results)).toEqual(clean("CREATE EXTENSION IF NOT EXISTS \"plpgsql\" CASCADE;\n    CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\" CASCADE;\n    CREATE EXTENSION IF NOT EXISTS \"pgcrypto\" CASCADE;\n    CREATE FUNCTION generate_secret ( len int DEFAULT 32, symbols boolean DEFAULT (FALSE) ) RETURNS text AS $EOFCODE$\n    DECLARE\n      v_set text;\n\n      v_bytea bytea;\n      v_output text;\n\n      x int;\n      y int;\n      b_index int;\n    BEGIN\n      v_set = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';\n      v_output = '';\n      v_bytea = gen_random_bytes(len);\n\n      IF (symbols IS NOT NULL) THEN\n        v_set = v_set || '!@#$%^&*()<>?/[]{},.:;';\n      END IF;\n\n      FOR x IN 0 .. len-1 LOOP\n        y := get_byte(v_bytea, x);\n        b_index := floor(y/255.0 * (length(v_set)-1));\n    \t  v_output := v_output || substring(v_set from b_index for 1);\n      END LOOP;\n\n      RETURN v_output;\n    END;\n    $EOFCODE$ LANGUAGE plpgsql STABLE;\n    CREATE FUNCTION secretfunction (  ) RETURNS int AS $EOFCODE$\n      SELECT 1;\n    $EOFCODE$ LANGUAGE sql STABLE;"));
+                    expect(clean(results)).toMatchSnapshot();
                     return [2 /*return*/];
             }
         });

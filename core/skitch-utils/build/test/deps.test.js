@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
 var deps_1 = require("../src/deps");
 describe('deps', function () {
-    it('works', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('sqitch package dependencies', function () { return __awaiter(_this, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -58,6 +59,58 @@ describe('deps', function () {
                             'procedures/myfunction',
                             'totp:procedures/generate_secret',
                             'projects/totp/procedures/generate_secret'
+                        ]
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('skitch project extensions dependencies', function () { return __awaiter(_this, void 0, void 0, function () {
+        var utils, secrets, totp;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, deps_1.extDeps('utils')];
+                case 1:
+                    utils = _a.sent();
+                    expect(utils).toEqual({
+                        external: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+                        resolved: [
+                            'plpgsql',
+                            'uuid-ossp',
+                            'pgcrypto',
+                            'pg-utilities',
+                            'pg-verify',
+                            'totp',
+                            'utils'
+                        ]
+                    });
+                    return [4 /*yield*/, deps_1.extDeps('secrets')];
+                case 2:
+                    secrets = _a.sent();
+                    expect(secrets).toEqual({
+                        external: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+                        resolved: [
+                            'plpgsql',
+                            'uuid-ossp',
+                            'pgcrypto',
+                            'pg-utilities',
+                            'pg-verify',
+                            'totp',
+                            'secrets'
+                        ]
+                    });
+                    return [4 /*yield*/, deps_1.extDeps('totp')];
+                case 3:
+                    totp = _a.sent();
+                    expect(totp).toEqual({
+                        external: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+                        resolved: [
+                            'plpgsql',
+                            'uuid-ossp',
+                            'pgcrypto',
+                            'pg-utilities',
+                            'pg-verify',
+                            'totp'
                         ]
                     });
                     return [2 /*return*/];

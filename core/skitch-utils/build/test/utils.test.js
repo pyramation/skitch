@@ -54,19 +54,29 @@ describe('sqitch modules', function () {
                 case 1:
                     modules = _a.sent();
                     expect(modules).toEqual({
+                        'pg-utilities': {
+                            path: 'packages/utilities',
+                            requires: ['plpgsql'],
+                            version: '0.0.1'
+                        },
+                        'pg-verify': {
+                            path: 'packages/verify',
+                            requires: ['plpgsql', 'uuid-ossp', 'pg-utilities'],
+                            version: '0.0.1'
+                        },
                         secrets: {
                             path: 'packages/secrets',
-                            requires: ['plpgsql', 'uuid-ossp', 'totp'],
+                            requires: ['plpgsql', 'uuid-ossp', 'totp', 'pg-verify'],
                             version: '0.0.1'
                         },
                         totp: {
                             path: 'packages/totp',
-                            requires: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+                            requires: ['plpgsql', 'uuid-ossp', 'pgcrypto', 'pg-verify'],
                             version: '0.0.1'
                         },
                         utils: {
                             path: 'packages/utils',
-                            requires: ['plpgsql', 'uuid-ossp', 'totp'],
+                            requires: ['plpgsql', 'uuid-ossp', 'totp', 'pg-verify'],
                             version: '0.0.1'
                         }
                     });
@@ -95,7 +105,7 @@ describe('sqitch modules', function () {
                     deps = _a.sent();
                     expect(deps).toEqual({
                         native: ['plpgsql', 'uuid-ossp'],
-                        sqitch: ['totp']
+                        sqitch: ['totp', 'pg-verify']
                     });
                     return [2 /*return*/];
             }
@@ -110,7 +120,10 @@ describe('sqitch modules', function () {
                     deps = _a.sent();
                     expect(deps).toEqual({
                         native: ['plpgsql', 'uuid-ossp'],
-                        sqitch: [{ latest: 'procedures/generate_secret', name: 'totp' }]
+                        sqitch: [
+                            { latest: 'procedures/generate_secret', name: 'totp' },
+                            { latest: 'procedures/verify_view', name: 'pg-verify' }
+                        ]
                     });
                     return [2 /*return*/];
             }
