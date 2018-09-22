@@ -54,7 +54,6 @@ exports.resolve = function (pkgDir, scriptType) {
                     return [4 /*yield*/, deps_1.getDeps(pkgDir)];
                 case 1:
                     _a = _b.sent(), resolved = _a.resolved, external = _a.external;
-                    console.log(external);
                     if (scriptType === 'revert') {
                         resolved = resolved.reverse();
                     }

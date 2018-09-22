@@ -38,16 +38,24 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var package_1 = require("../src/package");
 process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
-process.env.SQITCH_PATH = __dirname + '/fixtures/skitch/packages/totp';
+process.env.SQITCH_PATH = __dirname + '/fixtures/skitch/packages/secrets';
+var clean = function (t) {
+    return t
+        .split('\n')
+        .map(function (a) { return a.trim(); })
+        .filter(function (a) { return a; })
+        .join('\n');
+};
 describe('package', function () {
-    it('works', function () { return __awaiter(_this, void 0, void 0, function () {
-        var cmd;
+    it('creates an extension', function () { return __awaiter(_this, void 0, void 0, function () {
+        var sql;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, package_1.packageModule()];
                 case 1:
-                    cmd = _a.sent();
-                    throw new Error('NOT FINISHED IMPLEMENTING PACKAGE');
+                    sql = (_a.sent()).sql;
+                    expect(clean(sql)).toEqual(clean("\n\\echo Use \"CREATE EXTENSION secrets\" to load this file. \\quit\nCREATE FUNCTION secretfunction (  ) RETURNS text AS $EOFCODE$\n  select * from generate_secret();\n$EOFCODE$ LANGUAGE sql STABLE;"));
+                    return [2 /*return*/];
             }
         });
     }); });

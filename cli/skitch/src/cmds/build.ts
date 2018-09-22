@@ -33,5 +33,5 @@ export default async argv => {
 
   let sql = await build(project);
 
-  writeFileSync(path, sql.join('\n'));
+  writeFileSync(path, sql);
 };

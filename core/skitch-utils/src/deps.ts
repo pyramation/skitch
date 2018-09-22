@@ -46,6 +46,7 @@ export const getDeps = async (packageDir) => {
   }
 
   var files = await glob(`${packageDir}/deploy/**/**.sql`);
+
   for (var i = 0; i < files.length; i++) {
     const data = readFileSync(files[i]);
     var lines = data.toString().split('\n');

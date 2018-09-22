@@ -1,33 +1,20 @@
-import * as shell from 'shelljs';
-import { sqitchPath as path } from 'skitch-utils';
-const parser = require('pgsql-parser');
-import { resolve } from 'skitch-utils';
-import { transformProps } from 'skitch-transform';
+import { sqitchPath as path, packageModule } from 'skitch-utils';
 import { prompt } from 'inquirerer';
 import { writeFileSync, readFileSync } from 'fs';
 
-const sluggify = (text) => {
-  return text.toString().toLowerCase().trim()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/&/g, '-and-')         // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
-}
-
-const noop = () => undefined;
-
-export const cleanTree = (tree) => {
-  return transformProps(tree, {
-    stmt_len: noop,
-    stmt_location: noop,
-    location: noop
-  });
+const sluggify = text => {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+    .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 };
 
 export default async argv => {
-  const sql = await resolve();
   const sqitchPath = await path();
-
   const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);
 
@@ -36,7 +23,7 @@ export default async argv => {
       name: 'version',
       message: 'version',
       default: pkg.version,
-      required: true,
+      required: true
     }
   ];
 
@@ -51,40 +38,32 @@ export default async argv => {
   const control = readFileSync(controlPath).toString();
 
   // control file
-  writeFileSync(controlPath, control.replace(/default_version = '[0-9\.]+'/, `default_version = '${version}'`));
+  writeFileSync(
+    controlPath,
+    control.replace(
+      /default_version = '[0-9\.]+'/,
+      `default_version = '${version}'`
+    )
+  );
 
   // package json
-  writeFileSync(pkgPath, JSON.stringify(Object.assign({}, pkg, {version}), null, 2));
+  writeFileSync(
+    pkgPath,
+    JSON.stringify(Object.assign({}, pkg, { version }), null, 2)
+  );
 
   // makefile
-  var regex = new RegExp(extname + '--[0-9\.]+.sql')
+  var regex = new RegExp(extname + '--[0-9.]+.sql');
   writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
 
-  // sql
-  try {
-    const query = parser.parse(sql).query.reduce((m, stmt)=>{
-      if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt')) return m;
-      if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt')) return m;
-      return [...m, stmt];
-    }, []);
+  const { sql, diff, tree1, tree2 } = await packageModule();
 
-    const topLine = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
-    const finalSql = parser.deparse(query);
-    writeFileSync(`${sqitchPath}/sql/${sqlFileName}`, `${topLine}${finalSql}`);
-
-    const tree1 = query;
-    const tree2 = parser.parse(finalSql).query;
-
-    const diff = (JSON.stringify(cleanTree(tree1)) !== JSON.stringify(cleanTree(tree2)));
-    if (diff) {
-      console.error('DIFF exists! Careful. Check sql/ folder...');
-      writeFileSync(`${sqitchPath}/sql/${sqlFileName}.tree.orig.json`, JSON.stringify(cleanTree(tree1), null, 2));
-      writeFileSync(`${sqitchPath}/sql/${sqlFileName}.tree.parsed.json`, JSON.stringify(cleanTree(tree2), null, 2));
-    }
-
-    console.log(`${sqlFileName} written`);
-  } catch (e) {
-    console.error(e);
+  if (diff) {
+    console.error('DIFF exists! Careful. Check sql/ folder...');
+    writeFileSync(`${sqitchPath}/sql/${sqlFileName}.tree.orig.json`, tree1);
+    writeFileSync(`${sqitchPath}/sql/${sqlFileName}.tree.parsed.json`, tree2);
   }
 
+  writeFileSync(`${sqitchPath}/sql/${sqlFileName}`, sql);
+  console.log(`${sqlFileName} written`);
 };

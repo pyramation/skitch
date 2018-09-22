@@ -78,7 +78,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_utils_1.build(project)];
             case 4:
                 sql = _b.sent();
-                fs_1.writeFileSync(path, sql.join('\n'));
+                fs_1.writeFileSync(path, sql);
                 return [2 /*return*/];
         }
     });

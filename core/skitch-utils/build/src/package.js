@@ -55,19 +55,47 @@ exports.cleanTree = function (tree) {
         location: noop
     });
 };
-exports.packageModule = function (version) { return __awaiter(_this, void 0, void 0, function () {
-    var sql, sqitchPath;
+exports.packageModule = function () { return __awaiter(_this, void 0, void 0, function () {
+    var sqitchPath, sql, pkgPath, pkg, extname, query, topLine, finalSql, tree1, tree2, results, diff;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, resolve_1.resolve()];
+            case 0: return [4 /*yield*/, paths_1.sqitchPath()];
             case 1:
-                sql = _a.sent();
-                return [4 /*yield*/, paths_1.sqitchPath()];
-            case 2:
                 sqitchPath = _a.sent();
-                return [2 /*return*/, {
-                        sql: sql, sqitchPath: sqitchPath
-                    }];
+                return [4 /*yield*/, resolve_1.resolve(sqitchPath)];
+            case 2:
+                sql = _a.sent();
+                pkgPath = sqitchPath + "/package.json";
+                pkg = require(pkgPath);
+                extname = sluggify(pkg.name);
+                // sql
+                try {
+                    query = parser.parse(sql).query.reduce(function (m, stmt) {
+                        if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt'))
+                            return m;
+                        if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt'))
+                            return m;
+                        return m.concat([stmt]);
+                    }, []);
+                    topLine = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
+                    finalSql = parser.deparse(query);
+                    tree1 = query;
+                    tree2 = parser.parse(finalSql).query;
+                    results = {
+                        sql: "" + topLine + finalSql
+                    };
+                    diff = (JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2)));
+                    if (diff) {
+                        results.diff = true;
+                        results.tree1 = JSON.stringify(exports.cleanTree(tree1), null, 2);
+                        results.tree2 = JSON.stringify(exports.cleanTree(tree2), null, 2);
+                    }
+                    return [2 /*return*/, results];
+                }
+                catch (e) {
+                    console.error(e);
+                }
+                return [2 /*return*/];
         }
     });
 }); };
