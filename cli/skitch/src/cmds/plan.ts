@@ -27,11 +27,12 @@ export default async argv => {
   }
 
   const settings = {
-    name
+    name,
+    projects: true
   };
 
-  if (argv.projects) {
-    settings.projects = true;
+  if (argv.noprojects) {
+    settings.projects = false;
   }
 
   const plan = await makePlan(PKGDIR, settings);

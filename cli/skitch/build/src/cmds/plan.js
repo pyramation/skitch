@@ -69,10 +69,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 _a.label = 3;
             case 3:
                 settings = {
-                    name: name
+                    name: name,
+                    projects: true
                 };
-                if (argv.projects) {
-                    settings.projects = true;
+                if (argv.noprojects) {
+                    settings.projects = false;
                 }
                 return [4 /*yield*/, skitch_utils_1.makePlan(PKGDIR, settings)];
             case 4:
