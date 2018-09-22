@@ -64,8 +64,6 @@ exports.verify = function (name, database, opts) { return __awaiter(_this, void 
                 pgPool = new pg.Pool({
                     connectionString: "postgres://" + skitch_env_1.PGUSER + ":" + skitch_env_1.PGPASSWORD + "@" + skitch_env_1.PGHOST + ":" + skitch_env_1.PGPORT + "/" + database
                 });
-                // just reverse it
-                extensions.resolved = extensions.resolved.reverse();
                 i = 0;
                 _a.label = 4;
             case 4:

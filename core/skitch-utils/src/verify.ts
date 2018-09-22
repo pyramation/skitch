@@ -25,9 +25,6 @@ export const verify = async (name, database, opts) => {
     connectionString: `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${database}`
   });
 
-  // just reverse it
-  extensions.resolved = extensions.resolved.reverse();
-
   for (let i = 0; i < extensions.resolved.length; i++) {
     const extension = extensions.resolved[i];
     try {
