@@ -13,12 +13,6 @@ const clean = t =>
 describe('package', () => {
   it('creates an extension', async () => {
     const { sql } = await packageModule();
-    expect(clean(sql)).toEqual(
-      clean(`
-\\echo Use "CREATE EXTENSION secrets" to load this file. \\quit
-CREATE FUNCTION secretfunction (  ) RETURNS text AS $EOFCODE$
-  select * from generate_secret();
-$EOFCODE$ LANGUAGE sql STABLE;`)
-    );
+    expect(clean(sql)).toMatchSnapshot();
   });
 });

@@ -12,3 +12,5 @@ export * from './src/build';
 export * from './src/package';
 export * from './src/deps';
 export * from './src/deploy';
+export * from './src/revert';
+export * from './src/verify';

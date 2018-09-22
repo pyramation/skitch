@@ -10,6 +10,12 @@ because like lerna, you can publish to NPM!
 *** NPM name = pg extension name = sqitch module name
 
 
+- skitch init
+  - should cre
+- clean up extensions deps - dont just run create if exists!
+- FINISH the dep resolution!
+
+
 *******
 
 

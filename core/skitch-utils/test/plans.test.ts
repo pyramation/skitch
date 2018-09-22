@@ -57,7 +57,7 @@ procedures/secretfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # ad
   %project=secrets
   %uri=secrets
 
-procedures/secretfunction [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction
+procedures/secretfunction [totp:procedures/generate_secret pg-verify:procedures/verify_view] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction
 `)
     );
   });

@@ -1,7 +1,8 @@
-import { getDeps } from '../src/deps';
+process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
+import { getDeps, extDeps } from '../src/deps';
 
 describe('deps', () => {
-  it('works', async () => {
+  it('sqitch package dependencies', async () => {
     const res = await getDeps(
       __dirname + '/fixtures/skitch/packages/utils',
       'utils'
@@ -19,6 +20,46 @@ describe('deps', () => {
         'procedures/myfunction',
         'totp:procedures/generate_secret',
         'projects/totp/procedures/generate_secret'
+      ]
+    });
+  });
+  it('skitch project extensions dependencies', async () => {
+    const utils = await extDeps('utils');
+    expect(utils).toEqual({
+      external: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+      resolved: [
+        'plpgsql',
+        'uuid-ossp',
+        'pgcrypto',
+        'pg-utilities',
+        'pg-verify',
+        'totp',
+        'utils'
+      ]
+    });
+    const secrets = await extDeps('secrets');
+    expect(secrets).toEqual({
+      external: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+      resolved: [
+        'plpgsql',
+        'uuid-ossp',
+        'pgcrypto',
+        'pg-utilities',
+        'pg-verify',
+        'totp',
+        'secrets'
+      ]
+    });
+    const totp = await extDeps('totp');
+    expect(totp).toEqual({
+      external: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+      resolved: [
+        'plpgsql',
+        'uuid-ossp',
+        'pgcrypto',
+        'pg-utilities',
+        'pg-verify',
+        'totp'
       ]
     });
   });

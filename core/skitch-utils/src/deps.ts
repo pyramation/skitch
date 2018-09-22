@@ -105,3 +105,52 @@ export const getDeps = async (packageDir) => {
   };
 
 };
+
+export const extDeps = async (name) => {
+
+  const modules = await listModules();
+  const external = [];
+  if (!modules[name]) {
+    throw new Error(`module ${name} does not exist!`);
+  }
+  // build deps
+  let deps: { [type: string]: any } = Object.keys(modules).reduce((memo, key)=>{
+    memo[key] = modules[key].requires;
+    return memo;
+  }, {});
+
+  // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
+  function dep_resolve(
+    sqlmodule: string,
+    resolved: string[],
+    unresolved: string[]
+  ) {
+    unresolved.push(sqlmodule);
+    let edges = deps[sqlmodule];
+    if (!edges) {
+      external.push(sqlmodule);
+      edges = deps[sqlmodule] = [];
+    }
+
+    for (var i = 0; i < edges.length; i++) {
+      var dep = edges[i];
+      if (!resolved.includes(dep)) {
+        if (unresolved.includes(dep)) {
+          throw new Error(`Circular reference detected ${sqlmodule}, ${dep}`);
+        }
+        dep_resolve(dep, resolved, unresolved);
+      }
+    }
+
+    resolved.push(sqlmodule);
+    var index = unresolved.indexOf(sqlmodule);
+    unresolved.splice(index);
+  }
+
+  let resolved: string[] = [];
+  var unresolved: string[] = [];
+
+  dep_resolve(name, resolved, unresolved);
+
+  return {external, resolved};
+};

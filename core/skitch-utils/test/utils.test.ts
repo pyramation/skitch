@@ -19,19 +19,29 @@ describe('sqitch modules', () => {
   it('should get modules', async () => {
     const modules = await listModules();
     expect(modules).toEqual({
+      'pg-utilities': {
+        path: 'packages/utilities',
+        requires: ['plpgsql'],
+        version: '0.0.1'
+      },
+      'pg-verify': {
+        path: 'packages/verify',
+        requires: ['plpgsql', 'uuid-ossp', 'pg-utilities'],
+        version: '0.0.1'
+      },
       secrets: {
         path: 'packages/secrets',
-        requires: ['plpgsql', 'uuid-ossp', 'totp'],
+        requires: ['plpgsql', 'uuid-ossp', 'totp', 'pg-verify'],
         version: '0.0.1'
       },
       totp: {
         path: 'packages/totp',
-        requires: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
+        requires: ['plpgsql', 'uuid-ossp', 'pgcrypto', 'pg-verify'],
         version: '0.0.1'
       },
       utils: {
         path: 'packages/utils',
-        requires: ['plpgsql', 'uuid-ossp', 'totp'],
+        requires: ['plpgsql', 'uuid-ossp', 'totp', 'pg-verify'],
         version: '0.0.1'
       }
     });
@@ -44,14 +54,17 @@ describe('sqitch modules', () => {
     const deps = await getExtensionsAndModules('utils');
     expect(deps).toEqual({
       native: ['plpgsql', 'uuid-ossp'],
-      sqitch: ['totp']
+      sqitch: ['totp', 'pg-verify']
     });
   });
   it('should be able to create a deps for cross-project requires with changes', async () => {
     const deps = await getExtensionsAndModulesChanges('utils');
     expect(deps).toEqual({
       native: ['plpgsql', 'uuid-ossp'],
-      sqitch: [{ latest: 'procedures/generate_secret', name: 'totp' }]
+      sqitch: [
+        { latest: 'procedures/generate_secret', name: 'totp' },
+        { latest: 'procedures/verify_view', name: 'pg-verify' }
+      ]
     });
   });
 });
