@@ -31,7 +31,7 @@ describe('testing', () => {
       ...config,
       hot: true,
       directory: __dirname + '/fixtures/basic',
-      extensions: ['pgcrypto', 'plv8']
+      extensions: ['pgcrypto', 'citext']
     });
     await expectBasicSeed(db);
   });
