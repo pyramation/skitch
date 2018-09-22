@@ -78,7 +78,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     ], {})];
             case 3:
                 name_1 = (_b.sent()).name;
-                return [4 /*yield*/, deploy(name_1, database)];
+                return [4 /*yield*/, skitch_utils_1.deploy(name_1, database)];
             case 4:
                 _b.sent();
                 return [3 /*break*/, 6];

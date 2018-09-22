@@ -1,6 +1,6 @@
 import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
-import { listModules } from 'skitch-utils';
+import { listModules, deploy } from 'skitch-utils';
 
 import {
   PGUSER,
