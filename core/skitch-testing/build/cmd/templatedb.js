@@ -54,6 +54,8 @@ if (!process.env.PGTEMPLATE_DATABASE) {
         throw new Error('no PGTEMPLATE_DATABASE defined in env!');
     }
 }
+var extensions = process.env.PGEXTENSIONS;
+extensions = extensions.split(',');
 var run = function () { return __awaiter(_this, void 0, void 0, function () {
     var config, e_1, test;
     return __generator(this, function (_a) {
@@ -73,7 +75,7 @@ var run = function () { return __awaiter(_this, void 0, void 0, function () {
                 return [3 /*break*/, 5];
             case 5:
                 test = new skitch_test_1.TestDatabase();
-                return [4 /*yield*/, test.init(process.env.PGEXTENSIONS)];
+                return [4 /*yield*/, test.init(extensions)];
             case 6:
                 _a.sent();
                 return [2 /*return*/];
