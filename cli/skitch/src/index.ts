@@ -7,6 +7,7 @@ import createdb from './cmds/createdb';
 import deploy from './cmds/deploy';
 import dropdb from './cmds/dropdb';
 import ext from './cmds/ext';
+import extension from './cmds/extension';
 import format from './cmds/format';
 import generate from './cmds/generate';
 import info from './cmds/info';
@@ -24,6 +25,6 @@ import start from './cmds/start';
 import test from './cmds/test';
 import verify from './cmds/verify';
 export default {
-  add,addproject,build,bundle,createdb,deploy,dropdb,ext,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify
+  add,addproject,build,bundle,createdb,deploy,dropdb,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify
 }
   

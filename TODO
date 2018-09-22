@@ -1,0 +1,44 @@
+TODO
+
+*******
+
+BUILD with all in same dir, skitch style using git.
+
+BUILD with npm install or sqitch siblings. You can still build many in the same git repo
+because like lerna, you can publish to NPM!
+
+*** NPM name = pg extension name = sqitch module name
+
+
+*******
+
+
+yarn add https://github.com/pyramation/pg-utils.git
+
+works!
+
+{
+  "name": "sql-exmple",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "pg-utils": "https://github.com/pyramation/pg-utils.git"
+  }
+}
+
+- [ ] set URI in projects
+- [ ] how do publish lerna style?
+--- [ ] publish to NPM!
+--- [ ] then you can yarn add pg-utils-verify
+`yarn add pg-utils-verify`
+`yarn add pg-utils-utils`
+--- [ ] allow to lookup inside of the skitch.json for "dependencies", and or "packages", e.g., "./packages/*"
+
+so instead of only looking for control files, you could look in skitch.json first!
+then you will end up finding some of the control files inside of the first node_modules directory.
+-- careful with blocking node_modules in the glob now!
+
+
+- rewrite skitch install!
+- should update the .env with PGEXTENSIONS
