@@ -47,8 +47,7 @@ describe('package', function () {
                 case 0: return [4 /*yield*/, package_1.packageModule()];
                 case 1:
                     cmd = _a.sent();
-                    console.log(cmd);
-                    return [2 /*return*/];
+                    throw new Error('NOT FINISHED IMPLEMENTING PACKAGE');
             }
         });
     }); });

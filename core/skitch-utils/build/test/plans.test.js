@@ -46,75 +46,59 @@ var cleanText = function (t) {
         .join('\n');
 };
 describe('sqitch modules', function () {
-    it('should get modules', function () { return __awaiter(_this, void 0, void 0, function () {
-        var modules;
+    it('should be able to create a plan', function () { return __awaiter(_this, void 0, void 0, function () {
+        var plan;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.listModules()];
+                case 0: return [4 /*yield*/, index_1.getPlan({ name: 'totp', projects: false })];
                 case 1:
-                    modules = _a.sent();
-                    expect(modules).toEqual({
-                        secrets: {
-                            path: 'packages/secrets',
-                            requires: ['plpgsql', 'uuid-ossp', 'totp'],
-                            version: '0.0.1'
-                        },
-                        totp: {
-                            path: 'packages/totp',
-                            requires: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
-                            version: '0.0.1'
-                        },
-                        utils: {
-                            path: 'packages/utils',
-                            requires: ['plpgsql', 'uuid-ossp', 'totp'],
-                            version: '0.0.1'
-                        }
-                    });
+                    plan = _a.sent();
+                    expect(cleanText(plan)).toEqual(cleanText("\n%syntax-version=1.0.0\n%project=totp\n%uri=totp\nprocedures/generate_secret 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/generate_secret"));
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should get a modules last path', function () { return __awaiter(_this, void 0, void 0, function () {
-        var change;
+    it('should be able to create a plan with cross project requires already in', function () { return __awaiter(_this, void 0, void 0, function () {
+        var plan;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.latestChange('totp')];
+                case 0: return [4 /*yield*/, index_1.getPlan({ name: 'utils', projects: false })];
                 case 1:
-                    change = _a.sent();
-                    expect(change).toEqual('procedures/generate_secret');
+                    plan = _a.sent();
+                    expect(cleanText(plan)).toEqual(cleanText("\n%syntax-version=1.0.0\n%project=utils\n%uri=utils\nprocedures/myfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/myfunction\nprojects/totp/procedures/generate_secret [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add projects/totp/procedures/generate_secret"));
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should be able to create a deps for cross-project requires', function () { return __awaiter(_this, void 0, void 0, function () {
-        var deps;
+    it('create a plan without options for projects loses deps', function () { return __awaiter(_this, void 0, void 0, function () {
+        var plan;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.getExtensionsAndModules('utils')];
+                case 0: return [4 /*yield*/, index_1.getPlan({
+                        name: 'secrets',
+                        projects: false
+                    })];
                 case 1:
-                    deps = _a.sent();
-                    expect(deps).toEqual({
-                        native: ['plpgsql', 'uuid-ossp'],
-                        sqitch: ['totp']
-                    });
+                    plan = _a.sent();
+                    expect(cleanText(plan)).toEqual(cleanText("\n%syntax-version=1.0.0\n  %project=secrets\n  %uri=secrets\n\nprocedures/secretfunction 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction\n"));
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should be able to create a deps for cross-project requires with changes', function () { return __awaiter(_this, void 0, void 0, function () {
-        var deps;
+    it('create a plan that references projects', function () { return __awaiter(_this, void 0, void 0, function () {
+        var plan;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.getExtensionsAndModulesChanges('utils')];
+                case 0: return [4 /*yield*/, index_1.getPlan({
+                        name: 'secrets',
+                        projects: true
+                    })];
                 case 1:
-                    deps = _a.sent();
-                    expect(deps).toEqual({
-                        native: ['plpgsql', 'uuid-ossp'],
-                        sqitch: [{ latest: 'procedures/generate_secret', name: 'totp' }]
-                    });
+                    plan = _a.sent();
+                    expect(cleanText(plan)).toEqual(cleanText("\n%syntax-version=1.0.0\n  %project=secrets\n  %uri=secrets\n\nprocedures/secretfunction [totp:procedures/generate_secret] 2017-08-11T08:11:51Z skitch <skitch@5b0c196eeb62> # add procedures/secretfunction\n"));
                     return [2 /*return*/];
             }
         });
     }); });
 });
-//# sourceMappingURL=utils.test.js.map
+//# sourceMappingURL=plans.test.js.map

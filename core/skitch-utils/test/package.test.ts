@@ -5,6 +5,6 @@ process.env.SQITCH_PATH = __dirname + '/fixtures/skitch/packages/totp';
 describe('package', () => {
   it('works', async () => {
     const cmd = await packageModule();
-    console.log(cmd);
+    throw new Error('NOT FINISHED IMPLEMENTING PACKAGE')
   });
 });

@@ -48,8 +48,29 @@ var modules_1 = require("./modules");
 var path_1 = require("path");
 var paths_1 = require("./paths");
 var fs_1 = require("fs");
-exports.build = function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var skitchPath, modules, modulesWithChanges, extensions;
+exports.build = function (project) { return __awaiter(_this, void 0, void 0, function () {
+    // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
+    function dep_resolve(sqlmodule, resolved, unresolved) {
+        unresolved.push(sqlmodule);
+        var edges = deps[sqlmodule];
+        if (!edges) {
+            native.push(sqlmodule);
+            edges = deps[sqlmodule] = [];
+        }
+        for (var i = 0; i < edges.length; i++) {
+            var dep = edges[i];
+            if (!resolved.includes(dep)) {
+                if (unresolved.includes(dep)) {
+                    throw new Error("Circular reference detected " + sqlmodule + ", " + dep);
+                }
+                dep_resolve(dep, resolved, unresolved);
+            }
+        }
+        resolved.push(sqlmodule);
+        var index = unresolved.indexOf(sqlmodule);
+        unresolved.splice(index);
+    }
+    var skitchPath, modules, modulesWithChanges, native, extensions, deps, resolved, unresolved, sql;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, paths_1.skitchPath()];
@@ -58,20 +79,41 @@ exports.build = function (argv) { return __awaiter(_this, void 0, void 0, functi
                 return [4 /*yield*/, modules_1.listModules()];
             case 2:
                 modules = _a.sent();
-                return [4 /*yield*/, modules_1.getExtensionsAndModulesChanges('utils')];
+                return [4 /*yield*/, modules_1.getExtensionsAndModulesChanges(project)];
             case 3:
                 modulesWithChanges = _a.sent();
-                console.log(modules);
-                console.log(modulesWithChanges);
-                extensions = Object.keys(modules).map(function (key) {
+                native = [];
+                extensions = Object.keys(modules).reduce(function (m, key) {
                     var mod = modules[key];
-                    return __assign({}, mod, { sql: fs_1.readFileSync(path_1.resolve(skitchPath + "/" + mod.path + "/sql/" + key + "--" + mod.version + ".sql"))
+                    m[key] = __assign({}, mod, { sql: fs_1.readFileSync(path_1.resolve(skitchPath + "/" + mod.path + "/sql/" + key + "--" + mod.version + ".sql"))
                             .toString()
                             .split('\n')
                             .filter(function (l, i) { return i !== 0; })
                             .join('\n') });
+                    return m;
+                }, {});
+                console.log(extensions);
+                deps = Object.keys(extensions).reduce(function (m, k) {
+                    m[k] = extensions[k].requires;
+                    return m;
+                }, {});
+                resolved = [];
+                unresolved = [];
+                dep_resolve(project, resolved, unresolved);
+                sql = [];
+                console.log(resolved);
+                console.log(resolved);
+                console.log(resolved);
+                console.log(resolved);
+                resolved.forEach(function (extension) {
+                    if (native.includes(extension)) {
+                        sql.push("CREATE EXTENSION IF NOT EXISTS \"" + extension + "\" CASCADE;");
+                    }
+                    else {
+                        sql.push(extensions[extension].sql);
+                    }
                 });
-                return [2 /*return*/, extensions];
+                return [2 /*return*/, sql.join('\n')];
         }
     });
 }); };

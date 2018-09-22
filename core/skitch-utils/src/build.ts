@@ -3,14 +3,15 @@ import { dirname, basename, resolve } from 'path';
 import { skitchPath as sPath } from './paths';
 import { readFileSync } from 'fs';
 
-export const build = async argv => {
+export const build = async (project) => {
   const skitchPath = await sPath();
   const modules = await listModules();
-  const modulesWithChanges = await getExtensionsAndModulesChanges('utils');
+  const modulesWithChanges = await getExtensionsAndModulesChanges(project);
+  const native = [];
 
-  const extensions = Object.keys(modules).map(key=>{
+  const extensions = Object.keys(modules).reduce((m, key) => {
     const mod = modules[key];
-    return {
+    m[key] = {
       ...mod,
       sql: readFileSync(
         resolve(`${skitchPath}/${mod.path}/sql/${key}--${mod.version}.sql`)
@@ -19,8 +20,61 @@ export const build = async argv => {
         .split('\n')
         .filter((l, i) => i !== 0)
         .join('\n')
+    };
+    return m;
+  }, {});
+
+console.log(extensions);
+
+  let deps = Object.keys(extensions).reduce((m, k) => {
+    m[k] = extensions[k].requires;
+    return m;
+  }, {});
+
+  // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
+  function dep_resolve(
+    sqlmodule: string,
+    resolved: string[],
+    unresolved: string[]
+  ) {
+    unresolved.push(sqlmodule);
+    let edges = deps[sqlmodule];
+    if (!edges) {
+      native.push(sqlmodule);
+      edges = deps[sqlmodule] = [];
+    }
+    for (let i = 0; i < edges.length; i++) {
+      let dep = edges[i];
+      if (!resolved.includes(dep)) {
+        if (unresolved.includes(dep)) {
+          throw new Error(`Circular reference detected ${sqlmodule}, ${dep}`);
+        }
+        dep_resolve(dep, resolved, unresolved);
+      }
+    }
+    resolved.push(sqlmodule);
+    let index = unresolved.indexOf(sqlmodule);
+    unresolved.splice(index);
+  }
+
+  let resolved: string[] = [];
+  let unresolved: string[] = [];
+
+  dep_resolve(project, resolved, unresolved);
+
+  let sql = [];
+
+  console.log(resolved);
+  console.log(resolved);
+  console.log(resolved);
+  console.log(resolved);
+
+  resolved.forEach(extension => {
+    if (native.includes(extension)) {
+      sql.push(`CREATE EXTENSION IF NOT EXISTS "${extension}" CASCADE;`);
+    } else {
+      sql.push(extensions[extension].sql);
     }
   });
-
-  return extensions;
+  return sql.join('\n');
 };

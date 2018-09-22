@@ -10,3 +10,4 @@ export * from './src/generate';
 export * from './src/build';
 export * from './src/package';
 export * from './src/deps';
+export * from './src/deploy';

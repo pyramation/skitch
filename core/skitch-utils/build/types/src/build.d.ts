@@ -1,1 +1,1 @@
-export declare const build: (argv: any) => Promise<any[]>;
+export declare const build: (project: any) => Promise<string>;

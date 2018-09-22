@@ -15,6 +15,8 @@ export const resolve = async (pkgDir = process.cwd(), scriptType = 'deploy'): Pr
 
   let { resolved, external } = await getDeps(pkgDir);
 
+  console.log(external);
+
   if (scriptType === 'revert') {
     resolved = resolved.reverse();
   }

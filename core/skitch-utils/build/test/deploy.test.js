@@ -37,84 +37,85 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
+var util_1 = require("util");
+var child_process_1 = require("child_process");
+var asyncExec = util_1.promisify(child_process_1.exec);
+var skitch_env_1 = require("skitch-env");
 var index_1 = require("../index");
-var cleanText = function (t) {
-    return t
-        .split('\n')
-        .map(function (a) { return a.trim(); })
-        .filter(function (a) { return a; })
-        .join('\n');
-};
-describe('sqitch modules', function () {
-    it('should get modules', function () { return __awaiter(_this, void 0, void 0, function () {
-        var modules;
+var database = 'my-test-module-db';
+var pg = require('pg');
+var pgPool;
+describe('deploy sqitch modules', function () {
+    beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
+        var e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.listModules()];
+                case 0:
+                    pgPool = new pg.Pool({
+                        connectionString: "postgres://" + skitch_env_1.PGUSER + ":" + skitch_env_1.PGPASSWORD + "@" + skitch_env_1.PGHOST + ":" + skitch_env_1.PGPORT + "/" + database
+                    });
+                    _a.label = 1;
                 case 1:
-                    modules = _a.sent();
-                    expect(modules).toEqual({
-                        secrets: {
-                            path: 'packages/secrets',
-                            requires: ['plpgsql', 'uuid-ossp', 'totp'],
-                            version: '0.0.1'
-                        },
-                        totp: {
-                            path: 'packages/totp',
-                            requires: ['plpgsql', 'uuid-ossp', 'pgcrypto'],
-                            version: '0.0.1'
-                        },
-                        utils: {
-                            path: 'packages/utils',
-                            requires: ['plpgsql', 'uuid-ossp', 'totp'],
-                            version: '0.0.1'
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, asyncExec("dropdb -U " + skitch_env_1.PGUSER + " -h " + skitch_env_1.PGHOST + " -p " + skitch_env_1.PGPORT + " " + database, {
+                            env: {
+                                PGPASSWORD: skitch_env_1.PGPASSWORD,
+                                PATH: skitch_env_1.PATH
+                            }
+                        })];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    e_1 = _a.sent();
+                    return [3 /*break*/, 4];
+                case 4: return [4 /*yield*/, asyncExec("createdb -U " + skitch_env_1.PGUSER + " -h " + skitch_env_1.PGHOST + " -p " + skitch_env_1.PGPORT + " " + database, {
+                        env: {
+                            PGPASSWORD: skitch_env_1.PGPASSWORD,
+                            PATH: skitch_env_1.PATH
                         }
-                    });
+                    })];
+                case 5:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should get a modules last path', function () { return __awaiter(_this, void 0, void 0, function () {
-        var change;
+    afterEach(function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.latestChange('totp')];
+                case 0:
+                    pgPool.end();
+                    return [4 /*yield*/, asyncExec("dropdb -U " + skitch_env_1.PGUSER + " -h " + skitch_env_1.PGHOST + " -p " + skitch_env_1.PGPORT + " " + database, {
+                            env: {
+                                PGPASSWORD: skitch_env_1.PGPASSWORD,
+                                PATH: skitch_env_1.PATH
+                            }
+                        })];
                 case 1:
-                    change = _a.sent();
-                    expect(change).toEqual('procedures/generate_secret');
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should be able to create a deps for cross-project requires', function () { return __awaiter(_this, void 0, void 0, function () {
-        var deps;
+    it('works', function () { return __awaiter(_this, void 0, void 0, function () {
+        var utils, secret, secret2;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.getExtensionsAndModules('utils')];
+                case 0: return [4 /*yield*/, index_1.deploy('secrets', database)];
                 case 1:
-                    deps = _a.sent();
-                    expect(deps).toEqual({
-                        native: ['plpgsql', 'uuid-ossp'],
-                        sqitch: ['totp']
-                    });
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('should be able to create a deps for cross-project requires with changes', function () { return __awaiter(_this, void 0, void 0, function () {
-        var deps;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, index_1.getExtensionsAndModulesChanges('utils')];
-                case 1:
-                    deps = _a.sent();
-                    expect(deps).toEqual({
-                        native: ['plpgsql', 'uuid-ossp'],
-                        sqitch: [{ latest: 'procedures/generate_secret', name: 'totp' }]
-                    });
+                    utils = _a.sent();
+                    return [4 /*yield*/, pgPool.query("SELECT * FROM generate_secret()")];
+                case 2:
+                    secret = (_a.sent()).rows[0].generate_secret;
+                    return [4 /*yield*/, pgPool.query("SELECT * FROM secretfunction()")];
+                case 3:
+                    secret2 = (_a.sent()).rows[0].secretfunction;
+                    expect(secret).toBeTruthy();
+                    expect(secret2).toBeTruthy();
                     return [2 /*return*/];
             }
         });
     }); });
 });
-//# sourceMappingURL=utils.test.js.map
+//# sourceMappingURL=deploy.test.js.map

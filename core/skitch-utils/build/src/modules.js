@@ -52,6 +52,8 @@ exports.listModules = function () { return __awaiter(_this, void 0, void 0, func
             case 1:
                 path = _a.sent();
                 extensions = glob_1.sync(path + '/**/*.control').reduce(function (m, v) {
+                    if (/node_modules/.test(v))
+                        return m;
                     var contents = fs_1.readFileSync(v).toString();
                     var key = path_1.basename(v).split('.control')[0];
                     m[key] = {};
@@ -119,25 +121,24 @@ exports.getExtensionsAndModules = function (sqlmodule) { return __awaiter(_this,
     });
 }); };
 exports.getExtensionsAndModulesChanges = function (sqlmodule) { return __awaiter(_this, void 0, void 0, function () {
-    var modules, sqitchies, i, mod, _a, _b, _c, _d;
-    return __generator(this, function (_e) {
-        switch (_e.label) {
+    var modules, sqitchies, i, mod, _a, _b, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0: return [4 /*yield*/, exports.getExtensionsAndModules(sqlmodule)];
             case 1:
-                modules = _e.sent();
+                modules = _d.sent();
                 sqitchies = [];
                 i = 0;
-                _e.label = 2;
+                _d.label = 2;
             case 2:
                 if (!(i < modules.sqitch.length)) return [3 /*break*/, 5];
                 mod = modules.sqitch[i];
                 _b = (_a = sqitchies).push;
-                _d = {};
-                _c = mod;
+                _c = { name: mod };
                 return [4 /*yield*/, exports.latestChange(mod)];
             case 3:
-                _b.apply(_a, [(_d[_c] = _e.sent(), _d)]);
-                _e.label = 4;
+                _b.apply(_a, [(_c.latest = _d.sent(), _c)]);
+                _d.label = 4;
             case 4:
                 i++;
                 return [3 /*break*/, 2];
