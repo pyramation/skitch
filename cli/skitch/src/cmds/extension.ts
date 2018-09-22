@@ -14,7 +14,6 @@ import plan from './plan';
 export default async argv => {
   const sqitchPath = await path();
 
-  const { extname, projects } = await prompt(questions, argv);
   const controlFile = glob(`${sqitchPath}/*.control`);
   const envFile = glob(`${sqitchPath}/.env`);
   if (!controlFile || !controlFile.length) {
@@ -65,9 +64,6 @@ export default async argv => {
         return m;
       }, '')
     );
-    return;
   }
 
-  const pkg = require(`${sqitchPath}/package.json`);
-  await plan({ name: pkg.name });
 };

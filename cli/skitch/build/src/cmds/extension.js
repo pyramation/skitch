@@ -37,21 +37,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 require("skitch-template");
-var inquirerer_1 = require("inquirerer");
 var glob_1 = require("glob");
 var skitch_utils_1 = require("skitch-utils");
 var fs_1 = require("fs");
-var plan_1 = require("./plan");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sqitchPath, _a, extname, projects, controlFile, envFile, extensions, envs, pkg;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var sqitchPath, controlFile, envFile, extensions, envs;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
-                sqitchPath = _b.sent();
-                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-            case 2:
-                _a = _b.sent(), extname = _a.extname, projects = _a.projects;
+                sqitchPath = _a.sent();
                 controlFile = glob_1.sync(sqitchPath + "/*.control");
                 envFile = glob_1.sync(sqitchPath + "/.env");
                 if (!controlFile || !controlFile.length) {
@@ -98,12 +93,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         m = m + "\n" + key + "=" + value;
                         return m;
                     }, ''));
-                    return [2 /*return*/];
                 }
-                pkg = require(sqitchPath + "/package.json");
-                return [4 /*yield*/, plan_1.default({ name: pkg.name })];
-            case 3:
-                _b.sent();
                 return [2 /*return*/];
         }
     });
