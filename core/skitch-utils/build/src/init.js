@@ -44,7 +44,6 @@ var path_1 = require("path");
 var shell = require("shelljs");
 var fs_1 = require("fs");
 var srcPath = path_1.dirname(require.resolve('skitch-template'));
-var plans_1 = require("./plans");
 // import plan from './plan';
 var makePackage = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author;
@@ -85,26 +84,18 @@ var sluggify = function (text) {
 exports.init = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
     return __awaiter(_this, void 0, void 0, function () {
-        var e_1, cmd, sqitchPath, pkg, extname, settings, plan;
+        var cmd, sqitchPath, pkg, extname, settings;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, paths_1.skitchPath()];
+                case 0: return [4 /*yield*/, paths_1.skitchPath()];
                 case 1:
                     _b.sent();
-                    return [3 /*break*/, 3];
-                case 2:
-                    e_1 = _b.sent();
-                    console.error(e_1);
-                    throw e_1;
-                case 3:
                     cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
                     return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
-                case 4:
+                case 2:
                     _b.sent();
                     return [4 /*yield*/, paths_1.sqitchPath()];
-                case 5:
+                case 3:
                     sqitchPath = _b.sent();
                     pkg = makePackage({ name: name, description: description, author: author });
                     // initialize template
@@ -118,10 +109,8 @@ exports.init = function (_a) {
                     settings = {
                         name: name,
                     };
-                    return [4 /*yield*/, plans_1.makePlan(sqitchPath, settings)];
-                case 6:
-                    plan = _b.sent();
-                    fs.writeFileSync(sqitchPath + "/sqitch.plan", plan);
+                    // const plan = await makePlan(sqitchPath, settings);
+                    // fs.writeFileSync(`${sqitchPath}/sqitch.plan`, plan);
                     console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 " + name + " created!\n\nNow try this:\n\nskitch generate\n\n");
                     return [2 /*return*/];
             }
@@ -134,7 +123,7 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
         dir = process.cwd();
         shell.cp('-r', srcPath + "/skitch/*", dir + "/");
         shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
-        console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 Great work! Now, try this:\n\ncd packages/\nmkdir myfirstmodule\nskitch init\n");
+        console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 Great work! Now, try this:\n\ncd packages/\nmkdir myfirstmodule\ncd myfirstmodule/\nskitch init\n");
         return [2 /*return*/];
     });
 }); };

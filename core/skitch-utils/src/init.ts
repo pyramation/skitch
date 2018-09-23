@@ -49,12 +49,7 @@ const sluggify = (text) => {
 
 export const init = async ({ name, description, author, extensions }) => {
 
-  try {
-    await sPath();
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
+  await sPath();
 
   // init sqitch
 
@@ -97,8 +92,8 @@ superuser = false
     // projects: true
   };
 
-  const plan = await makePlan(sqitchPath, settings);
-  fs.writeFileSync(`${sqitchPath}/sqitch.plan`, plan);
+  // const plan = await makePlan(sqitchPath, settings);
+  // fs.writeFileSync(`${sqitchPath}/sqitch.plan`, plan);
 
   console.log(`
 
@@ -133,6 +128,7 @@ export const initSkitch = async () => {
 
 cd packages/
 mkdir myfirstmodule
+cd myfirstmodule/
 skitch init
 `);
 
