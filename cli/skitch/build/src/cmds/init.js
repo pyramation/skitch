@@ -36,16 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var shelljs_1 = require("shelljs");
 var inquirerer_1 = require("inquirerer");
 var skitch_utils_1 = require("skitch-utils");
 var path_1 = require("path");
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
-var username = shell
-    .exec('git config --global user.name', { silent: true })
-    .trim();
-var email = shell
-    .exec('git config --global user.email', { silent: true })
-    .trim();
+var username = shelljs_1.exec('git config --global user.name', { silent: true }).trim();
+var email = shelljs_1.exec('git config --global user.email', { silent: true }).trim();
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var e_1, modules, questions, _a, name, description, author, extensions;
     return __generator(this, function (_b) {

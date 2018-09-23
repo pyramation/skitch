@@ -1,14 +1,11 @@
+import { exec } from 'shelljs';
 import { prompt } from 'inquirerer';
 import { skitchPath, listModules, init, initSkitch } from 'skitch-utils';
 import { basename } from 'path';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
-const username = shell
-  .exec('git config --global user.name', { silent: true })
-  .trim();
-const email = shell
-  .exec('git config --global user.email', { silent: true })
-  .trim();
+const username = exec('git config --global user.name', { silent: true }).trim();
+const email = exec('git config --global user.email', { silent: true }).trim();
 
 export default async argv => {
   try {
