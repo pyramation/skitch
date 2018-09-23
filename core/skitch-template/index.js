@@ -1,1 +1,2 @@
-module.exports = __dirname + '/src';
+module.exports.sqitch = __dirname + '/sqitch';
+module.exports.skitch = __dirname + '/skitch';
