@@ -87,7 +87,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     {
                         name: 'extensions',
                         message: 'which extensions?',
-                        choices: Object.key(modules),
+                        choices: Object.keys(modules),
                         type: 'checkbox',
                         default: ['plpgsql'],
                         required: true
