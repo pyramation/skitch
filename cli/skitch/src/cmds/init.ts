@@ -48,7 +48,7 @@ export default async argv => {
     {
       name: 'extensions',
       message: 'which extensions?',
-      choices: Object.keys(modules),
+      choices: modules,
       type: 'checkbox',
       default: ['plpgsql'],
       required: true
