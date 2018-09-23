@@ -108,8 +108,8 @@ exports.init = function (_a) {
                     sqitchPath = _b.sent();
                     pkg = makePackage({ name: name, description: description, author: author });
                     // initialize template
-                    shell.cp('-r', srcPath.sqitch + "/*", sqitchPath + "/");
-                    shell.cp('-r', srcPath.sqitch + "/.*", sqitchPath + "/");
+                    shell.cp('-r', srcPath + "/sqitch/*", sqitchPath + "/");
+                    shell.cp('-r', srcPath + "/sqitch/.*", sqitchPath + "/");
                     shell.mkdir('-p', sqitchPath + "/sql");
                     extname = sluggify(name);
                     fs_1.writeFileSync(sqitchPath + "/Makefile", "EXTENSION = " + extname + "\nDATA = sql/" + extname + "--0.0.1.sql\n\nPG_CONFIG = pg_config\nPGXS := $(shell $(PG_CONFIG) --pgxs)\ninclude $(PGXS)\n  ");
@@ -134,8 +134,8 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
     return __generator(this, function (_a) {
         dir = process.cwd();
         // initialize template
-        shell.cp('-r', srcPath.skitch + "/*", dir + "/");
-        shell.cp('-r', srcPath.skitch + "/.*", dir + "/");
+        shell.cp('-r', srcPath + "/skitch/*", dir + "/");
+        shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
         // writeFileSync(
         //   `${dir}/skitch.json`,
         //   JSON.stringify(

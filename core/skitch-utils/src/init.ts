@@ -67,8 +67,8 @@ export const init = async ({ name, description, author, extensions }) => {
   const pkg = makePackage({ name, description, author });
 
   // initialize template
-  shell.cp('-r', `${srcPath.sqitch}/*`, `${sqitchPath}/`);
-  shell.cp('-r', `${srcPath.sqitch}/.*`, `${sqitchPath}/`);
+  shell.cp('-r', `${srcPath}/sqitch/*`, `${sqitchPath}/`);
+  shell.cp('-r', `${srcPath}/sqitch/.*`, `${sqitchPath}/`);
 
   shell.mkdir('-p', `${sqitchPath}/sql`);
   const extname = sluggify(name);
@@ -116,8 +116,8 @@ export const initSkitch = async () => {
   const dir = process.cwd();
 
   // initialize template
-  shell.cp('-r', `${srcPath.skitch}/*`, `${dir}/`);
-  shell.cp('-r', `${srcPath.skitch}/.*`, `${dir}/`);
+  shell.cp('-r', `${srcPath}/skitch/*`, `${dir}/`);
+  shell.cp('-r', `${srcPath}/skitch/.*`, `${dir}/`);
 
 
   // writeFileSync(
