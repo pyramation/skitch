@@ -94,7 +94,7 @@ superuser = false
 
   const settings = {
     name,
-    projects: true
+    // projects: true
   };
 
   const plan = await makePlan(sqitchPath, settings);
@@ -107,29 +107,21 @@ superuser = false
    ooO--(_)--Ooo-
 
 
-✨  All Done!
+✨ ${name} created!
+
+Now try this:
+
+skitch generate
+
 `);
 };
 
 export const initSkitch = async () => {
 
   const dir = process.cwd();
-
-  // initialize template
   shell.cp('-r', `${srcPath}/skitch/*`, `${dir}/`);
   shell.cp('-r', `${srcPath}/skitch/.*`, `${dir}/`);
 
-
-  // writeFileSync(
-  //   `${dir}/skitch.json`,
-  //   JSON.stringify(
-  //     {
-  //       packages: ['packages/*']
-  //     },
-  //     null,
-  //     2
-  //   )
-  // );
   console.log(`
 
         |||
@@ -137,7 +129,11 @@ export const initSkitch = async () => {
    ooO--(_)--Ooo-
 
 
-✨  All Done!
+✨ Great work! Now, try this:
+
+cd packages/
+mkdir myfirstmodule
+skitch init
 `);
 
 };

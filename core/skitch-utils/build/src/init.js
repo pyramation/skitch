@@ -117,13 +117,12 @@ exports.init = function (_a) {
                     fs_1.writeFileSync(sqitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                     settings = {
                         name: name,
-                        projects: true
                     };
                     return [4 /*yield*/, plans_1.makePlan(sqitchPath, settings)];
                 case 6:
                     plan = _b.sent();
                     fs.writeFileSync(sqitchPath + "/sqitch.plan", plan);
-                    console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
+                    console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 " + name + " created!\n\nNow try this:\n\nskitch generate\n\n");
                     return [2 /*return*/];
             }
         });
@@ -133,20 +132,9 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
     var dir;
     return __generator(this, function (_a) {
         dir = process.cwd();
-        // initialize template
         shell.cp('-r', srcPath + "/skitch/*", dir + "/");
         shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
-        // writeFileSync(
-        //   `${dir}/skitch.json`,
-        //   JSON.stringify(
-        //     {
-        //       packages: ['packages/*']
-        //     },
-        //     null,
-        //     2
-        //   )
-        // );
-        console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
+        console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 Great work! Now, try this:\n\ncd packages/\nmkdir myfirstmodule\nskitch init\n");
         return [2 /*return*/];
     });
 }); };
