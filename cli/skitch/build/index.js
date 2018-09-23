@@ -42,7 +42,11 @@ var argv = require('minimist')(process.argv.slice(2));
 (function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, cli_1.skitch(argv)];
+            case 0:
+                if (argv.v) {
+                    return [2 /*return*/, console.log(require(__dirname + '/package.json').version)];
+                }
+                return [4 /*yield*/, cli_1.skitch(argv)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];

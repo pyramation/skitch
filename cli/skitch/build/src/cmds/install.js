@@ -37,9 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
-var skitch_utils_1 = require("skitch-utils");
-var shell = require("shelljs");
-var plan_1 = require("./plan");
 var path_1 = require("path");
 var glob_1 = require("glob");
 var questions = [
@@ -58,7 +55,7 @@ var questions = [
     }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, modulename, type, _b, sqitchPath, files, results;
+    var _a, modulename, type, _b, results;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
@@ -67,22 +64,27 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 console.log(argv);
                 _b = type;
                 switch (_b) {
-                    case 'yarn': return [3 /*break*/, 2];
-                    case 'local': return [3 /*break*/, 5];
+                    case 'pgxn': return [3 /*break*/, 2];
+                    case 'npm': return [3 /*break*/, 3];
+                    case 'yarn': return [3 /*break*/, 3];
+                    case 'local': return [3 /*break*/, 4];
                 }
-                return [3 /*break*/, 7];
+                return [3 /*break*/, 6];
             case 2:
-                shell.exec("yarn add " + modulename);
-                return [4 /*yield*/, skitch_utils_1.sqitchPath()];
+                {
+                }
+                _c.label = 3;
             case 3:
-                sqitchPath = _c.sent();
-                files = sqitchPath + "/node_modules/" + modulename + "/src/*";
-                shell.cp('-r', files, sqitchPath + "/");
-                return [4 /*yield*/, plan_1.default({})];
-            case 4:
-                _c.sent();
-                return [2 /*return*/];
-            case 5: return [4 /*yield*/, inquirerer_1.prompt([
+                {
+                    // shell.exec(`yarn add ${modulename}`);
+                    // const sqitchPath = await sqPath();
+                    // const files = `${sqitchPath}/node_modules/${modulename}/src/*`;
+                    // shell.cp('-r', files, `${sqitchPath}/`);
+                    // await plan({});
+                    // return;
+                }
+                _c.label = 4;
+            case 4: return [4 /*yield*/, inquirerer_1.prompt([
                     {
                         name: 'where',
                         message: 'where at? (e.g. ../my-module)',
@@ -92,15 +94,15 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         required: true,
                     }
                 ], argv)];
-            case 6:
+            case 5:
                 results = _c.sent();
                 console.log(results);
                 console.log(glob_1.sync(results.where + '/**/sqitch.plan'));
                 return [2 /*return*/];
-            case 7:
+            case 6:
                 console.log('not implemented');
-                _c.label = 8;
-            case 8: return [2 /*return*/];
+                _c.label = 7;
+            case 7: return [2 /*return*/];
         }
     });
 }); });
