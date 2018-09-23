@@ -8,8 +8,6 @@ import { writeFileSync } from 'fs';
 const srcPath = dirname(require.resolve('skitch-template'));
 import { makePlan } from './plans';
 
-// import plan from './plan';
-
 const makePackage = ({ name, description, author }) => {
   return {
     name,

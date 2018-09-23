@@ -1,5 +1,9 @@
 import { prompt } from 'inquirerer';
-import { sqitchPath as path } from 'skitch-utils';
+import {
+  sqitchPath as sqPath,
+  skitchPath as skPath
+} from 'skitch-utils';
+
 import * as shell from 'shelljs';
 import plan from './plan';
 import { resolve } from 'path';
@@ -26,16 +30,19 @@ export default async argv => {
   const { modulename, type } = await prompt(questions, argv);
   console.log(argv);
 
-
-
   switch (type) {
+    case 'pgxn': {
+
+    }
+    case 'npm':
     case 'yarn': {
-      shell.exec(`yarn add ${modulename}`);
-      const sqitchPath = await path();
-      const files = `${sqitchPath}/node_modules/${modulename}/src/*`;
-      shell.cp('-r', files, `${sqitchPath}/`);
-      await plan({});
-      return;
+
+      // shell.exec(`yarn add ${modulename}`);
+      // const sqitchPath = await sqPath();
+      // const files = `${sqitchPath}/node_modules/${modulename}/src/*`;
+      // shell.cp('-r', files, `${sqitchPath}/`);
+      // await plan({});
+      // return;
     }
     case 'local': {
       const results = await prompt([
