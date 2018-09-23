@@ -95,7 +95,7 @@ exports.getPlan = function (options) { return __awaiter(_this, void 0, void 0, f
             case 1:
                 modules = _a.sent();
                 if (!modules[options.name]) {
-                    throw new Error(options.name + " NOT FOUND!");
+                    throw new Error("getPlan() " + options.name + " NOT FOUND!");
                 }
                 return [4 /*yield*/, paths_1.skitchPath()];
             case 2:

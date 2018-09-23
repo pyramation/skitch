@@ -85,7 +85,7 @@ exports.latestChange = function (sqlmodule) { return __awaiter(_this, void 0, vo
             case 1:
                 modules = _a.sent();
                 if (!modules[sqlmodule]) {
-                    throw new Error(sqlmodule + " NOT FOUND!");
+                    throw new Error("latestChange() " + sqlmodule + " NOT FOUND!");
                 }
                 return [4 /*yield*/, paths_1.skitchPath()];
             case 2:
@@ -107,7 +107,7 @@ exports.getExtensionsAndModules = function (sqlmodule) { return __awaiter(_this,
             case 1:
                 modules = _a.sent();
                 if (!modules[sqlmodule]) {
-                    throw new Error(sqlmodule + " NOT FOUND!");
+                    throw new Error("getExtensionsAndModules() " + sqlmodule + " NOT FOUND!");
                 }
                 native = modules[sqlmodule].requires.filter(function (a) { return !Object.keys(modules).includes(a); });
                 sqitch = modules[sqlmodule].requires.filter(function (a) {

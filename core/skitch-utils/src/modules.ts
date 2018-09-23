@@ -35,7 +35,7 @@ export const listModules = async () => {
 export const latestChange = async sqlmodule => {
     const modules = await listModules();
     if (!modules[sqlmodule]) {
-        throw new Error(`${sqlmodule} NOT FOUND!`);
+        throw new Error(`latestChange() ${sqlmodule} NOT FOUND!`);
     }
     const path = await skitchPath();
     const plan = readFileSync(`${path}/${modules[sqlmodule].path}/sqitch.plan`)
@@ -49,7 +49,7 @@ export const latestChange = async sqlmodule => {
 export const getExtensionsAndModules = async sqlmodule => {
     const modules = await listModules();
     if (!modules[sqlmodule]) {
-        throw new Error(`${sqlmodule} NOT FOUND!`);
+        throw new Error(`getExtensionsAndModules() ${sqlmodule} NOT FOUND!`);
     }
     const native = modules[sqlmodule].requires.filter(
         a => !Object.keys(modules).includes(a)

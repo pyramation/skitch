@@ -62,7 +62,7 @@ export const makePlan = async (packageDir, options) => {
 export const getPlan = async (options) => {
   const modules = await listModules();
   if (!modules[options.name]) {
-    throw new Error(`${options.name} NOT FOUND!`);
+    throw new Error(`getPlan() ${options.name} NOT FOUND!`);
   }
   const path = await skitchPath();
   const packageDir = `${path}/${modules[options.name].path}`;
