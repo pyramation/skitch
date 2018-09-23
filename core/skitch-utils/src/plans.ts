@@ -36,8 +36,9 @@ export const makePlan = async (packageDir, options) => {
   }
 
   const makeKey = sqlmodule => '/deploy/' + sqlmodule + '.sql';
-
-  [].push.apply(deps[makeKey(resolved[0])], externalReqs.map(a=>`${a.name}:${a.latest}`))
+  if (resolved.length) {
+    [].push.apply(deps[makeKey(resolved[0])], externalReqs.map(a=>`${a.name}:${a.latest}`))
+  }
 
   resolved.forEach(res => {
     // TODO allow for two plans

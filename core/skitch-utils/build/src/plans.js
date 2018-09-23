@@ -69,7 +69,9 @@ exports.makePlan = function (packageDir, options) { return __awaiter(_this, void
                 _b.label = 4;
             case 4:
                 makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
-                [].push.apply(deps[makeKey(resolved[0])], externalReqs.map(function (a) { return a.name + ":" + a.latest; }));
+                if (resolved.length) {
+                    [].push.apply(deps[makeKey(resolved[0])], externalReqs.map(function (a) { return a.name + ":" + a.latest; }));
+                }
                 resolved.forEach(function (res) {
                     // TODO allow for two plans
                     if (/:/.test(res))

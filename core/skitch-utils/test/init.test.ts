@@ -1,4 +1,4 @@
-import { init } from '../src/init';
+import { init, initSkitch } from '../src/init';
 import { sync as mkdirp } from 'mkdirp';
 import { sync as glob } from 'glob';
 import { sync as rimraf } from 'rimraf';
@@ -21,7 +21,6 @@ describe('deps', () => {
     mkdirp(projDir);
     process.chdir(dir);
     await initSkitch();
-    process.chdir(projDir);
   });
   afterEach(() => {
     rimraf(dir);
@@ -29,13 +28,22 @@ describe('deps', () => {
   describe('skitch path', () => {
     it('skitch init', async () => {
       process.chdir(dir);
-
       const files = glob('**');
-      expect(files).toEqual(["myproject", "skitch.json"]);
+      expect(files).toEqual([
+        'bootstrap-roles.sql',
+        'docker-compose.yml',
+        'Makefile',
+        'myproject',
+        'packages',
+        'packages/install.sh',
+        'readme.md',
+        'skitch.json'
+      ]);
       const hidden = glob('.*');
       expect(hidden).toEqual(['.travis.yml']);
     });
     it('sqitch init', async () => {
+      process.chdir(projDir);
       await init({
         name: 'myproject',
         description: 'my amazing project',
@@ -46,7 +54,6 @@ describe('deps', () => {
       const files = glob('**');
       expect(files).toEqual([
         'deploy',
-        'docker-compose.yml',
         'Makefile',
         'myproject.control',
         'package.json',
@@ -60,7 +67,7 @@ describe('deps', () => {
         'verify'
       ]);
       const hidden = glob('.*');
-      expect(hidden).toEqual(['.babelrc', '.env', '.travis.yml']);
+      expect(hidden).toEqual(['.babelrc', '.env']);
     });
   });
 });

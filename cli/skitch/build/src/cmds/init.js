@@ -52,6 +52,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_utils_1.initSkitch()];
             case 1:
                 _b.sent();
+                console.log("\n\n          |||\n         (o o)\n     ooO--(_)--Ooo-\n\n\n  \u2728 Great work! Now, try this:\n\n  cd packages/\n  mkdir myfirstmodule\n  cd myfirstmodule/\n  skitch init\n  ");
                 return [2 /*return*/];
             case 2: return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 3:
@@ -99,7 +100,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_utils_1.init({ name: name, description: description, author: author, extensions: extensions })];
             case 6:
                 _b.sent();
-                console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
+                console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 " + name + " created!\n\nNow try this:\n\nskitch generate\n\n");
                 return [2 /*return*/];
         }
     });

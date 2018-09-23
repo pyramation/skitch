@@ -44,6 +44,7 @@ var path_1 = require("path");
 var shell = require("shelljs");
 var fs_1 = require("fs");
 var srcPath = path_1.dirname(require.resolve('skitch-template'));
+var plans_1 = require("./plans");
 // import plan from './plan';
 var makePackage = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author;
@@ -84,7 +85,7 @@ var sluggify = function (text) {
 exports.init = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
     return __awaiter(_this, void 0, void 0, function () {
-        var cmd, sqitchPath, pkg, extname, settings;
+        var cmd, sqitchPath, pkg, extname, settings, plan;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, paths_1.skitchPath()];
@@ -108,10 +109,12 @@ exports.init = function (_a) {
                     fs_1.writeFileSync(sqitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                     settings = {
                         name: name,
+                        projects: true
                     };
-                    // const plan = await makePlan(sqitchPath, settings);
-                    // fs.writeFileSync(`${sqitchPath}/sqitch.plan`, plan);
-                    console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 " + name + " created!\n\nNow try this:\n\nskitch generate\n\n");
+                    return [4 /*yield*/, plans_1.makePlan(sqitchPath, settings)];
+                case 4:
+                    plan = _b.sent();
+                    fs_1.writeFileSync(sqitchPath + "/sqitch.plan", plan);
                     return [2 /*return*/];
             }
         });
@@ -123,7 +126,6 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
         dir = process.cwd();
         shell.cp('-r', srcPath + "/skitch/*", dir + "/");
         shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
-        console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728 Great work! Now, try this:\n\ncd packages/\nmkdir myfirstmodule\ncd myfirstmodule/\nskitch init\n");
         return [2 /*return*/];
     });
 }); };

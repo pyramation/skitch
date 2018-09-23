@@ -8,9 +8,23 @@ const username = exec('git config --global user.name', { silent: true }).trim();
 const email = exec('git config --global user.email', { silent: true }).trim();
 
 export default async argv => {
-
   if (argv.bare) {
     await initSkitch();
+    console.log(`
+
+          |||
+         (o o)
+     ooO--(_)--Ooo-
+
+
+  ✨ Great work! Now, try this:
+
+  cd packages/
+  mkdir myfirstmodule
+  cd myfirstmodule/
+  skitch init
+  `);
+
     return;
   }
 
@@ -69,6 +83,11 @@ export default async argv => {
    ooO--(_)--Ooo-
 
 
-✨  All Done!
+✨ ${name} created!
+
+Now try this:
+
+skitch generate
+
 `);
 };

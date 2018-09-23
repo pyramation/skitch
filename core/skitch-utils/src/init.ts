@@ -89,26 +89,12 @@ superuser = false
 
   const settings = {
     name,
-    // projects: true
+    projects: true
   };
 
-  // const plan = await makePlan(sqitchPath, settings);
-  // fs.writeFileSync(`${sqitchPath}/sqitch.plan`, plan);
+  const plan = await makePlan(sqitchPath, settings);
+  writeFileSync(`${sqitchPath}/sqitch.plan`, plan);
 
-  console.log(`
-
-        |||
-       (o o)
-   ooO--(_)--Ooo-
-
-
-✨ ${name} created!
-
-Now try this:
-
-skitch generate
-
-`);
 };
 
 export const initSkitch = async () => {
@@ -116,20 +102,5 @@ export const initSkitch = async () => {
   const dir = process.cwd();
   shell.cp('-r', `${srcPath}/skitch/*`, `${dir}/`);
   shell.cp('-r', `${srcPath}/skitch/.*`, `${dir}/`);
-
-  console.log(`
-
-        |||
-       (o o)
-   ooO--(_)--Ooo-
-
-
-✨ Great work! Now, try this:
-
-cd packages/
-mkdir myfirstmodule
-cd myfirstmodule/
-skitch init
-`);
 
 };

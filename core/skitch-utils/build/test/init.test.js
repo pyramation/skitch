@@ -59,10 +59,9 @@ describe('deps', function () {
                     projDir = dir + '/myproject';
                     mkdirp_1.sync(projDir);
                     process.chdir(dir);
-                    return [4 /*yield*/, initSkitch()];
+                    return [4 /*yield*/, init_1.initSkitch()];
                 case 1:
                     _a.sent();
-                    process.chdir(projDir);
                     return [2 /*return*/];
             }
         });
@@ -76,7 +75,16 @@ describe('deps', function () {
             return __generator(this, function (_a) {
                 process.chdir(dir);
                 files = glob_1.sync('**');
-                expect(files).toEqual(["myproject", "skitch.json"]);
+                expect(files).toEqual([
+                    'bootstrap-roles.sql',
+                    'docker-compose.yml',
+                    'Makefile',
+                    'myproject',
+                    'packages',
+                    'packages/install.sh',
+                    'readme.md',
+                    'skitch.json'
+                ]);
                 hidden = glob_1.sync('.*');
                 expect(hidden).toEqual(['.travis.yml']);
                 return [2 /*return*/];
@@ -86,18 +94,19 @@ describe('deps', function () {
             var files, hidden;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, init_1.init({
-                            name: 'myproject',
-                            description: 'my amazing project',
-                            author: 'dan@example.com',
-                            extensions: ['plpgsql', 'citext']
-                        })];
+                    case 0:
+                        process.chdir(projDir);
+                        return [4 /*yield*/, init_1.init({
+                                name: 'myproject',
+                                description: 'my amazing project',
+                                author: 'dan@example.com',
+                                extensions: ['plpgsql', 'citext']
+                            })];
                     case 1:
                         _a.sent();
                         files = glob_1.sync('**');
                         expect(files).toEqual([
                             'deploy',
-                            'docker-compose.yml',
                             'Makefile',
                             'myproject.control',
                             'package.json',
@@ -111,7 +120,7 @@ describe('deps', function () {
                             'verify'
                         ]);
                         hidden = glob_1.sync('.*');
-                        expect(hidden).toEqual(['.babelrc', '.env', '.travis.yml']);
+                        expect(hidden).toEqual(['.babelrc', '.env']);
                         return [2 /*return*/];
                 }
             });
