@@ -8,12 +8,13 @@ const username = exec('git config --global user.name', { silent: true }).trim();
 const email = exec('git config --global user.email', { silent: true }).trim();
 
 export default async argv => {
-  try {
-    await skitchPath();
-  } catch (e) {
+
+  if (argv.bare) {
     await initSkitch();
     return;
   }
+
+  await skitchPath();
 
   let modules = await listModules();
   modules = Object.keys(modules).reduce(

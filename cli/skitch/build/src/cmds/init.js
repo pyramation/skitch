@@ -44,23 +44,20 @@ var path_1 = require("path");
 var username = shelljs_1.exec('git config --global user.name', { silent: true }).trim();
 var email = shelljs_1.exec('git config --global user.email', { silent: true }).trim();
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var e_1, modules, questions, _a, name, description, author, extensions;
+    var modules, questions, _a, name, description, author, extensions;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 2, , 4]);
-                return [4 /*yield*/, skitch_utils_1.skitchPath()];
+                if (!argv.bare) return [3 /*break*/, 2];
+                return [4 /*yield*/, skitch_utils_1.initSkitch()];
             case 1:
                 _b.sent();
-                return [3 /*break*/, 4];
-            case 2:
-                e_1 = _b.sent();
-                return [4 /*yield*/, skitch_utils_1.initSkitch()];
+                return [2 /*return*/];
+            case 2: return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 3:
                 _b.sent();
-                return [2 /*return*/];
-            case 4: return [4 /*yield*/, skitch_utils_1.listModules()];
-            case 5:
+                return [4 /*yield*/, skitch_utils_1.listModules()];
+            case 4:
                 modules = _b.sent();
                 modules = Object.keys(modules).reduce(function (m, v) {
                     if (m.includes(v))
@@ -97,10 +94,10 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                     }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-            case 6:
+            case 5:
                 _a = _b.sent(), name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
                 return [4 /*yield*/, skitch_utils_1.init({ name: name, description: description, author: author, extensions: extensions })];
-            case 7:
+            case 6:
                 _b.sent();
                 console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
                 return [2 /*return*/];
