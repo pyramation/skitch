@@ -31,6 +31,9 @@ export const listModules = async () => {
     _listModules = extensions;
     return extensions;
 };
+export const _clearModuleCache = () => {
+    _listModules = null;
+};
 
 export const latestChange = async sqlmodule => {
     const modules = await listModules();

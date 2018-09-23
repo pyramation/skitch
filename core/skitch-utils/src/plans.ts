@@ -2,7 +2,7 @@ import { readFileSync, readFile } from 'fs';
 import { basename, dirname, resolve, relative } from 'path';
 import { sync as glob } from 'glob';
 import { skitchPath } from './paths';
-import { listModules, getExtensionsAndModulesChanges } from './modules';
+import { listModules, getExtensionsAndModulesChanges, _clearModuleCache } from './modules';
 import { getDeps } from './deps';
 
 export const makePlan = async (packageDir, options) => {
@@ -31,6 +31,7 @@ export const makePlan = async (packageDir, options) => {
 
   if (projects) {
     const skPath = await skitchPath();
+    _clearModuleCache();
     const results = await getExtensionsAndModulesChanges(name);
     [].push.apply(externalReqs, results.sqitch);
   }

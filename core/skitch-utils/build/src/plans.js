@@ -62,6 +62,7 @@ exports.makePlan = function (packageDir, options) { return __awaiter(_this, void
                 return [4 /*yield*/, paths_1.skitchPath()];
             case 2:
                 skPath = _b.sent();
+                modules_1._clearModuleCache();
                 return [4 /*yield*/, modules_1.getExtensionsAndModulesChanges(name)];
             case 3:
                 results = _b.sent();

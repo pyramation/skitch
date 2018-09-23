@@ -77,6 +77,9 @@ exports.listModules = function () { return __awaiter(_this, void 0, void 0, func
         }
     });
 }); };
+exports._clearModuleCache = function () {
+    _listModules = null;
+};
 exports.latestChange = function (sqlmodule) { return __awaiter(_this, void 0, void 0, function () {
     var modules, path, plan;
     return __generator(this, function (_a) {
