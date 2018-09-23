@@ -36,5 +36,5 @@ export const install = async (name, version = 'latest') => {
     )
   );
 
-  exec(`npm install ${name}`);
+  exec(`npm install ${name} --production`);
 };
