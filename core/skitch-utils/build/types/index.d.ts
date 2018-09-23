@@ -13,3 +13,4 @@ export * from './src/deps';
 export * from './src/deploy';
 export * from './src/revert';
 export * from './src/verify';
+export * from './src/init';
