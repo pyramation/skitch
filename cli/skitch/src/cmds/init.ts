@@ -1,14 +1,6 @@
-import 'skitch-template';
-import { promisify } from 'util';
-import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
-import { sqitchPath as path } from 'skitch-utils';
-import { dirname, basename } from 'path';
-import * as shell from 'shelljs';
-import { writeFileSync } from 'fs';
-const srcPath = dirname(require.resolve('skitch-template'));
-
-import plan from './plan';
+import { skitchPath, listModules, init, initSkitch } from 'skitch-utils';
+import { basename } from 'path';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
 const username = shell
@@ -18,105 +10,60 @@ const email = shell
   .exec('git config --global user.email', { silent: true })
   .trim();
 
-const questions = [
-  {
-    name: 'name',
-    message: 'project name (e.g., flipr)',
-    default: basename(process.cwd()),
-    required: true,
-  },
-  {
-    name: 'author',
-    message: 'project author',
-    default: `${username} <${email}>`,
-    required: true,
-  },
-  {
-    name: 'description',
-    message: 'project description',
-    default: 'skitch project',
-    required: true,
-  },
-  {
-    name: 'extensions',
-    message: 'which extensions?',
-    choices: ['plpgsql','uuid-ossp', 'plv8'],
-    type: 'checkbox',
-    default: ['plpgsql'],
-    required: true,
-  },
-];
-
-const makePackage = ({ name, description, author }) => {
-  return {
-    name,
-    version: '0.0.1',
-    description,
-    author,
-    private: true,
-    scripts: {
-      test: 'FAST_TEST=1 skitch-templatedb && jest',
-      'test:watch': 'FAST_TEST=1 jest --watch',
-    },
-    devDependencies: {
-      '@types/jest': '21.1.0',
-      '@types/node': '8.0.0',
-      'babel-cli': '6.24.1',
-      'babel-jest': '20.0.3',
-      'babel-preset-react-app': '3.0.0',
-      dotenv: '5.0.1',
-      jest: '20.0.4',
-    },
-    dependencies: {
-      pg: '6.4.0',
-      'pg-promise': '6.10.3',
-      'skitch-testing': 'latest',
-      uuid: '3.1.0',
-    },
-  };
-};
-
-const sluggify = (text) => {
-  return text.toString().toLowerCase().trim()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/&/g, '-and-')         // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
-}
-
 export default async argv => {
-  const { name, description, author, extensions } = await prompt(questions, argv);
-  const cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
-  await promisify(exec)(cmd.trim());
-  const sqitchPath = await path();
-  const pkg = makePackage({ name, description, author });
+  try {
+    await skitchPath();
+  } catch (e) {
+    await initSkitch();
+    return;
+  }
 
-  // initialize template
-  shell.cp('-r', `${srcPath}/src/*`, `${sqitchPath}/`);
-  shell.cp('-r', `${srcPath}/src/.*`, `${sqitchPath}/`);
+  let modules = await listModules();
+  modules = Object.keys(modules).reduce(
+    (m, v) => {
+      if (m.includes(v)) return m;
+      m.push(v);
+      return m;
+    },
+    ['plpgsql', 'uuid-ossp', 'pgcrypto', 'plv8']
+  );
 
-  shell.mkdir('-p', `${sqitchPath}/sql`);
-  const extname = sluggify(name);
+  const questions = [
+    {
+      name: 'name',
+      message: 'project name (e.g., flipr)',
+      default: basename(process.cwd()),
+      required: true
+    },
+    {
+      name: 'author',
+      message: 'project author',
+      default: `${username} <${email}>`,
+      required: true
+    },
+    {
+      name: 'description',
+      message: 'project description',
+      default: 'skitch project',
+      required: true
+    },
+    {
+      name: 'extensions',
+      message: 'which extensions?',
+      choices: Object.key(modules),
+      type: 'checkbox',
+      default: ['plpgsql'],
+      required: true
+    }
+  ];
 
-  writeFileSync(`${sqitchPath}/Makefile`, `EXTENSION = ${extname}
-DATA = sql/${extname}--0.0.1.sql
+  const { name, description, author, extensions } = await prompt(
+    questions,
+    argv
+  );
 
-PG_CONFIG = pg_config
-PGXS := $(shell $(PG_CONFIG) --pgxs)
-include $(PGXS)
-  `);
+  await init({ name, description, author, extensions });
 
-  writeFileSync(`${sqitchPath}/${extname}.control`, `# ${extname} extension
-comment = '${description}'
-default_version = '0.0.1'
-module_pathname = '$libdir/${extname}'
-requires = '${extensions.join(',')}'
-relocatable = false
-superuser = false
-  `);
-
-  writeFileSync(`${sqitchPath}/package.json`, JSON.stringify(pkg, null, 2));
-  await plan({ name });
   console.log(`
 
         |||

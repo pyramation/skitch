@@ -36,16 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-require("skitch-template");
-var util_1 = require("util");
-var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
 var skitch_utils_1 = require("skitch-utils");
 var path_1 = require("path");
-var shell = require("shelljs");
-var fs_1 = require("fs");
-var srcPath = path_1.dirname(require.resolve('skitch-template'));
-var plan_1 = require("./plan");
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
 var username = shell
     .exec('git config --global user.name', { silent: true })
@@ -53,95 +46,64 @@ var username = shell
 var email = shell
     .exec('git config --global user.email', { silent: true })
     .trim();
-var questions = [
-    {
-        name: 'name',
-        message: 'project name (e.g., flipr)',
-        default: path_1.basename(process.cwd()),
-        required: true,
-    },
-    {
-        name: 'author',
-        message: 'project author',
-        default: username + " <" + email + ">",
-        required: true,
-    },
-    {
-        name: 'description',
-        message: 'project description',
-        default: 'skitch project',
-        required: true,
-    },
-    {
-        name: 'extensions',
-        message: 'which extensions?',
-        choices: ['plpgsql', 'uuid-ossp', 'plv8'],
-        type: 'checkbox',
-        default: ['plpgsql'],
-        required: true,
-    },
-];
-var makePackage = function (_a) {
-    var name = _a.name, description = _a.description, author = _a.author;
-    return {
-        name: name,
-        version: '0.0.1',
-        description: description,
-        author: author,
-        private: true,
-        scripts: {
-            test: 'FAST_TEST=1 skitch-templatedb && jest',
-            'test:watch': 'FAST_TEST=1 jest --watch',
-        },
-        devDependencies: {
-            '@types/jest': '21.1.0',
-            '@types/node': '8.0.0',
-            'babel-cli': '6.24.1',
-            'babel-jest': '20.0.3',
-            'babel-preset-react-app': '3.0.0',
-            dotenv: '5.0.1',
-            jest: '20.0.4',
-        },
-        dependencies: {
-            pg: '6.4.0',
-            'pg-promise': '6.10.3',
-            'skitch-testing': 'latest',
-            uuid: '3.1.0',
-        },
-    };
-};
-var sluggify = function (text) {
-    return text.toString().toLowerCase().trim()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
-};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, name, description, author, extensions, cmd, sqitchPath, pkg, extname;
+    var e_1, modules, questions, _a, name, description, author, extensions;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 0:
+                _b.trys.push([0, 2, , 4]);
+                return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 1:
-                _a = _b.sent(), name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
-                cmd = ['sqitch', 'init', name, '--engine', 'pg'].join(' ');
-                return [4 /*yield*/, util_1.promisify(child_process_1.exec)(cmd.trim())];
-            case 2:
                 _b.sent();
-                return [4 /*yield*/, skitch_utils_1.sqitchPath()];
+                return [3 /*break*/, 4];
+            case 2:
+                e_1 = _b.sent();
+                return [4 /*yield*/, skitch_utils_1.initSkitch()];
             case 3:
-                sqitchPath = _b.sent();
-                pkg = makePackage({ name: name, description: description, author: author });
-                // initialize template
-                shell.cp('-r', srcPath + "/src/*", sqitchPath + "/");
-                shell.cp('-r', srcPath + "/src/.*", sqitchPath + "/");
-                shell.mkdir('-p', sqitchPath + "/sql");
-                extname = sluggify(name);
-                fs_1.writeFileSync(sqitchPath + "/Makefile", "EXTENSION = " + extname + "\nDATA = sql/" + extname + "--0.0.1.sql\n\nPG_CONFIG = pg_config\nPGXS := $(shell $(PG_CONFIG) --pgxs)\ninclude $(PGXS)\n  ");
-                fs_1.writeFileSync(sqitchPath + "/" + extname + ".control", "# " + extname + " extension\ncomment = '" + description + "'\ndefault_version = '0.0.1'\nmodule_pathname = '$libdir/" + extname + "'\nrequires = '" + extensions.join(',') + "'\nrelocatable = false\nsuperuser = false\n  ");
-                fs_1.writeFileSync(sqitchPath + "/package.json", JSON.stringify(pkg, null, 2));
-                return [4 /*yield*/, plan_1.default({ name: name })];
-            case 4:
+                _b.sent();
+                return [2 /*return*/];
+            case 4: return [4 /*yield*/, skitch_utils_1.listModules()];
+            case 5:
+                modules = _b.sent();
+                modules = Object.keys(modules).reduce(function (m, v) {
+                    if (m.includes(v))
+                        return m;
+                    m.push(v);
+                    return m;
+                }, ['plpgsql', 'uuid-ossp', 'pgcrypto', 'plv8']);
+                questions = [
+                    {
+                        name: 'name',
+                        message: 'project name (e.g., flipr)',
+                        default: path_1.basename(process.cwd()),
+                        required: true
+                    },
+                    {
+                        name: 'author',
+                        message: 'project author',
+                        default: username + " <" + email + ">",
+                        required: true
+                    },
+                    {
+                        name: 'description',
+                        message: 'project description',
+                        default: 'skitch project',
+                        required: true
+                    },
+                    {
+                        name: 'extensions',
+                        message: 'which extensions?',
+                        choices: Object.key(modules),
+                        type: 'checkbox',
+                        default: ['plpgsql'],
+                        required: true
+                    }
+                ];
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 6:
+                _a = _b.sent(), name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
+                return [4 /*yield*/, skitch_utils_1.init({ name: name, description: description, author: author, extensions: extensions })];
+            case 7:
                 _b.sent();
                 console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
                 return [2 /*return*/];
