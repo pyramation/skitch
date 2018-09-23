@@ -136,6 +136,17 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
         // initialize template
         shell.cp('-r', srcPath.skitch + "/*", dir + "/");
         shell.cp('-r', srcPath.skitch + "/.*", dir + "/");
+        // writeFileSync(
+        //   `${dir}/skitch.json`,
+        //   JSON.stringify(
+        //     {
+        //       packages: ['packages/*']
+        //     },
+        //     null,
+        //     2
+        //   )
+        // );
+        console.log("\n\n        |||\n       (o o)\n   ooO--(_)--Ooo-\n\n\n\u2728  All Done!\n");
         return [2 /*return*/];
     });
 }); };

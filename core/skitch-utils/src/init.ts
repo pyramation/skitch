@@ -130,5 +130,14 @@ export const initSkitch = async () => {
   //     2
   //   )
   // );
+  console.log(`
+
+        |||
+       (o o)
+   ooO--(_)--Ooo-
+
+
+✨  All Done!
+`);
 
 };
