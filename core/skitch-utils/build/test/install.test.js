@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,22 +36,66 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cli_1 = require("./src/cli");
-var argv = require('minimist')(process.argv.slice(2));
-var readFileSync = require('fs').readFileSync;
-var version = require('./package.json').version;
-(function () { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (argv.v) {
-                    return [2 /*return*/, console.log(version)];
-                }
-                return [4 /*yield*/, cli_1.skitch(argv)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
+var init_1 = require("../src/init");
+var install_1 = require("../src/install");
+var mkdirp_1 = require("mkdirp");
+var glob_1 = require("glob");
+var rimraf_1 = require("rimraf");
+var TMPDIR = process.env.TMPDIR;
+var rnd = function () {
+    return Math.random()
+        .toString(36)
+        .substring(2, 15) +
+        Math.random()
+            .toString(36)
+            .substring(2, 15);
+};
+describe('installs', function () {
+    var dir, projDir;
+    beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    dir = TMPDIR + '/' + rnd();
+                    projDir = dir + '/myproject';
+                    mkdirp_1.sync(projDir);
+                    process.chdir(dir);
+                    return [4 /*yield*/, init_1.initSkitch()];
+                case 1:
+                    _a.sent();
+                    process.chdir(projDir);
+                    return [4 /*yield*/, init_1.init({
+                            name: 'myproject',
+                            description: 'my amazing project',
+                            author: 'dan@example.com',
+                            extensions: ['plpgsql', 'citext']
+                        })];
+                case 2:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    afterEach(function () {
+        rimraf_1.sync(dir);
     });
-}); })();
-//# sourceMappingURL=index.js.map
+    describe('skitch path', function () {
+        it('sqitch install', function () { return __awaiter(_this, void 0, void 0, function () {
+            var files, filesAfter;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        files = glob_1.sync('**');
+                        expect(files).toMatchSnapshot();
+                        return [4 /*yield*/, install_1.install('skitch-ext-verify', 'latest')];
+                    case 1:
+                        _a.sent();
+                        filesAfter = glob_1.sync('**');
+                        expect(filesAfter).toMatchSnapshot();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
+});
+//# sourceMappingURL=install.test.js.map

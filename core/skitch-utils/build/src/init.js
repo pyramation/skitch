@@ -45,7 +45,6 @@ var shell = require("shelljs");
 var fs_1 = require("fs");
 var srcPath = path_1.dirname(require.resolve('skitch-template'));
 var plans_1 = require("./plans");
-// import plan from './plan';
 var makePackage = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author;
     return {

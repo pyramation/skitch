@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,22 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cli_1 = require("./src/cli");
-var argv = require('minimist')(process.argv.slice(2));
-var readFileSync = require('fs').readFileSync;
-var version = require('./package.json').version;
-(function () { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (argv.v) {
-                    return [2 /*return*/, console.log(version)];
-                }
-                return [4 /*yield*/, cli_1.skitch(argv)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
+var path_1 = require("path");
+var mkdirp = require('mkdirp').sync;
+var shelljs_1 = require("shelljs");
+var fs_1 = require("fs");
+var TMPDIR = process.env.TMPDIR;
+var rnd = function () {
+    return Math.random()
+        .toString(36)
+        .substring(2, 15) +
+        Math.random()
+            .toString(36)
+            .substring(2, 15);
+};
+exports.install = function (name, version) {
+    if (version === void 0) { version = 'latest'; }
+    return __awaiter(_this, void 0, void 0, function () {
+        var path, options;
+        return __generator(this, function (_a) {
+            path = path_1.resolve(TMPDIR + "/" + rnd());
+            options = {
+                name: name,
+                version: version,
+                path: path
+            };
+            mkdirp(path);
+            process.chdir(path);
+            fs_1.writeFileSync(path + "/package.json", JSON.stringify({
+                name: rnd()
+            }, null, 2));
+            shelljs_1.exec("npm install " + name + " --production");
+            return [2 /*return*/];
+        });
     });
-}); })();
-//# sourceMappingURL=index.js.map
+};
+//# sourceMappingURL=install.js.map
