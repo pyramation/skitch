@@ -13,6 +13,7 @@ env:
     - PGHOST=localhost
     - PGPASSWORD=
     - PGUSER=postgres
+    - TMPDIR=/tmp
   matrix:
     - PACKAGE=core/skitch-testing
     - PACKAGE=core/skitch-transform
