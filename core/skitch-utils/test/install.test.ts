@@ -4,7 +4,7 @@ import { sync as mkdirp } from 'mkdirp';
 import { sync as glob } from 'glob';
 import { sync as rimraf } from 'rimraf';
 import { writeFileSync } from 'fs';
-// process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
+
 const TMPDIR = process.env.TMPDIR;
 const rnd = () =>
   Math.random()

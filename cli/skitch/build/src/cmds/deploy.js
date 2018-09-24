@@ -45,15 +45,32 @@ var questions = [
         _: true,
         name: 'database',
         message: 'database',
-        required: true,
+        required: true
+    },
+    {
+        name: 'createdb',
+        type: 'confirm',
+        message: 'createdb?',
+        required: true
     },
     {
         name: 'yes',
         type: 'confirm',
         message: 'are you sure?',
-        required: true,
-    },
+        required: true
+    }
 ];
+var exec = function (cmd) {
+    return shell.exec(cmd, {
+        env: {
+            PGUSER: skitch_env_1.PGUSER,
+            PGPASSWORD: skitch_env_1.PGPASSWORD,
+            PGHOST: skitch_env_1.PGHOST,
+            PGPORT: skitch_env_1.PGPORT,
+            PATH: skitch_env_1.PATH
+        }
+    });
+};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var _a, database, yes, recursive, modules, name_1;
     return __generator(this, function (_b) {
@@ -63,6 +80,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 _a = _b.sent(), database = _a.database, yes = _a.yes, recursive = _a.recursive;
                 if (!yes)
                     return [2 /*return*/];
+                if (argv.createdb) {
+                    database = 'db-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                    console.log("createdb " + database);
+                    exec("createdb " + database);
+                }
                 if (!recursive) return [3 /*break*/, 5];
                 return [4 /*yield*/, skitch_utils_1.listModules()];
             case 2:
@@ -73,7 +95,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                             name: 'name',
                             message: 'choose a project',
                             choices: Object.keys(modules),
-                            required: true,
+                            required: true
                         }
                     ], {})];
             case 3:
@@ -84,15 +106,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [3 /*break*/, 6];
             case 5:
                 console.log("sqitch deploy db:pg:" + database);
-                shell.exec("sqitch deploy db:pg:" + database, {
-                    env: {
-                        PGUSER: skitch_env_1.PGUSER,
-                        PGPASSWORD: skitch_env_1.PGPASSWORD,
-                        PGHOST: skitch_env_1.PGHOST,
-                        PGPORT: skitch_env_1.PGPORT,
-                        PATH: skitch_env_1.PATH
-                    }
-                });
+                exec("sqitch deploy db:pg:" + database);
                 _b.label = 6;
             case 6: return [2 /*return*/];
         }

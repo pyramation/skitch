@@ -42,7 +42,6 @@ var mkdirp_1 = require("mkdirp");
 var glob_1 = require("glob");
 var rimraf_1 = require("rimraf");
 var fs_1 = require("fs");
-// process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
 var TMPDIR = process.env.TMPDIR;
 var rnd = function () {
     return Math.random()
