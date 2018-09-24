@@ -23,14 +23,20 @@ const cmdQuestion = [
     type: 'autocomplete',
     name: 'cmd',
     message: 'what do you want to do?',
-    source: searchCmds,
-  },
+    source: searchCmds
+  }
 ];
 
 export const skitch = async argv => {
-  console.log(Object.keys(argv));
-  console.log(JSON.stringify(argv, null, 2));
-
+  const keys = Object.keys(argv);
+  if (
+    keys.length === 2 &&
+    keys.hasOwnProperty('_') &&
+    !keys._length &&
+    (keys.v || keys.version)
+  ) {
+    return await cmds.version(argv);
+  }
 
   var { cmd } = await prompt(cmdQuestion, argv);
   if (!cmds.hasOwnProperty(cmd)) {

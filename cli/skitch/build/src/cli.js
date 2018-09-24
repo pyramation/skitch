@@ -57,18 +57,23 @@ var cmdQuestion = [
         type: 'autocomplete',
         name: 'cmd',
         message: 'what do you want to do?',
-        source: exports.searchCmds,
-    },
+        source: exports.searchCmds
+    }
 ];
 exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var cmd;
+    var keys, cmd;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(Object.keys(argv));
-                console.log(JSON.stringify(argv, null, 2));
-                return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
-            case 1:
+                keys = Object.keys(argv);
+                if (!(keys.length === 2 &&
+                    keys.hasOwnProperty('_') &&
+                    !keys._length &&
+                    (keys.v || keys.version))) return [3 /*break*/, 2];
+                return [4 /*yield*/, index_1.default.version(argv)];
+            case 1: return [2 /*return*/, _a.sent()];
+            case 2: return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
+            case 3:
                 cmd = (_a.sent()).cmd;
                 if (!index_1.default.hasOwnProperty(cmd)) {
                     Object.keys(aliases_1.default).forEach(function (aliasCmd) {
@@ -83,7 +88,7 @@ exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, funct
                     }
                 }
                 return [4 /*yield*/, index_1.default[cmd](argv)];
-            case 2:
+            case 4:
                 _a.sent();
                 return [2 /*return*/];
         }
