@@ -37,36 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var skitch_utils_1 = require("skitch-utils");
+var path_1 = require("path");
 var inquirerer_1 = require("inquirerer");
-exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var questions, deps;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                questions = [
-                    {
-                        type: 'confirm',
-                        name: 'deps',
-                        message: 'dump all dependencies too?',
-                        required: true
-                    },
-                ];
-                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-            case 1:
-                deps = (_a.sent()).deps;
-                if (!deps) return [3 /*break*/, 3];
-                return [4 /*yield*/, single(argv)];
-            case 2:
-                _a.sent();
-                return [3 /*break*/, 5];
-            case 3: return [4 /*yield*/, all(argv)];
-            case 4:
-                _a.sent();
-                _a.label = 5;
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
 var single = function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var sqitchPath, pkgPath, pkg, questions, version;
     return __generator(this, function (_a) {
@@ -119,7 +91,7 @@ var all = function (argv) { return __awaiter(_this, void 0, void 0, function () 
                         message: 'choose a name',
                         filter: function (val) {
                             val = /.sql$/.test(val) ? val : val + '.sql';
-                            return resolve(skitchPath + '/' + val);
+                            return path_1.resolve(skitchPath + '/' + val);
                         },
                         required: true
                     }
@@ -135,4 +107,33 @@ var all = function (argv) { return __awaiter(_this, void 0, void 0, function () 
         }
     });
 }); };
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var questions, deps;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                questions = [
+                    {
+                        type: 'confirm',
+                        name: 'deps',
+                        message: 'dump all dependencies too?',
+                        required: true
+                    },
+                ];
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 1:
+                deps = (_a.sent()).deps;
+                if (!deps) return [3 /*break*/, 3];
+                return [4 /*yield*/, single(argv)];
+            case 2:
+                _a.sent();
+                return [3 /*break*/, 5];
+            case 3: return [4 /*yield*/, all(argv)];
+            case 4:
+                _a.sent();
+                _a.label = 5;
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=dump.js.map

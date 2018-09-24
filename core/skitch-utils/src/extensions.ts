@@ -2,7 +2,25 @@ import { sync as glob } from 'glob';
 import { sqitchPath as path } from './paths';
 import { writeFileSync, readFileSync } from 'fs';
 
-export const writeExtensionsToEnv = async argv => {
+export const getAvailableExtensions = async () => {
+  let modules = await listModules();
+  modules = Object.keys(modules).reduce(
+    (m, v) => {
+      if (m.includes(v)) return m;
+      m.push(v);
+      return m;
+    },
+    ['plpgsql', 'uuid-ossp', 'pgcrypto', 'plv8']
+  );
+  return modules;
+};
+
+export const getInstalledExtensions = async () => {
+  let modules = await listModules();
+  return Object.keys(modules);
+};
+
+export const writeExtensionsToEnv = async () => {
   const sqitchPath = await path();
 
   const controlFile = glob(`${sqitchPath}/*.control`);

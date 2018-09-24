@@ -57,15 +57,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 2: return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 3:
                 _b.sent();
-                return [4 /*yield*/, skitch_utils_1.listModules()];
+                return [4 /*yield*/, skitch_utils_1.getAvailableExtensions()];
             case 4:
                 modules = _b.sent();
-                modules = Object.keys(modules).reduce(function (m, v) {
-                    if (m.includes(v))
-                        return m;
-                    m.push(v);
-                    return m;
-                }, ['plpgsql', 'uuid-ossp', 'pgcrypto', 'plv8']);
                 questions = [
                     {
                         name: 'name',

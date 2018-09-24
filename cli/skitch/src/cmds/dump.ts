@@ -7,25 +7,11 @@ import {
   writePackage,
 } from 'skitch-utils';
 
+import {
+  resolve
+} from 'path';
+
 import { prompt } from 'inquirerer';
-
-export default async argv => {
-  const questions = [
-    {
-      type: 'confirm',
-      name: 'deps',
-      message: 'dump all dependencies too?',
-      required: true
-    },
-  ];
-
-  let { deps } = await prompt(questions, argv);
-  if (deps) {
-    await single(argv);
-  } else {
-    await all(argv);
-  }
-};
 
 const single = async (argv) => {
   const sqitchPath = await path();
@@ -77,4 +63,22 @@ const all = async (argv) => {
 
   writeFileSync(path, sql);
 
+};
+
+export default async argv => {
+  const questions = [
+    {
+      type: 'confirm',
+      name: 'deps',
+      message: 'dump all dependencies too?',
+      required: true
+    },
+  ];
+
+  let { deps } = await prompt(questions, argv);
+  if (deps) {
+    await single(argv);
+  } else {
+    await all(argv);
+  }
 };

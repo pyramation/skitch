@@ -39,7 +39,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var glob_1 = require("glob");
 var paths_1 = require("./paths");
 var fs_1 = require("fs");
-exports.writeExtensionsToEnv = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+exports.getAvailableExtensions = function () { return __awaiter(_this, void 0, void 0, function () {
+    var modules;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, listModules()];
+            case 1:
+                modules = _a.sent();
+                modules = Object.keys(modules).reduce(function (m, v) {
+                    if (m.includes(v))
+                        return m;
+                    m.push(v);
+                    return m;
+                }, ['plpgsql', 'uuid-ossp', 'pgcrypto', 'plv8']);
+                return [2 /*return*/, modules];
+        }
+    });
+}); };
+exports.getInstalledExtensions = function () { return __awaiter(_this, void 0, void 0, function () {
+    var modules;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, listModules()];
+            case 1:
+                modules = _a.sent();
+                return [2 /*return*/, Object.keys(modules)];
+        }
+    });
+}); };
+exports.writeExtensionsToEnv = function () { return __awaiter(_this, void 0, void 0, function () {
     var sqitchPath, controlFile, envFile, extensions, envs;
     return __generator(this, function (_a) {
         switch (_a.label) {

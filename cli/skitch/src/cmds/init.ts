@@ -1,6 +1,6 @@
 import { exec } from 'shelljs';
 import { prompt } from 'inquirerer';
-import { skitchPath, listModules, init, initSkitch } from 'skitch-utils';
+import { skitchPath, getAvailableExtensions, init, initSkitch } from 'skitch-utils';
 import { basename, dirname } from 'path';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
@@ -30,15 +30,7 @@ export default async argv => {
 
   await skitchPath();
 
-  let modules = await listModules();
-  modules = Object.keys(modules).reduce(
-    (m, v) => {
-      if (m.includes(v)) return m;
-      m.push(v);
-      return m;
-    },
-    ['plpgsql', 'uuid-ossp', 'pgcrypto', 'plv8']
-  );
+  let modules = await getAvailableExtensions();
 
   const questions = [
     {
