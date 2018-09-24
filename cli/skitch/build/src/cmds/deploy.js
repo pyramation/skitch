@@ -36,10 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
 var skitch_utils_1 = require("skitch-utils");
-var skitch_env_1 = require("skitch-env");
 var questions = [
     {
         _: true,
@@ -54,17 +52,6 @@ var questions = [
         required: true
     }
 ];
-var exec = function (cmd) {
-    return shell.exec(cmd, {
-        env: {
-            PGUSER: skitch_env_1.PGUSER,
-            PGPASSWORD: skitch_env_1.PGPASSWORD,
-            PGHOST: skitch_env_1.PGHOST,
-            PGPORT: skitch_env_1.PGPORT,
-            PATH: skitch_env_1.PATH
-        }
-    });
-};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var _a, database, yes, recursive, createdb, modules, name_1;
     return __generator(this, function (_b) {
@@ -75,9 +62,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 if (!yes)
                     return [2 /*return*/];
                 if (argv.createdb) {
-                    database = 'db-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                    database = 'db-' + skitch_utils_1.random();
                     console.log("createdb " + database);
-                    exec("createdb " + database);
+                    skitch_utils_1.execSync("createdb " + database);
                 }
                 if (!recursive) return [3 /*break*/, 5];
                 return [4 /*yield*/, skitch_utils_1.listModules()];
@@ -100,7 +87,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [3 /*break*/, 6];
             case 5:
                 console.log("sqitch deploy db:pg:" + database);
-                exec("sqitch deploy db:pg:" + database);
+                skitch_utils_1.execSync("sqitch deploy db:pg:" + database);
                 _b.label = 6;
             case 6: return [2 /*return*/];
         }

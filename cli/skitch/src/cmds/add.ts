@@ -1,8 +1,6 @@
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
 
-// sqitch add appschema -n 'Add schema for all flipr objects.'
-
 const questions = [
   {
     name: 'name',

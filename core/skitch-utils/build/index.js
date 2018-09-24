@@ -20,4 +20,8 @@ __export(require("./src/revert"));
 __export(require("./src/verify"));
 __export(require("./src/init"));
 __export(require("./src/install"));
+__export(require("./src/exec"));
+__export(require("./src/random"));
+__export(require("./src/autocomplete"));
+__export(require("./src/extensions"));
 //# sourceMappingURL=index.js.map

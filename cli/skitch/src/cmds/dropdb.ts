@@ -1,12 +1,5 @@
-import * as shell from 'shelljs';
+import { execSync } from 'skitch-utils';
 import { prompt } from 'inquirerer';
-import {
-  PGUSER,
-  PGPASSWORD,
-  PGHOST,
-  PGPORT,
-  PATH
-} from 'skitch-env';
 
 const questions = [
   {
@@ -18,13 +11,5 @@ const questions = [
 ];
 export default async argv => {
   const { db } = await prompt(questions, argv);
-  shell.exec(`dropdb ${db}`, {
-    env: {
-      PGUSER,
-      PGPASSWORD,
-      PGHOST,
-      PGPORT,
-      PATH
-    }
-  });
+  execSync(`dropdb ${db}`);
 };

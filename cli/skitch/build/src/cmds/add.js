@@ -38,7 +38,6 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
-// sqitch add appschema -n 'Add schema for all flipr objects.'
 var questions = [
     {
         name: 'name',

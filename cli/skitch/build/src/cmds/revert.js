@@ -36,10 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var shell = require("shelljs");
 var inquirerer_1 = require("inquirerer");
 var skitch_utils_1 = require("skitch-utils");
-var skitch_env_1 = require("skitch-env");
 var questions = [
     {
         _: true,
@@ -84,15 +82,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [3 /*break*/, 6];
             case 5:
                 console.log("sqitch revert db:pg:" + database + " -y");
-                shell.exec("sqitch revert db:pg:" + database + " -y", {
-                    env: {
-                        PGUSER: skitch_env_1.PGUSER,
-                        PGPASSWORD: skitch_env_1.PGPASSWORD,
-                        PGHOST: skitch_env_1.PGHOST,
-                        PGPORT: skitch_env_1.PGPORT,
-                        PATH: skitch_env_1.PATH
-                    }
-                });
+                skitch_utils_1.execSync("sqitch revert db:pg:" + database + " -y");
                 _b.label = 6;
             case 6: return [2 /*return*/];
         }

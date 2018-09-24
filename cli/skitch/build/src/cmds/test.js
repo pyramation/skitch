@@ -36,29 +36,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var shell = require("shelljs");
-var skitch_env_1 = require("skitch-env");
+var skitch_utils_1 = require("skitch-utils");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var env, db;
+    var db;
     return __generator(this, function (_a) {
-        env = {
-            PGUSER: skitch_env_1.PGUSER,
-            PGPASSWORD: skitch_env_1.PGPASSWORD,
-            PGHOST: skitch_env_1.PGHOST,
-            PGPORT: skitch_env_1.PGPORT,
-            PATH: skitch_env_1.PATH
-        };
-        db = 'test-db-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        shell.exec("createdb " + db, {
-            env: env
-        });
-        shell.exec("sqitch deploy db:pg:" + db, {
-            env: env
-        });
+        db = 'test-db-' + skitch_utils_1.random();
+        skitch_utils_1.execSync("createdb " + db);
+        skitch_utils_1.execSync("sqitch deploy db:pg:" + db);
         if (argv.verify) {
-            shell.exec("sqitch verify db:pg:" + db, {
-                env: env
-            });
+            skitch_utils_1.execSync("sqitch verify db:pg:" + db);
         }
         return [2 /*return*/];
     });

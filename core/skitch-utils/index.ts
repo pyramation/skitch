@@ -16,3 +16,7 @@ export * from './src/revert';
 export * from './src/verify';
 export * from './src/init';
 export * from './src/install';
+export * from './src/exec';
+export * from './src/random';
+export * from './src/autocomplete';
+export * from './src/extensions';

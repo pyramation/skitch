@@ -36,26 +36,63 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var skitch_utils_1 = require("skitch-utils");
-var inquirerer_1 = require("inquirerer");
-var questions = [
-    {
-        _: true,
-        name: 'db',
-        message: 'database',
-        required: true,
-    },
-];
-exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var db;
+var glob_1 = require("glob");
+var paths_1 = require("./paths");
+var fs_1 = require("fs");
+exports.writeExtensionsToEnv = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var sqitchPath, controlFile, envFile, extensions, envs;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 0: return [4 /*yield*/, paths_1.sqitchPath()];
             case 1:
-                db = (_a.sent()).db;
-                skitch_utils_1.execSync("dropdb " + db);
+                sqitchPath = _a.sent();
+                controlFile = glob_1.sync(sqitchPath + "/*.control");
+                envFile = glob_1.sync(sqitchPath + "/.env");
+                if (!controlFile || !controlFile.length) {
+                    throw new Error('no control file found!');
+                }
+                if (!envFile || !envFile.length) {
+                    throw new Error('no control file found!');
+                }
+                try {
+                    extensions = fs_1.readFileSync(controlFile[0])
+                        .toString()
+                        .split('\n')
+                        .find(function (line) { return line.match(/^requires/); })
+                        .split('=')[1]
+                        .split('\'')[1]
+                        .split(',')
+                        .map(function (a) { return a.trim(); });
+                }
+                catch (e) {
+                    throw new Error('missing requires from control files or bad syntax');
+                }
+                try {
+                    envs = fs_1.readFileSync(envFile[0])
+                        .toString()
+                        .split('\n')
+                        .reduce(function (m, line) {
+                        line = (line || '').trim();
+                        if (/^#/.test(line))
+                            return m;
+                        if (!line.length)
+                            return m;
+                        var parts = line.split('=');
+                        m[parts[0].trim()] = parts[1].trim();
+                        return m;
+                    }, {});
+                }
+                catch (e) {
+                    throw new Error('missing env files or bad syntax');
+                }
+                envs.PGEXTENSIONS = extensions.join(',');
+                fs_1.writeFileSync(envFile[0], Object.keys(envs).reduce(function (m, key) {
+                    var value = envs[key];
+                    m = m + "\n" + key + "=" + value;
+                    return m;
+                }, ''));
                 return [2 /*return*/];
         }
     });
-}); });
-//# sourceMappingURL=dropdb.js.map
+}); };
+//# sourceMappingURL=extensions.js.map

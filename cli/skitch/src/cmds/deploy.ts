@@ -1,8 +1,5 @@
-import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
-import { listModules, deploy } from 'skitch-utils';
-
-import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PATH } from 'skitch-env';
+import { listModules, deploy, execSync, random } from 'skitch-utils';
 
 const questions = [
   {
@@ -19,25 +16,14 @@ const questions = [
   }
 ];
 
-const exec = cmd =>
-  shell.exec(cmd, {
-    env: {
-      PGUSER,
-      PGPASSWORD,
-      PGHOST,
-      PGPORT,
-      PATH
-    }
-  });
-
 export default async argv => {
   let { database, yes, recursive, createdb } = await prompt(questions, argv);
   if (!yes) return;
 
   if (argv.createdb) {
-    database = 'db-' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    database = 'db-' + random();
     console.log(`createdb ${database}`);
-    exec(`createdb ${database}`);
+    execSync(`createdb ${database}`);
   }
   if (recursive) {
     const modules = await listModules();
@@ -56,6 +42,6 @@ export default async argv => {
     await deploy(name, database);
   } else {
     console.log(`sqitch deploy db:pg:${database}`);
-    exec(`sqitch deploy db:pg:${database}`);
+    execSync(`sqitch deploy db:pg:${database}`);
   }
 };

@@ -43,6 +43,7 @@ var glob_1 = require("glob");
 var skitch_utils_1 = require("skitch-utils");
 var fs_1 = require("fs");
 var plan_1 = require("./plan");
+// MARKED FOR DEPRECATION
 var questions = [
     {
         name: 'extname',

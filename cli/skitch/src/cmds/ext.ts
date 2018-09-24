@@ -11,6 +11,8 @@ import { writeFileSync, readFileSync } from 'fs';
 
 import plan from './plan';
 
+// MARKED FOR DEPRECATION
+
 const questions = [
   {
     name: 'extname',

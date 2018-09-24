@@ -1,14 +1,5 @@
-import * as shell from 'shelljs';
 import { prompt } from 'inquirerer';
-import { listModules, revert } from 'skitch-utils';
-
-import {
-  PGUSER,
-  PGPASSWORD,
-  PGHOST,
-  PGPORT,
-  PATH
-} from 'skitch-env';
+import { listModules, revert, execSync } from 'skitch-utils';
 
 const questions = [
   {
@@ -42,15 +33,7 @@ export default async argv => {
     await revert(name, database);
   } else {
     console.log(`sqitch revert db:pg:${database} -y`);
-    shell.exec(`sqitch revert db:pg:${database} -y`, {
-      env: {
-        PGUSER,
-        PGPASSWORD,
-        PGHOST,
-        PGPORT,
-        PATH
-      }
-    });
+    execSync(`sqitch revert db:pg:${database} -y`);
   }
 
 };

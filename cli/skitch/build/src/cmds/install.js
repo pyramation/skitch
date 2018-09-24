@@ -55,7 +55,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         console.log(argv);
+        // this means they didn't type anything!
         if (Object.keys(argv).length === 1 && !argv._.length) {
+            return [2 /*return*/, console.log('should so a npm install on all the packages here!')];
+        }
+        else if (Object.keys(argv).length === 2 && !argv._.length && argv.cmd === 'install') {
             return [2 /*return*/, console.log('should so a npm install on all the packages here!')];
         }
         return [2 /*return*/];

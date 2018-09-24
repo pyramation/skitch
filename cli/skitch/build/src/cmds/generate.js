@@ -37,22 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var child_process_1 = require("child_process");
-var fuzzy_1 = require("fuzzy");
 var inquirerer_1 = require("inquirerer");
 var skitch_templates_1 = require("skitch-templates");
 var skitch_utils_1 = require("skitch-utils");
 var templatePath = require.resolve('skitch-templates').split('build/index')[0] + 'src';
-var searchTemplates = function (answers, input) {
-    input = input || '';
-    return new Promise(function (resolve) {
-        setTimeout(function () {
-            var fuzzyResult = fuzzy_1.filter(input, Object.keys(skitch_templates_1.default));
-            resolve(fuzzyResult.map(function (el) {
-                return el.original;
-            }));
-        }, 25);
-    });
-};
+var searchTemplates = skitch_utils_1.makeAutocompleteFunctionWithInput(Object.keys(skitch_templates_1.default));
 var templateQuestion = [
     {
         _: true,

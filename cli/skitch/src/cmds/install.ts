@@ -27,8 +27,14 @@ import { sync as glob } from 'glob';
 // ];
 
 export default async argv => {
+
   console.log(argv);
+
+  // this means they didn't type anything!
   if (Object.keys(argv).length===1&&!argv._.length) {
+    return console.log('should so a npm install on all the packages here!');
+  } else
+  if (Object.keys(argv).length===2&&!argv._.length && argv.cmd==='install') {
     return console.log('should so a npm install on all the packages here!');
   }
 
