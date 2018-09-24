@@ -40,6 +40,7 @@ var paths_1 = require("./paths");
 var parser = require('pgsql-parser');
 var resolve_1 = require("./resolve");
 var mkdirp_1 = require("mkdirp");
+var path_1 = require("path");
 var skitch_transform_1 = require("skitch-transform");
 var fs_1 = require("fs");
 var sluggify = function (text) {
@@ -109,7 +110,7 @@ exports.packageModule = function (extension) {
 exports.writePackage = function (version, extension) {
     if (extension === void 0) { extension = true; }
     return __awaiter(_this, void 0, void 0, function () {
-        var sqitchPath, pkgPath, pkg, extname, makePath, controlPath, sqlFileName, Makefile, control, _a, sql, diff, tree1, tree2, outPath, regex;
+        var sqitchPath, pkgPath, pkg, extname, makePath, controlPath, sqlFileName, Makefile, control, _a, sql, diff, tree1, tree2, outPath, regex, writePath;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, paths_1.sqitchPath()];
@@ -137,12 +138,13 @@ exports.writePackage = function (version, extension) {
                         fs_1.writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
                     }
                     if (diff) {
-                        console.error('DIFF exists! Careful. Check sql/ folder...');
-                        fs_1.writeFileSync(outPath + "/" + sqlFileName + ".tree.orig.json", tree1);
-                        fs_1.writeFileSync(outPath + "/" + sqlFileName + ".tree.parsed.json", tree2);
+                        console.error("DIFF exists! Careful. Check " + path_1.relative(sqitchPath, outPath) + "/ folder...");
+                        fs_1.writeFileSync(outPath + "/orig." + sqlFileName + ".tree.json", tree1);
+                        fs_1.writeFileSync(outPath + "/parsed." + sqlFileName + ".tree.json", tree2);
                     }
-                    fs_1.writeFileSync(outPath + "/" + sqlFileName, sql);
-                    console.log(sqlFileName + " written");
+                    writePath = outPath + "/" + sqlFileName;
+                    fs_1.writeFileSync(writePath, sql);
+                    console.log(path_1.relative(sqitchPath, writePath) + " written");
                     return [2 /*return*/];
             }
         });

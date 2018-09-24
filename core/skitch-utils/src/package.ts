@@ -2,6 +2,7 @@ import { sqitchPath as path } from './paths';
 const parser = require('pgsql-parser');
 import { resolve } from './resolve';
 import { sync as mkdirp } from 'mkdirp';
+import { relative } from 'path';
 import { transformProps } from 'skitch-transform';
 import { writeFileSync, readFileSync } from 'fs';
 
@@ -100,13 +101,13 @@ export const writePackage = async (version, extension=true) => {
   }
 
   if (diff) {
-    console.error('DIFF exists! Careful. Check sql/ folder...');
-    writeFileSync(`${outPath}/${sqlFileName}.tree.orig.json`, tree1);
-    writeFileSync(`${outPath}/${sqlFileName}.tree.parsed.json`, tree2);
+    console.error(`DIFF exists! Careful. Check ${relative(sqitchPath, outPath)}/ folder...`);
+    writeFileSync(`${outPath}/orig.${sqlFileName}.tree.json`, tree1);
+    writeFileSync(`${outPath}/parsed.${sqlFileName}.tree.json`, tree2);
   }
 
-  writeFileSync(`${outPath}/${sqlFileName}`, sql);
-  console.log(`${sqlFileName} written`);
-
+  const writePath = `${outPath}/${sqlFileName}`;
+  writeFileSync(writePath, sql);
+  console.log(`${relative(sqitchPath, writePath)} written`);
 
 };
