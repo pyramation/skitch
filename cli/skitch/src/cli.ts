@@ -28,6 +28,10 @@ const cmdQuestion = [
 ];
 
 export const skitch = async argv => {
+  console.log(Object.keys(argv));
+  console.log(JSON.stringify(argv, null, 2));
+
+
   var { cmd } = await prompt(cmdQuestion, argv);
   if (!cmds.hasOwnProperty(cmd)) {
     Object.keys(aliases).forEach(aliasCmd => {

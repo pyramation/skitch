@@ -64,7 +64,10 @@ exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, funct
     var cmd;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
+            case 0:
+                console.log(Object.keys(argv));
+                console.log(JSON.stringify(argv, null, 2));
+                return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
             case 1:
                 cmd = (_a.sent()).cmd;
                 if (!index_1.default.hasOwnProperty(cmd)) {
