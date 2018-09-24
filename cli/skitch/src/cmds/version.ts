@@ -1,5 +1,6 @@
 export const aliases = ['v'];
-const version = require('../../package.json').version;
+// in production path is one step up...
+const version = require('../../../package.json').version;
 export default async argv => {
   console.log(version);
 };
