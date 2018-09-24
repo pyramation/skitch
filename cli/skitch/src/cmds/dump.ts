@@ -75,8 +75,8 @@ export default async argv => {
 
   let { deps } = await prompt(questions, argv);
   if (deps) {
-    await single(argv);
-  } else {
     await all(argv);
+  } else {
+    await single(argv);
   }
 };

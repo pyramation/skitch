@@ -125,11 +125,11 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
             case 1:
                 deps = (_a.sent()).deps;
                 if (!deps) return [3 /*break*/, 3];
-                return [4 /*yield*/, single(argv)];
+                return [4 /*yield*/, all(argv)];
             case 2:
                 _a.sent();
                 return [3 /*break*/, 5];
-            case 3: return [4 /*yield*/, all(argv)];
+            case 3: return [4 /*yield*/, single(argv)];
             case 4:
                 _a.sent();
                 _a.label = 5;
