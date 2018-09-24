@@ -24,8 +24,9 @@ import { aliases as sql } from './cmds/sql';
 import { aliases as start } from './cmds/start';
 import { aliases as test } from './cmds/test';
 import { aliases as verify } from './cmds/verify';
+import { aliases as version } from './cmds/version';
 
   export default {
-    add,addproject,build,bundle,createdb,deploy,dropdb,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify
+    add,addproject,build,bundle,createdb,deploy,dropdb,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify,version
   }
     

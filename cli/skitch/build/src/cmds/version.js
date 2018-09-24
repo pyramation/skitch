@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,17 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var cli_1 = require("./src/cli");
-var argv = require('minimist')(process.argv.slice(2));
-// skitch upgrade
-(function () { return __awaiter(_this, void 0, void 0, function () {
+exports.aliases = ['v'];
+var version = require('../../package.json').version;
+exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, cli_1.skitch(argv)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
+        console.log(version);
+        return [2 /*return*/];
     });
-}); })();
-//# sourceMappingURL=index.js.map
+}); });
+//# sourceMappingURL=version.js.map

@@ -24,5 +24,6 @@ declare const _default: {
     start: (argv: any) => Promise<void>;
     test: (argv: any) => Promise<void>;
     verify: (argv: any) => Promise<void>;
+    version: (argv: any) => Promise<void>;
 };
 export default _default;

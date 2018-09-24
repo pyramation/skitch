@@ -24,5 +24,6 @@ declare const _default: {
     start: any;
     test: any;
     verify: any;
+    version: string[];
 };
 export default _default;

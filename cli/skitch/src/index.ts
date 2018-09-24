@@ -24,7 +24,8 @@ import sql from './cmds/sql';
 import start from './cmds/start';
 import test from './cmds/test';
 import verify from './cmds/verify';
+import version from './cmds/version';
 export default {
-  add,addproject,build,bundle,createdb,deploy,dropdb,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify
+  add,addproject,build,bundle,createdb,deploy,dropdb,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify,version
 }
   
