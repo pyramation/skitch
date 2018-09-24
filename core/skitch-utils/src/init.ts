@@ -8,6 +8,7 @@ import * as shell from 'shelljs';
 import { writeFileSync } from 'fs';
 const srcPath = dirname(require.resolve('skitch-template'));
 import { makePlan } from './plans';
+import { sluggify } from './utils';
 
 const makePackage = ({ name, description, author }) => {
   return {
@@ -37,14 +38,6 @@ const makePackage = ({ name, description, author }) => {
     },
   };
 };
-
-const sluggify = (text) => {
-  return text.toString().toLowerCase().trim()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/&/g, '-and-')         // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
-}
 
 export const init = async ({ name, description, author, extensions }) => {
 
@@ -94,9 +87,9 @@ export const initSkitch = async () => {
   const pkg = {
     name,
     dependencies: {
-      'skitch-ext-defaults': 'latest',
-      'skitch-ext-verify': 'latest',
-      'skitch-ext-utilities': 'latest'
+      'skitch-extensions-defaults': 'latest',
+      'skitch-extensions-verify': 'latest',
+      'skitch-extensions-utilities': 'latest'
     }
   };
   writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(pkg, null, 2));

@@ -46,6 +46,7 @@ var shell = require("shelljs");
 var fs_1 = require("fs");
 var srcPath = path_1.dirname(require.resolve('skitch-template'));
 var plans_1 = require("./plans");
+var utils_1 = require("./utils");
 var makePackage = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author;
     return {
@@ -75,13 +76,6 @@ var makePackage = function (_a) {
         },
     };
 };
-var sluggify = function (text) {
-    return text.toString().toLowerCase().trim()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
-};
 exports.init = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
     return __awaiter(_this, void 0, void 0, function () {
@@ -104,7 +98,7 @@ exports.init = function (_a) {
                     shell.cp('-r', srcPath + "/sqitch/.*", sqitchPath + "/");
                     fs_1.writeFileSync(sqitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                     shell.mkdir('-p', sqitchPath + "/sql");
-                    extname = sluggify(name);
+                    extname = utils_1.sluggify(name);
                     return [4 /*yield*/, extensions_1.getExtensionInfo()];
                 case 4:
                     info = _b.sent();
@@ -133,13 +127,13 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
         dir = process.cwd();
         shell.cp('-r', srcPath + "/skitch/*", dir + "/");
         shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
-        name = sluggify(path_1.basename(path_1.dirname(process.cwd())));
+        name = utils_1.sluggify(path_1.basename(path_1.dirname(process.cwd())));
         pkg = {
             name: name,
             dependencies: {
-                'skitch-ext-defaults': 'latest',
-                'skitch-ext-verify': 'latest',
-                'skitch-ext-utilities': 'latest'
+                'skitch-extensions-defaults': 'latest',
+                'skitch-extensions-verify': 'latest',
+                'skitch-extensions-utilities': 'latest'
             }
         };
         fs_1.writeFileSync(process.cwd() + "/package.json", JSON.stringify(pkg, null, 2));
