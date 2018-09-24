@@ -1,11 +1,15 @@
 # skitch
 
-[![Build Status](https://travis-ci.org/pyramation/skitch.svg?branch=master)](https://travis-ci.org/pyramation/skitch)
+[![Build Status](https://travis-ci.org/AirPageInc/skitch.svg?branch=master)](https://travis-ci.org/AirPageInc/skitch)
 
 Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
 
 `skitch` is a wrapper around `sqitch` to enable a sane workflow for sane database management.
 
+* write and deploy extensions that can be installed with `CREATE EXTENSION`
+* optionally deploy same source as `sqitch` modules (since some managed db providers don't allow custom extensions)
+* write/deploy a project full of many `sqitch` modules that cross-reference each other using dependency resolution for running deploy command in proper order, etc
+* pulling modules down (currently via npm) to make re-usability super easy
 
 ## installation
 
@@ -40,9 +44,7 @@ https://github.com/pyramation/pg-utils
 
 ## getting started
 
-Inititalize a project with `skitch init`
-
-Generate some SQL with `skitch generate` or `skitch g`
+Inititalize a project with `skitch init --bare`
 
 ## what's different
 
@@ -87,6 +89,6 @@ skitch bundle my-awesome-npm-module awesomeThing
 ## Install some existing packages
 
 ```sh
-skitch install @pyramation/skitch-inflection
-skitch install @pyramation/skitch-ajv
+skitch install skitch-extension-verify
+skitch install skitch-extension-jobs
 ```
