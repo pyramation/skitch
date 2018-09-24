@@ -4,16 +4,16 @@ import {
   packageModule,
   skitchPath as sPath,
   sqitchPath as path,
-  writePackage,
+  writePackage
 } from 'skitch-utils';
 
-import {
-  resolve
-} from 'path';
+import { resolve } from 'path';
 
 import { prompt } from 'inquirerer';
 
-const single = async (argv) => {
+import { writeFileSync } from 'fs';
+
+const single = async argv => {
   const sqitchPath = await path();
   const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);
@@ -29,10 +29,9 @@ const single = async (argv) => {
 
   const { version } = await prompt(questions, argv);
   await writePackage(version, false);
-
 };
 
-const all = async (argv) => {
+const all = async argv => {
   const skitchPath = await sPath();
   const modules = await listModules();
 
@@ -62,7 +61,6 @@ const all = async (argv) => {
   let sql = await build(project);
 
   writeFileSync(path, sql);
-
 };
 
 export default async argv => {
@@ -72,7 +70,7 @@ export default async argv => {
       name: 'deps',
       message: 'dump all dependencies too?',
       required: true
-    },
+    }
   ];
 
   let { deps } = await prompt(questions, argv);

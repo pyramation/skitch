@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var skitch_utils_1 = require("skitch-utils");
 var path_1 = require("path");
 var inquirerer_1 = require("inquirerer");
+var fs_1 = require("fs");
 var single = function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var sqitchPath, pkgPath, pkg, questions, version;
     return __generator(this, function (_a) {
@@ -102,7 +103,7 @@ var all = function (argv) { return __awaiter(_this, void 0, void 0, function () 
                 return [4 /*yield*/, skitch_utils_1.build(project)];
             case 4:
                 sql = _b.sent();
-                writeFileSync(path, sql);
+                fs_1.writeFileSync(path, sql);
                 return [2 /*return*/];
         }
     });
@@ -118,7 +119,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         name: 'deps',
                         message: 'dump all dependencies too?',
                         required: true
-                    },
+                    }
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
