@@ -15,7 +15,6 @@ export const listModules = async () => {
     );
 
     const extensions = moduleFiles.reduce((m, v) => {
-        if (/node_modules/.test(v)) return m;
         const contents = readFileSync(v).toString();
         const key = basename(v).split('.control')[0];
         m[key] = {};
