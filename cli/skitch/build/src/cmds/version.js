@@ -37,7 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.aliases = ['v'];
-var version = require('../../package.json').version;
+// in production path is one step up...
+var version = require('../../../package.json').version;
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         console.log(version);
