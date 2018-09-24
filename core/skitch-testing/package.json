@@ -1,6 +1,6 @@
 {
   "name": "skitch-testing",
-  "version": "0.16.33",
+  "version": "0.16.34",
   "description": "testing utils",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -28,7 +28,7 @@
   "dependencies": {
     "pg": "6.4.0",
     "pg-promise": "6.10.3",
-    "skitch-utils": "^0.16.33",
+    "skitch-utils": "^0.16.34",
     "streamify-string": "1.0.1",
     "uuid": "3.1.0"
   },
