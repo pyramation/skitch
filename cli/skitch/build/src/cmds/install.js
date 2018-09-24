@@ -43,14 +43,12 @@ var questions = [
         _: true,
         name: 'moduleinfo',
         message: 'modulename@version',
-        filter: function (val) {
-            return /@/.test(val) ? val.split('@') : [val, 'latest'];
-        },
-        required: true,
+        filter: function (val) { return (/@/.test(val) ? val.split('@') : [val, 'latest']); },
+        required: true
     }
 ];
 var noArgs = function (argv, cmd) {
-    (Object.keys(argv).length === 1 && !argv._.length) ||
+    return (Object.keys(argv).length === 1 && !argv._.length) ||
         (Object.keys(argv).length === 2 && !argv._.length && argv.cmd === cmd);
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
