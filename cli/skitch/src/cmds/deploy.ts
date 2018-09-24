@@ -12,12 +12,6 @@ const questions = [
     required: true
   },
   {
-    name: 'createdb',
-    type: 'confirm',
-    message: 'createdb?',
-    required: true
-  },
-  {
     name: 'yes',
     type: 'confirm',
     message: 'are you sure?',
@@ -37,7 +31,7 @@ const exec = cmd =>
   });
 
 export default async argv => {
-  let { database, yes, recursive } = await prompt(questions, argv);
+  let { database, yes, recursive, createdb } = await prompt(questions, argv);
   if (!yes) return;
 
   if (argv.createdb) {

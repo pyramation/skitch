@@ -48,12 +48,6 @@ var questions = [
         required: true
     },
     {
-        name: 'createdb',
-        type: 'confirm',
-        message: 'createdb?',
-        required: true
-    },
-    {
         name: 'yes',
         type: 'confirm',
         message: 'are you sure?',
@@ -72,12 +66,12 @@ var exec = function (cmd) {
     });
 };
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, database, yes, recursive, modules, name_1;
+    var _a, database, yes, recursive, createdb, modules, name_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 1:
-                _a = _b.sent(), database = _a.database, yes = _a.yes, recursive = _a.recursive;
+                _a = _b.sent(), database = _a.database, yes = _a.yes, recursive = _a.recursive, createdb = _a.createdb;
                 if (!yes)
                     return [2 /*return*/];
                 if (argv.createdb) {
