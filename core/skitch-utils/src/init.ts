@@ -87,9 +87,9 @@ export const initSkitch = async () => {
   const pkg = {
     name,
     dependencies: {
-      'skitch-extensions-defaults': 'latest',
-      'skitch-extensions-verify': 'latest',
-      'skitch-extensions-utilities': 'latest'
+      'skitch-extension-defaults': 'latest',
+      'skitch-extension-verify': 'latest',
+      'skitch-extension-utilities': 'latest'
     }
   };
   writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(pkg, null, 2));

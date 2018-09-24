@@ -131,9 +131,9 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
         pkg = {
             name: name,
             dependencies: {
-                'skitch-extensions-defaults': 'latest',
-                'skitch-extensions-verify': 'latest',
-                'skitch-extensions-utilities': 'latest'
+                'skitch-extension-defaults': 'latest',
+                'skitch-extension-verify': 'latest',
+                'skitch-extension-utilities': 'latest'
             }
         };
         fs_1.writeFileSync(process.cwd() + "/package.json", JSON.stringify(pkg, null, 2));

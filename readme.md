@@ -44,7 +44,49 @@ https://github.com/pyramation/pg-utils
 
 ## getting started
 
-Inititalize a project with `skitch init --bare`
+Initialize a project
+
+```sh
+skitch init --bare
+skitch install
+```
+
+Now you should have a `packages/` folder
+
+```sh
+cd packages/
+mkdir myfirstmodule
+cd myfirstmodule/
+skitch init
+```
+
+Now you can create some `sql` using `sqitch`!
+
+```sh
+skitch generate schema
+skitch generate table
+```
+
+Deploy recursively, using all the required modules!
+
+```sh
+skitch deploy --createdb --recursive
+```
+
+## testing
+
+To create a test, first cd into a sqitch module
+
+```sh
+cd packages/myfirstmodule
+skitch maketest
+```
+
+Then you can use `jest` via `yarn` to test your logic.
+
+```sh
+yarn test:watch
+```
 
 ## what's different
 
