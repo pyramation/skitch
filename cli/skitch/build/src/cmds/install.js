@@ -37,15 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var inquirerer_1 = require("inquirerer");
-// import {
-//   sqitchPath as sqPath,
-//   skitchPath as skPath
-// } from 'skitch-utils';
-//
-// import * as shell from 'shelljs';
-// import plan from './plan';
-// import { resolve } from 'path';
-// import { sync as glob } from 'glob';
+var skitch_utils_1 = require("skitch-utils");
 var questions = [
     {
         _: true,
@@ -55,24 +47,28 @@ var questions = [
             return /@/.test(val) ? val.split('@') : [val, 'latest'];
         },
         required: true,
-    },
+    }
 ];
+var noArgs = function (argv, cmd) {
+    (Object.keys(argv).length === 1 && !argv._.length) ||
+        (Object.keys(argv).length === 2 && !argv._.length && argv.cmd === cmd);
+};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var moduleinfo;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, name, version;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                console.log(argv);
-                // "skitch install"
-                if (Object.keys(argv).length === 1 && !argv._.length) {
-                    return [2 /*return*/, console.log('should so a npm install on all the packages here!')];
-                }
-                else if (Object.keys(argv).length === 2 && !argv._.length && argv.cmd === 'install') {
-                    return [2 /*return*/, console.log('should so a npm install on all the packages here!')];
-                }
-                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+                if (!noArgs(argv, 'install')) return [3 /*break*/, 2];
+                return [4 /*yield*/, skitch_utils_1.install()];
             case 1:
-                moduleinfo = (_a.sent()).moduleinfo;
+                _b.sent();
+                return [2 /*return*/];
+            case 2: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 3:
+                _a = (_b.sent()).moduleinfo, name = _a[0], version = _a[1];
+                return [4 /*yield*/, skitch_utils_1.installPackage(name, version)];
+            case 4:
+                _b.sent();
                 return [2 /*return*/];
         }
     });

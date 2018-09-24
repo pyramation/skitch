@@ -1,13 +1,8 @@
 import { prompt } from 'inquirerer';
-// import {
-//   sqitchPath as sqPath,
-//   skitchPath as skPath
-// } from 'skitch-utils';
-//
-// import * as shell from 'shelljs';
-// import plan from './plan';
-// import { resolve } from 'path';
-// import { sync as glob } from 'glob';
+import {
+  install,
+  installPackage
+} from 'skitch-utils';
 
 const questions = [
   {
@@ -17,23 +12,24 @@ const questions = [
     filter: (val) =>
       /@/.test(val) ? val.split('@') : [val, 'latest'],
     required: true,
-  },
-
+  }
 ];
+
+const noArgs = (argv, cmd) => {
+  (Object.keys(argv).length===1&&!argv._.length) ||
+  (Object.keys(argv).length===2&&!argv._.length && argv.cmd===cmd)
+}
 
 export default async argv => {
 
-  console.log(argv);
-
   // "skitch install"
-  if (Object.keys(argv).length===1&&!argv._.length) {
-    return console.log('should so a npm install on all the packages here!');
-  } else
-  if (Object.keys(argv).length===2&&!argv._.length && argv.cmd==='install') {
-    return console.log('should so a npm install on all the packages here!');
+  if (noArgs(argv, 'install')) {
+    await install();
+    return;
   }
 
   // "skitch module@version"
-  const { moduleinfo, } = await prompt(questions, argv);
+  const { moduleinfo:[name, version] } = await prompt(questions, argv);
+  await installPackage(name, version);
 
 };
