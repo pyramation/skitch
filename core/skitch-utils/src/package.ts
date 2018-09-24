@@ -60,7 +60,7 @@ export const packageModule = async (extension=true) => {
 
 };
 
-export const writePackage = async (version, extension) => {
+export const writePackage = async (version, extension=true) => {
   const sqitchPath = await path();
   const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);
@@ -75,6 +75,8 @@ export const writePackage = async (version, extension) => {
   const { sql, diff, tree1, tree2 } = await packageModule(extension);
 
   const outPath = extension ? `${sqitchPath}/sql` : `${sqitchPath}/out`;
+
+  mkdirp(outPath);
 
   if (extension) {
     // control file
