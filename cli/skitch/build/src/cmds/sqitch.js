@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var parser = require('pgsql-parser');
 var fs_1 = require("fs");
 var inquirerer_1 = require("inquirerer");
 var path_1 = require("path");

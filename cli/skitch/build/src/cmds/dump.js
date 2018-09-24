@@ -36,17 +36,69 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs_1 = require("fs");
-var inquirerer_1 = require("inquirerer");
-var path_1 = require("path");
 var skitch_utils_1 = require("skitch-utils");
+var inquirerer_1 = require("inquirerer");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var native, skitchPath, modules, questions, _a, project, path, sql;
+    var questions, deps;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                questions = [
+                    {
+                        type: 'confirm',
+                        name: 'deps',
+                        message: 'dump all dependencies too?',
+                        required: true
+                    },
+                ];
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 1:
+                deps = (_a.sent()).deps;
+                if (!deps) return [3 /*break*/, 3];
+                return [4 /*yield*/, single(argv)];
+            case 2:
+                _a.sent();
+                return [3 /*break*/, 5];
+            case 3: return [4 /*yield*/, all(argv)];
+            case 4:
+                _a.sent();
+                _a.label = 5;
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
+var single = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var sqitchPath, pkgPath, pkg, questions, version;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
+            case 1:
+                sqitchPath = _a.sent();
+                pkgPath = sqitchPath + "/package.json";
+                pkg = require(pkgPath);
+                questions = [
+                    {
+                        name: 'version',
+                        message: 'version',
+                        default: pkg.version,
+                        required: true
+                    }
+                ];
+                return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
+            case 2:
+                version = (_a.sent()).version;
+                return [4 /*yield*/, skitch_utils_1.writePackage(version, false)];
+            case 3:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
+var all = function (argv) { return __awaiter(_this, void 0, void 0, function () {
+    var skitchPath, modules, questions, _a, project, path, sql;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0:
-                native = [];
-                return [4 /*yield*/, skitch_utils_1.skitchPath()];
+            case 0: return [4 /*yield*/, skitch_utils_1.skitchPath()];
             case 1:
                 skitchPath = _b.sent();
                 return [4 /*yield*/, skitch_utils_1.listModules()];
@@ -67,7 +119,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                         message: 'choose a name',
                         filter: function (val) {
                             val = /.sql$/.test(val) ? val : val + '.sql';
-                            return path_1.resolve(skitchPath + '/' + val);
+                            return resolve(skitchPath + '/' + val);
                         },
                         required: true
                     }
@@ -78,9 +130,9 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, skitch_utils_1.build(project)];
             case 4:
                 sql = _b.sent();
-                fs_1.writeFileSync(path, sql);
+                writeFileSync(path, sql);
                 return [2 /*return*/];
         }
     });
-}); });
-//# sourceMappingURL=build.js.map
+}); };
+//# sourceMappingURL=dump.js.map

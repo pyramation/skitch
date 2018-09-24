@@ -1,21 +1,9 @@
-import { filter } from 'fuzzy';
 import { prompt } from 'inquirerer';
 import cmds from './index';
 import aliases from './aliases';
+import { makeAutocompleteFunctionWithInput } from 'skitch-utils';
 
-export const searchCmds = (answers: object, input: string) => {
-  input = input || '';
-  return new Promise(function(resolve) {
-    setTimeout(function() {
-      var fuzzyResult = filter(input, Object.keys(cmds));
-      resolve(
-        fuzzyResult.map(function(el) {
-          return el.original;
-        })
-      );
-    }, 25);
-  });
-};
+export const searchCmds = makeAutocompleteFunctionWithInput(Object.keys(cmds));
 
 const cmdQuestion = [
   {

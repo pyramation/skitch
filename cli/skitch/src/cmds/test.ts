@@ -1,6 +1,5 @@
 import { random, execSync } from 'skitch-utils';
 import { prompt } from 'inquirerer';
-
 export default async argv => {
   const db = 'test-db-' + random();
 

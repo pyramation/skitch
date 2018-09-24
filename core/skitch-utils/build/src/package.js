@@ -40,6 +40,7 @@ var paths_1 = require("./paths");
 var parser = require('pgsql-parser');
 var resolve_1 = require("./resolve");
 var skitch_transform_1 = require("skitch-transform");
+var fs_1 = require("fs");
 var sluggify = function (text) {
     return text.toString().toLowerCase().trim()
         .replace(/\s+/g, '-') // Replace spaces with -
@@ -55,46 +56,89 @@ exports.cleanTree = function (tree) {
         location: noop
     });
 };
-exports.packageModule = function () { return __awaiter(_this, void 0, void 0, function () {
-    var sqitchPath, sql, pkgPath, pkg, extname, query, topLine, finalSql, tree1, tree2, results, diff;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+exports.packageModule = function (extension) {
+    if (extension === void 0) { extension = true; }
+    return __awaiter(_this, void 0, void 0, function () {
+        var sqitchPath, sql, pkgPath, pkg, extname, query, topLine, finalSql, tree1, tree2, results, diff;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, paths_1.sqitchPath()];
+                case 1:
+                    sqitchPath = _a.sent();
+                    return [4 /*yield*/, resolve_1.resolve(sqitchPath)];
+                case 2:
+                    sql = _a.sent();
+                    pkgPath = sqitchPath + "/package.json";
+                    pkg = require(pkgPath);
+                    extname = sluggify(pkg.name);
+                    // sql
+                    try {
+                        query = parser.parse(sql).query.reduce(function (m, stmt) {
+                            if (extension) {
+                                if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt'))
+                                    return m;
+                                if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt'))
+                                    return m;
+                            }
+                            return m.concat([stmt]);
+                        }, []);
+                        topLine = extension ? "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n" : '';
+                        finalSql = parser.deparse(query);
+                        tree1 = query;
+                        tree2 = parser.parse(finalSql).query;
+                        results = {
+                            sql: "" + topLine + finalSql
+                        };
+                        diff = (JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2)));
+                        if (diff) {
+                            results.diff = true;
+                            results.tree1 = JSON.stringify(exports.cleanTree(tree1), null, 2);
+                            results.tree2 = JSON.stringify(exports.cleanTree(tree2), null, 2);
+                        }
+                        return [2 /*return*/, results];
+                    }
+                    catch (e) {
+                        console.error(e);
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+};
+exports.writePackage = function (version, extension) { return __awaiter(_this, void 0, void 0, function () {
+    var sqitchPath, pkgPath, pkg, extname, makePath, controlPath, sqlFileName, Makefile, control, _a, sql, diff, tree1, tree2, outPath, regex;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0: return [4 /*yield*/, paths_1.sqitchPath()];
             case 1:
-                sqitchPath = _a.sent();
-                return [4 /*yield*/, resolve_1.resolve(sqitchPath)];
-            case 2:
-                sql = _a.sent();
+                sqitchPath = _b.sent();
                 pkgPath = sqitchPath + "/package.json";
                 pkg = require(pkgPath);
                 extname = sluggify(pkg.name);
-                // sql
-                try {
-                    query = parser.parse(sql).query.reduce(function (m, stmt) {
-                        if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt'))
-                            return m;
-                        if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt'))
-                            return m;
-                        return m.concat([stmt]);
-                    }, []);
-                    topLine = "\\echo Use \"CREATE EXTENSION " + extname + "\" to load this file. \\quit\n";
-                    finalSql = parser.deparse(query);
-                    tree1 = query;
-                    tree2 = parser.parse(finalSql).query;
-                    results = {
-                        sql: "" + topLine + finalSql
-                    };
-                    diff = (JSON.stringify(exports.cleanTree(tree1)) !== JSON.stringify(exports.cleanTree(tree2)));
-                    if (diff) {
-                        results.diff = true;
-                        results.tree1 = JSON.stringify(exports.cleanTree(tree1), null, 2);
-                        results.tree2 = JSON.stringify(exports.cleanTree(tree2), null, 2);
-                    }
-                    return [2 /*return*/, results];
+                makePath = sqitchPath + "/Makefile";
+                controlPath = sqitchPath + "/" + extname + ".control";
+                sqlFileName = extname + "--" + version + ".sql";
+                Makefile = fs_1.readFileSync(makePath).toString();
+                control = fs_1.readFileSync(controlPath).toString();
+                return [4 /*yield*/, exports.packageModule(extension)];
+            case 2:
+                _a = _b.sent(), sql = _a.sql, diff = _a.diff, tree1 = _a.tree1, tree2 = _a.tree2;
+                outPath = extension ? sqitchPath + "/sql" : sqitchPath + "/out";
+                if (extension) {
+                    // control file
+                    fs_1.writeFileSync(controlPath, control.replace(/default_version = '[0-9\.]+'/, "default_version = '" + version + "'"));
+                    // package json
+                    fs_1.writeFileSync(pkgPath, JSON.stringify(Object.assign({}, pkg, { version: version }), null, 2));
+                    regex = new RegExp(extname + '--[0-9.]+.sql');
+                    fs_1.writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
                 }
-                catch (e) {
-                    console.error(e);
+                if (diff) {
+                    console.error('DIFF exists! Careful. Check sql/ folder...');
+                    fs_1.writeFileSync(outPath + "/" + sqlFileName + ".tree.orig.json", tree1);
+                    fs_1.writeFileSync(outPath + "/" + sqlFileName + ".tree.parsed.json", tree2);
                 }
+                fs_1.writeFileSync(outPath + "/" + sqlFileName, sql);
+                console.log(sqlFileName + " written");
                 return [2 /*return*/];
         }
     });

@@ -1,7 +1,9 @@
 import { sqitchPath as path } from './paths';
 const parser = require('pgsql-parser');
 import { resolve } from './resolve';
+import { sync as mkdirp } from 'mkdirp';
 import { transformProps } from 'skitch-transform';
+import { writeFileSync, readFileSync } from 'fs';
 
 const sluggify = (text) => {
   return text.toString().toLowerCase().trim()
@@ -21,7 +23,7 @@ export const cleanTree = (tree) => {
   });
 };
 
-export const packageModule = async () => {
+export const packageModule = async (extension=true) => {
   const sqitchPath = await path();
   const sql = await resolve(sqitchPath);
   const pkgPath = `${sqitchPath}/package.json`;
@@ -31,11 +33,13 @@ export const packageModule = async () => {
   // sql
   try {
     const query = parser.parse(sql).query.reduce((m, stmt)=>{
-      if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt')) return m;
-      if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt')) return m;
+      if (extension) {
+        if (stmt.RawStmt.stmt.hasOwnProperty('TransactionStmt')) return m;
+        if (stmt.RawStmt.stmt.hasOwnProperty('CreateExtensionStmt')) return m;
+      }
       return [...m, stmt];
     }, []);
-    const topLine = `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n`;
+    const topLine = extension ? `\\echo Use "CREATE EXTENSION ${extname}" to load this file. \\quit\n` : '';
     const finalSql = parser.deparse(query);
     const tree1 = query;
     const tree2 = parser.parse(finalSql).query;
@@ -53,5 +57,54 @@ export const packageModule = async () => {
   } catch (e) {
     console.error(e);
   }
+
+};
+
+export const writePackage = async (version, extension) => {
+  const sqitchPath = await path();
+  const pkgPath = `${sqitchPath}/package.json`;
+  const pkg = require(pkgPath);
+  const extname = sluggify(pkg.name);
+  const makePath = `${sqitchPath}/Makefile`;
+  const controlPath = `${sqitchPath}/${extname}.control`;
+  const sqlFileName = `${extname}--${version}.sql`;
+
+  const Makefile = readFileSync(makePath).toString();
+  const control = readFileSync(controlPath).toString();
+
+  const { sql, diff, tree1, tree2 } = await packageModule(extension);
+
+  const outPath = extension ? `${sqitchPath}/sql` : `${sqitchPath}/out`;
+
+  if (extension) {
+    // control file
+    writeFileSync(
+      controlPath,
+      control.replace(
+        /default_version = '[0-9\.]+'/,
+        `default_version = '${version}'`
+      )
+    );
+
+    // package json
+    writeFileSync(
+      pkgPath,
+      JSON.stringify(Object.assign({}, pkg, { version }), null, 2)
+    );
+
+    // makefile
+    var regex = new RegExp(extname + '--[0-9.]+.sql');
+    writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
+  }
+
+  if (diff) {
+    console.error('DIFF exists! Careful. Check sql/ folder...');
+    writeFileSync(`${outPath}/${sqlFileName}.tree.orig.json`, tree1);
+    writeFileSync(`${outPath}/${sqlFileName}.tree.parsed.json`, tree2);
+  }
+
+  writeFileSync(`${outPath}/${sqlFileName}`, sql);
+  console.log(`${sqlFileName} written`);
+
 
 };

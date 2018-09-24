@@ -1,5 +1,4 @@
 import * as shell from 'shelljs';
-const parser = require('pgsql-parser');
 import { readFileSync, writeFileSync } from 'fs';
 import { prompt } from 'inquirerer';
 import { dirname, basename, resolve } from 'path';

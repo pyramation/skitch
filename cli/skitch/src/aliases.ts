@@ -1,11 +1,11 @@
 
   import { aliases as add } from './cmds/add';
 import { aliases as addproject } from './cmds/addproject';
-import { aliases as build } from './cmds/build';
 import { aliases as bundle } from './cmds/bundle';
 import { aliases as createdb } from './cmds/createdb';
 import { aliases as deploy } from './cmds/deploy';
 import { aliases as dropdb } from './cmds/dropdb';
+import { aliases as dump } from './cmds/dump';
 import { aliases as ext } from './cmds/ext';
 import { aliases as extension } from './cmds/extension';
 import { aliases as format } from './cmds/format';
@@ -20,13 +20,12 @@ import { aliases as rename } from './cmds/rename';
 import { aliases as resolve } from './cmds/resolve';
 import { aliases as revert } from './cmds/revert';
 import { aliases as sqitch } from './cmds/sqitch';
-import { aliases as sql } from './cmds/sql';
 import { aliases as start } from './cmds/start';
 import { aliases as test } from './cmds/test';
 import { aliases as verify } from './cmds/verify';
 import { aliases as version } from './cmds/version';
 
   export default {
-    add,addproject,build,bundle,createdb,deploy,dropdb,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,sql,start,test,verify,version
+    add,addproject,bundle,createdb,deploy,dropdb,dump,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,start,test,verify,version
   }
     

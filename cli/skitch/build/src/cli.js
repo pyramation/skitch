@@ -36,21 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var fuzzy_1 = require("fuzzy");
 var inquirerer_1 = require("inquirerer");
 var index_1 = require("./index");
 var aliases_1 = require("./aliases");
-exports.searchCmds = function (answers, input) {
-    input = input || '';
-    return new Promise(function (resolve) {
-        setTimeout(function () {
-            var fuzzyResult = fuzzy_1.filter(input, Object.keys(index_1.default));
-            resolve(fuzzyResult.map(function (el) {
-                return el.original;
-            }));
-        }, 25);
-    });
-};
+var skitch_utils_1 = require("skitch-utils");
+exports.searchCmds = skitch_utils_1.makeAutocompleteFunctionWithInput(Object.keys(index_1.default));
 var cmdQuestion = [
     {
         _: true,

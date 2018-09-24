@@ -38,24 +38,13 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var skitch_utils_1 = require("skitch-utils");
 var inquirerer_1 = require("inquirerer");
-var fs_1 = require("fs");
-var sluggify = function (text) {
-    return text
-        .toString()
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
-};
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var sqitchPath, pkgPath, pkg, questions, version, extname, makePath, controlPath, sqlFileName, Makefile, control, regex, _a, sql, diff, tree1, tree2;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var sqitchPath, pkgPath, pkg, questions, version;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0: return [4 /*yield*/, skitch_utils_1.sqitchPath()];
             case 1:
-                sqitchPath = _b.sent();
+                sqitchPath = _a.sent();
                 pkgPath = sqitchPath + "/package.json";
                 pkg = require(pkgPath);
                 questions = [
@@ -68,29 +57,10 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 ];
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
-                version = (_b.sent()).version;
-                extname = sluggify(pkg.name);
-                makePath = sqitchPath + "/Makefile";
-                controlPath = sqitchPath + "/" + extname + ".control";
-                sqlFileName = extname + "--" + version + ".sql";
-                Makefile = fs_1.readFileSync(makePath).toString();
-                control = fs_1.readFileSync(controlPath).toString();
-                // control file
-                fs_1.writeFileSync(controlPath, control.replace(/default_version = '[0-9\.]+'/, "default_version = '" + version + "'"));
-                // package json
-                fs_1.writeFileSync(pkgPath, JSON.stringify(Object.assign({}, pkg, { version: version }), null, 2));
-                regex = new RegExp(extname + '--[0-9.]+.sql');
-                fs_1.writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
-                return [4 /*yield*/, skitch_utils_1.packageModule()];
+                version = (_a.sent()).version;
+                return [4 /*yield*/, skitch_utils_1.writePackage(version, true)];
             case 3:
-                _a = _b.sent(), sql = _a.sql, diff = _a.diff, tree1 = _a.tree1, tree2 = _a.tree2;
-                if (diff) {
-                    console.error('DIFF exists! Careful. Check sql/ folder...');
-                    fs_1.writeFileSync(sqitchPath + "/sql/" + sqlFileName + ".tree.orig.json", tree1);
-                    fs_1.writeFileSync(sqitchPath + "/sql/" + sqlFileName + ".tree.parsed.json", tree2);
-                }
-                fs_1.writeFileSync(sqitchPath + "/sql/" + sqlFileName, sql);
-                console.log(sqlFileName + " written");
+                _a.sent();
                 return [2 /*return*/];
         }
     });

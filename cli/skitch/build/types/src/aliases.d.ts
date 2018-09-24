@@ -1,11 +1,11 @@
 declare const _default: {
     add: any;
     addproject: any;
-    build: any;
     bundle: any;
     createdb: any;
     deploy: any;
     dropdb: any;
+    dump: any;
     ext: any;
     extension: any;
     format: any;
@@ -20,7 +20,6 @@ declare const _default: {
     resolve: any;
     revert: any;
     sqitch: any;
-    sql: any;
     start: any;
     test: any;
     verify: any;
