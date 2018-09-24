@@ -1,7 +1,7 @@
 import { promisify } from 'util';
 import { resolve } from 'path';
 var mkdirp = require('mkdirp').sync;
-
+import { skitchPath } from './paths';
 import { exec } from 'shelljs';
 
 import { writeFileSync } from 'fs';
@@ -15,26 +15,18 @@ const rnd = () =>
     .toString(36)
     .substring(2, 15);
 
-export const install = async (name, version = 'latest') => {
-  const path = resolve(`${TMPDIR}/${rnd()}`);
-  var options = {
-    name,
-    version,
-    path
-  };
+export const install = async () => {
+  const sPath = await skitchPath();
+  const cur = process.cwd();
+  process.chdir(sPath);
+  exec(`npm install --production`);
+  process.chdir(cur);
+};
 
-  mkdirp(path);
-  process.chdir(path);
-  writeFileSync(
-    `${path}/package.json`,
-    JSON.stringify(
-      {
-        name: rnd()
-      },
-      null,
-      2
-    )
-  );
-
-  exec(`npm install ${name} --production`);
+export const installPackage = async (name, version = 'latest') => {
+  const sPath = await skitchPath();
+  const cur = process.cwd();
+  process.chdir(sPath);
+  exec(`npm install ${name}@${version} --production`);
+  process.chdir(cur);
 };

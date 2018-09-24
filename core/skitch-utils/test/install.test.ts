@@ -1,10 +1,10 @@
 import { init, initSkitch } from '../src/init';
-import { install } from '../src/install';
+import { install, installPackage } from '../src/install';
 import { sync as mkdirp } from 'mkdirp';
 import { sync as glob } from 'glob';
 import { sync as rimraf } from 'rimraf';
 import { writeFileSync } from 'fs';
-
+// process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
 const TMPDIR = process.env.TMPDIR;
 const rnd = () =>
   Math.random()
@@ -37,7 +37,8 @@ describe('installs', () => {
     it('sqitch install', async () => {
       const files = glob('**');
       expect(files).toMatchSnapshot();
-      await install('skitch-ext-verify', 'latest')
+      process.chdir(dir);
+      await installPackage('skitch-ext-verify', 'latest')
       const filesAfter = glob('**');
       expect(filesAfter).toMatchSnapshot();
     });

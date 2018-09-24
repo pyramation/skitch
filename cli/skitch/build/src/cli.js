@@ -61,20 +61,11 @@ var cmdQuestion = [
     }
 ];
 exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var keys, cmd;
+    var cmd;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                console.log(argv);
-                keys = Object.keys(argv);
-                if (!(keys.length === 2 &&
-                    keys.hasOwnProperty('_') &&
-                    !keys._length &&
-                    (keys.v || keys.version))) return [3 /*break*/, 2];
-                return [4 /*yield*/, index_1.default.version(argv)];
-            case 1: return [2 /*return*/, _a.sent()];
-            case 2: return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
-            case 3:
+            case 0: return [4 /*yield*/, inquirerer_1.prompt(cmdQuestion, argv)];
+            case 1:
                 cmd = (_a.sent()).cmd;
                 if (!index_1.default.hasOwnProperty(cmd)) {
                     Object.keys(aliases_1.default).forEach(function (aliasCmd) {
@@ -89,7 +80,7 @@ exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, funct
                     }
                 }
                 return [4 /*yield*/, index_1.default[cmd](argv)];
-            case 4:
+            case 2:
                 _a.sent();
                 return [2 /*return*/];
         }

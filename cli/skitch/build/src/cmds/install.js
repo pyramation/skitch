@@ -36,74 +36,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var inquirerer_1 = require("inquirerer");
-var path_1 = require("path");
-var glob_1 = require("glob");
-var questions = [
-    {
-        _: true,
-        name: 'modulename',
-        message: 'module name',
-        required: true,
-    },
-    {
-        type: 'list',
-        name: 'type',
-        message: 'choose a module',
-        choices: ['github', 'local', 'yarn'],
-        required: true
-    }
-];
+// const questions = [
+//   {
+//     _: true,
+//     name: 'modulename',
+//     message: 'module name',
+//     required: true,
+//   },
+//   {
+//     type: 'list',
+//     name: 'type',
+//     message: 'choose a module',
+//     choices: ['github', 'local', 'yarn'],
+//     required: true
+//   }
+//
+// ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, modulename, type, _b, results;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
-            case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
-            case 1:
-                _a = _c.sent(), modulename = _a.modulename, type = _a.type;
-                console.log(argv);
-                _b = type;
-                switch (_b) {
-                    case 'pgxn': return [3 /*break*/, 2];
-                    case 'npm': return [3 /*break*/, 3];
-                    case 'yarn': return [3 /*break*/, 3];
-                    case 'local': return [3 /*break*/, 4];
-                }
-                return [3 /*break*/, 6];
-            case 2:
-                {
-                }
-                _c.label = 3;
-            case 3:
-                {
-                    // shell.exec(`yarn add ${modulename}`);
-                    // const sqitchPath = await sqPath();
-                    // const files = `${sqitchPath}/node_modules/${modulename}/src/*`;
-                    // shell.cp('-r', files, `${sqitchPath}/`);
-                    // await plan({});
-                    // return;
-                }
-                _c.label = 4;
-            case 4: return [4 /*yield*/, inquirerer_1.prompt([
-                    {
-                        name: 'where',
-                        message: 'where at? (e.g. ../my-module)',
-                        filter: function (val) {
-                            return path_1.resolve(process.cwd() + '/' + val);
-                        },
-                        required: true,
-                    }
-                ], argv)];
-            case 5:
-                results = _c.sent();
-                console.log(results);
-                console.log(glob_1.sync(results.where + '/**/sqitch.plan'));
-                return [2 /*return*/];
-            case 6:
-                console.log('not implemented');
-                _c.label = 7;
-            case 7: return [2 /*return*/];
+    return __generator(this, function (_a) {
+        console.log(argv);
+        if (Object.keys(argv).length === 1 && !argv._.length) {
+            return [2 /*return*/, console.log('should so a npm install on all the packages here!')];
         }
+        return [2 /*return*/];
     });
 }); });
 //# sourceMappingURL=install.js.map

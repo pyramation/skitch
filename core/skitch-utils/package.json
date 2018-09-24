@@ -31,6 +31,9 @@
     "rimraf": "^2.6.2",
     "shelljs": "^0.8.2",
     "skitch-env": "^0.16.0",
+    "skitch-ext-defaults": "0.0.1",
+    "skitch-ext-utilities": "0.0.1",
+    "skitch-ext-verify": "0.0.1",
     "skitch-template": "^0.16.2",
     "skitch-transform": "^0.16.8"
   },
