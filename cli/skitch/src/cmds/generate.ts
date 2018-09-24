@@ -39,7 +39,7 @@ export default async argv => {
   const questions: Array<InquirerQuestion> = templates[template].default;
   const answers: object = await prompt(questions, argv);
 
-  const cmd = await generate({ templates, template, templatePath, payload });
+  const cmd = await generate({ templates, template, templatePath, payload:answers });
 
   console.log(cmd);
 

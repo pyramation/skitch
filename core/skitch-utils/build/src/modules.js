@@ -53,7 +53,6 @@ exports.listModules = function () { return __awaiter(_this, void 0, void 0, func
             case 1:
                 path = _a.sent();
                 moduleFiles = glob_1.sync(path + '/**/*.control').filter(function (c) { return !/node_modules/.test(c); }).concat(fs_2.existsSync(path + '/node_modules') ? glob_1.sync(path + '/node_modules/**/*.control') : []);
-                console.log(JSON.stringify(moduleFiles, null, 2));
                 extensions = moduleFiles.reduce(function (m, v) {
                     var contents = fs_1.readFileSync(v).toString();
                     var key = path_1.basename(v).split('.control')[0];

@@ -74,7 +74,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 2:
                 answers = _a.sent();
-                return [4 /*yield*/, skitch_utils_1.generate({ templates: skitch_templates_1.default, template: template, templatePath: templatePath, payload: payload })];
+                return [4 /*yield*/, skitch_utils_1.generate({ templates: skitch_templates_1.default, template: template, templatePath: templatePath, payload: answers })];
             case 3:
                 cmd = _a.sent();
                 console.log(cmd);
