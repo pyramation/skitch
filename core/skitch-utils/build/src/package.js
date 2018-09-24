@@ -43,13 +43,7 @@ var mkdirp_1 = require("mkdirp");
 var path_1 = require("path");
 var skitch_transform_1 = require("skitch-transform");
 var fs_1 = require("fs");
-var sluggify = function (text) {
-    return text.toString().toLowerCase().trim()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-'); // Replace multiple - with single -
-};
+var utils_1 = require("./utils");
 var noop = function () { return undefined; };
 exports.cleanTree = function (tree) {
     return skitch_transform_1.transformProps(tree, {
@@ -72,7 +66,7 @@ exports.packageModule = function (extension) {
                     sql = _a.sent();
                     pkgPath = sqitchPath + "/package.json";
                     pkg = require(pkgPath);
-                    extname = sluggify(pkg.name);
+                    extname = utils_1.sluggify(pkg.name);
                     // sql
                     try {
                         query = parser.parse(sql).query.reduce(function (m, stmt) {
@@ -118,7 +112,7 @@ exports.writePackage = function (version, extension) {
                     sqitchPath = _b.sent();
                     pkgPath = sqitchPath + "/package.json";
                     pkg = require(pkgPath);
-                    extname = sluggify(pkg.name);
+                    extname = utils_1.sluggify(pkg.name);
                     makePath = sqitchPath + "/Makefile";
                     controlPath = sqitchPath + "/" + extname + ".control";
                     sqlFileName = extname + "--" + version + ".sql";

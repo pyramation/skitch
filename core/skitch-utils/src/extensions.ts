@@ -1,6 +1,8 @@
 import { sync as glob } from 'glob';
 import { sqitchPath as path } from './paths';
+import { listModules } from './modules';
 import { writeFileSync, readFileSync } from 'fs';
+import { sluggify } from './utils';
 
 export const getAvailableExtensions = async () => {
   let modules = await listModules();
@@ -15,9 +17,81 @@ export const getAvailableExtensions = async () => {
   return modules;
 };
 
+export const getExtensionInfo = async () => {
+  const sqitchPath = await path();
+  const pkgPath = `${sqitchPath}/package.json`;
+  const pkg = require(pkgPath);
+  const extname = sluggify(pkg.name);
+  const version = pkg.version;
+
+  const Makefile = `${sqitchPath}/Makefile`;
+  const controlFile = `${sqitchPath}/${extname}.control`;
+  const sqlFile = `${extname}--${version}.sql`;
+  return {
+    extname,
+    sqitchPath,
+    version,
+    Makefile,
+    controlFile,
+    sqlFile
+  };
+};
+
 export const getInstalledExtensions = async () => {
-  let modules = await listModules();
-  return Object.keys(modules);
+  const info = await getExtensionInfo();
+
+  let extensions;
+  try {
+    extensions = readFileSync(info.controlFile)
+      .toString()
+      .split('\n')
+      .find(line => line.match(/^requires/))
+      .split('=')[1]
+      .split('\'')[1]
+      .split(',')
+      .map(a => a.trim());
+  } catch (e) {
+    throw new Error('missing requires from control files or bad syntax');
+  }
+
+  return extensions;
+};
+
+export const writeExtensionMakefile = async ({ path, extname, version }) => {
+  writeFileSync(
+    path,
+    `EXTENSION = ${extname}
+DATA = sql/${extname}--${version}.sql
+
+PG_CONFIG = pg_config
+PGXS := $(shell $(PG_CONFIG) --pgxs)
+include $(PGXS)
+  `
+  );
+};
+
+export const writeExtensionControlFile = async ({
+  path,
+  extname,
+  extensions,
+  version
+}) => {
+  writeFileSync(
+    path,
+    `# ${extname} extension
+comment = '${extname} extension'
+default_version = '${version}'
+module_pathname = '$libdir/${extname}'
+requires = '${extensions.join(',')}'
+relocatable = false
+superuser = false
+  `
+  );
+};
+
+export const writeExtensions = async extensions => {
+  const { controlFile: path, extname, version } = await getExtensionInfo();
+  await writeExtensionControlFile({ path, extname, extensions, version });
 };
 
 export const writeExtensionsToEnv = async () => {

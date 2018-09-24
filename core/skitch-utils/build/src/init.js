@@ -40,6 +40,7 @@ require("skitch-template");
 var util_1 = require("util");
 var child_process_1 = require("child_process");
 var paths_1 = require("./paths");
+var extensions_1 = require("./extensions");
 var path_1 = require("path");
 var shell = require("shelljs");
 var fs_1 = require("fs");
@@ -84,7 +85,7 @@ var sluggify = function (text) {
 exports.init = function (_a) {
     var name = _a.name, description = _a.description, author = _a.author, extensions = _a.extensions;
     return __awaiter(_this, void 0, void 0, function () {
-        var cmd, sqitchPath, pkg, extname, settings, plan;
+        var cmd, sqitchPath, pkg, extname, info, settings, plan;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, paths_1.skitchPath()];
@@ -101,17 +102,24 @@ exports.init = function (_a) {
                     // initialize template
                     shell.cp('-r', srcPath + "/sqitch/*", sqitchPath + "/");
                     shell.cp('-r', srcPath + "/sqitch/.*", sqitchPath + "/");
+                    fs_1.writeFileSync(sqitchPath + "/package.json", JSON.stringify(pkg, null, 2));
                     shell.mkdir('-p', sqitchPath + "/sql");
                     extname = sluggify(name);
-                    fs_1.writeFileSync(sqitchPath + "/Makefile", "EXTENSION = " + extname + "\nDATA = sql/" + extname + "--0.0.1.sql\n\nPG_CONFIG = pg_config\nPGXS := $(shell $(PG_CONFIG) --pgxs)\ninclude $(PGXS)\n  ");
-                    fs_1.writeFileSync(sqitchPath + "/" + extname + ".control", "# " + extname + " extension\ncomment = '" + description + "'\ndefault_version = '0.0.1'\nmodule_pathname = '$libdir/" + extname + "'\nrequires = '" + extensions.join(',') + "'\nrelocatable = false\nsuperuser = false\n  ");
-                    fs_1.writeFileSync(sqitchPath + "/package.json", JSON.stringify(pkg, null, 2));
+                    return [4 /*yield*/, extensions_1.getExtensionInfo()];
+                case 4:
+                    info = _b.sent();
+                    return [4 /*yield*/, extensions_1.writeExtensionMakefile({ path: info.Makefile, extname: extname, version: '0.0.1' })];
+                case 5:
+                    _b.sent();
+                    return [4 /*yield*/, extensions_1.writeExtensionControlFile({ path: info.controlFile, extname: extname, version: '0.0.1', extensions: extensions })];
+                case 6:
+                    _b.sent();
                     settings = {
                         name: name,
                         projects: true
                     };
                     return [4 /*yield*/, plans_1.makePlan(sqitchPath, settings)];
-                case 4:
+                case 7:
                     plan = _b.sent();
                     fs_1.writeFileSync(sqitchPath + "/sqitch.plan", plan);
                     return [2 /*return*/];

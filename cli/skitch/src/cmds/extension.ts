@@ -18,10 +18,8 @@ export default async argv => {
     ];
 
     const { extensions } = await prompt(questions, argv);
-
-    console.log(extensions);
+    await writeExtensions(extensions);
     return;
-
   }
   await writeExtensionsToEnv(argv);
 };

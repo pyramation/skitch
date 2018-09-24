@@ -43,7 +43,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!argv.add) return [3 /*break*/, 4];
+                if (!argv.add) return [3 /*break*/, 5];
                 return [4 /*yield*/, skitch_utils_1.getAvailableExtensions(argv)];
             case 1:
                 choices = _a.sent();
@@ -63,10 +63,12 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 3:
                 extensions = (_a.sent()).extensions;
-                console.log(extensions);
+                return [4 /*yield*/, writeExtensions(extensions)];
+            case 4:
+                _a.sent();
                 return [2 /*return*/];
-            case 4: return [4 /*yield*/, skitch_utils_1.writeExtensionsToEnv(argv)];
-            case 5:
+            case 5: return [4 /*yield*/, skitch_utils_1.writeExtensionsToEnv(argv)];
+            case 6:
                 _a.sent();
                 return [2 /*return*/];
         }

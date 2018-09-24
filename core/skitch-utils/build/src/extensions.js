@@ -38,12 +38,14 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var glob_1 = require("glob");
 var paths_1 = require("./paths");
+var modules_1 = require("./modules");
 var fs_1 = require("fs");
+var utils_1 = require("./utils");
 exports.getAvailableExtensions = function () { return __awaiter(_this, void 0, void 0, function () {
     var modules;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, listModules()];
+            case 0: return [4 /*yield*/, modules_1.listModules()];
             case 1:
                 modules = _a.sent();
                 modules = Object.keys(modules).reduce(function (m, v) {
@@ -56,14 +58,84 @@ exports.getAvailableExtensions = function () { return __awaiter(_this, void 0, v
         }
     });
 }); };
-exports.getInstalledExtensions = function () { return __awaiter(_this, void 0, void 0, function () {
-    var modules;
+exports.getExtensionInfo = function () { return __awaiter(_this, void 0, void 0, function () {
+    var sqitchPath, pkgPath, pkg, extname, version, Makefile, controlFile, sqlFile;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, listModules()];
+            case 0: return [4 /*yield*/, paths_1.sqitchPath()];
             case 1:
-                modules = _a.sent();
-                return [2 /*return*/, Object.keys(modules)];
+                sqitchPath = _a.sent();
+                pkgPath = sqitchPath + "/package.json";
+                pkg = require(pkgPath);
+                extname = utils_1.sluggify(pkg.name);
+                version = pkg.version;
+                Makefile = sqitchPath + "/Makefile";
+                controlFile = sqitchPath + "/" + extname + ".control";
+                sqlFile = extname + "--" + version + ".sql";
+                return [2 /*return*/, {
+                        extname: extname,
+                        sqitchPath: sqitchPath,
+                        version: version,
+                        Makefile: Makefile,
+                        controlFile: controlFile,
+                        sqlFile: sqlFile
+                    }];
+        }
+    });
+}); };
+exports.getInstalledExtensions = function () { return __awaiter(_this, void 0, void 0, function () {
+    var info, extensions;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exports.getExtensionInfo()];
+            case 1:
+                info = _a.sent();
+                try {
+                    extensions = fs_1.readFileSync(info.controlFile)
+                        .toString()
+                        .split('\n')
+                        .find(function (line) { return line.match(/^requires/); })
+                        .split('=')[1]
+                        .split('\'')[1]
+                        .split(',')
+                        .map(function (a) { return a.trim(); });
+                }
+                catch (e) {
+                    throw new Error('missing requires from control files or bad syntax');
+                }
+                return [2 /*return*/, extensions];
+        }
+    });
+}); };
+exports.writeExtensionMakefile = function (_a) {
+    var path = _a.path, extname = _a.extname, version = _a.version;
+    return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_b) {
+            fs_1.writeFileSync(path, "EXTENSION = " + extname + "\nDATA = sql/" + extname + "--" + version + ".sql\n\nPG_CONFIG = pg_config\nPGXS := $(shell $(PG_CONFIG) --pgxs)\ninclude $(PGXS)\n  ");
+            return [2 /*return*/];
+        });
+    });
+};
+exports.writeExtensionControlFile = function (_a) {
+    var path = _a.path, extname = _a.extname, extensions = _a.extensions, version = _a.version;
+    return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_b) {
+            fs_1.writeFileSync(path, "# " + extname + " extension\ncomment = '" + extname + " extension'\ndefault_version = '" + version + "'\nmodule_pathname = '$libdir/" + extname + "'\nrequires = '" + extensions.join(',') + "'\nrelocatable = false\nsuperuser = false\n  ");
+            return [2 /*return*/];
+        });
+    });
+};
+exports.writeExtensions = function (extensions) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, path, extname, version;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, exports.getExtensionInfo()];
+            case 1:
+                _a = _b.sent(), path = _a.controlFile, extname = _a.extname, version = _a.version;
+                return [4 /*yield*/, exports.writeExtensionControlFile({ path: path, extname: extname, extensions: extensions, version: version })];
+            case 2:
+                _b.sent();
+                return [2 /*return*/];
         }
     });
 }); };

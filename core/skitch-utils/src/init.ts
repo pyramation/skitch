@@ -2,6 +2,7 @@ import 'skitch-template';
 import { promisify } from 'util';
 import { exec } from 'child_process';
 import { sqitchPath as path, skitchPath as sPath } from './paths';
+import { writeExtensionMakefile, writeExtensionControlFile, getExtensionInfo } from './extensions';
 import { dirname, basename } from 'path';
 import * as shell from 'shelljs';
 import { writeFileSync } from 'fs';
@@ -63,27 +64,16 @@ export const init = async ({ name, description, author, extensions }) => {
   shell.cp('-r', `${srcPath}/sqitch/*`, `${sqitchPath}/`);
   shell.cp('-r', `${srcPath}/sqitch/.*`, `${sqitchPath}/`);
 
+  writeFileSync(`${sqitchPath}/package.json`, JSON.stringify(pkg, null, 2));
+
   shell.mkdir('-p', `${sqitchPath}/sql`);
   const extname = sluggify(name);
 
-  writeFileSync(`${sqitchPath}/Makefile`, `EXTENSION = ${extname}
-DATA = sql/${extname}--0.0.1.sql
+  const info = await getExtensionInfo();
 
-PG_CONFIG = pg_config
-PGXS := $(shell $(PG_CONFIG) --pgxs)
-include $(PGXS)
-  `);
+  await writeExtensionMakefile({path: info.Makefile, extname, version: '0.0.1'});
+  await writeExtensionControlFile({path: info.controlFile, extname, version: '0.0.1', extensions});
 
-  writeFileSync(`${sqitchPath}/${extname}.control`, `# ${extname} extension
-comment = '${description}'
-default_version = '0.0.1'
-module_pathname = '$libdir/${extname}'
-requires = '${extensions.join(',')}'
-relocatable = false
-superuser = false
-  `);
-
-  writeFileSync(`${sqitchPath}/package.json`, JSON.stringify(pkg, null, 2));
 
   const settings = {
     name,

@@ -5,14 +5,7 @@ import { sync as mkdirp } from 'mkdirp';
 import { relative } from 'path';
 import { transformProps } from 'skitch-transform';
 import { writeFileSync, readFileSync } from 'fs';
-
-const sluggify = (text) => {
-  return text.toString().toLowerCase().trim()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/&/g, '-and-')         // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
-}
+import  { sluggify } from './utils';
 
 const noop = () => undefined;
 
