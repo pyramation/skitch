@@ -13,7 +13,7 @@ export const listModules = async () => {
     const moduleFiles = glob(path + '/**/*.control').filter(c=>!/node_modules/.test(c)).concat(
       existsSync(path + '/node_modules') ? glob(path + '/node_modules/**/*.control') : []
     );
-
+    console.log(JSON.stringify(moduleFiles, null, 2));
     const extensions = moduleFiles.reduce((m, v) => {
         const contents = readFileSync(v).toString();
         const key = basename(v).split('.control')[0];
