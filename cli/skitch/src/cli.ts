@@ -28,6 +28,7 @@ const cmdQuestion = [
 ];
 
 export const skitch = async argv => {
+  console.log(argv);
   const keys = Object.keys(argv);
   if (
     keys.length === 2 &&

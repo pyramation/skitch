@@ -65,6 +65,7 @@ exports.skitch = function (argv) { return __awaiter(_this, void 0, void 0, funct
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log(argv);
                 keys = Object.keys(argv);
                 if (!(keys.length === 2 &&
                     keys.hasOwnProperty('_') &&
