@@ -8,13 +8,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var module_1 = require();
-shell;
-from;
-'shelljs';
+var shelljs_1 = require("shelljs");
 var skitch_env_1 = require("skitch-env");
 exports.execSync = function (cmd, opts) {
-    module_1.exec(cmd, __assign({ env: {
+    shelljs_1.exec(cmd, __assign({ env: {
             PGUSER: skitch_env_1.PGUSER,
             PGPASSWORD: skitch_env_1.PGPASSWORD,
             PGHOST: skitch_env_1.PGHOST,
