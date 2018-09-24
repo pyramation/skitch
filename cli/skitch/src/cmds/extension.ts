@@ -1,4 +1,10 @@
-import { getAvailableExtensions, getInstalledExtensions, writeExtensionsToEnv } from 'skitch-utils';
+import {
+  getAvailableExtensions,
+  getInstalledExtensions,
+  writeExtensions,
+  writeExtensionsToEnv
+} from 'skitch-utils';
+
 import { prompt } from 'inquirerer';
 
 export default async argv => {

@@ -63,7 +63,7 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
             case 3:
                 extensions = (_a.sent()).extensions;
-                return [4 /*yield*/, writeExtensions(extensions)];
+                return [4 /*yield*/, skitch_utils_1.writeExtensions(extensions)];
             case 4:
                 _a.sent();
                 return [2 /*return*/];
