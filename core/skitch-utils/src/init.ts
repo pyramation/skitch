@@ -102,7 +102,12 @@ export const initSkitch = async () => {
   shell.cp('-r', `${srcPath}/skitch/.*`, `${dir}/`);
   const name = sluggify(basename(dirname(process.cwd())));
   const pkg = {
-    name
+    name,
+    dependencies: {
+      'skitch-ext-defaults': 'latest',
+      'skitch-ext-verify': 'latest',
+      'skitch-ext-utilities': 'latest'
+    }
   };
   writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(pkg, null, 2));
 };

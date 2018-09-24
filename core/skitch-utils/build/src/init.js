@@ -127,7 +127,12 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
         shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
         name = sluggify(path_1.basename(path_1.dirname(process.cwd())));
         pkg = {
-            name: name
+            name: name,
+            dependencies: {
+                'skitch-ext-defaults': 'latest',
+                'skitch-ext-verify': 'latest',
+                'skitch-ext-utilities': 'latest'
+            }
         };
         fs_1.writeFileSync(process.cwd() + "/package.json", JSON.stringify(pkg, null, 2));
         return [2 /*return*/];

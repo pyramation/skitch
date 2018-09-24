@@ -38,6 +38,9 @@ describe('installs', () => {
       const files = glob('**');
       expect(files).toMatchSnapshot();
       process.chdir(dir);
+      writeFileSync(`${dir}/package.json`, JSON.stringify({
+        name: 'blankpackage'
+      }, null, 2));
       await installPackage('skitch-ext-verify', 'latest')
       const filesAfter = glob('**');
       expect(filesAfter).toMatchSnapshot();

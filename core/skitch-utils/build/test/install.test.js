@@ -41,6 +41,7 @@ var install_1 = require("../src/install");
 var mkdirp_1 = require("mkdirp");
 var glob_1 = require("glob");
 var rimraf_1 = require("rimraf");
+var fs_1 = require("fs");
 // process.env.SKITCH_PATH = __dirname + '/fixtures/skitch';
 var TMPDIR = process.env.TMPDIR;
 var rnd = function () {
@@ -89,6 +90,9 @@ describe('installs', function () {
                         files = glob_1.sync('**');
                         expect(files).toMatchSnapshot();
                         process.chdir(dir);
+                        fs_1.writeFileSync(dir + "/package.json", JSON.stringify({
+                            name: 'blankpackage'
+                        }, null, 2));
                         return [4 /*yield*/, install_1.installPackage('skitch-ext-verify', 'latest')];
                     case 1:
                         _a.sent();
