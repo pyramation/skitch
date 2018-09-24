@@ -2,13 +2,19 @@ import { readFileSync, readFile } from 'fs';
 import { basename, dirname, resolve, relative } from 'path';
 import { sync as glob } from 'glob';
 import { skitchPath } from './paths';
+import { existsSync } from 'fs';
 
 let _listModules = null;
 export const listModules = async () => {
     if (_listModules) return _listModules;
     const path = await skitchPath();
     // TODO use skitchPath/package.json to get packages/*
-    const extensions = glob(path + '/**/*.control').reduce((m, v) => {
+
+    const moduleFiles = glob(path + '/**/*.control').filter(c=>!/node_modules/.test(c)).concat(
+      existsSync(path + '/node_modules') ? glob(path + '/node_modules/**/*.control') : []
+    );
+
+    const extensions = moduleFiles.reduce((m, v) => {
         if (/node_modules/.test(v)) return m;
         const contents = readFileSync(v).toString();
         const key = basename(v).split('.control')[0];

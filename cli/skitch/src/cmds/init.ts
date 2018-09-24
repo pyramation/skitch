@@ -1,7 +1,7 @@
 import { exec } from 'shelljs';
 import { prompt } from 'inquirerer';
 import { skitchPath, listModules, init, initSkitch } from 'skitch-utils';
-import { basename } from 'path';
+import { basename, dirname } from 'path';
 
 // sqitch init flipr --uri https://github.com/theory/sqitch-intro/ --engine pg
 const username = exec('git config --global user.name', { silent: true }).trim();

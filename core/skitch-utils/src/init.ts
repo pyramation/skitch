@@ -100,5 +100,9 @@ export const initSkitch = async () => {
   const dir = process.cwd();
   shell.cp('-r', `${srcPath}/skitch/*`, `${dir}/`);
   shell.cp('-r', `${srcPath}/skitch/.*`, `${dir}/`);
-
+  const name = sluggify(basename(dirname(process.cwd())));
+  const pkg = {
+    name
+  };
+  writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(pkg, null, 2));
 };

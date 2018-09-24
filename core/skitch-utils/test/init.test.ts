@@ -34,6 +34,7 @@ describe('deps', () => {
         'docker-compose.yml',
         'Makefile',
         'myproject',
+        'package.json',
         'packages',
         'packages/install.sh',
         'readme.md',

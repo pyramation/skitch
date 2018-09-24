@@ -36,10 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var path_1 = require("path");
 var mkdirp = require('mkdirp').sync;
+var paths_1 = require("./paths");
 var shelljs_1 = require("shelljs");
-var fs_1 = require("fs");
 var TMPDIR = process.env.TMPDIR;
 var rnd = function () {
     return Math.random()
@@ -49,24 +48,36 @@ var rnd = function () {
             .toString(36)
             .substring(2, 15);
 };
-exports.install = function (name, version) {
+exports.install = function () { return __awaiter(_this, void 0, void 0, function () {
+    var sPath, cur;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, paths_1.skitchPath()];
+            case 1:
+                sPath = _a.sent();
+                cur = process.cwd();
+                process.chdir(sPath);
+                shelljs_1.exec("npm install --production");
+                process.chdir(cur);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.installPackage = function (name, version) {
     if (version === void 0) { version = 'latest'; }
     return __awaiter(_this, void 0, void 0, function () {
-        var path, options;
+        var sPath, cur;
         return __generator(this, function (_a) {
-            path = path_1.resolve(TMPDIR + "/" + rnd());
-            options = {
-                name: name,
-                version: version,
-                path: path
-            };
-            mkdirp(path);
-            process.chdir(path);
-            fs_1.writeFileSync(path + "/package.json", JSON.stringify({
-                name: rnd()
-            }, null, 2));
-            shelljs_1.exec("npm install " + name + " --production");
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, paths_1.skitchPath()];
+                case 1:
+                    sPath = _a.sent();
+                    cur = process.cwd();
+                    process.chdir(sPath);
+                    shelljs_1.exec("npm install " + name + "@" + version + " --production");
+                    process.chdir(cur);
+                    return [2 /*return*/];
+            }
         });
     });
 };

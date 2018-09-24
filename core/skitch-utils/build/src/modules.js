@@ -40,9 +40,10 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var glob_1 = require("glob");
 var paths_1 = require("./paths");
+var fs_2 = require("fs");
 var _listModules = null;
 exports.listModules = function () { return __awaiter(_this, void 0, void 0, function () {
-    var path, extensions;
+    var path, moduleFiles, extensions;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -51,7 +52,8 @@ exports.listModules = function () { return __awaiter(_this, void 0, void 0, func
                 return [4 /*yield*/, paths_1.skitchPath()];
             case 1:
                 path = _a.sent();
-                extensions = glob_1.sync(path + '/**/*.control').reduce(function (m, v) {
+                moduleFiles = glob_1.sync(path + '/**/*.control').filter(function (c) { return !/node_modules/.test(c); }).concat(fs_2.existsSync(path + '/node_modules') ? glob_1.sync(path + '/node_modules/**/*.control') : []);
+                extensions = moduleFiles.reduce(function (m, v) {
                     if (/node_modules/.test(v))
                         return m;
                     var contents = fs_1.readFileSync(v).toString();

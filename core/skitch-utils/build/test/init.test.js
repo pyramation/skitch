@@ -80,6 +80,7 @@ describe('deps', function () {
                     'docker-compose.yml',
                     'Makefile',
                     'myproject',
+                    'package.json',
                     'packages',
                     'packages/install.sh',
                     'readme.md',

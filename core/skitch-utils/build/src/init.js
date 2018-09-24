@@ -120,11 +120,16 @@ exports.init = function (_a) {
     });
 };
 exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, function () {
-    var dir;
+    var dir, name, pkg;
     return __generator(this, function (_a) {
         dir = process.cwd();
         shell.cp('-r', srcPath + "/skitch/*", dir + "/");
         shell.cp('-r', srcPath + "/skitch/.*", dir + "/");
+        name = sluggify(path_1.basename(path_1.dirname(process.cwd())));
+        pkg = {
+            name: name
+        };
+        fs_1.writeFileSync(process.cwd() + "/package.json", JSON.stringify(pkg, null, 2));
         return [2 /*return*/];
     });
 }); };
