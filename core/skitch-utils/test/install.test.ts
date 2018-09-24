@@ -41,7 +41,7 @@ describe('installs', () => {
       writeFileSync(`${dir}/package.json`, JSON.stringify({
         name: 'blankpackage'
       }, null, 2));
-      await installPackage('skitch-ext-verify', 'latest')
+      await installPackage('skitch-extension-verify', 'latest')
       const filesAfter = glob('**');
       expect(filesAfter).toMatchSnapshot();
     });

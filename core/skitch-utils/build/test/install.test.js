@@ -92,7 +92,7 @@ describe('installs', function () {
                         fs_1.writeFileSync(dir + "/package.json", JSON.stringify({
                             name: 'blankpackage'
                         }, null, 2));
-                        return [4 /*yield*/, install_1.installPackage('skitch-ext-verify', 'latest')];
+                        return [4 /*yield*/, install_1.installPackage('skitch-extension-verify', 'latest')];
                     case 1:
                         _a.sent();
                         filesAfter = glob_1.sync('**');
