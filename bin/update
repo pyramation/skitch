@@ -14,7 +14,7 @@ git commit -am "$1"
 lerna publish
 sleep 5
 
-PACKAGE_VERSION=$(cat package.json \
+PACKAGE_VERSION=$(cat lerna.json \
   | grep version \
   | head -1 \
   | awk -F: '{ print $2 }' \
