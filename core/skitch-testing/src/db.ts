@@ -65,11 +65,9 @@ export async function installExt({
   template,
   user
 }, extensions) {
-
   if (typeof extensions === 'string') {
     extensions = extensions.split(',');
   }
-
   for (let i=0; i<extensions.length; i++) {
     const extension = extensions[i];
     await asyncExec(
