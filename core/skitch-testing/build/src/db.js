@@ -93,6 +93,9 @@ function installExt(_a, extensions) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    if (typeof extensions === 'string') {
+                        extensions = extensions.split(',');
+                    }
                     i = 0;
                     _b.label = 1;
                 case 1:
