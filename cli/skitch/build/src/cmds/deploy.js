@@ -53,7 +53,7 @@ var questions = [
     }
 ];
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, database, yes, recursive, createdb, modules, name_1;
+    var _a, database, yes, recursive, createdb, modules, project;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0: return [4 /*yield*/, inquirerer_1.prompt(questions, argv)];
@@ -62,7 +62,6 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 if (!yes)
                     return [2 /*return*/];
                 if (argv.createdb) {
-                    database = 'db-' + skitch_utils_1.random();
                     console.log("createdb " + database);
                     skitch_utils_1.execSync("createdb " + database);
                 }
@@ -73,15 +72,15 @@ exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, inquirerer_1.prompt([
                         {
                             type: 'list',
-                            name: 'name',
+                            name: 'project',
                             message: 'choose a project',
                             choices: Object.keys(modules),
                             required: true
                         }
-                    ], {})];
+                    ], argv)];
             case 3:
-                name_1 = (_b.sent()).name;
-                return [4 /*yield*/, skitch_utils_1.deploy(name_1, database)];
+                project = (_b.sent()).project;
+                return [4 /*yield*/, skitch_utils_1.deploy(project, database)];
             case 4:
                 _b.sent();
                 return [3 /*break*/, 6];

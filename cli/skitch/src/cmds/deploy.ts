@@ -1,5 +1,5 @@
 import { prompt } from 'inquirerer';
-import { listModules, deploy, execSync, random } from 'skitch-utils';
+import { listModules, deploy, execSync } from 'skitch-utils';
 
 const questions = [
   {
@@ -21,25 +21,24 @@ export default async argv => {
   if (!yes) return;
 
   if (argv.createdb) {
-    database = 'db-' + random();
     console.log(`createdb ${database}`);
     execSync(`createdb ${database}`);
   }
   if (recursive) {
     const modules = await listModules();
-    const { name } = await prompt(
+    const { project } = await prompt(
       [
         {
           type: 'list',
-          name: 'name',
+          name: 'project',
           message: 'choose a project',
           choices: Object.keys(modules),
           required: true
         }
       ],
-      {}
+      argv
     );
-    await deploy(name, database);
+    await deploy(project, database);
   } else {
     console.log(`sqitch deploy db:pg:${database}`);
     execSync(`sqitch deploy db:pg:${database}`);
