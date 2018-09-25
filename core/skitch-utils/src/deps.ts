@@ -1,17 +1,18 @@
 import { readFileSync, readFile } from 'fs';
 import { basename, dirname, resolve, relative } from 'path';
 import { sync as glob } from 'glob';
-import { skitchPath } from './paths';
 import { listModules } from './modules';
+import { getExtensionName } from './extensions';
 
 const makeKey = sqlmodule => '/deploy/' + sqlmodule + '.sql';
 
 export const getDeps = async (packageDir) => {
 
+  const extname = await getExtensionName(packageDir);
+
   var external = [];
 
   var deps: { [type: string]: any } = {};
-  var reg: { [type: string]: any } = {};
 
   // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
   function dep_resolve(
@@ -52,7 +53,6 @@ export const getDeps = async (packageDir) => {
     var lines = data.toString().split('\n');
     const key = '/' + relative(packageDir, files[i]);
     deps[key] = [];
-    reg[key] = [];
 
     for (var j = 0; j < lines.length; j++) {
       var m = lines[j].match(/-- requires: (.*)/);
@@ -61,14 +61,34 @@ export const getDeps = async (packageDir) => {
       }
 
       // check only:
-      var m2 = lines[j].match(/-- Deploy (.*) to pg/);
-      if (m2) {
-        if (key != makeKey(m2[1])) {
-          throw new Error(
-            'deployment script in wrong place or is named wrong internally' + m2
-          );
+      var m2;
+      var keyToTest;
+
+      if (/:/.test(lines[j])) {
+        m2 = lines[j].match(/-- Deploy ([^:]*):([\w\/]+) to pg/);
+        if (m2) {
+          keyToTest = m2[2];
+          if (extname !== m2[1]) {
+            throw new Error(
+              'referencing bad project name inside of deploy file\n' + lines[j]
+            );
+          }
+          if (key != makeKey(keyToTest)) {
+            throw new Error(
+              'deployment script in wrong place or is named wrong internally\n' + lines[j]
+            );
+          }
         }
-        reg[key].push(m2[1]);
+      } else {
+        m2 = lines[j].match(/-- Deploy (.*) to pg/);
+        if (m2) {
+          keyToTest = m2[1];
+          if (key != makeKey(keyToTest)) {
+            throw new Error(
+              'deployment script in wrong place or is named wrong internally\n' + lines[j]
+            );
+          }
+        }
       }
     }
   }

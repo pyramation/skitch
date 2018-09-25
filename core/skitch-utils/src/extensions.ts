@@ -17,24 +17,43 @@ export const getAvailableExtensions = async () => {
   return modules;
 };
 
-export const getExtensionInfo = async () => {
-  const sqitchPath = await path();
-  const pkgPath = `${sqitchPath}/package.json`;
+export const getExtensionInfo = async packageDir => {
+  if (!packageDir) {
+    packageDir = await path();
+  }
+  const pkgPath = `${packageDir}/package.json`;
   const pkg = require(pkgPath);
   const extname = sluggify(pkg.name);
   const version = pkg.version;
-
-  const Makefile = `${sqitchPath}/Makefile`;
-  const controlFile = `${sqitchPath}/${extname}.control`;
+  const Makefile = `${packageDir}/Makefile`;
+  const controlFile = `${packageDir}/${extname}.control`;
   const sqlFile = `${extname}--${version}.sql`;
   return {
     extname,
-    sqitchPath,
+    packageDir,
     version,
     Makefile,
     controlFile,
     sqlFile
   };
+};
+
+export const getExtensionName = async packageDir => {
+  if (!packageDir) {
+    packageDir = await path();
+  }
+  const plan = readFileSync(`${packageDir}/sqitch.plan`)
+    .toString()
+    .split('\n')
+    .map(line => line.trim())
+    .filter(l => l)
+    .filter(l => /^%project=/.test(l));
+
+  if (!plan.length) {
+    throw new Error('no plan name!');
+  }
+
+  return plan[0].split('=')[1];
 };
 
 export const getInstalledExtensions = async () => {

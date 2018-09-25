@@ -1,4 +1,4 @@
--- Deploy procedures/secretfunction to pg
+-- Deploy secrets:procedures/secretfunction to pg
 
 
 BEGIN;
