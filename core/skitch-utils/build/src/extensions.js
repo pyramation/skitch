@@ -58,28 +58,56 @@ exports.getAvailableExtensions = function () { return __awaiter(_this, void 0, v
         }
     });
 }); };
-exports.getExtensionInfo = function () { return __awaiter(_this, void 0, void 0, function () {
-    var sqitchPath, pkgPath, pkg, extname, version, Makefile, controlFile, sqlFile;
+exports.getExtensionInfo = function (packageDir) { return __awaiter(_this, void 0, void 0, function () {
+    var pkgPath, pkg, extname, version, Makefile, controlFile, sqlFile;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, paths_1.sqitchPath()];
+            case 0:
+                if (!!packageDir) return [3 /*break*/, 2];
+                return [4 /*yield*/, paths_1.sqitchPath()];
             case 1:
-                sqitchPath = _a.sent();
-                pkgPath = sqitchPath + "/package.json";
+                packageDir = _a.sent();
+                _a.label = 2;
+            case 2:
+                pkgPath = packageDir + "/package.json";
                 pkg = require(pkgPath);
                 extname = utils_1.sluggify(pkg.name);
                 version = pkg.version;
-                Makefile = sqitchPath + "/Makefile";
-                controlFile = sqitchPath + "/" + extname + ".control";
+                Makefile = packageDir + "/Makefile";
+                controlFile = packageDir + "/" + extname + ".control";
                 sqlFile = extname + "--" + version + ".sql";
                 return [2 /*return*/, {
                         extname: extname,
-                        sqitchPath: sqitchPath,
+                        packageDir: packageDir,
                         version: version,
                         Makefile: Makefile,
                         controlFile: controlFile,
                         sqlFile: sqlFile
                     }];
+        }
+    });
+}); };
+exports.getExtensionName = function (packageDir) { return __awaiter(_this, void 0, void 0, function () {
+    var plan;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!!packageDir) return [3 /*break*/, 2];
+                return [4 /*yield*/, paths_1.sqitchPath()];
+            case 1:
+                packageDir = _a.sent();
+                _a.label = 2;
+            case 2:
+                plan = fs_1.readFileSync(packageDir + "/sqitch.plan")
+                    .toString()
+                    .split('\n')
+                    .map(function (line) { return line.trim(); })
+                    .filter(function (l) { return l; })
+                    .filter(function (l) { return /^%project=/.test(l); });
+                if (!plan.length) {
+                    throw new Error('no plan name!');
+                }
+                return [2 /*return*/, plan[0].split('=')[1]];
         }
     });
 }); };

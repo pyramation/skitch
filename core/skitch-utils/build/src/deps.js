@@ -40,6 +40,7 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var glob_1 = require("glob");
 var modules_1 = require("./modules");
+var extensions_1 = require("./extensions");
 var makeKey = function (sqlmodule) { return '/deploy/' + sqlmodule + '.sql'; };
 exports.getDeps = function (packageDir) { return __awaiter(_this, void 0, void 0, function () {
     // https://www.electricmonk.nl/log/2008/08/07/dependency-resolving-algorithm/
@@ -68,33 +69,47 @@ exports.getDeps = function (packageDir) { return __awaiter(_this, void 0, void 0
         var index = unresolved.indexOf(sqlmodule);
         unresolved.splice(index);
     }
-    var external, deps, reg, files, i, data, lines, key, j, m, m2, resolved, unresolved, index, extensions, normalSql, _a;
+    var extname, external, deps, files, i, data, lines, key, j, m, m2, keyToTest, resolved, unresolved, index, extensions, normalSql, _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0:
+            case 0: return [4 /*yield*/, extensions_1.getExtensionName(packageDir)];
+            case 1:
+                extname = _b.sent();
                 external = [];
                 deps = {};
-                reg = {};
                 return [4 /*yield*/, glob_1.sync(packageDir + "/deploy/**/**.sql")];
-            case 1:
+            case 2:
                 files = _b.sent();
                 for (i = 0; i < files.length; i++) {
                     data = fs_1.readFileSync(files[i]);
                     lines = data.toString().split('\n');
                     key = '/' + path_1.relative(packageDir, files[i]);
                     deps[key] = [];
-                    reg[key] = [];
                     for (j = 0; j < lines.length; j++) {
                         m = lines[j].match(/-- requires: (.*)/);
                         if (m) {
                             deps[key].push(m[1].trim());
                         }
-                        m2 = lines[j].match(/-- Deploy (.*) to pg/);
-                        if (m2) {
-                            if (key != makeKey(m2[1])) {
-                                throw new Error('deployment script in wrong place or is named wrong internally' + m2);
+                        if (/:/.test(lines[j])) {
+                            m2 = lines[j].match(/-- Deploy ([^:]*):([\w\/]+) to pg/);
+                            if (m2) {
+                                keyToTest = m2[2];
+                                if (extname !== m2[1]) {
+                                    throw new Error('referencing bad project name inside of deploy file\n' + lines[j]);
+                                }
+                                if (key != makeKey(keyToTest)) {
+                                    throw new Error('deployment script in wrong place or is named wrong internally\n' + lines[j]);
+                                }
                             }
-                            reg[key].push(m2[1]);
+                        }
+                        else {
+                            m2 = lines[j].match(/-- Deploy (.*) to pg/);
+                            if (m2) {
+                                keyToTest = m2[1];
+                                if (key != makeKey(keyToTest)) {
+                                    throw new Error('deployment script in wrong place or is named wrong internally\n' + lines[j]);
+                                }
+                            }
                         }
                     }
                 }
