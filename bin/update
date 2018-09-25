@@ -14,13 +14,6 @@ git commit -am "$1"
 lerna publish
 sleep 5
 
-PACKAGE_VERSION=$(cat lerna.json \
-  | grep version \
-  | head -1 \
-  | awk -F: '{ print $2 }' \
-  | sed 's/[",]//g' \
-  | tr -d '[[:space:]]')
-
-echo $PACKAGE_VERSION
-
-npm install -g skitch@$PACKAGE_VERSION
+version=$(awk '/version/{gsub(/("|",)/,"",$2);print $2};' lerna.json)
+echo $version
+npm install -g skitch@$version
