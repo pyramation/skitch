@@ -3,27 +3,25 @@ import { prompt } from 'inquirerer';
 import { listModules } from 'skitch-utils';
 
 export default async argv => {
-  const questions = [
-    {
-      type: 'string',
-      name: 'project',
-      message: 'enter a project name',
-      required: true
-    },
-    {
-      type: 'string',
-      name: 'change',
-      message: 'enter a change name',
-      required: true
-    },
+
+  const { project } = await prompt([
     {
       type: 'list',
-      name: 'change',
+      name: 'project',
+      message: 'enter a project name',
       choices: Object.keys(await listModules()),
       required: true
     }
-  ];
-  const { project, change } = await prompt(questions, argv);
+  ], argv);
+
+  const { change } = await prompt([
+    {
+      type: 'list',
+      name: 'change',
+      message: 'enter a change',
+      required: true
+    }
+  ], argv);
 
   const name = ['projects', project, ...change.split('/')].join('/');
   const comment = `adding project ${project}`;
