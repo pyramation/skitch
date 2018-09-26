@@ -101,15 +101,19 @@ exports.packageModule = function (extension) {
         });
     });
 };
-exports.writePackage = function (version, extension) {
+exports.writePackage = function (version, extension, sqitchPath) {
     if (extension === void 0) { extension = true; }
     return __awaiter(_this, void 0, void 0, function () {
-        var sqitchPath, pkgPath, pkg, extname, makePath, controlPath, sqlFileName, Makefile, control, _a, sql, diff, tree1, tree2, outPath, regex, writePath;
+        var pkgPath, pkg, extname, makePath, controlPath, sqlFileName, Makefile, control, _a, sql, diff, tree1, tree2, outPath, regex, writePath;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, paths_1.sqitchPath()];
+                case 0:
+                    if (!!sqitchPath) return [3 /*break*/, 2];
+                    return [4 /*yield*/, paths_1.sqitchPath()];
                 case 1:
                     sqitchPath = _b.sent();
+                    _b.label = 2;
+                case 2:
                     pkgPath = sqitchPath + "/package.json";
                     pkg = require(pkgPath);
                     extname = utils_1.sluggify(pkg.name);
@@ -119,7 +123,7 @@ exports.writePackage = function (version, extension) {
                     Makefile = fs_1.readFileSync(makePath).toString();
                     control = fs_1.readFileSync(controlPath).toString();
                     return [4 /*yield*/, exports.packageModule(extension)];
-                case 2:
+                case 3:
                     _a = _b.sent(), sql = _a.sql, diff = _a.diff, tree1 = _a.tree1, tree2 = _a.tree2;
                     outPath = extension ? sqitchPath + "/sql" : sqitchPath + "/out";
                     mkdirp_1.sync(outPath);
@@ -127,7 +131,8 @@ exports.writePackage = function (version, extension) {
                         // control file
                         fs_1.writeFileSync(controlPath, control.replace(/default_version = '[0-9\.]+'/, "default_version = '" + version + "'"));
                         // package json
-                        fs_1.writeFileSync(pkgPath, JSON.stringify(Object.assign({}, pkg, { version: version }), null, 2));
+                        pkg.version = version;
+                        fs_1.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
                         regex = new RegExp(extname + '--[0-9.]+.sql');
                         fs_1.writeFileSync(makePath, Makefile.replace(regex, sqlFileName));
                     }

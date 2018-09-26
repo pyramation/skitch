@@ -20,9 +20,8 @@ export const makePlan = async (packageDir, options) => {
   var external = [];
 
   planfile.push(`%syntax-version=1.0.0
-  %project=${name}
-  %uri=${name}
-
+%project=${name}
+%uri=${name}
   `);
 
   let { resolved, external, deps } = await getDeps(packageDir);

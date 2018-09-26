@@ -9,7 +9,6 @@ const clean = t =>
     .filter(a => a)
     .join('\n');
 
-
 describe('package', () => {
   it('creates an extension', async () => {
     const { sql } = await packageModule();

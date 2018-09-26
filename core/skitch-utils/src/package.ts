@@ -54,8 +54,10 @@ export const packageModule = async (extension=true) => {
 
 };
 
-export const writePackage = async (version, extension=true) => {
-  const sqitchPath = await path();
+export const writePackage = async (version, extension=true, sqitchPath) => {
+  if (!sqitchPath) {
+    sqitchPath = await path();
+  }
   const pkgPath = `${sqitchPath}/package.json`;
   const pkg = require(pkgPath);
   const extname = sluggify(pkg.name);
@@ -83,9 +85,10 @@ export const writePackage = async (version, extension=true) => {
     );
 
     // package json
+    pkg.version = version;
     writeFileSync(
       pkgPath,
-      JSON.stringify(Object.assign({}, pkg, { version }), null, 2)
+      JSON.stringify(pkg, null, 2)
     );
 
     // makefile

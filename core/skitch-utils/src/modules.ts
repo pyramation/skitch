@@ -53,6 +53,24 @@ export const latestChange = async sqlmodule => {
     return plan[plan.length - 1].split(' ')[0];
 };
 
+export const latestChangeAndVersion = async sqlmodule => {
+    const modules = await listModules();
+    if (!modules[sqlmodule]) {
+        throw new Error(`latestChange() ${sqlmodule} NOT FOUND!`);
+    }
+    const path = await skitchPath();
+    const plan = readFileSync(`${path}/${modules[sqlmodule].path}/sqitch.plan`)
+        .toString()
+        .split('\n')
+        .map(a => a.trim())
+        .filter(a => a);
+    const change = plan[plan.length - 1].split(' ')[0];
+    const version = require(`${path}/${modules[sqlmodule].path}/package.json`).version;
+    return {
+      change, version
+    }
+};
+
 export const getExtensionsAndModules = async sqlmodule => {
     const modules = await listModules();
     if (!modules[sqlmodule]) {
@@ -75,7 +93,8 @@ export const getExtensionsAndModulesChanges = async sqlmodule => {
     const sqitchies = [];
     for (let i = 0; i < modules.sqitch.length; i++) {
         const mod = modules.sqitch[i];
-        sqitchies.push({ name: mod, latest: await latestChange(mod) });
+        const {change, version} = await latestChangeAndVersion(mod);
+        sqitchies.push({ name: mod, latest: change, version });
     }
     modules.sqitch = sqitchies;
     return modules;

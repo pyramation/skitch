@@ -53,7 +53,7 @@ exports.makePlan = function (packageDir, options) { return __awaiter(_this, void
                 now = '2017-08-11T08:11:51Z';
                 planfile = [];
                 external = [];
-                planfile.push("%syntax-version=1.0.0\n  %project=" + name + "\n  %uri=" + name + "\n\n  ");
+                planfile.push("%syntax-version=1.0.0\n%project=" + name + "\n%uri=" + name + "\n  ");
                 return [4 /*yield*/, deps_1.getDeps(packageDir)];
             case 1:
                 _a = _b.sent(), resolved = _a.resolved, external = _a.external, deps = _a.deps;

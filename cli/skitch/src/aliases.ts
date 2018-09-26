@@ -16,6 +16,7 @@ import { aliases as install } from './cmds/install';
 import { aliases as maketest } from './cmds/maketest';
 import { aliases as package } from './cmds/package';
 import { aliases as plan } from './cmds/plan';
+import { aliases as publish } from './cmds/publish';
 import { aliases as rename } from './cmds/rename';
 import { aliases as resolve } from './cmds/resolve';
 import { aliases as revert } from './cmds/revert';
@@ -26,6 +27,6 @@ import { aliases as verify } from './cmds/verify';
 import { aliases as version } from './cmds/version';
 
   export default {
-    add,addproject,bundle,createdb,deploy,dropdb,dump,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,start,test,verify,version
+    add,addproject,bundle,createdb,deploy,dropdb,dump,ext,extension,format,generate,info,init,install,maketest,package,plan,publish,rename,resolve,revert,sqitch,start,test,verify,version
   }
     

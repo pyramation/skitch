@@ -17,6 +17,7 @@ var install_1 = require("./cmds/install");
 var maketest_1 = require("./cmds/maketest");
 var package_1 = require("./cmds/package");
 var plan_1 = require("./cmds/plan");
+var publish_1 = require("./cmds/publish");
 var rename_1 = require("./cmds/rename");
 var resolve_1 = require("./cmds/resolve");
 var revert_1 = require("./cmds/revert");
@@ -26,6 +27,6 @@ var test_1 = require("./cmds/test");
 var verify_1 = require("./cmds/verify");
 var version_1 = require("./cmds/version");
 exports.default = {
-    add: add_1.aliases, addproject: addproject_1.aliases, bundle: bundle_1.aliases, createdb: createdb_1.aliases, deploy: deploy_1.aliases, dropdb: dropdb_1.aliases, dump: dump_1.aliases, ext: ext_1.aliases, extension: extension_1.aliases, format: format_1.aliases, generate: generate_1.aliases, info: info_1.aliases, init: init_1.aliases, install: install_1.aliases, maketest: maketest_1.aliases, package: package_1.aliases, plan: plan_1.aliases, rename: rename_1.aliases, resolve: resolve_1.aliases, revert: revert_1.aliases, sqitch: sqitch_1.aliases, start: start_1.aliases, test: test_1.aliases, verify: verify_1.aliases, version: version_1.aliases
+    add: add_1.aliases, addproject: addproject_1.aliases, bundle: bundle_1.aliases, createdb: createdb_1.aliases, deploy: deploy_1.aliases, dropdb: dropdb_1.aliases, dump: dump_1.aliases, ext: ext_1.aliases, extension: extension_1.aliases, format: format_1.aliases, generate: generate_1.aliases, info: info_1.aliases, init: init_1.aliases, install: install_1.aliases, maketest: maketest_1.aliases, package: package_1.aliases, plan: plan_1.aliases, publish: publish_1.aliases, rename: rename_1.aliases, resolve: resolve_1.aliases, revert: revert_1.aliases, sqitch: sqitch_1.aliases, start: start_1.aliases, test: test_1.aliases, verify: verify_1.aliases, version: version_1.aliases
 };
 //# sourceMappingURL=aliases.js.map

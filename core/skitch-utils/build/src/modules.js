@@ -102,6 +102,32 @@ exports.latestChange = function (sqlmodule) { return __awaiter(_this, void 0, vo
         }
     });
 }); };
+exports.latestChangeAndVersion = function (sqlmodule) { return __awaiter(_this, void 0, void 0, function () {
+    var modules, path, plan, change, version;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exports.listModules()];
+            case 1:
+                modules = _a.sent();
+                if (!modules[sqlmodule]) {
+                    throw new Error("latestChange() " + sqlmodule + " NOT FOUND!");
+                }
+                return [4 /*yield*/, paths_1.skitchPath()];
+            case 2:
+                path = _a.sent();
+                plan = fs_1.readFileSync(path + "/" + modules[sqlmodule].path + "/sqitch.plan")
+                    .toString()
+                    .split('\n')
+                    .map(function (a) { return a.trim(); })
+                    .filter(function (a) { return a; });
+                change = plan[plan.length - 1].split(' ')[0];
+                version = require(path + "/" + modules[sqlmodule].path + "/package.json").version;
+                return [2 /*return*/, {
+                        change: change, version: version
+                    }];
+        }
+    });
+}); };
 exports.getExtensionsAndModules = function (sqlmodule) { return __awaiter(_this, void 0, void 0, function () {
     var modules, native, sqitch;
     return __generator(this, function (_a) {
@@ -124,24 +150,23 @@ exports.getExtensionsAndModules = function (sqlmodule) { return __awaiter(_this,
     });
 }); };
 exports.getExtensionsAndModulesChanges = function (sqlmodule) { return __awaiter(_this, void 0, void 0, function () {
-    var modules, sqitchies, i, mod, _a, _b, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
+    var modules, sqitchies, i, mod, _a, change, version;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0: return [4 /*yield*/, exports.getExtensionsAndModules(sqlmodule)];
             case 1:
-                modules = _d.sent();
+                modules = _b.sent();
                 sqitchies = [];
                 i = 0;
-                _d.label = 2;
+                _b.label = 2;
             case 2:
                 if (!(i < modules.sqitch.length)) return [3 /*break*/, 5];
                 mod = modules.sqitch[i];
-                _b = (_a = sqitchies).push;
-                _c = { name: mod };
-                return [4 /*yield*/, exports.latestChange(mod)];
+                return [4 /*yield*/, exports.latestChangeAndVersion(mod)];
             case 3:
-                _b.apply(_a, [(_c.latest = _d.sent(), _c)]);
-                _d.label = 4;
+                _a = _b.sent(), change = _a.change, version = _a.version;
+                sqitchies.push({ name: mod, latest: change, version: version });
+                _b.label = 4;
             case 4:
                 i++;
                 return [3 /*break*/, 2];

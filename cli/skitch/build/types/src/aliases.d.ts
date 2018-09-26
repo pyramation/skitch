@@ -16,6 +16,7 @@ declare const _default: {
     maketest: any;
     package: any;
     plan: any;
+    publish: any;
     rename: any;
     resolve: any;
     revert: any;

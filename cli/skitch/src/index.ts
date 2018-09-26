@@ -16,6 +16,7 @@ import install from './cmds/install';
 import maketest from './cmds/maketest';
 import package from './cmds/package';
 import plan from './cmds/plan';
+import publish from './cmds/publish';
 import rename from './cmds/rename';
 import resolve from './cmds/resolve';
 import revert from './cmds/revert';
@@ -25,6 +26,6 @@ import test from './cmds/test';
 import verify from './cmds/verify';
 import version from './cmds/version';
 export default {
-  add,addproject,bundle,createdb,deploy,dropdb,dump,ext,extension,format,generate,info,init,install,maketest,package,plan,rename,resolve,revert,sqitch,start,test,verify,version
+  add,addproject,bundle,createdb,deploy,dropdb,dump,ext,extension,format,generate,info,init,install,maketest,package,plan,publish,rename,resolve,revert,sqitch,start,test,verify,version
 }
   

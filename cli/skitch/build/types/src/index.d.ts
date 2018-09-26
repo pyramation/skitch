@@ -16,6 +16,7 @@ declare const _default: {
     maketest: (argv: any) => Promise<void>;
     package: (argv: any) => Promise<void>;
     plan: (argv: any) => Promise<void>;
+    publish: (argv: any) => Promise<void>;
     rename: (argv: any) => Promise<void>;
     resolve: (argv: any) => Promise<void>;
     revert: (argv: any) => Promise<void>;
