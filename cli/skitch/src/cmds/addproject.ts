@@ -1,21 +1,28 @@
 import { exec } from 'child_process';
 import { prompt } from 'inquirerer';
+import { listModules } from 'skitch-utils';
 
-const questions = [
-  {
-    type: 'string',
-    name: 'project',
-    message: 'enter a project name',
-    required: true
-  },
-  {
-    type: 'string',
-    name: 'change',
-    message: 'enter a change name',
-    required: true
-  }
-];
 export default async argv => {
+  const questions = [
+    {
+      type: 'string',
+      name: 'project',
+      message: 'enter a project name',
+      required: true
+    },
+    {
+      type: 'string',
+      name: 'change',
+      message: 'enter a change name',
+      required: true
+    },
+    {
+      type: 'list',
+      name: 'change',
+      choices: Object.keys(await listModules()),
+      required: true
+    }
+  ];
   const { project, change } = await prompt(questions, argv);
 
   const name = ['projects', project, ...change.split('/')].join('/');
