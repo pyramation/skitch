@@ -40,38 +40,44 @@ var child_process_1 = require("child_process");
 var inquirerer_1 = require("inquirerer");
 var skitch_utils_1 = require("skitch-utils");
 exports.default = (function (argv) { return __awaiter(_this, void 0, void 0, function () {
-    var project, _a, _b, _c, _d, change, name, comment, cmd, sqitch;
-    return __generator(this, function (_e) {
-        switch (_e.label) {
+    var _a, project, change, _b, _c, _d, _e, name, comment, cmd, sqitch;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
             case 0:
-                _a = inquirerer_1.prompt;
-                _b = {
+                _b = inquirerer_1.prompt;
+                _c = {
                     type: 'list',
                     name: 'project',
                     message: 'enter a project name'
                 };
-                _d = (_c = Object).keys;
+                _e = (_d = Object).keys;
                 return [4 /*yield*/, skitch_utils_1.listModules()];
-            case 1: return [4 /*yield*/, _a.apply(void 0, [[
-                        (_b.choices = _d.apply(_c, [_e.sent()]),
-                            _b.required = true,
-                            _b)
+            case 1: return [4 /*yield*/, _b.apply(void 0, [[
+                        (_c.choices = _e.apply(_d, [_f.sent()]),
+                            _c.required = true,
+                            _c),
+                        [
+                            {
+                                type: 'string',
+                                name: 'change',
+                                message: 'enter a change',
+                                required: true
+                            }
+                        ]
                     ], argv])];
             case 2:
-                project = (_e.sent()).project;
-                return [4 /*yield*/, inquirerer_1.prompt([
-                        {
-                            type: 'list',
-                            name: 'change',
-                            message: 'enter a change',
-                            required: true
-                        }
-                    ], argv)];
-            case 3:
-                change = (_e.sent()).change;
+                _a = _f.sent(), project = _a.project, change = _a.change;
                 name = ['projects', project].concat(change.split('/')).join('/');
                 comment = "adding project " + project;
-                cmd = ['sqitch', 'add', name, '-r', project + ":" + change, '--n', "\"" + comment + "\""].join(' ');
+                cmd = [
+                    'sqitch',
+                    'add',
+                    name,
+                    '-r',
+                    project + ":" + change,
+                    '--n',
+                    "\"" + comment + "\""
+                ].join(' ');
                 console.log(cmd);
                 sqitch = child_process_1.exec(cmd.trim());
                 sqitch.stdout.pipe(process.stdout);
