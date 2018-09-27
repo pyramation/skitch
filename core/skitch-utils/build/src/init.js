@@ -67,10 +67,6 @@ var makePackage = function (_a) {
             'babel-preset-react-app': '3.0.0',
             dotenv: '5.0.1',
             jest: '20.0.4',
-        },
-        dependencies: {
-            pg: '6.4.0',
-            'pg-promise': '6.10.3',
             'skitch-testing': 'latest',
             uuid: '3.1.0',
         },
