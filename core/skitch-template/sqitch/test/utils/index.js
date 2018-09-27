@@ -8,14 +8,4 @@ export const getConnection = async () => {
   return await testing.getTestConnection();
 };
 
-export const closeConnection = async db => {
-  await testing.closeConnection(db);
-};
-
-export const getConnections = async () => {
-  return await testing.getConnections();
-};
-
-export const closeConnections = async ({ db, conn }) => {
-  await testing.closeConnections({ db, conn });
-};
+export { closeConnection, getConnections, closeConnections } from 'skitch-testing'

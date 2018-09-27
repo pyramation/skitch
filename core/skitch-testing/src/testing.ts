@@ -150,7 +150,7 @@ export const getConnections = async () => {
   await createUserRole(db, process.env.APP_USER, process.env.APP_PASSWORD);
   await grantConnect(db, process.env.APP_USER);
 
-  const conn = await connect(
+  const conn = await connectTest(
     dbName,
     process.env.APP_USER,
     process.env.APP_PASSWORD

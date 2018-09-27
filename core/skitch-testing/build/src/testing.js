@@ -157,14 +157,97 @@ exports.closeConnection = function (db) { return __awaiter(_this, void 0, void 0
         }
     });
 }); };
-exports.truncateTables = function (db) { return __awaiter(_this, void 0, void 0, function () {
+var prefix = 'testing-db';
+exports.getTestConnection = function () { return __awaiter(_this, void 0, void 0, function () {
+    var options;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.any("SELECT truncate_tables(ARRAY['v8'])")];
+            case 0:
+                options = process.env.FAST_TEST
+                    ? {
+                        hot: true,
+                        prefix: prefix
+                    }
+                    : {
+                        template: process.env.PGTEMPLATE_DATABASE,
+                        prefix: prefix
+                    };
+                options.extensions = process.env.PGEXTENSIONS;
+                return [4 /*yield*/, exports.getConnection(options)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.connectTest = function (database, user, password) { return __awaiter(_this, void 0, void 0, function () {
+    var connection;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exports.getOpts()];
+            case 1:
+                connection = _a.sent();
+                connection = __assign({}, connection, { database: database, user: user, password: password });
+                return [4 /*yield*/, connection_1.connect(connection)];
+            case 2: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.createUserRole = function (db, user, password) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.any("\n  DO $$\n  BEGIN\n  IF NOT EXISTS (\n          SELECT\n              1\n          FROM\n              pg_roles\n          WHERE\n              rolname = '" + user + "') THEN\n          CREATE ROLE " + user + " LOGIN PASSWORD '" + password + "';\n          GRANT anonymous TO " + user + ";\n          GRANT authenticated TO " + user + ";\n  END IF;\n  END $$;\n    ")];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }); };
+exports.grantConnect = function (db, user) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.any("GRANT CONNECT ON DATABASE \"" + db.client.database + "\" TO " + user + ";")];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.getConnections = function () { return __awaiter(_this, void 0, void 0, function () {
+    var db, dbName, conn;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exports.getTestConnection()];
+            case 1:
+                db = _a.sent();
+                dbName = db.client.database;
+                return [4 /*yield*/, exports.createUserRole(db, process.env.APP_USER, process.env.APP_PASSWORD)];
+            case 2:
+                _a.sent();
+                return [4 /*yield*/, exports.grantConnect(db, process.env.APP_USER)];
+            case 3:
+                _a.sent();
+                return [4 /*yield*/, exports.connectTest(dbName, process.env.APP_USER, process.env.APP_PASSWORD)];
+            case 4:
+                conn = _a.sent();
+                conn.setContext({
+                    role: 'anonymous'
+                });
+                return [2 /*return*/, { db: db, conn: conn }];
+        }
+    });
+}); };
+exports.closeConnections = function (_a) {
+    var db = _a.db, conn = _a.conn;
+    return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    connection_1.close(conn);
+                    return [4 /*yield*/, exports.closeConnection(db)];
+                case 1:
+                    _b.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+};
 //# sourceMappingURL=testing.js.map

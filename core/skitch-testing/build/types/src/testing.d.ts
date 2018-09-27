@@ -18,4 +18,15 @@ export declare const getOpts: (configOpts: any) => Promise<{
 }>;
 export declare const getConnection: (configOpts: any, database: any) => Promise<any>;
 export declare const closeConnection: (db: IConnected<any>) => Promise<void>;
-export declare const truncateTables: (db: IConnected<any>) => Promise<void>;
+export declare const getTestConnection: () => Promise<any>;
+export declare const connectTest: (database: any, user: any, password: any) => Promise<any>;
+export declare const createUserRole: (db: any, user: any, password: any) => Promise<void>;
+export declare const grantConnect: (db: any, user: any) => Promise<void>;
+export declare const getConnections: () => Promise<{
+    db: any;
+    conn: any;
+}>;
+export declare const closeConnections: ({ db, conn }: {
+    db: any;
+    conn: any;
+}) => Promise<void>;
