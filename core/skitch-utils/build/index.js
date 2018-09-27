@@ -24,4 +24,5 @@ __export(require("./src/exec"));
 __export(require("./src/random"));
 __export(require("./src/autocomplete"));
 __export(require("./src/extensions"));
+__export(require("./src/publish"));
 //# sourceMappingURL=index.js.map

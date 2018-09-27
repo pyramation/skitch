@@ -19,3 +19,4 @@ export * from './src/exec';
 export * from './src/random';
 export * from './src/autocomplete';
 export * from './src/extensions';
+export * from './src/publish';

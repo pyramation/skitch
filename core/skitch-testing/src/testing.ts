@@ -89,6 +89,7 @@ export const getConnection = async (configOpts, database) => {
     await installExt(connection, extensions);
     await sqitch(connection, directory);
   }
+
   const db = await connect(connection);
   return db;
 };
@@ -99,6 +100,68 @@ export const closeConnection = async (db: IConnected<any>) => {
   await dropdb(connectionParameters);
 };
 
-export const truncateTables = async (db: IConnected<any>) => {
-  await db.any("SELECT truncate_tables(ARRAY['v8'])");
+const prefix = 'testing-db';
+export const getTestConnection = async () => {
+  const options = process.env.FAST_TEST
+    ? {
+        hot: true,
+        prefix
+      }
+    : {
+        template: process.env.PGTEMPLATE_DATABASE,
+        prefix
+      };
+  options.extensions = process.env.PGEXTENSIONS;
+  return await getConnection(options);
+};
+
+export const connectTest = async (database, user, password) => {
+  let connection = await getOpts();
+  connection = { ...connection, database, user, password };
+  return await connect(connection);
+};
+
+export const createUserRole = async (db, user, password) => {
+  await db.any(`
+  DO $$
+  BEGIN
+  IF NOT EXISTS (
+          SELECT
+              1
+          FROM
+              pg_roles
+          WHERE
+              rolname = '${user}') THEN
+          CREATE ROLE ${user} LOGIN PASSWORD '${password}';
+          GRANT anonymous TO ${user};
+          GRANT authenticated TO ${user};
+  END IF;
+  END $$;
+    `);
+};
+
+export const grantConnect = async (db, user) => {
+  await db.any(`GRANT CONNECT ON DATABASE "${db.client.database}" TO ${user};`);
+};
+
+export const getConnections = async () => {
+  const db = await getTestConnection();
+  const dbName = db.client.database;
+  await createUserRole(db, process.env.APP_USER, process.env.APP_PASSWORD);
+  await grantConnect(db, process.env.APP_USER);
+
+  const conn = await connect(
+    dbName,
+    process.env.APP_USER,
+    process.env.APP_PASSWORD
+  );
+  conn.setContext({
+    role: 'anonymous'
+  });
+  return { db, conn };
+};
+
+export const closeConnections = async ({ db, conn }) => {
+  close(conn);
+  await closeConnection(db);
 };

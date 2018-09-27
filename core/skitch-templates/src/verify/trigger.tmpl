@@ -2,7 +2,7 @@
 
 BEGIN;
 
-[% IF procedure %]SELECT verify_function ('[% schema | replace('_public', '_private') %].tg_[% triggername %]', 'postgres'); [% END %]
+[% IF procedure %]SELECT verify_function ('[% schema | replace('_public', '_private') %].tg_[% triggername %]'); [% END %]
 SELECT verify_trigger ('[% schema %].[% triggername %]');
 
 ROLLBACK;
