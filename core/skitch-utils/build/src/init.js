@@ -132,8 +132,9 @@ exports.initSkitch = function () { return __awaiter(_this, void 0, void 0, funct
             name: name,
             dependencies: {
                 'skitch-extension-defaults': 'latest',
+                'skitch-extension-default-roles': 'latest',
                 'skitch-extension-verify': 'latest',
-                'skitch-extension-utilities': 'latest'
+                'skitch-extension-utils': 'latest'
             }
         };
         fs_1.writeFileSync(process.cwd() + "/package.json", JSON.stringify(pkg, null, 2));
