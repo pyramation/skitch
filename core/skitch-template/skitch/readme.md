@@ -7,6 +7,15 @@ First you'll want to create the postgres-plv8 docker (you can also just use `doc
 ```sh
 make up
 ```
+
+# install modules
+
+If you can, do `skitch install`, otherwise:
+
+```sh
+yarn install
+```
+
 # install the Postgres extensions
 
 Now that the postgres process is running, install the extensions:
