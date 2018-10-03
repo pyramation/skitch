@@ -2,15 +2,13 @@ import {
   build,
   listModules,
   packageModule,
-  skitchPath as sPath,
   sqitchPath as path,
+  skitchPath as sPath,
   writePackage
 } from 'skitch-utils';
 
-import { resolve } from 'path';
-
 import { prompt } from 'inquirerer';
-
+import { resolve } from 'path';
 import { writeFileSync } from 'fs';
 
 const single = async argv => {
@@ -50,7 +48,8 @@ const all = async argv => {
       message: 'choose a name',
       filter: val => {
         val = /.sql$/.test(val) ? val : val + '.sql';
-        return resolve(skitchPath + '/' + val);
+        if (!/^\//.test(val)) val = resolve(process.cwd() + '/' + val);
+        return val;
       },
       required: true
     }

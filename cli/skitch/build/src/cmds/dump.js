@@ -37,8 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var skitch_utils_1 = require("skitch-utils");
-var path_1 = require("path");
 var inquirerer_1 = require("inquirerer");
+var path_1 = require("path");
 var fs_1 = require("fs");
 var single = function (argv) { return __awaiter(_this, void 0, void 0, function () {
     var sqitchPath, pkgPath, pkg, questions, version;
@@ -92,7 +92,9 @@ var all = function (argv) { return __awaiter(_this, void 0, void 0, function () 
                         message: 'choose a name',
                         filter: function (val) {
                             val = /.sql$/.test(val) ? val : val + '.sql';
-                            return path_1.resolve(skitchPath + '/' + val);
+                            if (!/^\//.test(val))
+                                val = path_1.resolve(process.cwd() + '/' + val);
+                            return val;
                         },
                         required: true
                     }
