@@ -11,6 +11,8 @@ Create PostgreSQL sql code quickly and in a streamlined, versioned workflow.
 * write/deploy a project full of many `sqitch` modules that cross-reference each other using dependency resolution for running deploy command in proper order, etc
 * pulling modules down (currently via npm) to make re-usability super easy
 
+![Skitch](/skitch.gif?raw=true "Skitch in Action")
+
 ## installation
 
 #### Install `psql`
