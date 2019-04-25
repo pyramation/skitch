@@ -74,7 +74,7 @@ exports.verify = function (name, database, opts) { return __awaiter(_this, void 
                 _a.trys.push([5, 9, , 10]);
                 if (!extensions.external.includes(extension)) return [3 /*break*/, 7];
                 console.log("verify extension " + extension + "...");
-                return [4 /*yield*/, pgPool.query("SELECT 1/count(*) FROM pg_available_extensions WHERE name = $1", extension)];
+                return [4 /*yield*/, pgPool.query("SELECT 1/count(*) FROM pg_available_extensions WHERE name = $1", [extension])];
             case 6:
                 _a.sent();
                 return [3 /*break*/, 8];

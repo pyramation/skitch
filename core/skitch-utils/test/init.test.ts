@@ -29,19 +29,9 @@ describe('deps', () => {
     it('skitch init', async () => {
       process.chdir(dir);
       const files = glob('**');
-      expect(files).toEqual([
-        'bootstrap-roles.sql',
-        'docker-compose.yml',
-        'Makefile',
-        'myproject',
-        'package.json',
-        'packages',
-        'packages/install.sh',
-        'readme.md',
-        'skitch.json'
-      ]);
+      expect(files).toMatchSnapshot();
       const hidden = glob('.*');
-      expect(hidden).toEqual(['.travis.yml']);
+      expect(hidden).toMatchSnapshot();
     });
     it('sqitch init', async () => {
       process.chdir(projDir);
@@ -53,22 +43,9 @@ describe('deps', () => {
       });
 
       const files = glob('**');
-      expect(files).toEqual([
-        'deploy',
-        'Makefile',
-        'myproject.control',
-        'package.json',
-        'revert',
-        'sqitch.conf',
-        'sqitch.plan',
-        'sql',
-        'test',
-        'test/utils',
-        'test/utils/index.js',
-        'verify'
-      ]);
+      expect(files).toMatchSnapshot();
       const hidden = glob('.*');
-      expect(hidden).toEqual(['.babelrc', '.env']);
+      expect(hidden).toMatchSnapshot();
     });
   });
 });

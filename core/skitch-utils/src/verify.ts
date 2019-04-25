@@ -31,7 +31,7 @@ export const verify = async (name, database, opts) => {
       if (extensions.external.includes(extension)) {
         console.log(`verify extension ${extension}...`);
         await pgPool.query(
-          `SELECT 1/count(*) FROM pg_available_extensions WHERE name = $1`, extension
+          `SELECT 1/count(*) FROM pg_available_extensions WHERE name = $1`, [extension]
         );
       } else {
         console.log(modules[extension].path);

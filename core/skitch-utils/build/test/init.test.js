@@ -75,19 +75,9 @@ describe('deps', function () {
             return __generator(this, function (_a) {
                 process.chdir(dir);
                 files = glob_1.sync('**');
-                expect(files).toEqual([
-                    'bootstrap-roles.sql',
-                    'docker-compose.yml',
-                    'Makefile',
-                    'myproject',
-                    'package.json',
-                    'packages',
-                    'packages/install.sh',
-                    'readme.md',
-                    'skitch.json'
-                ]);
+                expect(files).toMatchSnapshot();
                 hidden = glob_1.sync('.*');
-                expect(hidden).toEqual(['.travis.yml']);
+                expect(hidden).toMatchSnapshot();
                 return [2 /*return*/];
             });
         }); });
@@ -106,22 +96,9 @@ describe('deps', function () {
                     case 1:
                         _a.sent();
                         files = glob_1.sync('**');
-                        expect(files).toEqual([
-                            'deploy',
-                            'Makefile',
-                            'myproject.control',
-                            'package.json',
-                            'revert',
-                            'sqitch.conf',
-                            'sqitch.plan',
-                            'sql',
-                            'test',
-                            'test/utils',
-                            'test/utils/index.js',
-                            'verify'
-                        ]);
+                        expect(files).toMatchSnapshot();
                         hidden = glob_1.sync('.*');
-                        expect(hidden).toEqual(['.babelrc', '.env']);
+                        expect(hidden).toMatchSnapshot();
                         return [2 /*return*/];
                 }
             });
