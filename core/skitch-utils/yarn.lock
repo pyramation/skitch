@@ -653,6 +653,9 @@ collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
   integrity sha1-S8A3PBZLwykbTTaMgpzxqApZ3KA=
+  dependencies:
+    map-visit "^1.0.0"
+    object-visit "^1.0.0"
 
 color-convert@^1.9.0:
   version "1.9.3"
@@ -2523,13 +2526,6 @@ map-cache@^0.2.2:
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
   integrity sha1-wyq9C9ZSXZsFFkW7TyasXcmKDb8=
 
-map-visit@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/map-visit/-/map-visit-1.0.0.tgz#ecdca8f13144e660f1b5bd41f12f3479d98dfb8f"
-  integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
-  dependencies:
-    object-visit "^1.0.0"
-
 math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
@@ -2877,13 +2873,6 @@ object-keys@^1.0.12:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
-object-visit@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/object-visit/-/object-visit-1.0.1.tgz#f79c4493af0c5377b59fe39d395e41042dd045bb"
-  integrity sha1-95xEk68MU3e1n+OdOV5BBC3QRbs=
-  dependencies:
-    isobject "^3.0.0"
-
 object.getownpropertydescriptors@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/object.getownpropertydescriptors/-/object.getownpropertydescriptors-2.0.3.tgz#8758c846f5b407adab0f236e0986f14b051caa16"
@@ -3130,19 +3119,19 @@ pgpass@1.x:
   dependencies:
     split "^1.0.0"
 
-pgsql-parser@0.5.7:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.7.tgz#e02624d491d13898cb8e37686c56e04c7fdcad97"
-  integrity sha512-T1Y053akUmrivRFfVLa+yI1L+5V87EJaPgTvpkziSKPGHyDOShagV7ESUP7pvOFabre7Mv0whJY3te4ph7bUAw==
+pgsql-parser@0.5.10:
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.10.tgz#c8a61c84bacc3070c7f18e038b3b03b399b1757b"
+  integrity sha512-yBsyYcitv1ikY9x0Na/mH9Bbd80zmgrSNsEH+v8Hqld8xOkv9U1133jTKfWYzVPUrINlAPpiS28L6C+m7clYvw==
   dependencies:
     dotty "^0.1.0"
     lodash "^4.13.1"
     pg-query-native-latest "^1.1.0"
 
-pgsql-parser@0.5.9:
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.9.tgz#18c74e35edbf805d3557729d54979df70a014dcd"
-  integrity sha512-g8zO7lNdFr8Krdm/ip8ucsZcG/eb5KNYOob9CtsFMBcPcHkYhcH75tN8sfiUGoxDogy2fmVBmrUcFay7xaOSCg==
+pgsql-parser@0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/pgsql-parser/-/pgsql-parser-0.5.7.tgz#e02624d491d13898cb8e37686c56e04c7fdcad97"
+  integrity sha512-T1Y053akUmrivRFfVLa+yI1L+5V87EJaPgTvpkziSKPGHyDOShagV7ESUP7pvOFabre7Mv0whJY3te4ph7bUAw==
   dependencies:
     dotty "^0.1.0"
     lodash "^4.13.1"
