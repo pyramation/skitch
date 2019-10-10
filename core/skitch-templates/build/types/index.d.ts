@@ -21,6 +21,7 @@ import * as trigger from './schemas/trigger';
 import * as type from './schemas/type';
 import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
+import * as view from './schemas/view';
 declare const _default: {
     column: typeof column;
     extension: typeof extension;
@@ -45,5 +46,6 @@ declare const _default: {
     type: typeof type;
     uniqueIndex: typeof uniqueIndex;
     utility: typeof utility;
+    view: typeof view;
 };
 export default _default;

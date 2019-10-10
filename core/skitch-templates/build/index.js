@@ -23,7 +23,8 @@ var trigger = require("./schemas/trigger");
 var type = require("./schemas/type");
 var uniqueIndex = require("./schemas/uniqueIndex");
 var utility = require("./schemas/utility");
+var view = require("./schemas/view");
 exports.default = {
-    column: column, extension: extension, fixture: fixture, foreignKey: foreignKey, fullPolicy: fullPolicy, grantAllTables: grantAllTables, grantExecute: grantExecute, grantRole: grantRole, grantSchema: grantSchema, grantTable: grantTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, role: role, rowLevelSecurity: rowLevelSecurity, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility
+    column: column, extension: extension, fixture: fixture, foreignKey: foreignKey, fullPolicy: fullPolicy, grantAllTables: grantAllTables, grantExecute: grantExecute, grantRole: grantRole, grantSchema: grantSchema, grantTable: grantTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, role: role, rowLevelSecurity: rowLevelSecurity, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility, view: view
 };
 //# sourceMappingURL=index.js.map

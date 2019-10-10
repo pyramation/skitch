@@ -22,6 +22,7 @@ import * as trigger from './schemas/trigger';
 import * as type from './schemas/type';
 import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
+import * as view from './schemas/view';
 export default {
-  column,extension,fixture,foreignKey,fullPolicy,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility
+  column,extension,fixture,foreignKey,fullPolicy,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility,view
 };
