@@ -43,7 +43,7 @@ var paths_1 = require("./paths");
 exports.searchTables = function (answers, input) {
     input = input || '';
     return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-        var path, schema, schemaDir, tables;
+        var path, schema, schemaDir, tables, views;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, paths_1.sqitchPath()];
@@ -60,9 +60,16 @@ exports.searchTables = function (answers, input) {
                     catch (e) {
                         tables = [];
                     }
+                    try {
+                        views = glob.sync(schemaDir + "/" + schema + "/views/**/view.sql");
+                    }
+                    catch (e) {
+                        views = [];
+                    }
+                    views = views.map(function (f) { return path_1.basename(path_1.dirname(f)); });
                     tables = tables.map(function (f) { return path_1.basename(path_1.dirname(f)); });
                     setTimeout(function () {
-                        var fuzzyResult = fuzzy.filter(input, tables);
+                        var fuzzyResult = fuzzy.filter(input, tables.concat(views));
                         resolve(fuzzyResult.map(function (el) {
                             return el.original;
                         }));

@@ -31,10 +31,18 @@ export const searchTables = (answers: HashObject, input: string) => {
       tables = [];
     }
 
+    var views;
+    try {
+      views = glob.sync(`${schemaDir}/${schema}/views/**/view.sql`);
+    } catch (e) {
+      views = [];
+    }
+
+    views = views.map(f => basename(dirname(f)));
     tables = tables.map(f => basename(dirname(f)));
 
     setTimeout(function() {
-      var fuzzyResult = fuzzy.filter(input, tables);
+      var fuzzyResult = fuzzy.filter(input, tables.concat(views));
       resolve(
         fuzzyResult.map(function(el: FuzzyObject) {
           return el.original;
