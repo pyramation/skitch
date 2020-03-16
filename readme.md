@@ -102,6 +102,7 @@ column
 extension
 fixture
 foreignKey
+fullPolicy
 grantAllTables
 grantExecute
 grantRole
@@ -119,6 +120,7 @@ trigger
 type
 uniqueIndex
 utility
+view
 ```
 
 ## bundle an npm module
