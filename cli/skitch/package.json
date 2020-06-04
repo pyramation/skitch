@@ -31,7 +31,7 @@
     "minimist": "^1.2.0",
     "mkdirp": "0.5.1",
     "pg-promise": "8.2.1",
-    "pgsql-parser": "0.6.4",
+    "pgsql-parser": "0.6.5",
     "shelljs": "0.8.1",
     "skitch-env": "^0.18.3",
     "skitch-template": "^0.18.3",
