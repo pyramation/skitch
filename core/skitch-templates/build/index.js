@@ -10,6 +10,8 @@ var grantExecute = require("./schemas/grantExecute");
 var grantRole = require("./schemas/grantRole");
 var grantSchema = require("./schemas/grantSchema");
 var grantTable = require("./schemas/grantTable");
+var importSchema = require("./schemas/importSchema");
+var importTable = require("./schemas/importTable");
 var index = require("./schemas/index");
 var peoplestamps = require("./schemas/peoplestamps");
 var policy = require("./schemas/policy");
@@ -25,6 +27,6 @@ var uniqueIndex = require("./schemas/uniqueIndex");
 var utility = require("./schemas/utility");
 var view = require("./schemas/view");
 exports.default = {
-    column: column, extension: extension, fixture: fixture, foreignKey: foreignKey, fullPolicy: fullPolicy, grantAllTables: grantAllTables, grantExecute: grantExecute, grantRole: grantRole, grantSchema: grantSchema, grantTable: grantTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, role: role, rowLevelSecurity: rowLevelSecurity, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility, view: view
+    column: column, extension: extension, fixture: fixture, foreignKey: foreignKey, fullPolicy: fullPolicy, grantAllTables: grantAllTables, grantExecute: grantExecute, grantRole: grantRole, grantSchema: grantSchema, grantTable: grantTable, importSchema: importSchema, importTable: importTable, index: index, peoplestamps: peoplestamps, policy: policy, procedure: procedure, role: role, rowLevelSecurity: rowLevelSecurity, schema: schema, table: table, timestamps: timestamps, trigger: trigger, type: type, uniqueIndex: uniqueIndex, utility: utility, view: view
 };
 //# sourceMappingURL=index.js.map

@@ -9,6 +9,8 @@ import * as grantExecute from './schemas/grantExecute';
 import * as grantRole from './schemas/grantRole';
 import * as grantSchema from './schemas/grantSchema';
 import * as grantTable from './schemas/grantTable';
+import * as importSchema from './schemas/importSchema';
+import * as importTable from './schemas/importTable';
 import * as index from './schemas/index';
 import * as peoplestamps from './schemas/peoplestamps';
 import * as policy from './schemas/policy';
@@ -24,5 +26,5 @@ import * as uniqueIndex from './schemas/uniqueIndex';
 import * as utility from './schemas/utility';
 import * as view from './schemas/view';
 export default {
-  column,extension,fixture,foreignKey,fullPolicy,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility,view
+  column,extension,fixture,foreignKey,fullPolicy,grantAllTables,grantExecute,grantRole,grantSchema,grantTable,importSchema,importTable,index,peoplestamps,policy,procedure,role,rowLevelSecurity,schema,table,timestamps,trigger,type,uniqueIndex,utility,view
 };

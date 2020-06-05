@@ -8,6 +8,8 @@ import * as grantExecute from './schemas/grantExecute';
 import * as grantRole from './schemas/grantRole';
 import * as grantSchema from './schemas/grantSchema';
 import * as grantTable from './schemas/grantTable';
+import * as importSchema from './schemas/importSchema';
+import * as importTable from './schemas/importTable';
 import * as index from './schemas/index';
 import * as peoplestamps from './schemas/peoplestamps';
 import * as policy from './schemas/policy';
@@ -33,6 +35,8 @@ declare const _default: {
     grantRole: typeof grantRole;
     grantSchema: typeof grantSchema;
     grantTable: typeof grantTable;
+    importSchema: typeof importSchema;
+    importTable: typeof importTable;
     index: typeof index;
     peoplestamps: typeof peoplestamps;
     policy: typeof policy;
