@@ -1,6 +1,6 @@
 {
   "name": "skitch-utils",
-  "version": "0.18.9",
+  "version": "0.18.10",
   "description": "",
   "author": "pyramation@gmail.com",
   "license": "MIT",
@@ -36,7 +36,7 @@
     "skitch-ext-utilities": "0.0.1",
     "skitch-ext-verify": "0.0.1",
     "skitch-template": "^0.18.3",
-    "skitch-transform": "^0.18.9"
+    "skitch-transform": "^0.18.10"
   },
   "jest": {
     "testURL": "http://localhost/",
